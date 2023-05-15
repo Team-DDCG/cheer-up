@@ -1,14 +1,6 @@
 <template>
-     <!-- <div id="container">
-    
-      <h1>LEE JU HYEONG</h1>
-      <p>Bachelor of Science in Computer Engineering</p>
-      <br>
-      <p>Hello, nice to meet you.<br>This pages reated using Vue.js</p>
-      <br>
-      <h3><a href="https://github.com/yjh0816" target="_blank">Github link</a></h3>
-    </div> -->
-    <div>{{ sessionData }}</div>
+
+    <div>{{ sessionDataType }}</div>
     <div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">이름</label>
@@ -38,7 +30,7 @@
   export default {
     data() {
       return {
-        sessionData: '',
+        sessionDataType: '',
         name: '',
         id: '',
         password: ''
@@ -48,14 +40,17 @@
       async submitForm() {
         
         const userData = {
-            type: this.sessionData,
+            type: this.sessionDataType,
             name: this.name,
             id: this.id,
             password: this.password,
         }
-        alert(userData.type);
-        alert(userData.name);
-        sessionStorage.setItem('user', userData);
+        // alert(userData.type);
+        // alert(userData.name);
+        sessionStorage.setItem('type', userData.type);
+        sessionStorage.setItem('name', userData.name);
+        sessionStorage.setItem('id', userData.id);
+        sessionStorage.setItem('password', userData.password);
 
         this.$router.push({
             path:'/register3',
@@ -63,7 +58,7 @@
     },
     },
     created() {
-      this.sessionData = sessionStorage.getItem('type');
+      this.sessionDataType = sessionStorage.getItem('type');
       // this.sessionData = sessionStorage.getItem('user');
     }
   }

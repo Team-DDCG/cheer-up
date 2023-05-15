@@ -8,7 +8,10 @@
       <br>
       <h3><a href="https://github.com/yjh0816" target="_blank">Github link</a></h3>
     </div> -->
-    <div>{{ sessionData }}</div>
+    <div>{{ sessionDataType }}</div>
+    <div>{{ sessionDataName }}</div>
+    <div>{{ sessionDataId }}</div>
+    <div>{{ sessionDataPassword }}</div>
     <div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">생년월일</label>
@@ -19,40 +22,57 @@
         <input v-model="phone" type="text" class="form-control" id="exampleFormControlInput2" placeholder="phone">
       </div>
       
-      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">-></button>
+      <button @click.prevent="makeAccout" type="submit" class="btn btn-primary">-></button>
     </div>
   </template>
   
   <script>
-
+  import axios from "axios";
   export default {
     data() {
       return {
-        sessionData: '',
+        sessionDataType: '',
+        sessionDataName: '',
+        sessionDataId: '',
+        sessionDataPassword: '',
         birth: '',
         phone: '',
       };
     },
     methods: {
-      async submitForm() {
+      async makeAccout() {
         
         const userData = {
-            type: this.sessionData.type,
-            name: this.name,
-            id: this.id,
-            password: this.password,
+            type: this.sessionDataType,
+            birth: this.birth,
+            phone: this.phone,
         }
-        alert(userData.type);
-        alert(userData.name);
-        sessionStorage.setItem('user', userData);
+        alert(userData.birth);
+        alert(userData.phone);
 
-        this.$router.push({
-            path:'/register3',
-        });
+        axios
+        .post("http://127.0.0.1:8000/api/user", {
+          type: this.sessionDataType,
+          name: this.sessionDataName,
+          id: this.sessionDataId,
+          password: this.sessionDataPassword,
+          birth: this.birth,
+          phone: this.phone
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    
+
+        // this.$router.push({
+        //     path:'/home',
+        // });
     },
     },
     created() {
-      this.sessionData = sessionStorage.getItem('type');
+      this.sessionDataType = sessionStorage.getItem('type');
+      this.sessionDataName = sessionStorage.getItem('name');
+      this.sessionDataId = sessionStorage.getItem('id');
+      this.sessionDataPassword = sessionStorage.getItem('password');
     }
   }
   </script>
