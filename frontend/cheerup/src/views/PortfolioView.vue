@@ -1,4 +1,5 @@
 <template>
+  <tool-bar></tool-bar>
   <list-item
     :listData="list"
   ></list-item>
@@ -6,9 +7,10 @@
 
 <script>
 import ListItem from '../components/ListItem.vue';
+import ToolBar from '../components/ToolBar.vue'
 
 export default {
-  components: {ListItem},
+  components: {ListItem, ToolBar},
   data() {
     return {
     }
@@ -19,7 +21,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('FETCH_LIST','news');
+    this.$store.dispatch('FETCH_LIST','jobs');
   },
 }
 </script>

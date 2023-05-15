@@ -1,24 +1,26 @@
+
 <template>
-  <tool-bar></tool-bar>
   <router-view/>
 </template>
 
 <script>
-import ToolBar from './components/ToolBar.vue'
+
 
 export default {
-  components: {ToolBar},
+  
 }
 </script>
 
 
 <style>
-body {font-family: 'Playfair Display', serif; font-size:18px; padding:0; margin:0;}
-a {color: black;}
-* {margin:0; padding:0}
+@import url("http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700");
+html {background-color: #363533;}
+body {font-family: 'Roboto', sans-serif; font-size:18px; padding:0; margin:0; background-color: #363533;}
+a {color: white;}
+* {margin:0; padding:0, }
 li {list-style-type: none;}
 p + p {margin-top:20px}
-#app {padding:0 20px}
+#app {padding:0}
 .content {padding:30px 20px}
 
 .list li {padding-left:10px; list-style-type: none}

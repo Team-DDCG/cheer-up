@@ -4,11 +4,14 @@ import { fetchListItem, fetchUserInfo, fetchAskItem } from "../api/index.js";
 export default createStore({
   state: {
     list: [],
-    user: "",
+    username: '',
     item: "",
   },
   getters: {},
   mutations: {
+    setUsername(state, username) {
+      state.username = username;
+    },
     SET_LIST(state, list) {
       state.list = list;
     },
