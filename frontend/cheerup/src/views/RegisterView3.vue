@@ -51,13 +51,18 @@
         alert(userData.phone);
 
         axios
-        .post("http://127.0.0.1:8000/api/user", {
-          type: this.sessionDataType,
-          name: this.sessionDataName,
+        .post("http://127.0.0.1:8888/user/register", {
+          type: 1,
+          userName: this.sessionDataName,
           id: this.sessionDataId,
           password: this.sessionDataPassword,
-          birth: this.birth,
-          phone: this.phone
+          birthdate: this.birth,
+          sex: 1,
+          phone: this.phone,
+          userStatus: 1,
+          mailCheck: 1,
+          address: 'test',
+          email: 'email@email.com'
         })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
