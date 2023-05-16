@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	CRUD를 다 완벽하게 구현
+	C : INSERT
+	R : SELECT
+	U : UPDATE
+	D : DELETE
+ -->
+
+<mapper namespace="UserSkillMapper">
+	<insert id="registerUserSkill" parameterType="userSkillVO">
+		INSERT
+		INTO user_skill_info(skill_id, name, grade)
+		VALUES(user_skill_info_seq.NEXTVAL, #{name}, #{grade})
+	</insert>
+	
+	<delete id="deleteUserSkill" parameterType="int">
+		DELETE FROM user_skill_info WHERE skill_id=#{VALUE}
+	</delete>
+	
+	<update id="updateUserSkill" parameterType="userSkillVO">
+		UPDATE user_skill_info SET
+		name = #{name},
+		grade = #{grade}
+	</update>
+	
+	<select id="getUserSkill" parameterType="int" resultType="userSkillVO">
+		SELECT
+		name, grade
+		FROM user_skill_info
+		WHERE id=#{VALUE}
+	</select>
+	
+	
+</mapper>

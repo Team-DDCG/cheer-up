@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	CRUD를 다 완벽하게 구현
+	C : INSERT
+	R : SELECT
+	U : UPDATE
+	D : DELETE
+ -->
+
+<mapper namespace="UserOverseasMapper">
+	<insert id="registerUserOverseas" parameterType="userOverseasVO">
+		INSERT
+		INTO user_overseas_info(overseas_id, purpose, nation, start_date, end_date, agency, reason)
+		VALUES(user_overseas_info_seq.NEXTVAL, #{purpose}, #{nation}, #{startDate}, #{endDate}, #{agency}, #{reason})
+	</insert>
+	
+	<delete id="deleteUserOverseas" parameterType="int">
+		DELETE FROM user_overseas_info WHERE overseas_id=#{VALUE}
+	</delete>
+	
+	<update id="updateUserOverseas" parameterType="userOverseasVO">
+		UPDATE user_overseas_info SET
+		purpose = #{purpose},
+		nation = #{nation},
+		start_date = #{startDate},
+		end_date = #{endDate},
+		agency = #{agency},
+		reason = #{reason}	
+	</update>
+	
+	<select id="getUserOverseas" parameterType="int" resultType="userOverseasVO">
+		SELECT
+		purpose, nation, start_date, end_date, agency, reason
+		FROM user_overseas_info
+		WHERE id=#{VALUE}
+	</select>
+	
+	
+</mapper>

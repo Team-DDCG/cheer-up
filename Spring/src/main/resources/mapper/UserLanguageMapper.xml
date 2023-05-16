@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	CRUD를 다 완벽하게 구현
+	C : INSERT
+	R : SELECT
+	U : UPDATE
+	D : DELETE
+ -->
+
+<mapper namespace="UserLanguageMapperr">
+	<insert id="registerUserLanguage" parameterType="userLanguageVO">
+		INSERT
+		INTO user_language_info(language_id, language, type, grade, acquired_date, license_number, agency)
+		VALUES(user_language_info_seq.NEXTVAL, #{language}, #{type}, #{grade}, #{acquiredDate}, #{licenseNumber}, #{agency})
+	</insert>
+	
+	<delete id="deleteUserLanguage" parameterType="int">
+		DELETE FROM user_language_info WHERE language_id=#{VALUE}
+	</delete>
+	
+	<update id="updateUserLanguage" parameterType="userLanguageVO">
+		UPDATE user_language_info SET
+		language = #{language},
+		type = #{type}, 
+		grade = #{grade},
+		acquired_date = #{acquiredDate},
+		license_number = #{licenseNumber},
+		agency = #{agency}	
+	</update>
+	
+	<select id="getUserLanguage" parameterType="int" resultType="userLanguageVO">
+		SELECT
+		language, type, grade, acquired_date, license_number, agency
+		FROM user_langauge_info
+		WHERE id=#{VALUE}
+	</select>
+	
+	
+</mapper>

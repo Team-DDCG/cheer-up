@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FitMapper">
+
+	<insert id="registerFit" parameterType="fitVO">
+		INSERT
+		INTO company(fit_id, tendency1,tendency2,tendency3,tendency4,tendency5,company_rate1,company_rate2,company_rate3,company_rate4,company_rate5,
+		rate1,rate2,rate3,rate4,rate5,company_needs1,company_needs2,company_needs3,company_needs4,company_needs5)
+		VALUES(FIT_SEQ.NEXTVAL, #{tendency1}, #{tendency2},#{tendency3},#{tendency4},#{tendency5}, #{companyRate1},#{companyRate2},#{companyRate3},#{companyRate4},#{companyRate5}
+		,#{rate1},#{rate2},#{rate3},#{rate4},#{rate5},#{companyNeeds1},#{companyNeeds2},#{companyNeeds3},#{companyNeeds4},#{companyNeeds5})	
+	</insert>
+	
+	<delete id="deleteFit" >
+		DELETE FROM fit WHERE fit_id = #{fitId}
+	</delete>
+	
+	<update id="updateFit">
+		UPDATE fit SET
+		tendency1 = #{tendency1},
+		tendency2 = #{tendency2},
+		tendency3 = #{tendency3},
+		tendency4 = #{tendency4},
+		tendency5 = #{tendency5},
+		company_rate1 = #{companyRate1},
+		company_rate2 = #{companyRate2},
+		company_rate3 = #{companyRate3},
+		company_rate4 = #{companyRate4},
+		company_rate5 = #{companyRate5},
+		rate1 = #{rate1},
+		rate2 = #{rate2},
+		rate3 = #{rate3},
+		rate4 = #{rate4},
+		rate5 = #{rate5},
+		company_needs1 = #{companyNeeds1},
+		company_needs2 = #{companyNeeds2},
+		company_needs3 = #{companyNeeds3},
+		company_needs4 = #{companyNeeds4},
+		company_needs5 = #{companyNeeds5},
+		WHERE fit_id = #{fitId}
+	</update> 
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

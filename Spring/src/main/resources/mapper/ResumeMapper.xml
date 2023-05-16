@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ResumeMapper">
+
+	<insert id="registerResume" parameterType="resumeVO">
+		INSERT
+		INTO resume(resume_id, content, post_check, comment_id)
+		VALUES(RESUME_SEQ.NEXTVAL, #{content},#{postCheck},#{commentId})	
+	</insert>
+	
+	<delete id="deleteResume" >
+		DELETE FROM resume WHERE resume_id = #{resumeId}
+	</delete>
+	
+	<update id="updateResume">
+		UPDATE resume SET
+		post_check = #{postCheck},
+		comment_id = #{commentId},
+		
+		WHERE resume_id = #{resumeId}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
