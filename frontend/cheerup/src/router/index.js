@@ -8,6 +8,7 @@ import ItemView from "../views/ItemView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import RegisterView2 from "../views/RegisterView2.vue";
 import RegisterView3 from "../views/RegisterView3.vue";
+import RegisterView4 from "../views/RegisterView4.vue";
 import LoginView from "../views/LoginView.vue";
 
 const routes = [
@@ -50,6 +51,11 @@ const routes = [
     path: "/register3",
     name: "register3",
     component: RegisterView3,
+  },
+  {
+    path: "/register4",
+    name: "register4",
+    component: RegisterView4,
   },
   {
     path: "/login",

@@ -1,6 +1,4 @@
 <template>
-
-    <div>{{ sessionDataType }}</div>
     <div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">이름</label>
@@ -30,7 +28,7 @@
   export default {
     data() {
       return {
-        sessionDataType: '',
+        // sessionDataType: '',
         name: '',
         id: '',
         password: ''
@@ -40,14 +38,13 @@
       async submitForm() {
         
         const userData = {
-            type: this.sessionDataType,
+            // type: this.sessionDataType,
             name: this.name,
             id: this.id,
             password: this.password,
         }
-        // alert(userData.type);
-        // alert(userData.name);
-        sessionStorage.setItem('type', userData.type);
+
+        // sessionStorage.setItem('type', userData.type);
         sessionStorage.setItem('name', userData.name);
         sessionStorage.setItem('id', userData.id);
         sessionStorage.setItem('password', userData.password);
@@ -58,8 +55,7 @@
     },
     },
     created() {
-      this.sessionDataType = sessionStorage.getItem('type');
-      // this.sessionData = sessionStorage.getItem('user');
+      // this.sessionDataType = sessionStorage.getItem('type');
     }
   }
   </script>

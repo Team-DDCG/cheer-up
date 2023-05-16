@@ -1,17 +1,4 @@
 <template>
-     <!-- <div id="container">
-    
-      <h1>LEE JU HYEONG</h1>
-      <p>Bachelor of Science in Computer Engineering</p>
-      <br>
-      <p>Hello, nice to meet you.<br>This pages reated using Vue.js</p>
-      <br>
-      <h3><a href="https://github.com/yjh0816" target="_blank">Github link</a></h3>
-    </div> -->
-    <div>{{ sessionDataType }}</div>
-    <div>{{ sessionDataName }}</div>
-    <div>{{ sessionDataId }}</div>
-    <div>{{ sessionDataPassword }}</div>
     <div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">생년월일</label>
@@ -21,63 +8,54 @@
         <label for="exampleFormControlInput2" class="form-label">전화번호</label>
         <input v-model="phone" type="text" class="form-control" id="exampleFormControlInput2" placeholder="phone">
       </div>
-      
-      <button @click.prevent="makeAccout" type="submit" class="btn btn-primary">-></button>
+      성별
+      <div class="form-check form-check-inline">
+        <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value=0>
+        <label class="form-check-label" for="inlineRadio1">남성</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value=1>
+        <label class="form-check-label" for="inlineRadio2">여성</label>
+      </div>
+      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">-></button>
     </div>
   </template>
   
   <script>
-  import axios from "axios";
+
   export default {
     data() {
       return {
-        sessionDataType: '',
-        sessionDataName: '',
-        sessionDataId: '',
-        sessionDataPassword: '',
         birth: '',
         phone: '',
+        sex: '',
       };
     },
     methods: {
-      async makeAccout() {
+      async submitForm() {
         
         const userData = {
-            type: this.sessionDataType,
+            // type: this.sessionDataType,
             birth: this.birth,
             phone: this.phone,
+            sex: this.sex
         }
-        alert(userData.birth);
-        alert(userData.phone);
 
-        axios
-        .post("http://127.0.0.1:8888/user/register", {
-          type: 1,
-          userName: this.sessionDataName,
-          id: this.sessionDataId,
-          password: this.sessionDataPassword,
-          birthdate: this.birth,
-          sex: 1,
-          phone: this.phone,
-          userStatus: 1,
-          mailCheck: 1,
-          address: 'test',
-          email: 'email@email.com'
-        })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    
+        // sessionStorage.setItem('type', userData.type);
+        sessionStorage.setItem('birth', userData.birth);
+        sessionStorage.setItem('phone', userData.phone);
+        sessionStorage.setItem('sex', userData.sex);
 
-        // this.$router.push({
-        //     path:'/home',
-        // });
+        this.$router.push({
+            path:'/register4',
+        });
     },
     },
     created() {
-      this.sessionDataType = sessionStorage.getItem('type');
-      this.sessionDataName = sessionStorage.getItem('name');
-      this.sessionDataId = sessionStorage.getItem('id');
-      this.sessionDataPassword = sessionStorage.getItem('password');
+      // this.sessionDataType = sessionStorage.getItem('type');
+      // this.sessionDataName = sessionStorage.getItem('name');
+      // this.sessionDataId = sessionStorage.getItem('id');
+      // this.sessionDataPassword = sessionStorage.getItem('password');
     }
   }
   </script>
