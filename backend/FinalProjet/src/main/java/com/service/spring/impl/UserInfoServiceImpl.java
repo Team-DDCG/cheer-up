@@ -19,9 +19,4 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfoDAO.login(vo);
 	}
 
-	@Override
-	public int registerUserInfo(UserInfoVO vo) throws Exception {
-		return userInfoDAO.registerUserInfo(vo);
-	}
-
 }

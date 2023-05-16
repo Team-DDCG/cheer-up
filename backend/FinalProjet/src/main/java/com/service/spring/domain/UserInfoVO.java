@@ -20,7 +20,7 @@ public class UserInfoVO {
     public UserInfoVO() {
     }
 
-    public UserInfoVO(String id, String password, String userName, Date birthdate, int sex, String email, String phone, int userStatus,int mailCheck, String address) {
+    public UserInfoVO(String id, String password, String userName, Date birthdate, int sex, String email, String phone, int userStatus, Date tstamp, int mailCheck, String address) {
         this.id = id;
         this.password = password;
         this.userName = userName;
@@ -29,6 +29,7 @@ public class UserInfoVO {
         this.email = email;
         this.phone = phone;
         this.userStatus = userStatus;
+        this.tstamp = tstamp;
         this.mailCheck = mailCheck;
         this.address = address;
     }

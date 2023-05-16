@@ -21,22 +21,37 @@ public class UserInfoController {
 	@Autowired
 	private UserInfoService userInfoService;
 	
-	@PostMapping("/register")
-	public int registerUserInfo(HttpServletRequest request, @RequestBody UserInfoVO pvo) throws Exception {
-		int result = userInfoService.registerUserInfo(pvo); 
-	    
-	    if (result > 0) {
-	        return result; 
-	    } else {
-	        return 0; 
-	    } 
-		
-	}
+	@GetMapping("/test1")
+    public UserInfoVO test1(){
 
+		UserInfoVO user = new UserInfoVO();
+
+		user.setUserName("lee");
+		
+        return user;
+
+    }
+	@GetMapping("/")
+	public void test() {
+		System.out.println("postman test");
+	}
+	
+	@RequestMapping("/test")
+	public String test2() {
+		System.out.println("test");
+		return "postman test";
+	}
+	
 	@PostMapping("/login")
 	public UserInfoVO login(HttpServletRequest request, @RequestBody UserInfoVO pvo) throws Exception {
+		System.out.println("오나?");
 		UserInfoVO rvo = userInfoService.login(pvo);
 		
+//		UserInfoVO user = new UserInfoVO();
+//
+//		user.setUserName("lee");
+//		System.out.println(request);
+//		return user;
 		if (rvo != null) {
 			request.getSession().setAttribute("vo", rvo);
 			System.out.println(rvo);
@@ -48,6 +63,4 @@ public class UserInfoController {
 			return null;
 		}
 	}
-	
-	
 }

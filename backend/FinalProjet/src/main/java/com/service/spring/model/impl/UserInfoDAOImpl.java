@@ -16,16 +16,9 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
 	@Override
 	public UserInfoVO login(UserInfoVO vo) throws Exception {
 		return sqlSession.selectOne(NS + "login", vo);
-	}
-
-
-	@Override
-	public int registerUserInfo(UserInfoVO vo) throws Exception {
-		return sqlSession.insert(NS + "registerUserInfo", vo);
 	}
 	
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	CRUD를 다 완벽하게 구현
+	C : INSERT
+	R : SELECT
+	U : UPDATE
+	D : DELETE
+ -->
+
+<mapper namespace="UserCareerMapper">
+	<insert id="registerUserCareer" parameterType="userCareerVO">
+		INSERT
+		INTO user_career_info(career_id, company_name, department, position, start_date, end_date, attending_check, hire_type)
+		VALUES(user_career_info_seq.NEXTVAL, companyName, department, position, startDate, endDate, attendingCheck, hireType)
+	</insert>
+	
+	<delete id="deleteUserCareer" parameterType="int">
+		DELETE FROM user_career_info WHERE career_id=#{VALUE}
+	</delete>
+	
+	<update id="updateUserCareer" parameterType="userCareerVO">
+		UPDATE user_career_info SET
+		company_name = #{companyName},
+		department = #{department},
+		position = #{position},
+		start_date = #{startDate},
+		end_date = #{endDate},
+		attending_check = #{attendingCheck}
+		hire_type = #{hireType}
+	</update>
+	
+	<select id="getUserCareer" parameterType="int" resultType="userCareerVO">
+		SELECT
+		company_name, department, position, start_date, end_date, attending_check, hire_type
+		FROM user_career_info
+		WHERE id=#{VALUE}
+	</select>
+	
+	
+</mapper>

@@ -15,7 +15,7 @@
 	<insert id="registerUserInfo" parameterType="userInfoVO">
 		INSERT
 		INTO user_info(user_id, id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address)
-		VALUES(user_info_seq.NEXTVAL, #{id}, #{password}, #{userName}, #{birthdate}, #{sex}, #{email}, #{phone}, #{userStatus}, SYSDATE, #{mailCheck}, #{address})
+		VALUES(user_info_seq.NEXTVAL, #{id}, #{password}, #{userName}, #{birthdate}, #{sex}, #{email}, #{phone}, #{userStatus}, sysdate, #{mailCheck}, #{address})
 	</insert>
 	
 	<delete id="deleteUserInfo" parameterType="string">
@@ -39,7 +39,7 @@
 	
 	<select id="getUserInfo" parameterType="string" resultType="userInfoVO">
 		SELECT
-		id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address
+		user_id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address
 		FROM user_info
 		WHERE id=#{VALUE}
 	</select>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QuestionMapper">
+
+	<insert id="registerQuestion" parameterType="questionVO">
+		INSERT
+		INTO company(question_id, field, question, length)
+		VALUES(QUESTION_SEQ.NEXTVAL, #{field}, #{question}, #{length})	
+	</insert>
+	
+	<delete id="deleteQuestion" >
+		DELETE FROM company WHERE question_id = #{questionId}
+	</delete>
+	
+	<update id="updateQuestion">
+		UPDATE question SET
+		field = #{field},
+		question = #{question},
+		length = #{length}
+		WHERE company_id = #{companyId}
+	</update> 
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
