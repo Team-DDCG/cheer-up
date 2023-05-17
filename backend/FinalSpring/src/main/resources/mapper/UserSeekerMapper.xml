@@ -18,7 +18,7 @@
 	</insert>
 	
 	<delete id="deleteUserSeeker" parameterType="int">
-		DELETE FROM user_seeker_info WHERE id=#{VALUE}
+		DELETE FROM user_seeker_info WHERE seeker_id=#{VALUE}
 	</delete>
 	
 	<update id="updateUserSeeker" parameterType="userSeekerVO">
@@ -32,13 +32,14 @@
 		profile = #{profile}
 		category1_no = #{category1No}
 		category2_no = #{category2No}
+		WHERE SEEKER_ID = #{seekerId}	
 	</update>
 	
 	<select id="getUserSeeker" parameterType="string" resultType="userInfoVO">
-		SELECT
-		ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no
-		FROM user_seeker_info
-		WHERE id=#{VALUE}
+		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile
+		FROM user_info ui INNER JOIN user_seeker_info si
+		ON ui.user_id = si.user_id
+		WHERE ui.user_id = #{userId}
 	</select>
 	
 </mapper>
