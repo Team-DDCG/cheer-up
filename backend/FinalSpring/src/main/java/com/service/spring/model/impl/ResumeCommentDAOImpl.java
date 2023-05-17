@@ -17,20 +17,17 @@ public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 
 	@Override
 	public int registerResumeComment(ResumeCommentVO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerResumeComment", vo);
-		return result;
+		return sqlSession.insert(NS+"registerResumeComment", vo);
 	}
 
 	@Override
 	public int updateResumeComment(ResumeCommentVO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateResumeComment", vo);
-		return result;
+		return sqlSession.update(NS+"updateResumeComment", vo);
 	}
 
 	@Override
 	public int deleteResumeComment(int commentId) throws Exception {
-		int result = sqlSession.delete(NS+"deleteResumeComment", commentId);
-		return result;
+		return sqlSession.delete(NS+"deleteResumeComment", commentId);
 	}
 
 }

@@ -17,20 +17,18 @@ public class Category1DAOImpl implements Category1DAO{
 
 	@Override
 	public int registerCategory1(Category1VO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerCategory1", vo);
-		return result;
+		return sqlSession.insert(NS+"registerCategory1", vo);
+		
 	}
 
 	@Override
 	public int upateCategory1(Category1VO vo) throws Exception {
-		int result = sqlSession.update(NS+"upateCategory1", vo);
-		return result;
+		return sqlSession.update(NS+"upateCategory1", vo);
 	}
 
 	@Override
 	public int deleteCategory1(int category1Id) throws Exception {
-		int result = sqlSession.delete(NS+"deleteCategory1", category1Id);
-		return result;
+		return sqlSession.delete(NS+"deleteCategory1", category1Id);
 	}
 
 	

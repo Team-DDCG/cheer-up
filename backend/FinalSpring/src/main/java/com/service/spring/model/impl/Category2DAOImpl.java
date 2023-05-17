@@ -17,20 +17,17 @@ public static final String NS = "Category2Mapper.";
 
 	@Override
 	public int registerCategory2(Category2VO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerCompany", vo);
-		return result;
+		return sqlSession.insert(NS+"registerCompany", vo);
 	}
 
 	@Override
 	public int updateCategory2(Category2VO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateCategory2", vo);
-		return result;
+		return sqlSession.update(NS+"updateCategory2", vo);
 	}
 
 	@Override
 	public int deleteCategory2(int category2Id) throws Exception {
-		int result = sqlSession.delete(NS+"deleteCategory2", category2Id);
-		return result;
+		return sqlSession.delete(NS+"deleteCategory2", category2Id);
 	}
 
 	

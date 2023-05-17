@@ -17,20 +17,17 @@ public class FitDAOImpl implements FitDAO {
 
 	@Override
 	public int registerFit(FitVO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerFit", vo);
-		return result;
+		return sqlSession.insert(NS+"registerFit", vo);
 	}
 
 	@Override
 	public int updateFit(FitVO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateFit", vo);
-		return result;
+		return sqlSession.update(NS+"updateFit", vo);
 	}
 
 	@Override
 	public int deleteFit(int fitId) throws Exception {
-		int result = sqlSession.delete(NS+"deleteFit", fitId);
-		return result;
+		return sqlSession.delete(NS+"deleteFit", fitId);
 	}
 
 }

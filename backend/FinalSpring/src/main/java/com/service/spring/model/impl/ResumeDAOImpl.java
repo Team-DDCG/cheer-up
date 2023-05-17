@@ -17,20 +17,17 @@ public class ResumeDAOImpl implements ResumeDAO{
 
 	@Override
 	public int registerResume(ResumeVO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerResume", vo);
-		return result;
+		return sqlSession.insert(NS+"registerResume", vo);
 	}
 
 	@Override
 	public int updateResume(ResumeVO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateResume", vo);
-		return result;
+		return sqlSession.update(NS+"updateResume", vo);
 	}
 
 	@Override
 	public int deleteResume(int resumeId) throws Exception {
-		int result = sqlSession.delete(NS+"deleteResume", resumeId);
-		return result;
+		return sqlSession.delete(NS+"deleteResume", resumeId);
 	}
 	
 	

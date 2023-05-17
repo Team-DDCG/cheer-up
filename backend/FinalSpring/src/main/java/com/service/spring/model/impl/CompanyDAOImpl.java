@@ -17,20 +17,17 @@ public class CompanyDAOImpl implements CompanyDAO{
 
 	@Override
 	public int registerCompany(CompanyVO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerCompany", vo);
-		return result;
+		return sqlSession.insert(NS+"registerCompany", vo);
 	}
 
 	@Override
 	public int updateCompany(CompanyVO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateCompany", vo);
-		return result;
+		return sqlSession.update(NS+"updateCompany", vo);
 	}
 
 	@Override
 	public int deleteCompany(int companyId) throws Exception {
-		int result = sqlSession.delete(NS+"deleteCompany", companyId);
-		return result;
+		return sqlSession.delete(NS+"deleteCompany", companyId);
 	}
 
 	

@@ -17,20 +17,17 @@ public class QuestionDAOImpl implements QuestionDAO{
 
 	@Override
 	public int registerQuestion(QuestionVO vo) throws Exception {
-		int result = sqlSession.insert(NS+"registerQuestion", vo);
-		return result;
+		return sqlSession.insert(NS+"registerQuestion", vo);
 	}
 
 	@Override
 	public int updateQuestion(QuestionVO vo) throws Exception {
-		int result = sqlSession.update(NS+"updateQuestion", vo);
-		return result;
+		return sqlSession.update(NS+"updateQuestion", vo);
 	}
 
 	@Override
 	public int deleteQuestion(int questionId) throws Exception {
-		int result = sqlSession.delete(NS+"deleteQuestion", questionId);
-		return result;
+		return sqlSession.delete(NS+"deleteQuestion", questionId);
 	}
 
 }
