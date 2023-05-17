@@ -5,9 +5,9 @@ import com.service.spring.domain.UserCareerVO;
 public interface UserCareerDAO {
 	
 	int registerUserCareer(UserCareerVO vo) throws Exception;
-	int updateUserCareer(String careerId) throws Exception;
-	int deleteUserCareer(UserCareerVO vo) throws Exception;
+	int updateUserCareer(UserCareerVO vo) throws Exception;
+	int deleteUserCareer(int careerId) throws Exception;
 	
-	UserCareerVO getUserCareer(String id) throws Exception;
+	UserCareerVO getUserCareer(int id) throws Exception;
 
 }
