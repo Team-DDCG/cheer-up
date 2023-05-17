@@ -590,6 +590,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,vim,visualstudiocode,eclipse,intellij,vue,vuejs,java,python,django
 
-/frontend
-
 .gitignore
