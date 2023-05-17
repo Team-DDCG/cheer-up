@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,19 +18,18 @@ public static final String NS = "Category2Mapper.";
 	private SqlSession sqlSession;
 
 	@Override
-	public int registerCategory2(Category2VO vo) throws Exception {
-		return sqlSession.insert(NS+"registerCompany", vo);
+	public Category2VO read(int category2Id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public int updateCategory2(Category2VO vo) throws Exception {
-		return sqlSession.update(NS+"updateCategory2", vo);
+	public List<Category2VO> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	@Override
-	public int deleteCategory2(int category2Id) throws Exception {
-		return sqlSession.delete(NS+"deleteCategory2", category2Id);
-	}
+	
 
 	
 

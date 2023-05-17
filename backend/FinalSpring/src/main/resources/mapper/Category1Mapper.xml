@@ -20,6 +20,16 @@
 		name = #{name}
 	</update>
 	
+	<select id ="read" parameterType="int">
+		SELECT * FORM category1 WHERE category1_id = #{category1Id}
+	</select>
+	
+	<select id="listAll">
+		SELECT * FROM CATEGORY1 ORDER BY NAME DESC
+	</select>
+	
+	
+	
 	
 
 </mapper>
