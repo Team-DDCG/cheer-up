@@ -7,8 +7,6 @@ import com.service.spring.domain.UserInfoVO;
 import com.service.spring.model.UserInfoDAO;
 import com.service.spring.service.UserInfoService;
 
-
-
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired

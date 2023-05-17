@@ -1,10 +1,10 @@
-package com.service.spring.model;
+package com.service.spring.service;
 
 import com.service.spring.domain.UserLicenseVO;
 
-public interface UserLicenseDAO {
+public interface UserLicenseService {
 	
-	int registerUserLicense(UserLicenseVO vo) throws Exception;
+	int registerUserLicnse(UserLicenseVO vo) throws Exception;
 	int deleteUserLicense(int id) throws Exception;
 	int updateUserLicense(UserLicenseVO vo) throws Exception;
 	
