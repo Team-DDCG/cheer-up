@@ -29,10 +29,10 @@
 	</update>
 	
 	<select id="getUserMentor" parameterType="int" resultType="userMentorVO">
-		SELECT
-		company_name, career, rating
-		FROM user_mentor_info
-		WHERE id=#{VALUE}
+		SELECT mi.company_name, mi.career, mi.rating
+		FROM user_info ui INNER JOIN user_mentor_info mi
+		ON ui.user_id = mi.user_id
+		WHERE mi.user_id = #{userId}
 	</select>
 	
 	
