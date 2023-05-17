@@ -41,7 +41,7 @@ def chatGPT():
     openai.organization = SECRET_KEY
     openai.api_key = ORGANIZATION
 
-    text = "멋있는 슬로건 하나만 알려줘"
+    text = "자기소개서 작성법 알려줘"
     # Call the chat GPT API
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
