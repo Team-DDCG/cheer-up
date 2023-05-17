@@ -1,8 +1,8 @@
-package com.service.spring.model;
+package com.service.spring.service;
 
 import com.service.spring.domain.QuestionVO;
 
-public interface QuestionDAO {
+public interface QuestionService {
 	
 	int registerQuestion(QuestionVO vo) throws Exception;
 	int updateQuestion(QuestionVO vo) throws Exception;

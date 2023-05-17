@@ -10,7 +10,7 @@
 		VALUES(QUESTION_SEQ.NEXTVAL, #{field}, #{question}, #{length})	
 	</insert>
 	
-	<delete id="deleteQuestion" parameterType="string">
+	<delete id="deleteQuestion" parameterType="int">
 		DELETE FROM company WHERE question_id = #{VALUE}
 	</delete>
 	

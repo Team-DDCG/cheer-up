@@ -10,7 +10,7 @@
 		VALUES(COMPANY_SEQ.NEXTVAL, #{name}, #{address}, #{startDATE},#{endDate},#{companyLogo},#{title},#{companyUrl},#{content},#{questionId})	
 	</insert>
 	
-	<delete id="deleteCompany" parameterType = "string">
+	<delete id="deleteCompany" parameterType = "int">
 		DELETE FROM company WHERE company_id = #{VALUE}
 	</delete>
 	
