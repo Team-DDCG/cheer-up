@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +16,13 @@ public class Category2ServiceImpl implements Category2Service{
 	private Category2DAO category2DAO;
 
 	@Override
-	public int registerCategory2(Category2VO vo) throws Exception {
-		return category2DAO.registerCategory2(vo);
+	public Category2VO read(int category2Id) throws Exception {
+		return category2DAO.read(category2Id);
 	}
 
 	@Override
-	public int updateCategory2(Category2VO vo) throws Exception {
-		return category2DAO.updateCategory2(vo);
+	public List<Category2VO> listAll() throws Exception {
+		return category2DAO.listAll();
 	}
-
-	@Override
-	public int deleteCategory2(int category2Id) throws Exception {
-		return category2DAO.deleteCategory2(category2Id);
-	}
-	
-	
 
 }

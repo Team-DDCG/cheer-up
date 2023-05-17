@@ -15,10 +15,10 @@ public class UserLicenseDAOImpl implements UserLicenseDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int registerUserLicnse(UserLicenseVO vo) throws Exception {
+	public int registerUserLicense(UserLicenseVO vo) throws Exception {
 		return sqlSession.insert(NS + "registerUserLicense", vo);
 	}
-
+	
 	@Override
 	public int deleteUserLicense(int id) throws Exception {
 		return sqlSession.delete(NS + "deleteUserLicense", id);
@@ -33,5 +33,7 @@ public class UserLicenseDAOImpl implements UserLicenseDAO {
 	public UserLicenseVO getUserLicense(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserLicense", id);
 	}
+
+
 
 }

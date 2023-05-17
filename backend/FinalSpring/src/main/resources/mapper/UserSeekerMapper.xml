@@ -13,8 +13,8 @@
 <mapper namespace="UserSeekerMapper">
 	<insert id="registerUserSeeker" parameterType="userSeekerVO">
 		INSERT
-		INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile)
-		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile})
+		INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no)
+		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile}, #{category1No}, #{category2No})
 	</insert>
 	
 	<delete id="deleteUserSeeker" parameterType="int">
@@ -30,11 +30,13 @@
 		disabled = #{disabled},
 		nation = #{nation},
 		profile = #{profile}
+		category1_no = #{category1No}
+		category2_no = #{category2No}
 	</update>
 	
 	<select id="getUserSeeker" parameterType="string" resultType="userInfoVO">
 		SELECT
-		ename, cname, military, bohun, disabled, nation, profile
+		ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no
 		FROM user_seeker_info
 		WHERE id=#{VALUE}
 	</select>
