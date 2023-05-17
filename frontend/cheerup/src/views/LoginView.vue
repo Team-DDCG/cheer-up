@@ -74,13 +74,14 @@ export default {
     },
         login() {
             axios
-                .post("http://127.0.0.1:8000/api/user/signin", {
-                    username: this.id,
+                .post("http://127.0.0.1:8888/user/login", {
+                    id: this.id,
                     password: this.password,
                 })
                 .then((res) => {
-                    sessionStorage.setItem("accessToken", res.data.access_token);
-                    this.$router.push("/home");
+                    // sessionStorage.setItem("accessToken", res.data.access_token);
+                    sessionStorage.setItem("name", res.data.userName);
+                    this.$router.push("/");
                 })
                 .catch((err) => {
                     console.log(err);

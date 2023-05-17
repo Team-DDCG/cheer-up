@@ -57,7 +57,7 @@
     
 
         this.$router.push({
-            path:'/home',
+            path:'/',
         });
     },
     },

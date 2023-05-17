@@ -1,13 +1,7 @@
 <template>
   <tool-bar></tool-bar>
   <div id="container">
-    
-    <!-- <h1>LEE JU HYEONG</h1>
-    <p>Bachelor of Science in Computer Engineering</p>
-    <br>
-    <p>Hello, nice to meet you.<br>This pages reated using Vue.js</p>
-    <br>
-    <h3><a href="https://github.com/yjh0816" target="_blank">Github link</a></h3> -->
+    <h3 v-if="name!=null">{{ name }}</h3>
     <article class="container-fluid">
       <div class="row">
         <div>
@@ -34,6 +28,18 @@ import ToolBar from '../components/ToolBar.vue'
 export default {
   components: {ToolBar},
   name: 'HomeView',
+  data() {
+    return {
+      name: "",
+    };
+  },
+  created() {
+    try {
+      this.name = sessionStorage.getItem("name");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 </script>
 <style scoped>
