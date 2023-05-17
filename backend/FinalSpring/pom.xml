@@ -106,7 +106,7 @@
 
 
     <!-- 7. 오라클 드라이버  -->
-  <dependency>
+	<dependency>
         <groupId>oracle.jdbc</groupId>
         <artifactId>OracleDriver</artifactId>
         <version>12.1.0.2.0</version>

@@ -1,7 +1,11 @@
 package com.service.spring.model;
 
-import java.util.List;
+import com.service.spring.domain.CompanyVO;
 
 public interface CompanyDAO {
-	List<> getCompanyByCategory2();
+	
+	int registerCompany(CompanyVO vo) throws Exception;
+	int updateCompany(CompanyVO vo) throws Exception;
+	int deleteCompany(String companyId) throws Exception;
+
 }

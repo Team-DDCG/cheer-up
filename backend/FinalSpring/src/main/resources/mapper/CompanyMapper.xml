@@ -10,11 +10,11 @@
 		VALUES(COMPANY_SEQ.NEXTVAL, #{name}, #{address}, #{startDATE},#{endDate},#{companyLogo},#{title},#{companyUrl},#{content},#{questionId})	
 	</insert>
 	
-	<delete id="deleteCompany" >
-		DELETE FROM company WHERE company_id = #{companyId}
+	<delete id="deleteCompany" parameterType = "string">
+		DELETE FROM company WHERE company_id = #{VALUE}
 	</delete>
 	
-	<update id="updateCompany">
+	<update id="updateCompany" parameterType="companyVO">
 		UPDATE company SET
 		name = #{name},
 		address = #{address},

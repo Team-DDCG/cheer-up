@@ -10,11 +10,11 @@
 		VALUES(QUESTION_SEQ.NEXTVAL, #{field}, #{question}, #{length})	
 	</insert>
 	
-	<delete id="deleteQuestion" >
-		DELETE FROM company WHERE question_id = #{questionId}
+	<delete id="deleteQuestion" parameterType="string">
+		DELETE FROM company WHERE question_id = #{VALUE}
 	</delete>
 	
-	<update id="updateQuestion">
+	<update id="updateQuestion" parameterType="questionVO">
 		UPDATE question SET
 		field = #{field},
 		question = #{question},

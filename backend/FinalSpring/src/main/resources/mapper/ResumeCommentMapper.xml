@@ -10,11 +10,11 @@
 		VALUES(RESUME_COMMENT_SEQ.NEXTVAL, #{content},#{rate})	
 	</insert>
 	
-	<delete id="deleteResumeComment" >
-		DELETE FROM resume WHERE comment_id = #{commentId}
+	<delete id="deleteResumeComment" parameterType="string">
+		DELETE FROM resume WHERE comment_id = #{VALUE}
 	</delete>
 	
-	<update id="updateResumeComment">
+	<update id="updateResumeComment" parameterType="resumeCommentVO">
 		UPDATE resume_comment SET
 		content = #{content},
 		rate = #{rate}
