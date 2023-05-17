@@ -2,10 +2,12 @@ package com.service.spring.model.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.service.spring.domain.QuestionVO;
 import com.service.spring.model.QuestionDAO;
 
+@Repository
 public class QuestionDAOImpl implements QuestionDAO{
 	
 	public static final String NS = "CompanyMapper.";

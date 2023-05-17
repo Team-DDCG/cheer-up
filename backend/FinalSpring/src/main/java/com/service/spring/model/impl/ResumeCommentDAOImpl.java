@@ -2,10 +2,12 @@ package com.service.spring.model.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.model.ResumeCommentDAO;
 
+@Repository
 public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 	
 	public static final String NS = "CompanyMapper.";

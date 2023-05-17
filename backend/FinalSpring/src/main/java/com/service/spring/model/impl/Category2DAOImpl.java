@@ -2,10 +2,12 @@ package com.service.spring.model.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.service.spring.domain.Category2VO;
 import com.service.spring.model.Category2DAO;
 
+@Repository
 public class Category2DAOImpl implements Category2DAO{
 	
 public static final String NS = "Category2Mapper.";
@@ -20,8 +22,8 @@ public static final String NS = "Category2Mapper.";
 	}
 
 	@Override
-	public int upateCategory2(Category2VO vo) throws Exception {
-		int result = sqlSession.update(NS+"upateCategory2", vo);
+	public int updateCategory2(Category2VO vo) throws Exception {
+		int result = sqlSession.update(NS+"updateCategory2", vo);
 		return result;
 	}
 
