@@ -3,6 +3,7 @@
 
 ### Spring ###
 Servers/
+RemoteSystemsTempFiles/
 
 ### Django ###
 *.log
