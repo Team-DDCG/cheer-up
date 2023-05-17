@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,vim,visualstudiocode,eclipse,intellij,vue,vuejs,java,python,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,vim,visualstudiocode,eclipse,intellij,vue,vuejs,java,python,django
 
+### Spring ###
+Servers/
+RemoteSystemsTempFiles/
+
 ### Django ###
 *.log
 *.pot
