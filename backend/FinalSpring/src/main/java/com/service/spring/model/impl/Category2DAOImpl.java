@@ -19,14 +19,12 @@ public static final String NS = "Category2Mapper.";
 
 	@Override
 	public Category2VO read(int category2Id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NS + "read", category2Id);
 	}
 
 	@Override
 	public List<Category2VO> listAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(NS + "listAll");
 	}
 
 	

@@ -19,12 +19,12 @@ public class Category1DAOImpl implements Category1DAO {
 
 	@Override
 	public Category1VO read(int category1Id) throws Exception {
-		return null;
+		return sqlSession.selectOne(NS + "read", category1Id);
 	}
 
 	@Override
 	public List<Category1VO> listAll() throws Exception {
-		return null;
+		return sqlSession.selectList(NS + "listAll");
 	}
 
 }
