@@ -12,7 +12,7 @@
 		,#{rate1},#{rate2},#{rate3},#{rate4},#{rate5},#{companyNeeds1},#{companyNeeds2},#{companyNeeds3},#{companyNeeds4},#{companyNeeds5})	
 	</insert>
 	
-	<delete id="deleteFit" parameterType="string">
+	<delete id="deleteFit" parameterType="int">
 		DELETE FROM fit WHERE fit_id = #{fitId}
 	</delete>
 	

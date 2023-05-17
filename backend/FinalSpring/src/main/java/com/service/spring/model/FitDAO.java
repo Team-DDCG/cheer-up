@@ -6,5 +6,5 @@ public interface FitDAO {
 
 	int registerFit(FitVO vo) throws Exception;
 	int updateFit(FitVO vo) throws Exception;
-	int deleteFit(String fitId) throws Exception;
+	int deleteFit(int fitId) throws Exception;
 }

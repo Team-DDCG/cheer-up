@@ -10,7 +10,7 @@
 		VALUES(CATEGORY2_SEQ.NEXTVAL, name)	
 	</insert>
 	
-	<delete id="deleteCategory2" parameterType="string">
+	<delete id="deleteCategory2" parameterType="int">
 		DELETE FROM category2 WHERE category2_id = #{VALUE}
 	</delete>
 	
