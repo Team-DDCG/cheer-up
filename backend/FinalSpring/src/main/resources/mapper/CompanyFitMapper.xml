@@ -36,20 +36,3 @@
 	    WHERE company_id=#{id}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -26,7 +26,7 @@ public class Category2ServiceImpl implements Category2Service{
 	}
 
 	@Override
-	public List<Category2VO> findAllCompanyByName(String keyword) throws Exception {
+	public List<String> findAllCompanyByName(String keyword) throws Exception {
 		return category2DAO.findAllCompanyByName(keyword);
 	}
 

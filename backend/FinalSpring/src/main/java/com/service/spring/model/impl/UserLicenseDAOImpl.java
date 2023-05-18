@@ -34,6 +34,4 @@ public class UserLicenseDAOImpl implements UserLicenseDAO {
 		return sqlSession.selectOne(NS + "getUserLicense", id);
 	}
 
-
-
 }

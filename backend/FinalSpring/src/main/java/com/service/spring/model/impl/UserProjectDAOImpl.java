@@ -34,6 +34,4 @@ public class UserProjectDAOImpl implements UserProjectDAO {
 		return sqlSession.selectOne(NS + "getUserProject", id);
 	}
 	
-	
-
 }

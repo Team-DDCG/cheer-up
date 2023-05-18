@@ -35,20 +35,3 @@
 	    WHERE seeker_id=#{id}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

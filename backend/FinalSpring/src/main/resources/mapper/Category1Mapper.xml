@@ -11,20 +11,3 @@
 		SELECT * FROM CATEGORY1 ORDER BY NAME DESC
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -47,9 +47,5 @@ public class ResumeDAOImpl implements ResumeDAO{
     public List<ResumeCommentVO> getCommentByResume(int resumeId) {
         return sqlSession.selectList(NS + "getCommentByResume", resumeId);
     }
-	
-
-	
-	
 
 }
