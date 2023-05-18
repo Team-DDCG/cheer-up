@@ -19,18 +19,18 @@ public class ResumeDAOImpl implements ResumeDAO{
 	private SqlSession sqlSession;
 
     @Override
-    public void registerResume(ResumeVO resume) {
-        sqlSession.insert(NS + "registerResume", resume);
+    public int registerResume(ResumeVO vo) {
+        return sqlSession.insert(NS + "registerResume", vo);
     }
 
     @Override
-    public void deleteResume(int resumeId) {
-        sqlSession.delete(NS + "deleteResume", resumeId);
+    public int deleteResume(int resumeId) {
+        return sqlSession.delete(NS + "deleteResume", resumeId);
     }
 
     @Override
-    public void updateResume(ResumeVO resume) {
-        sqlSession.update(NS + "updateResume", resume);
+    public int updateResume(ResumeVO vo) {
+        return sqlSession.update(NS + "updateResume", vo);
     }
 
     @Override
