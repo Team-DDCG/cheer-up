@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.service.spring.domain.FitVO;
-import com.service.spring.model.FitDAO;
+import com.service.spring.model.CompanyFitDAO;
 
 @Repository
-public class FitDAOImpl implements FitDAO {
+public class FitDAOImpl implements CompanyFitDAO {
 
 	public static final String NS = "CompanyMapper.";
 

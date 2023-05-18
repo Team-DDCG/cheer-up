@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SeekerFitMapper">
+	<insert id="registerSeekerFit" parameterType="seekerFitVO">
+		INSERT
+		INTO seeker_fit(seeker_fit_id, tendency1, tendency2, tendency3, tendency4, tendency5, rate1, rate2, rate3, rate4, rate5)
+		VALUES(seeker_fit_seq.NEXTVAL, #{tendency1}, #{tendency2}, #{tendency3}, #{tendency4}, #{tendency5}, #{rate1}, #{rate2}, #{rate3}, #{rate4}, #{rate5})
+	</insert>
+	
+	<delete id="deleteSeekerFit" parameterType="int">
+			DELETE FROM seeker_fit WHERE seeker_fit_id = #{fitId}
+	</delete>
+	
+	 <update id="updateSeekerFit" parameterType="seekerFitVO">
+        UPDATE seekerFit SET
+        tendency1 = #{tendency1},
+        tendency2 = #{tendency2},
+        tendency3 = #{tendency3},
+        tendency4 = #{tendency4},
+        tendency5 = #{tendency5},
+        rate1 = #{rate1},
+        rate2 = #{rate2},
+        rate3 = #{rate3},
+        rate4 = #{rate4},
+        rate5 = #{rate5},
+        WHERE seeker_fit_id = #{seekerFitId}
+    </update> 
+    
+    <select id="getSeekerFit" parameterType="int" resultType="seekerFitVO">
+	    SELECT 
+	    tendency1, tendency2, tendency3, tendency4, tendency5, rate1, rate2, rate3, rate4, rate5
+	    FROM seeker_fit
+	    WHERE seeker_id=#{id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
