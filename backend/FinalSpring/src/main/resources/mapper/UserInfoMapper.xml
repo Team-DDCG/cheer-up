@@ -51,7 +51,7 @@
 		WHERE user_name=#{name} AND phone=#{phone}
 	</select>
 	
-	<select id="findUserPassword" parameterType=String resultType="userInfoVO">
+	<select id="findUserPassword" parameterType="string" resultType="userInfoVO">
 		SELECT 
 		email
 		FROM user_info
