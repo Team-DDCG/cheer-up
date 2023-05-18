@@ -27,8 +27,8 @@ public static final String NS = "Category2Mapper.";
 		return sqlSession.selectList(NS + "listAll");
 	}
 
-	
-
-	
-
+	@Override
+	public List<Category2VO> findAllCompanyByName(String keyword) throws Exception {
+		return sqlSession.selectList(NS + "findAllCompanyByName", keyword);
+	}
 }

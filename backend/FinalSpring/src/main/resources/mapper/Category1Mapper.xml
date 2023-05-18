@@ -3,23 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Category1Mapper">
-
-	<insert id="registerCategory1" parameterType="category1VO">
-		INSERT
-		INTO category1(category1_id, name)
-		VALUES(CATEGORY1_SEQ.NEXTVAL, #{name})	
-	</insert>
-	
-	<delete id="deleteCategory1" parameterType="int">
-		DELETE FROM category1
-		WHERE category1_id = #{VALUE}
-	</delete>
-	
-	<update id="updateCategory1" parameterType="category1VO">
-		UPDATE category1 SET 
-		name = #{name}
-	</update>
-	
 	<select id ="read" parameterType="int">
 		SELECT * FORM category1 WHERE category1_id = #{category1Id}
 	</select>
@@ -27,11 +10,6 @@
 	<select id="listAll">
 		SELECT * FROM CATEGORY1 ORDER BY NAME DESC
 	</select>
-	
-	
-	
-	
-
 </mapper>
 
 

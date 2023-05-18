@@ -11,15 +11,42 @@ import com.service.spring.service.UserInfoService;
 public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
 	private UserInfoDAO userInfoDAO;
-	
+
 	@Override
-	public UserInfoVO login(UserInfoVO vo) throws Exception {
-		return userInfoDAO.login(vo);
+	public int registerUserInfo(UserInfoVO userInfo) {
+		return userInfoDAO.registerUserInfo(userInfo);
 	}
 
 	@Override
-	public int registerUserInfo(UserInfoVO vo) throws Exception {
-		return userInfoDAO.registerUserInfo(vo);
+	public int deleteUserInfo(String id) {
+		return userInfoDAO.deleteUserInfo(id);
 	}
+
+	@Override
+	public int updateUserInfo(UserInfoVO userInfo) {
+		return userInfoDAO.updateUserInfo(userInfo);
+	}
+
+	@Override
+	public UserInfoVO getUserInfo(String id) {
+		return userInfoDAO.getUserInfo(id);
+	}
+
+	@Override
+	public String findUserId(String name, String phone) {
+		return userInfoDAO.findUserId(name, phone);
+	}
+
+	@Override
+	public UserInfoVO findUserPassword(String name, String id, String email) {
+		return userInfoDAO.findUserPassword(name, id, email);
+	}
+
+	@Override
+	public UserInfoVO login(UserInfoVO userInfo) {
+		return userInfoDAO.login(userInfo);
+	}
+	
+	
 
 }

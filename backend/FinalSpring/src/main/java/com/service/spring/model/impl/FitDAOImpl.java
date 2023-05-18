@@ -30,4 +30,9 @@ public class FitDAOImpl implements FitDAO {
 		return sqlSession.delete(NS+"deleteFit", fitId);
 	}
 
+	@Override
+	public FitVO getFit(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getFit", seekerId);
+	}
+
 }

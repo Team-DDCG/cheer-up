@@ -18,32 +18,45 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	
 	
 	@Override
-	public UserInfoVO login(UserInfoVO vo) throws Exception {
-		return sqlSession.selectOne(NS + "login", vo);
-	}
+    public int registerUserInfo(UserInfoVO userInfo) {
+        return sqlSession.insert(NS + "registerUserInfo", userInfo);
+    }
 
+    @Override
+    public int deleteUserInfo(String id) {
+        return sqlSession.delete(NS + "deleteUserInfo", id);
+    }
 
-	@Override
-	public int registerUserInfo(UserInfoVO vo) throws Exception {
-		return sqlSession.insert(NS + "registerUserInfo", vo);
-	}
+    @Override
+    public int updateUserInfo(UserInfoVO userInfo) {
+        return sqlSession.update(NS + "updateUserInfo", userInfo);
+    }
 
+    @Override
+    public UserInfoVO getUserInfo(String id) {
+        return sqlSession.selectOne(NS + "getUserInfo", id);
+    }
 
-	@Override
-	public int deleteUserUserInfo(int id) throws Exception {
-		return sqlSession.delete(NS + "deleteUserInfo", id);
-	}
+    @Override
+    public String findUserId(String name, String phone) {
+        UserInfoVO userInfo = new UserInfoVO();
+        userInfo.setUserName(name);
+        userInfo.setPhone(phone);
+        return sqlSession.selectOne(NS + "findUserId", userInfo);
+    }
 
+    @Override
+    public UserInfoVO findUserPassword(String name, String id, String email) {
+        UserInfoVO userInfo = new UserInfoVO();
+        userInfo.setUserName(name);
+        userInfo.setId(id);
+        userInfo.setEmail(email);
+        return sqlSession.selectOne(NS + "findUserPassword", userInfo);
+    }
 
-	@Override
-	public int updateUserInfo(UserInfoVO vo) throws Exception {
-		return sqlSession.update(NS + "updateUserInfo", vo);
-	}
-
-
-	@Override
-	public UserInfoVO getUserInfo(int id) throws Exception {
-		return sqlSession.selectOne(NS + "getUserInfo", id);
-	}
+    @Override
+    public UserInfoVO login(UserInfoVO userInfo) {
+        return sqlSession.selectOne(NS + "login", userInfo);
+    }
 	
 }

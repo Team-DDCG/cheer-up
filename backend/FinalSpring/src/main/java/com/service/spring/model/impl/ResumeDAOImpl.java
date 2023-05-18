@@ -1,9 +1,12 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.domain.ResumeVO;
 import com.service.spring.model.ResumeDAO;
 
@@ -15,20 +18,37 @@ public class ResumeDAOImpl implements ResumeDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
-	@Override
-	public int registerResume(ResumeVO vo) throws Exception {
-		return sqlSession.insert(NS+"registerResume", vo);
-	}
+    @Override
+    public void registerResume(ResumeVO resume) {
+        sqlSession.insert(NS + "registerResume", resume);
+    }
 
-	@Override
-	public int updateResume(ResumeVO vo) throws Exception {
-		return sqlSession.update(NS+"updateResume", vo);
-	}
+    @Override
+    public void deleteResume(int resumeId) {
+        sqlSession.delete(NS + "deleteResume", resumeId);
+    }
 
-	@Override
-	public int deleteResume(int resumeId) throws Exception {
-		return sqlSession.delete(NS+"deleteResume", resumeId);
-	}
+    @Override
+    public void updateResume(ResumeVO resume) {
+        sqlSession.update(NS + "updateResume", resume);
+    }
+
+    @Override
+    public ResumeVO getResumeByPostCheck(int resumeId) {
+        return sqlSession.selectOne(NS + "getResumeByPostCheck", resumeId);
+    }
+
+    @Override
+    public List<ResumeVO> getQnAByCompanyId(int companyId) {
+        return sqlSession.selectList(NS + "getQnAByCompanyId", companyId);
+    }
+
+    @Override
+    public List<ResumeCommentVO> getCommentByResume(int resumeId) {
+        return sqlSession.selectList(NS + "getCommentByResume", resumeId);
+    }
+	
+
 	
 	
 

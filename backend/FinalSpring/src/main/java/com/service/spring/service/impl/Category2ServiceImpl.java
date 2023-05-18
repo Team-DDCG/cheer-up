@@ -25,4 +25,9 @@ public class Category2ServiceImpl implements Category2Service{
 		return category2DAO.listAll();
 	}
 
+	@Override
+	public List<Category2VO> findAllCompanyByName(String keyword) throws Exception {
+		return category2DAO.findAllCompanyByName(keyword);
+	}
+
 }

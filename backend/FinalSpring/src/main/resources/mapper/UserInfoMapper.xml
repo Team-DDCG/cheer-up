@@ -44,6 +44,19 @@
 		WHERE id=#{VALUE}
 	</select>
 	
+	<select id="findUserId" parameterType="string" resultType="string">
+		SELECT 
+		id
+		FROM user_info
+		WHERE user_name=#{name} AND phone=#{phone}
+	</select>
+	
+	<select id="findUserPassword" parameterType=String resultType="userInfoVO">
+		SELECT 
+		email
+		FROM user_info
+		WHERE user_name=#{name} AND id=#{id} AND email=#{email}
+	</select>
 	
 	<select id="login" parameterType="userInfoVO" resultType="userInfoVO">
 		SELECT

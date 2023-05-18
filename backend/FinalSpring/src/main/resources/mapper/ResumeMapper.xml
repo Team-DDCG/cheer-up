@@ -21,6 +21,29 @@
 		
 		WHERE resume_id = #{resumeId}
 	</update>
+	
+	<select id="getResumeByPostCheck">
+		SELECT c.name, c.title, c.start_date, c.end_date, r.post_check
+		FROM resume r INNER JOIN company c
+		ON r.company_id = c.company_id
+		WHERE r.resume_id = 1;
+	</select>
+	
+	<select id="getQnAByCompanyId" parameterType="int">
+		SELECT c.title, q.question, r.content
+		FROM resume r, company c, question q
+		WHERE r.company_id = c.company_id AND c.company_id = q.company_id
+		AND c.company_id = #{companyId};
+	</select>
+	
+	<select id="getCommentByResume" parameterType="int">
+		SELECT rc.content, rc.rate, ui.id, umi.company_name
+		FROM resume_comment rc
+		JOIN resume r ON rc.resume_id = r.resume_id
+		JOIN user_mentor_info umi ON rc.mentor_id = umi.mentor_id
+		JOIN user_info ui ON umi.user_id = ui.user_id
+		WHERE r.resume_id = #{resumeId}
+	</select>
 
 </mapper>
 

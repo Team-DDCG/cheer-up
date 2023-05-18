@@ -28,4 +28,9 @@ public class FitServiceImpl implements FitService{
 		return fitDAO.deleteFit(fitId);
 	}
 
+	@Override
+	public FitVO getFit(int seekerId) throws Exception {
+		return fitDAO.getFit(seekerId);
+	}
+
 }
