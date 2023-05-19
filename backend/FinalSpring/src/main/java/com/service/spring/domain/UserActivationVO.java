@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class UserActivationVO {
     private int activationId; //activation_id(pk)
-    private String name;
+    private String activationName; //activation_name
     private Date startDate; //start_date
     private Date endDate; //end_date
     private String content;
@@ -13,11 +13,12 @@ public class UserActivationVO {
     public UserActivationVO() {
     }
 
-    public UserActivationVO(String name, Date startDate, Date endDate, String content) {
-        this.name = name;
+    public UserActivationVO(String activationName, Date startDate, Date endDate, String content, int seekerId) {
+        this.activationName = activationName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.content = content;
+        this.seekerId = seekerId;
     }
 
     public int getActivationId() {
@@ -28,12 +29,12 @@ public class UserActivationVO {
         this.activationId = activationId;
     }
 
-    public String getName() {
-        return name;
+    public String getActivationName() {
+        return activationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActivationName(String activationName) {
+        this.activationName = activationName;
     }
 
     public Date getStartDate() {
@@ -60,23 +61,23 @@ public class UserActivationVO {
         this.content = content;
     }
 
-    public int getUserSeekerInfoId() {
+    public int getSeekerId() {
         return seekerId;
     }
 
-    public void setUserSeekerInfoId(int userSeekerInfoId) {
-        this.seekerId = userSeekerInfoId;
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
     }
 
     @Override
     public String toString() {
         return "UserActivationVO{" +
                 "activationId=" + activationId +
-                ", name='" + name + '\'' +
+                ", activationName='" + activationName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", content='" + content + '\'' +
-                ", userSeekerInfoId=" + seekerId +
+                ", seekerId=" + seekerId +
                 '}';
     }
 }

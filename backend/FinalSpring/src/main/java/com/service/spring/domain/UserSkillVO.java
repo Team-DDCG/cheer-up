@@ -2,16 +2,17 @@ package com.service.spring.domain;
 
 public class UserSkillVO {
     private int skillId;
-    private String name;
+    private String skillName; //skill_name
     private int grade;
     private int seekerId; //seeker_id (fk)
 
     public UserSkillVO() {
     }
 
-    public UserSkillVO(String name,int grade) {
-        this.name = name;
+    public UserSkillVO(String skillName, int grade, int seekerId) {
+        this.skillName = skillName;
         this.grade = grade;
+        this.seekerId = seekerId;
     }
 
     public int getSkillId() {
@@ -22,20 +23,12 @@ public class UserSkillVO {
         this.skillId = skillId;
     }
 
-    public String getName() {
-        return name;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSeekerId() {
-        return seekerId;
-    }
-
-    public void setSeekerId(int seekerId) {
-        this.seekerId = seekerId;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 
     public int getGrade() {
@@ -46,13 +39,21 @@ public class UserSkillVO {
         this.grade = grade;
     }
 
+    public int getSeekerId() {
+        return seekerId;
+    }
+
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
+    }
+
     @Override
     public String toString() {
         return "UserSkillVO{" +
                 "skillId=" + skillId +
-                ", name='" + name + '\'' +
-                ", seekerId=" + seekerId +
+                ", skillName='" + skillName + '\'' +
                 ", grade=" + grade +
+                ", seekerId=" + seekerId +
                 '}';
     }
 }

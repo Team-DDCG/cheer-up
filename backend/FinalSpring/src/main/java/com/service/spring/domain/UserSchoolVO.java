@@ -5,21 +5,21 @@ import java.sql.Date;
 public class UserSchoolVO {
     private int schoolId; // school_id(pk)
     private int educationType; //education_type
-    private String schoolName;
-    private Date entranceDate;
-    private Date graduationDate;
+    private String schoolName; //school_name
+    private Date entranceDate; //entrance_date
+    private Date graduationDate; //graduation_date
     private String major;
-    private int attendingCheck;
-    private int transferCheck;
+    private int attendingCheck; //attending_check
+    private int transferCheck; //transfer_check
     private String gpa;
-    private int highestCheck;
-    private String doubleMajor;
+    private int highestCheck; //highest_check
+    private String doubleMajor; //double_major
     private int seekerId; //seeker_id(fk)
 
     public UserSchoolVO() {
     }
 
-    public UserSchoolVO(int educationType, String schoolName, Date entranceDate, Date graduationDate, String major, int attendingCheck, int transferCheck, String gpa, int highestCheck, String doubleMajor) {
+    public UserSchoolVO(int educationType, String schoolName, Date entranceDate, Date graduationDate, String major, int attendingCheck, int transferCheck, String gpa, int highestCheck, String doubleMajor, int seekerId) {
         this.educationType = educationType;
         this.schoolName = schoolName;
         this.entranceDate = entranceDate;
@@ -30,14 +30,15 @@ public class UserSchoolVO {
         this.gpa = gpa;
         this.highestCheck = highestCheck;
         this.doubleMajor = doubleMajor;
+        this.seekerId = seekerId;
     }
 
-    public int getSchoolInfoId() {
+    public int getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolInfoId(int schoolInfoId) {
-        this.schoolId = schoolInfoId;
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
     }
 
     public int getEducationType() {
@@ -112,14 +113,6 @@ public class UserSchoolVO {
         this.highestCheck = highestCheck;
     }
 
-    public int getSeekerId() {
-        return seekerId;
-    }
-
-    public void setSeekerId(int seekerId) {
-        this.seekerId = seekerId;
-    }
-
     public String getDoubleMajor() {
         return doubleMajor;
     }
@@ -128,10 +121,18 @@ public class UserSchoolVO {
         this.doubleMajor = doubleMajor;
     }
 
+    public int getSeekerId() {
+        return seekerId;
+    }
+
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
+    }
+
     @Override
     public String toString() {
         return "UserSchoolVO{" +
-                "schoolInfoId=" + schoolId +
+                "schoolId=" + schoolId +
                 ", educationType=" + educationType +
                 ", schoolName='" + schoolName + '\'' +
                 ", entranceDate=" + entranceDate +
@@ -141,8 +142,8 @@ public class UserSchoolVO {
                 ", transferCheck=" + transferCheck +
                 ", gpa='" + gpa + '\'' +
                 ", highestCheck=" + highestCheck +
-                ", seekerId=" + seekerId +
                 ", doubleMajor='" + doubleMajor + '\'' +
+                ", seekerId=" + seekerId +
                 '}';
     }
 }

@@ -3,8 +3,8 @@ package com.service.spring.domain;
 import java.sql.Date;
 
 public class UserLicenseVO {
-    private int licenseId; //license_id
-    private String name;
+    private int licenseId; //license_id(pk)
+    private String licenseName; //license_name
     private String grade;
     private Date acquiredDate; //acquired_date
     private String licenseNumber; //license_number
@@ -14,12 +14,13 @@ public class UserLicenseVO {
     public UserLicenseVO() {
     }
 
-    public UserLicenseVO(String name, String grade, Date acquiredDate, String licenseNumber, String agency) {
-        this.name = name;
+    public UserLicenseVO(String licenseName, String grade, Date acquiredDate, String licenseNumber, String agency, int seekerId) {
+        this.licenseName = licenseName;
         this.grade = grade;
         this.acquiredDate = acquiredDate;
         this.licenseNumber = licenseNumber;
         this.agency = agency;
+        this.seekerId = seekerId;
     }
 
     public int getLicenseId() {
@@ -30,12 +31,12 @@ public class UserLicenseVO {
         this.licenseId = licenseId;
     }
 
-    public String getName() {
-        return name;
+    public String getLicenseName() {
+        return licenseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLicenseName(String licenseName) {
+        this.licenseName = licenseName;
     }
 
     public String getGrade() {
@@ -70,24 +71,24 @@ public class UserLicenseVO {
         this.agency = agency;
     }
 
-    public int getUserSeekerInfoId() {
+    public int getSeekerId() {
         return seekerId;
     }
 
-    public void setUserSeekerInfoId(int userSeekerInfoId) {
-        this.seekerId = userSeekerInfoId;
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
     }
 
     @Override
     public String toString() {
         return "UserLicenseVO{" +
                 "licenseId=" + licenseId +
-                ", name='" + name + '\'' +
+                ", licenseName='" + licenseName + '\'' +
                 ", grade='" + grade + '\'' +
                 ", acquiredDate=" + acquiredDate +
                 ", licenseNumber='" + licenseNumber + '\'' +
                 ", agency='" + agency + '\'' +
-                ", userSeekerInfoId=" + seekerId +
+                ", seekerId=" + seekerId +
                 '}';
     }
 }

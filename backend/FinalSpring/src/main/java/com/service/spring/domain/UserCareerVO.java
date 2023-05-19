@@ -16,7 +16,7 @@ public class UserCareerVO {
     public UserCareerVO() {
     }
 
-    public UserCareerVO(String companyName, String department, String position, Date startDate, Date endDate, int attendingCheck, int hireType) {
+    public UserCareerVO(String companyName, String department, String position, Date startDate, Date endDate, int attendingCheck, int hireType, int seekerId) {
         this.companyName = companyName;
         this.department = department;
         this.position = position;
@@ -24,6 +24,7 @@ public class UserCareerVO {
         this.endDate = endDate;
         this.attendingCheck = attendingCheck;
         this.hireType = hireType;
+        this.seekerId = seekerId;
     }
 
     public int getCareerId() {
