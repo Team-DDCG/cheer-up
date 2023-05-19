@@ -1,7 +1,6 @@
 <template>
   <header>
     <router-link to="/">취얼업</router-link>
-    <router-link to="/">홈</router-link>
     <router-link to="/resume">자기소개서</router-link>
     <router-link to="/portfolio">포트폴리오</router-link>
     <router-link to="/ask">자기소개서 코칭</router-link>
