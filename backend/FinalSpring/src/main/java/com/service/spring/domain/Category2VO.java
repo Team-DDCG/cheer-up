@@ -9,9 +9,7 @@ public class Category2VO {
     public Category2VO() {
     }
 
-	public Category2VO(int category2Id, String c2Name, int category1Id, String c1Name) {
-		super();
-		this.category2Id = category2Id;
+	public Category2VO(String c2Name, int category1Id, String c1Name) {
 		this.c2Name = c2Name;
 		this.category1Id = category1Id;
 		this.c1Name = c1Name;

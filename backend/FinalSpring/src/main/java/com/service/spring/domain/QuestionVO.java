@@ -10,9 +10,7 @@ public class QuestionVO {
     public QuestionVO() {
     }
 
-	public QuestionVO(int questionId, String position, String question, int length, int companyId) {
-		super();
-		this.questionId = questionId;
+	public QuestionVO( String position, String question, int length, int companyId) {
 		this.position = position;
 		this.question = question;
 		this.length = length;

@@ -13,9 +13,7 @@ public class ResumeVO {
     public ResumeVO() {
     }
 
-	public ResumeVO(int resumeId, String content, int postCheck, Date generateDate, int seekerId, int companyId) {
-		super();
-		this.resumeId = resumeId;
+	public ResumeVO(String content, int postCheck, Date generateDate, int seekerId, int companyId) {
 		this.content = content;
 		this.postCheck = postCheck;
 		this.generateDate = generateDate;

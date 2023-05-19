@@ -18,11 +18,9 @@ public class CompanyFitVO {
 	public CompanyFitVO() {
 	}
 
-	public CompanyFitVO(int companyFitId, String companyName, String companyNeeds1, String companyNeeds2,
+	public CompanyFitVO(String companyName, String companyNeeds1, String companyNeeds2,
 			String companyNeeds3, String companyNeeds4, String companyNEeds5, int companyRate1, int companyRate2,
 			int companyRate3, int companyRate4, int companyRate5, int seekerId) {
-		super();
-		this.companyFitId = companyFitId;
 		this.companyName = companyName;
 		this.companyNeeds1 = companyNeeds1;
 		this.companyNeeds2 = companyNeeds2;

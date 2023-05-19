@@ -10,9 +10,7 @@ public class ResumeCommentVO {
     public ResumeCommentVO() {
     }
 
-	public ResumeCommentVO(int commentId, String content, double rate, int mentorId, int resumeId) {
-		super();
-		this.commentId = commentId;
+	public ResumeCommentVO(String content, double rate, int mentorId, int resumeId) {
 		this.content = content;
 		this.rate = rate;
 		this.mentorId = mentorId;

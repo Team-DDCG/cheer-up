@@ -15,10 +15,8 @@ public class CompanyVO {
     public CompanyVO() {
     }
 
-	public CompanyVO(int companyId, String companyName, Date startDate, Date endDate, String companyLogo, String title,
+	public CompanyVO(String companyName, Date startDate, Date endDate, String companyLogo, String title,
 			String companyUrl, String content) {
-		super();
-		this.companyId = companyId;
 		this.companyName = companyName;
 		this.startDate = startDate;
 		this.endDate = endDate;
