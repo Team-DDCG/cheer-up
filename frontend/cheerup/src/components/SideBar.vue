@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <ul class="nav flex-column">
-    <li class="nav-item">
-      <router-link to="/">취얼업</router-link>
+  <ul class="list">
+    <li v-for="item of listData" :key="item.id" >
+      <b>{{item.time_ago}}</b>
+      <template v-if="$route.name === 'resume'">
+        <!-- <span> by <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/> -->
+        <!-- <a :href=item.url target="_blank">{{ item.title }}</a> -->
+        <router-link :to="`/item/?id=${item.id}`"><i>({{ item.comments_count }})</i></router-link>
+      </template>
     </li>
-    <li class="nav-item">
-      <router-link to="/">홈</router-link>
-    </li>
-    
   </ul>
-  </div>
 </template>
 
 <script>
 export default {
-
+  props: ['listData',]
 }
 </script>
 

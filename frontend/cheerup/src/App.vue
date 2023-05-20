@@ -19,7 +19,6 @@ body {font-family: 'Roboto', sans-serif; font-size:18px; padding:0; margin:0; ba
 a {color: white;}
 * {margin:0; padding:0, }
 li {list-style-type: none;}
-p + p {margin-top:20px}
 #app {padding:0}
 .content {padding:30px 20px}
 

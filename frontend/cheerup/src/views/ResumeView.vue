@@ -19,7 +19,11 @@
     <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
   </select>
   <button @click.prevent="saveOption" type="submit" class="btn btn-primary">저장</button>
-  <side-bar></side-bar>
+  <div id="resume">
+    <side-bar :listData="list"></side-bar>
+    <job-posting :company="company"></job-posting>
+  </div>
+  
 
 </template>
 
@@ -27,17 +31,31 @@
  
 import SideBar from '../components/SideBar.vue';
 import ToolBar from '../components/ToolBar.vue';
+import JobPosting from '../components/JobPosting.vue';
 import axios from "axios";
 
 export default {
-  components: {SideBar, ToolBar},
+  components: {SideBar, ToolBar, JobPosting},
   data() {
     return {
       selectedOption1: '',
       selectedOption2: '',
-      options2: [] // 두 번째 셀렉트 요소의 옵션 값
+      options2: [], // 두 번째 셀렉트 요소의 옵션 값
+      company: {
+        post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
+        logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
+        company_name: '케이비증권(주)',
+        start_date: '2023.04.28 10:36',
+        end_date: '2023.05.09 18:00',
+        posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
+        site: 'https://kbstar.incruit.com/index_kbstar.asp',
+        field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
+        '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
+        '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
+      }
     }
   },
+  
   methods: {
     async saveOption() {
       alert(this.selectedOption2);
@@ -61,12 +79,22 @@ export default {
     },
   },
   computed: {
-
+    list() {
+      return this.$store.state.list;
+    }
   },
   created() {
      
   },
   watch: {
+    // 소분류 선택한 경우 작동...
+    // 여기서 company list를 가져오도록 한다
+    selectedOption2: function() {
+      if (this.selectedOption2) {
+        alert(this.selectedOption2);
+        
+      }
+    },
     selectedOption1: function(newValue) {
       // 첫 번째 셀렉트 요소의 선택 값이 변경될 때 호출되는 함수
       if (newValue === 'option1') {
@@ -195,9 +223,14 @@ export default {
       this.selectedOption2 = ''; // 두 번째 셀렉트 요소의 선택 값도 초기화합니다.
     }
   }
+  
 }
 </script>
 
 <style>
+#resume {
+  display: flex;
+  justify-content: space-between;
+}
 
 </style>
