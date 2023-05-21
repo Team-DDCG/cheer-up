@@ -1,14 +1,24 @@
 <template>
-    <div>
+    <div class="main">
+      <div class="main-title">
+        <div class="name">
+          <img src="../assets/logo.png"/>
+          <span class ="name1">취</span>
+          <span class ="name2">얼업</span>
+          <p class ="sub-title">가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!</p>
+          <hr>
+        </div>
+      </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">생년월일</label>
-        <input v-model="birth" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Birth date">
+        <input  v-model="birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="Birth date">
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput2" class="form-label">전화번호</label>
-        <input v-model="phone" type="text" class="form-control" id="exampleFormControlInput2" placeholder="phone">
+        <input v-model="phone" type="tel" class="form-control" id="exampleFormControlInput2" placeholder="phone">
       </div>
-      성별
+      <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">성별</label><br>
       <div class="form-check form-check-inline">
         <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value=0>
         <label class="form-check-label" for="inlineRadio1">남성</label>
@@ -17,7 +27,10 @@
         <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value=1>
         <label class="form-check-label" for="inlineRadio2">여성</label>
       </div>
-      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">-></button>
+      </div>
+      <div class="mb-3">
+      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">다음</button>
+      </div>
     </div>
   </template>
   
@@ -61,5 +74,59 @@
   </script>
   
   <style scoped>
+img {
+  vertical-align:0% ;
+}
+#main{
+  margin: 0 auto;
+}
+.main-title {
+  margin: 50px;
+  align-items: center;
+  color: #f5f5f5;
+  background: #515151;
+}
 
+.main-title > .name .name1 {
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif; font-size:64px;
+  text-align: center;
+  color: #a46cff;
+}
+
+.main-title > .name .name2 {
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif; font-size:64px;
+  font-Weight: 700px;
+  text-Align: center;
+  color: #f5f5f5;
+}
+.main-title > .name{
+  margin: 0 auto;
+  text-align: center;
+ 
+}
+
+.mb-3 {
+  width: 300px;
+  height: 42.01px;
+  margin: 0 auto;
+  margin-top: 40px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+
+.mb-3 > .form-label{
+  color: #f5f5f5;
+}
+
+.mb-3 .form-check-label {
+  color: #f5f5f5;
+}
+
+.mb-3 >.btn.btn-primary{
+  background: #a46cff;
+  display: flex;
+  margin: 0 auto;
+}
   </style>
