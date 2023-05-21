@@ -1,29 +1,34 @@
 <template>
   <tool-bar></tool-bar>
-  <select v-model="selectedOption1">
-    <option value="option1">경영·사무</option>
-    <option value="option2">마케팅·광고·홍보</option>
-    <option value="option3">무역·유통</option>
-    <option value="option4">IT·인터넷</option>
-    <option value="option5">생산·제조</option>
-    <option value="option6">영업·고객상담</option>
-    <option value="option7">건설</option>
-    <option value="option8">금융</option>
-    <option value="option9">연구개발·설계</option>
-    <option value="option10">디자인</option>
-    <option value="option11">미디어</option>
-    <option value="option12">전문·특수직</option>
-  </select>
+  <div id="main">
+    <div id="filter">
+      <input type="text" placeholder="기업명을 검색하세요"/>
+      <select v-model="selectedOption1">
+        <option value="option1">경영·사무</option>
+        <option value="option2">마케팅·광고·홍보</option>
+        <option value="option3">무역·유통</option>
+        <option value="option4">IT·인터넷</option>
+        <option value="option5">생산·제조</option>
+        <option value="option6">영업·고객상담</option>
+        <option value="option7">건설</option>
+        <option value="option8">금융</option>
+        <option value="option9">연구개발·설계</option>
+        <option value="option10">디자인</option>
+        <option value="option11">미디어</option>
+        <option value="option12">전문·특수직</option>
+      </select>
 
-  <select v-model="selectedOption2">
-    <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
-  </select>
-  <button @click.prevent="saveOption" type="submit" class="btn btn-primary">저장</button>
-  <div id="resume">
-    <side-bar :listData="list"></side-bar>
-    <job-posting :company="company"></job-posting>
+      <select v-model="selectedOption2">
+        <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
+      </select>
+      <button @click.prevent="saveOption" type="submit">저장</button>
+    </div>
+    <div id="resume">
+      <side-bar :listData="list"></side-bar>
+      <job-posting :company="company"></job-posting>
+    </div>
   </div>
-  
+
 
 </template>
 
@@ -227,10 +232,51 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+tool-bar{
+  width: 20%
+}
+.filter {
+  width: 100%;
+}
+#main {
+  width: 90%;
+  text-align: center;
+  padding-top: 10px;
+  background-color: #363533;
+  margin: 0 auto;
+}
+input{
+  width:42%;
+  height: 59px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+  background-color: #515151;
+  margin-right: 2.5%;
+}
+select{
+  width:21%;
+  height: 59px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+  background-color: #515151;
+}
 #resume {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 }
-
+button{
+  text-align: center;
+  width: 92px;
+  height: 56px;
+  border: 1px solid #363533;
+  border-radius: 5px;
+  line-height: 56px;
+  background-color: #A46CFF; 
+  color: white;
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  text-decoration: none;
+  margin-left: 2.5%;
+}
 </style>
