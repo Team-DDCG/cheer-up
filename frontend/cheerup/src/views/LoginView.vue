@@ -107,8 +107,6 @@ img {
 .main-title {
   margin: 50px;
   align-items: center;
-  font-size: 18px;
-  font-weight: 700;
   color: #f5f5f5;
   background: #515151;
 }
@@ -121,19 +119,18 @@ img {
       text-align: center;
 }
 .main-title > .name .name1 {
-  font-size: 64px;
-  font-weight: 700px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif; font-size:64px;
   text-align: center;
   color: #a46cff;
 }
 
 .main-title > .name .name2 {
-   width: 230px;
-        height: 81px;
-        font-Size: 64px;
-        font-Weight: 700px;
-        text-Align: center;
-        color: #f5f5f5;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif; font-size:64px;
+  font-Weight: 700px;
+  text-Align: center;
+  color: #f5f5f5;
 }
 
 .main-title > .name{
@@ -148,7 +145,7 @@ img {
      font-Size: 16px; 
      text-Align: center; 
      color: #f5f5f5; 
-     
+     font-family: 'Montserrat', sans-serif; font-size:16px;
 }
 
 
@@ -158,12 +155,14 @@ img {
   height: 50px;
   border-radius: 30px;
   margin: 0 auto;
+  box-shadow: 0 2px black;
   border: 1px solid #363533;
   border-radius: 13px;
   line-height: 50px;
   margin-bottom: 10px;
   background-color: #A46CFF; 
-  color: black;
+  color: white;
+  font-family: 'Montserrat', sans-serif; font-size:14px;
 }
 
 .login-form {
@@ -203,18 +202,18 @@ img {
   color: #f5f5f5;
 }
 .remember > .remember1{
-  font-size: 14px;
   display: flex;
   margin-bottom: 8px;
   margin-right: 5px;
   color: #f5f5f5;
+  font-family: 'Montserrat', sans-serif; font-size:14px;
 }
 .remember > .find{
-  font-size: 14px;
   display: flex;
   margin-bottom: 8px;
   margin-right: 5px;
   color: #f5f5f5;
+  font-family: 'Montserrat', sans-serif; font-size:14px;
 }
 
 
