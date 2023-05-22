@@ -30,13 +30,13 @@
 	</update>
 	
 	<select id="getCompanyNameByCategory" parameterType="int" resultType="com.service.spring.domain.CompanyVO">
-		SELECT c.company_name
-		FROM category1 c1 JOIN category2 c2
-		ON c1.category1_id = c2.category2_id
-		JOIN company_category_relation ccr
-		ON c2.category2_id = ccr.category2_id
-		JOIN company c ON ccr.company_id = c.company_id
-		WHERE ccr.category2_id = #{category2Id}
+		SELECT c.company_name AS name
+	    FROM category1 c1 JOIN category2 c2
+	    ON c1.category1_id = c2.category2_id
+	    JOIN company_category_relation ccr
+	    ON c2.category2_id = ccr.category2_id
+	    JOIN company c ON ccr.company_id = c.company_id
+	    WHERE ccr.category2_id = #{category2Id}
 	</select>
 
 </mapper>

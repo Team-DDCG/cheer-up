@@ -7,16 +7,10 @@ public class Category1VO {
     public Category1VO() {
     }
 
-<<<<<<< HEAD
     public Category1VO(int category1Id, String c1Name) {
         this.category1Id = category1Id;
         this.name = c1Name;
     }
-=======
-	public Category1VO(String c1Name) {
-		this.c1Name = c1Name;
-	}
->>>>>>> f3e91eabad5a549a3856991f0b18f91630cdd3f5
 
     public int getCategory1Id() {
         return category1Id;

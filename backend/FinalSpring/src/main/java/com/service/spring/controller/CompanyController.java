@@ -52,14 +52,15 @@ public class CompanyController {
         }
     }
     
-    @GetMapping("/category/{category2Id}")
-    public ResponseEntity<List<CompanyVO>> getCompaniesByCategory(@PathVariable int category2Id) {
+    @GetMapping("/category")
+    public ResponseEntity<List<CompanyVO>> getCompaniesByCategory(@RequestParam("id") int category2Id) {
         try {
+        	System.out.println(category2Id);
             List<CompanyVO> companies = companyService.getCompanyNameByCategory(category2Id);
             if (!companies.isEmpty()) {
                 return ResponseEntity.ok(companies);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(companies);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(companies);	
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
