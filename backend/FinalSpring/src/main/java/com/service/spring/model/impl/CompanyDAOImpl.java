@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 	@Override
 	public int deleteCompany(int companyId) throws Exception {
 		return sqlSession.delete(NS+"deleteCompany", companyId);
+	}
+
+	@Override
+	public List<CompanyVO> getCompanyNameByCategory(int category2Id) throws Exception {
+		return sqlSession.selectList(NS + "getCompanyNameByCategory", category2Id);
 	}
 
 	

@@ -7,11 +7,12 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
-	
- 	<typeAliases>
- 		<package name="com.service.spring.domain"/>
- 	</typeAliases>
  	
+ 	<typeAliases>
+
+		<package name="com.service.spring.domain"/>
+	
+	</typeAliases>
  	
 	<environments default="development">
  		<environment id="development">
@@ -27,7 +28,26 @@
  	
  	
  	<mappers>
+ 		<mapper resource="mapper/Category1Mapper.xml"/>
+ 		<mapper resource="mapper/Category2Mapper.xml"/>
+ 		<mapper resource="mapper/CompanyFitMapper.xml"/>
+ 		<mapper resource="mapper/CompanyMapper.xml"/>
+ 		<mapper resource="mapper/QuestionMapper.xml"/>
+  		<mapper resource="mapper/ResumeCommentMapper.xml"/>
+  		<mapper resource="mapper/ResumeMapper.xml"/>
+  		<mapper resource="mapper/SeekerFitMapper.xml"/>
+  		<mapper resource="mapper/UserActivationMapper.xml"/>
+  		<mapper resource="mapper/UserCareerMapper.xml"/>
   		<mapper resource="mapper/UserInfoMapper.xml"/>
+  		<mapper resource="mapper/UserLanguageMapper.xml"/>
+  		<mapper resource="mapper/UserLicenseMapper.xml"/>
+  		<mapper resource="mapper/UserMentorMapper.xml"/>
+  		<mapper resource="mapper/UserOverseasMapper.xml"/>
+  		<mapper resource="mapper/UserProjectMapper.xml"/>
+  		<mapper resource="mapper/UserRewardMapper.xml"/>
+  		<mapper resource="mapper/UserSchoolMapper.xml"/>
+  		<mapper resource="mapper/UserSeekerMapper.xml"/>
+  		<mapper resource="mapper/UserSkillMapper.xml"/>
  	</mappers>
  	
  	

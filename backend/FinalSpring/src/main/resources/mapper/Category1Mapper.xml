@@ -3,11 +3,11 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Category1Mapper">
-	<select id ="read" parameterType="int">
-		SELECT * FORM category1 WHERE category1_id = #{category1Id}
+	<select id ="read" parameterType="int" resultType="category1VO">
+		SELECT name FROM category1 WHERE category1_id = #{category1Id}
 	</select>
 	
-	<select id="listAll">
-		SELECT * FROM CATEGORY1 ORDER BY NAME DESC
-	</select>
+	<select id="listAll" resultType="com.service.spring.domain.Category1VO">
+        SELECT * FROM CATEGORY1 ORDER BY CATEGORY1_ID 
+    </select>
 </mapper>

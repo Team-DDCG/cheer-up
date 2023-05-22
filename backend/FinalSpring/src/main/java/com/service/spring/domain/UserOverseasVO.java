@@ -2,6 +2,7 @@ package com.service.spring.domain;
 
 import java.sql.Date;
 
+
 public class UserOverseasVO {
     private int overseasId; //overseas_id(pk)
     private String purpose;

@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 import openai
 import cx_Oracle
+import dbconn
 
 app = Flask(__name__)
 CORS(app)
@@ -138,8 +139,7 @@ def myCharacteristic():
         arr[arr.index(tmp)][1] = int(tmp[1])
 
     # DB 접속 및 저장, close
-    dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-    conn = cx_Oracle.connect('kb_db', '1234', dns)
+    conn = dbconn.dbconn()
     cursor = conn.cursor()
     sql = ("INSERT INTO characteristic_test VALUES"
            "(:seeker_id, :characteristic_1, :characteristic_2, :characteristic_3,"

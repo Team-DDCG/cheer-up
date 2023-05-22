@@ -114,12 +114,6 @@
         <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc7.jar</systemPath>
    </dependency>
 
-  <!-- 7. 오라클 드라이버  -->
-<!--<dependency>
-        <groupId>com.oracle.database.jdbc</groupId>
-        <artifactId>ojdbc8</artifactId>
-        <version>12.2.0.1</version>
-    </dependency>  -->
 
     <!-- 8.AOP  -->
     <dependency>

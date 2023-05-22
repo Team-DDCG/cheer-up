@@ -1,10 +1,10 @@
-	package com.service.spring.domain;
+package com.service.spring.domain;
 
 import java.sql.Date;
 
 public class CompanyVO {
     private int companyId; //company_id(pk)
-    private String name;
+    private String companyName; //company_name
     private String address;
     private Date startDate; //start_date
     private Date endDate; //end_date
@@ -19,7 +19,7 @@ public class CompanyVO {
 	public CompanyVO(String name, String address, Date startDate, Date endDate, String companyLogo,
 			String title, String content) {
 		super();
-		this.name = name;
+		this.companyName = name;
 		this.address = address;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -37,11 +37,11 @@ public class CompanyVO {
 	}
 
 	public String getName() {
-		return name;
+		return companyName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.companyName = name;
 	}
 
 	public String getAddress() {
@@ -102,7 +102,7 @@ public class CompanyVO {
 
 	@Override
 	public String toString() {
-		return "CompanyVO [companyId=" + companyId + ", name=" + name + ", address=" + address + ", startDate="
+		return "CompanyVO [companyId=" + companyId + ", name=" + companyName + ", address=" + address + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", companyLogo=" + companyLogo + ", title=" + title
 				+ ", content=" + content + ", category2Id=" + category2Id + "]";
 	}

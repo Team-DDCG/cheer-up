@@ -1,52 +1,119 @@
 package com.service.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.service.spring.domain.UserInfoVO;
 import com.service.spring.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/userinfo")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserInfoController {
-	@Autowired
-	private UserInfoService userInfoService;
-	
-	@PostMapping("/register")
-	public int registerUserInfo(HttpServletRequest request, @RequestBody UserInfoVO pvo) throws Exception {
-		int result = userInfoService.registerUserInfo(pvo); 
-	    
-	    if (result > 0) {
-	        return result; 
-	    } else {
-	        return 0; 
-	    } 
-		
-	}
 
-	@PostMapping("/login")
-	public UserInfoVO login(HttpServletRequest request, @RequestBody UserInfoVO pvo) throws Exception {
-		UserInfoVO rvo = userInfoService.login(pvo);
-		
-		if (rvo != null) {
-			request.getSession().setAttribute("vo", rvo);
-			System.out.println(rvo);
-			return rvo;
-//			return "login_result"; // 적절한 뷰 이름으로 수정 필요
-		} else {
-//			return "redirect:/index.jsp"; //
-			System.out.println("안옴");
-			return null;
-		}
-	}
-	
-	
+    @Autowired
+    private UserInfoService userInfoService;
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUserInfo(@RequestBody UserInfoVO userInfo) {
+        try {
+            int result = userInfoService.registerUserInfo(userInfo);
+            if (result > 0) {
+                return ResponseEntity.ok("User info registered successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register user info.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register user info.");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUserInfo(@PathVariable String id) {
+        try {
+            int result = userInfoService.deleteUserInfo(id);
+            if (result > 0) {
+                return ResponseEntity.ok("User info deleted successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user info.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user info.");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUserInfo(@RequestBody UserInfoVO userInfo) {
+        try {
+            int result = userInfoService.updateUserInfo(userInfo);
+            if (result > 0) {
+                return ResponseEntity.ok("User info updated successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user info.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user info.");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserInfoVO> getUserInfo(@PathVariable String id) {
+        try {
+            UserInfoVO userInfo = userInfoService.getUserInfo(id);
+            if (userInfo != null) {
+                return ResponseEntity.ok(userInfo);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/find/{name}/{phone}")
+    public ResponseEntity<String> findUserId(@PathVariable String name, @PathVariable String phone) {
+        try {
+            String userId = userInfoService.findUserId(name, phone);
+            if (userId != null) {
+                return ResponseEntity.ok(userId);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/find/{name}/{id}/{email}")
+    public ResponseEntity<UserInfoVO> findUserPassword(@PathVariable String name, @PathVariable String id, @PathVariable String email) {
+        try {
+            UserInfoVO userInfo = userInfoService.findUserPassword(name, id, email);
+            if (userInfo != null) {
+                return ResponseEntity.ok(userInfo);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserInfoVO> login(@RequestBody UserInfoVO userInfo) {
+        try {
+            UserInfoVO loggedInUser = userInfoService.login(userInfo);
+            if (loggedInUser != null) {
+                return ResponseEntity.ok(loggedInUser);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // 다른 메소드들도 마찬가지로 작성
+
 }

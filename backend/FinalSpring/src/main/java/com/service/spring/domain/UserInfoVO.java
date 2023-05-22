@@ -1,8 +1,6 @@
 package com.service.spring.domain;
 
 import java.sql.Date;
-
-
 public class UserInfoVO {
     private int userId; //user_id(pk)
     private String id;

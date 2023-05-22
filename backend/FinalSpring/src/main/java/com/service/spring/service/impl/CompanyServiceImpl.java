@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public int deleteCompany(int companyId) throws Exception {
 		return companyDAO.deleteCompany(companyId);
+	}
+
+	@Override
+	public List<CompanyVO> getCompanyNameByCategory(int category2Id) throws Exception {
+		return companyDAO.getCompanyNameByCategory(category2Id);
 	}
 	
 
