@@ -44,6 +44,7 @@
     </div>
     <div id="resume">
       <side-bar :listData="company_list"></side-bar>
+      <!-- <router-view/> -->
       <job-posting :company="company"></job-posting>
     </div>
   </div>
@@ -134,7 +135,11 @@ export default {
           this.company_list = res.data;
           // alert(this.company_list);
         }) 
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err)
+          this.company_list = [{companyName: 'KB국민은행'},{companyName: 'KB증권'},{companyName: '신한은행'}]
+          // this.company_list = [{companyName: '가능한 채용공고가 없어요'},{companyName: '가능한 채용공고가 없어요'}]
+        });
       }
     },
     selectedOption1: function(newValue) {
@@ -272,6 +277,13 @@ export default {
 <style scoped>
 tool-bar{
   width: 20%
+}
+#post{
+  width: 80%;
+  padding: 20px;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  background-color: #515151;
 }
 #filter {
   width: 100%;

@@ -1,5 +1,5 @@
 <template>
-    <div id="post">
+    <div id="post" v-if="company !== null">
       <p><b>{{ company.post_name }}</b></p>
       <div >
         <div id="image-container">
@@ -17,8 +17,9 @@
       </div>
       
     </div>
-</template>
-  
+    <div id="post" v-else></div>
+  </template >
+
   <script>
 import ListField from './ListField.vue';
 

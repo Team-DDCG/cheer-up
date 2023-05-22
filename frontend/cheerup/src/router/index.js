@@ -10,6 +10,7 @@ import RegisterView2 from "../views/RegisterView2.vue";
 import RegisterView3 from "../views/RegisterView3.vue";
 import RegisterView4 from "../views/RegisterView4.vue";
 import LoginView from "../views/LoginView.vue";
+// import JobPosting from "../components/JobPosting";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     name: "resume",
     component: ResumeView,
   },
+  // {
+  //   path: "/resume/:id",
+  //   name: "resume2",
+  //   component: JobPosting,
+  // },
   {
     path: "/ask",
     name: "ask",
