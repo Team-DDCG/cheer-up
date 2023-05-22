@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user-languages")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserLanguageController {
 
     private final UserLanguageService userLanguageService;

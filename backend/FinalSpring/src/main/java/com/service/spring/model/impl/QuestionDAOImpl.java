@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,7 @@ import com.service.spring.model.QuestionDAO;
 @Repository
 public class QuestionDAOImpl implements QuestionDAO{
 	
-	public static final String NS = "CompanyMapper.";
+	public static final String NS = "QuestionMapper.";
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -28,6 +30,11 @@ public class QuestionDAOImpl implements QuestionDAO{
 	@Override
 	public int deleteQuestion(int questionId) throws Exception {
 		return sqlSession.delete(NS+"deleteQuestion", questionId);
+	}
+
+	@Override
+	public List<QuestionVO> getQuestion(int companyId) throws Exception {
+		return sqlSession.selectList(NS + "getQuestion", companyId);
 	}
 
 }

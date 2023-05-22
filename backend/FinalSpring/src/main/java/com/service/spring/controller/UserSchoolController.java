@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user-schools")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserSchoolController {
 
     private final UserSchoolService userSchoolService;

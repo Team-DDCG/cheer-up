@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/seekerfit")
+@RequestMapping("/api/seeker-fit")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class SeekerFitController {
 
     @Autowired

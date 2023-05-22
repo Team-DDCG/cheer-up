@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public int deleteQuestion(int questionId) throws Exception {
 		return questionDAO.deleteQuestion(questionId);
+	}
+
+	@Override
+	public List<QuestionVO> getQuestion(int companyId) throws Exception {
+		return questionDAO.getQuestion(companyId);
 	}
 	
 

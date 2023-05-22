@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +16,13 @@ import com.service.spring.service.Category2Service;
 
 @RestController
 @RequestMapping("/api/category2")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class Category2Controller {
 	 @Autowired
 	    private Category2Service category2Service; // 소분류
 
 	    @GetMapping("/{category2Id}")
 	    public ResponseEntity<Category2VO> getCategory2(@PathVariable int category2Id) {
-	    	System.out.println("받음");
 	        try {
 	            Category2VO category2 = category2Service.read(category2Id);
 	            if (category2 != null) {
@@ -34,7 +35,7 @@ public class Category2Controller {
 	        }
 	    }
 
-	    @GetMapping("/")
+	    @GetMapping("/")	
 	    public ResponseEntity<List<Category2VO>> getAllCategory2() {
 	        try {
 	            List<Category2VO> category2List = category2Service.listAll();
@@ -47,19 +48,4 @@ public class Category2Controller {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	        }
 	    }
-
-	    @GetMapping("/companies/{keyword}")
-	    public ResponseEntity<List<String>> findAllCompanyByName(@PathVariable("keyword") String keyword) {
-	        try {
-	            List<String> companies = category2Service.findAllCompanyByName(keyword);
-	            if (!companies.isEmpty()) {
-	                return ResponseEntity.ok(companies);
-	            } else {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-	            }
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	        }
-	    }
-
 }

@@ -11,27 +11,27 @@
  -->
 
 <mapper namespace="UserSkillMapper">
-	<insert id="registerUserSkill" parameterType="userSkillVO">
+	<insert id="registerUserSkill" parameterType="com.service.spring.domain.UserSkillVO">
 		INSERT
-		INTO user_skill_info(skill_id, name, grade)
-		VALUES(user_skill_info_seq.NEXTVAL, #{name}, #{grade})
+		INTO user_skill_info(skill_id, skill_name, grade)
+		VALUES(user_skill_info_seq.NEXTVAL, #{skillName}, #{grade})
 	</insert>
 	
 	<delete id="deleteUserSkill" parameterType="int">
 		DELETE FROM user_skill_info WHERE skill_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserSkill" parameterType="userSkillVO">
+	<update id="updateUserSkill" parameterType="com.service.spring.domain.UserSkillVO">
 		UPDATE user_skill_info SET
-		name = #{name},
+		skill_name = #{skillName},
 		grade = #{grade}
 	</update>
 	
-	<select id="getUserSkill" parameterType="int" resultType="userSkillVO">
+	<select id="getUserSkill" parameterType="int" resultType="com.service.spring.domain.UserSkillVO">
 		SELECT
-		name, grade
+		skill_name, grade
 		FROM user_skill_info
-		WHERE id=#{VALUE}
+		WHERE skill_id=#{VALUE}
 	</select>
 	
 	

@@ -3,7 +3,9 @@ package com.service.spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +18,7 @@ import com.service.spring.service.ResumeCommentService;
 
 @RestController
 @RequestMapping("/api/resume-comment")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class ResumeCommentController {
 	  @Autowired
 	    private ResumeCommentService resumeCommentService;
@@ -59,6 +62,20 @@ public class ResumeCommentController {
 	            }
 	        } catch (Exception e) {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete resume comment");
+	        }
+	    }
+	    
+	    @GetMapping("/{commentId}")
+	    public ResponseEntity<ResumeCommentVO> getResumeComment(@PathVariable int commentId) {
+	        try {
+	            ResumeCommentVO resumeComment = resumeCommentService.getResumeComment(commentId);
+	            if (resumeComment != null) {
+	                return ResponseEntity.ok(resumeComment);
+	            } else {
+	                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	            }
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	        }
 	    }
 

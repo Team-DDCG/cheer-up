@@ -27,6 +27,11 @@ public class ResumeCommentServiceImpl implements ResumeCommentService{
 	public int deleteResumeComment(int commentId) throws Exception {
 		return resumeCommentDAO.deleteResumeComment(commentId);
 	}
+
+	@Override
+	public ResumeCommentVO getResumeComment(int commentId) throws Exception {
+		return resumeCommentDAO.getResumeComment(commentId);
+	}
 	
 	
 

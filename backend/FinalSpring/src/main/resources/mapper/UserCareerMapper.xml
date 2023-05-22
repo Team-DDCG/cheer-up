@@ -11,7 +11,7 @@
  -->
 
 <mapper namespace="UserCareerMapper">
-	<insert id="registerUserCareer" parameterType="userCareerVO">
+	<insert id="registerUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
 		INSERT
 		INTO user_career_info(career_id, company_name, department, position, start_date, end_date, attending_check, hire_type)
 		VALUES(user_career_info_seq.NEXTVAL, companyName, department, position, startDate, endDate, attendingCheck, hireType)
@@ -21,7 +21,7 @@
 		DELETE FROM user_career_info WHERE career_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserCareer" parameterType="userCareerVO">
+	<update id="updateUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
 		UPDATE user_career_info SET
 		company_name = #{companyName},
 		department = #{department},
@@ -32,7 +32,7 @@
 		hire_type = #{hireType}
 	</update>
 	
-	<select id="getUserCareer" parameterType="int" resultType="userCareerVO">
+	<select id="getUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
 		SELECT
 		company_name, department, position, start_date, end_date, attending_check, hire_type
 		FROM user_career_info

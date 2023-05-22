@@ -12,17 +12,17 @@
 
 
 <mapper namespace="UserInfoMapper">
-	<insert id="registerUserInfo" parameterType="userInfoVO">
+	<insert id="registerUserInfo" parameterType="com.service.spring.domain.UserInfoVO">
 		INSERT
 		INTO user_info(user_id, id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address)
 		VALUES(user_info_seq.NEXTVAL, #{id}, #{password}, #{userName}, #{birthdate}, #{sex}, #{email}, #{phone}, #{userStatus}, SYSDATE, #{mailCheck}, #{address})
 	</insert>
 	
-	<delete id="deleteUserInfo" parameterType="string">
+	<delete id="deleteUserInfo" parameterType="int">
 		DELETE FROM user_info WHERE id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserInfo" parameterType="userInfoVO">
+	<update id="updateUserInfo" parameterType="com.service.spring.domain.UserInfoVO">
 		UPDATE user_info SET
 		password = #{password},
 		user_name = #{userName},
@@ -37,11 +37,11 @@
 		WHERE id=#{id}
 	</update>
 	
-	<select id="getUserInfo" parameterType="string" resultType="userInfoVO">
+	<select id="getUserInfo" parameterType="int" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT
 		id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address
 		FROM user_info
-		WHERE id=#{VALUE}
+		WHERE user_id=#{VALUE}
 	</select>
 	
 	<select id="findUserId" parameterType="string" resultType="string">
@@ -51,14 +51,14 @@
 		WHERE user_name=#{name} AND phone=#{phone}
 	</select>
 	
-	<select id="findUserPassword" parameterType="string" resultType="userInfoVO">
+	<select id="findUserPassword" parameterType="string" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT 
 		email
 		FROM user_info
 		WHERE user_name=#{name} AND id=#{id} AND email=#{email}
 	</select>
 	
-	<select id="login" parameterType="userInfoVO" resultType="userInfoVO">
+	<select id="login" parameterType="com.service.spring.domain.UserInfoVO" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT
 		id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address
 		FROM user_info

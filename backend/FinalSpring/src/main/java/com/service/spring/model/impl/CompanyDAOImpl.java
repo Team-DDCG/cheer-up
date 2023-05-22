@@ -37,6 +37,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 		return sqlSession.selectList(NS + "getCompanyNameByCategory", category2Id);
 	}
 
+	@Override
+	public List<CompanyVO> findAllCompanyByName(String keyword) throws Exception {
+		return sqlSession.selectList(NS + "findAllCompanyByName", keyword);
+	}
+
 	
 
 }

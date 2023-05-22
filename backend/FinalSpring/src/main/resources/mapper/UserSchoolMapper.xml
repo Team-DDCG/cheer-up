@@ -11,17 +11,17 @@
  -->
 
 <mapper namespace="UserSchoolMapper">
-	<insert id="registerUserSchool" parameterType="userSchoolVO">
+	<insert id="registerUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
 		INSERT
-		INTO user_school_info(school_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major)
+		INTO user_school_info(school_info_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major)
 		VALUES(user_school_seq.NEXTVAL, #{educationType}, #{schoolName}, #{entranceDate}, #{graduationDate}, #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor})
 	</insert>
 	
 	<delete id="deleteUserSchool" parameterType="int">
-		DELETE FROM user_school_info WHERE school_id=#{VALUE}
+		DELETE FROM user_school_info WHERE school_info_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserSchool" parameterType="userSchoolVO">
+	<update id="updateUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
 		UPDATE user_school_info SET
 		education_type = #{educationType},
 		school_name = #{schoolName},
@@ -33,14 +33,13 @@
 		gpa = #{gpa},
 		highest_check = #{highestCheck},
 		double_major = #{doubleMajor}
-			
 	</update>
 	
-	<select id="getUserSchool" parameterType="int" resultType="userSchoolVO">
+	<select id="getUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
 		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
-		WHERE id=#{VALUE}
+		WHERE school_info_id=#{VALUE}
 	</select>
 	
 	

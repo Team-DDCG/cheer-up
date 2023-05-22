@@ -2,7 +2,7 @@ package com.service.spring.domain;
 
 public class CompanyCategoryRelationVO {
 	
-	private int companyCategoryRelationId; //company_category_relation_id (ok)
+	private int companyCategoryRelationId; //company_category_relation_id (pk)
 	private int category2Id; //category2_id (fk)
 	private int companyId; //company_id(fk)
 	

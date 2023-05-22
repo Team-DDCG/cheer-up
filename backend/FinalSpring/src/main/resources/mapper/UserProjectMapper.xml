@@ -11,30 +11,30 @@
  -->
 
 <mapper namespace="UserProjectMapperr">
-	<insert id="registerUserProject" parameterType="userProjectVO">
+	<insert id="registerUserProject" parameterType="com.service.spring.domain.UserProjectVO">
 		INSERT
-		INTO user_project_info(project_id, name, host_name, content, skill, agency)
-		VALUES(user_project_seq.NEXTVAL,#{name}, #{hostName}, #{content}, #{skill}, #{agency})
+		INTO user_project_info(project_id, project_name, host_name, content, skill, institution)
+		VALUES(user_project_seq.NEXTVAL,#{projectName}, #{hostName}, #{content}, #{skill}, #{institution})
 	</insert>
 	
 	<delete id="deleteUserProject" parameterType="int">
 		DELETE FROM user_project_info WHERE project_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserProject" parameterType="userProjectVO">
+	<update id="updateUserProject" parameterType="com.service.spring.domain.UserProjectVO">
 		UPDATE user_project_info SET
 		name = #{name},
 		host_name = #{hostName},
 		content = #{content},
 		skill = #{skill},
-		agency = #{agency}	
+		institution = #{institution}	
 	</update>
 	
-	<select id="getUserProject" parameterType="int" resultType="userProjectVO">
+	<select id="getUserProject" parameterType="int" resultType="com.service.spring.domain.UserProjectVO">
 		SELECT
-		name, host_name, content, skill, agency
+		name, host_name, content, skill, institution
 		FROM user_project_info
-		WHERE id=#{VALUE}
+		WHERE project_id=#{VALUE}
 	</select>
 	
 	
