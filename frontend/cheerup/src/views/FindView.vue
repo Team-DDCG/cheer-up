@@ -6,7 +6,7 @@
         <span class="name1">취</span>
         <span class="name2">얼업</span>
         <p class="sub-title">
-          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+          분실하셨나요? 아래 내용을 선택해주세요!
         </p>
       </div>
     </div>
@@ -22,7 +22,7 @@
           autocomplete="off"
           value="0"
         />
-        <label class="btn btn-light" for="option">취준생</label>
+        <label class="btn btn-light" for="option">아이디 찾기</label>
         <input
           type="radio"
           v-model="radioValues"
@@ -32,7 +32,7 @@
           autocomplete="off"
           value="1"
         />
-        <label class="btn btn-light" for="option2">멘토</label><br />
+        <label class="btn btn-light" for="option2">비밀번호 찾기</label><br />
       </div>
       <div class="box2">
         <button
@@ -61,9 +61,15 @@ export default {
       };
       sessionStorage.setItem("type", userData.type);
 
-      this.$router.push({
-        path: "/register2",
-      });
+      if (this.radioValues === "0") {
+        this.$router.push({
+          path: "/findid1",
+        });
+      } else if (this.radioValues === "1") {
+        this.$router.push({
+          path: "/findpw1",
+        });
+      }
     },
   },
 };
@@ -84,11 +90,13 @@ img {
   align-items: center;
 }
 #innerBox > .box > .btn.btn-light {
-  width: 230px;
-  height: 230px;
+  width: 218px;
+  height: 209px;
+  border-radius: 6px;
   text-align: center;
   color: #363533;
-  font-size: 40px;
+  border-width: 1px;
+  font-size: 28px;
   font-weight: 700;
   margin: 50px;
   display: flex;

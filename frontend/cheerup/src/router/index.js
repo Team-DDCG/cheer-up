@@ -10,6 +10,11 @@ import RegisterView2 from "../views/RegisterView2.vue";
 import RegisterView3 from "../views/RegisterView3.vue";
 import RegisterView4 from "../views/RegisterView4.vue";
 import LoginView from "../views/LoginView.vue";
+import FindView from "../views/FindView.vue";
+import FindIdView1 from "../views/FindIdView1.vue";
+import FindIdView2 from "../views/FindIdView2.vue";
+import FindPwView1 from "../views/FindPwView1.vue";
+import FindPwView2 from "../views/FindPwView2.vue";
 
 const routes = [
   {
@@ -62,11 +67,39 @@ const routes = [
     name: "login",
     component: LoginView,
   },
-  
+
   {
     path: "/user/:id",
     name: "user",
     component: UserView,
+  },
+
+  {
+    path: "/find",
+    name: "find",
+    component: FindView,
+  },
+
+  {
+    path: "/findid1",
+    name: "findid1",
+    component: FindIdView1,
+  },
+
+  {
+    path: "/findid2",
+    name: "findid2",
+    component: FindIdView2,
+  },
+  {
+    path: "/findpw1",
+    name: "findpw1",
+    component: FindPwView1,
+  },
+  {
+    path: "/findpw2",
+    name: "findpw2",
+    component: FindPwView2,
   },
 ];
 

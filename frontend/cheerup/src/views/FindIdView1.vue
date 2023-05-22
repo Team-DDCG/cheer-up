@@ -6,7 +6,7 @@
         <span class="name1">취</span>
         <span class="name2">얼업</span>
         <p class="sub-title">
-          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+          취업 준비의 시간을 아끼려면 가입하세요!
         </p>
         <hr />
       </div>
@@ -22,52 +22,21 @@
       />
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlInput2" class="form-label">아이디</label>
+      <label for="exampleFormControlInput2" class="form-label">연락처(- 없이 숫자만 기입)</label>
       <input
-        type="radio"
-        v-model="radioValues"
-        class="btn-check"
-        name="options"
-        id="option2"
-        autocomplete="off"
-        value="1"
-      />
-
-      <input
-        v-model="id"
-        type="text"
+        v-model="phone"
+        type="tel"
         class="form-control"
         id="exampleFormControlInput2"
-        placeholder="ID"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="inputPassword" class="form-label">비밀번호</label>
-      <input
-        v-model="password"
-        type="password"
-        id="inputPassword"
-        class="form-control"
-        placeholder="Password"
-        aria-labelledby="passwordHelpBlock"
-      />
-      <div id="passwordHelpBlock" class="form-text"></div>
-    </div>
-    <div class="mb-3">
-      <label for="inputPassword2" class="form-label">비밀번호 확인</label>
-      <input
-        type="password"
-        id="inputPassword2"
-        class="form-control"
-        placeholder="Password"
+        placeholder="01000000000"
       />
     </div>
     <div class="mb-3-button">
-      <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
+      <!-- <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
         이전
-      </button>
+      </button> -->
       <button @click.prevent="submitForm" type="submit" class="btn btn-primary">
-        다음
+        아이디 확인
       </button>
     </div>
   </div>
@@ -101,7 +70,7 @@ export default {
       sessionStorage.setItem("password", userData.password);
 
       this.$router.push({
-        path: "/register3",
+        path: "/findid2",
       });
     },
   },
@@ -161,7 +130,11 @@ img {
 }
 
 .mb-3-button > .btn.btn-primary {
+  width: 300px;
+  height: 42.01px;
+  border-radius: 13px;
   background: #a46cff;
+  box-shadow: 0px 4px 4px 0 rgba(0,0,0,0.3);
 }
 
 .mb-3-button {

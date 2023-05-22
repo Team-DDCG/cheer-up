@@ -1,83 +1,118 @@
 <template>
-    <div class="main">
-      <div class="main-title">
-        <div class="name">
-          <img src="../assets/logo.png"/>
-          <span class ="name1">취</span>
-          <span class ="name2">얼업</span>
-          <p class ="sub-title">가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!</p>
-          <hr>
-        </div>
+  <div class="main">
+    <div class="main-title">
+      <div class="name">
+        <img src="../assets/logo.png" />
+        <span class="name1">취</span>
+        <span class="name2">얼업</span>
+        <p class="sub-title">
+          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+        </p>
+        <hr />
       </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">생년월일</label>
-        <input  v-model="birth" type="date" class="form-control" id="exampleFormControlInput1" placeholder="Birth date">
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput2" class="form-label">전화번호</label>
-        <input v-model="phone" type="tel" class="form-control" id="exampleFormControlInput2" placeholder="phone">
-      </div>
-      <div class="mb-3">
-      <label for="exampleFormControlInput2" class="form-label">성별</label><br>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">생년월일</label>
+      <input
+        v-model="birth"
+        type="date"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Birth date"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">전화번호</label>
+      <input
+        v-model="phone"
+        type="tel"
+        class="form-control"
+        id="exampleFormControlInput2"
+        placeholder="phone"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">성별</label
+      ><br />
       <div class="form-check form-check-inline">
-        <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value=0>
+        <input
+          v-model="sex"
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio1"
+          value="0"
+        />
         <label class="form-check-label" for="inlineRadio1">남성</label>
       </div>
       <div class="form-check form-check-inline">
-        <input v-model="sex" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value=1>
+        <input
+          v-model="sex"
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio2"
+          value="1"
+        />
         <label class="form-check-label" for="inlineRadio2">여성</label>
       </div>
-      </div>
-      <div class="mb-3">
-      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">다음</button>
-      </div>
     </div>
-  </template>
+    <div class="mb-3-button">
+      <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
+        이전
+      </button>
+      <button @click.prevent="submitForm" type="submit" class="btn btn-primary">
+        다음
+      </button>
+    </div>
+  </div>
+</template>
   
   <script>
-
-  export default {
-    data() {
-      return {
-        birth: '',
-        phone: '',
-        sex: '',
+export default {
+  data() {
+    return {
+      birth: "",
+      phone: "",
+      sex: "",
+    };
+  },
+  methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+    },
+    async submitForm() {
+      const userData = {
+        // type: this.sessionDataType,
+        birth: this.birth,
+        phone: this.phone,
+        sex: this.sex,
       };
-    },
-    methods: {
-      async submitForm() {
-        
-        const userData = {
-            // type: this.sessionDataType,
-            birth: this.birth,
-            phone: this.phone,
-            sex: this.sex
-        }
 
-        // sessionStorage.setItem('type', userData.type);
-        sessionStorage.setItem('birth', userData.birth);
-        sessionStorage.setItem('phone', userData.phone);
-        sessionStorage.setItem('sex', userData.sex);
+      // sessionStorage.setItem('type', userData.type);
+      sessionStorage.setItem("birth", userData.birth);
+      sessionStorage.setItem("phone", userData.phone);
+      sessionStorage.setItem("sex", userData.sex);
 
-        this.$router.push({
-            path:'/register4',
-        });
+      this.$router.push({
+        path: "/register4",
+      });
     },
-    },
-    created() {
-      // this.sessionDataType = sessionStorage.getItem('type');
-      // this.sessionDataName = sessionStorage.getItem('name');
-      // this.sessionDataId = sessionStorage.getItem('id');
-      // this.sessionDataPassword = sessionStorage.getItem('password');
-    }
-  }
-  </script>
+  },
+  created() {
+    // this.sessionDataType = sessionStorage.getItem('type');
+    // this.sessionDataName = sessionStorage.getItem('name');
+    // this.sessionDataId = sessionStorage.getItem('id');
+    // this.sessionDataPassword = sessionStorage.getItem('password');
+  },
+};
+</script>
   
   <style scoped>
 img {
-  vertical-align:0% ;
+  vertical-align: 0%;
 }
-#main{
+#main {
   margin: 0 auto;
 }
 .main-title {
@@ -89,22 +124,24 @@ img {
 
 .main-title > .name .name1 {
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif; font-size:64px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 64px;
   text-align: center;
   color: #a46cff;
 }
 
 .main-title > .name .name2 {
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif; font-size:64px;
-  font-Weight: 700px;
-  text-Align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 64px;
+  font-weight: 700px;
+  text-align: center;
   color: #f5f5f5;
 }
-.main-title > .name{
+.main-title > .name {
   margin: 0 auto;
   text-align: center;
- 
+  background: #363533;
 }
 
 .mb-3 {
@@ -116,7 +153,7 @@ img {
   margin-bottom: 90px;
 }
 
-.mb-3 > .form-label{
+.mb-3 > .form-label {
   color: #f5f5f5;
 }
 
@@ -124,9 +161,16 @@ img {
   color: #f5f5f5;
 }
 
-.mb-3 >.btn.btn-primary{
+.mb-3-button > .btn.btn-primary {
   background: #a46cff;
-  display: flex;
-  margin: 0 auto;
 }
-  </style>
+
+.mb-3-button {
+  width: 300px;
+  height: 42.01px;
+  margin: 0 auto;
+  margin-top: 40px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+</style>
