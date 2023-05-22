@@ -2,22 +2,23 @@ package com.service.spring.domain;
 
 public class UserProjectVO {
     private int projectId; //project_id(pk)
-    private String name;
+    private String projectName; //project_name
     private String hostName; //host_name
-    private String contet;
+    private String content;
     private String skill;
-    private String agency;
+    private String institution;
     private int seekerId; //seeker_id(fk)
 
     public UserProjectVO() {
     }
 
-    public UserProjectVO(String name, String hostName, String contet, String skill, String agency) {
-        this.name = name;
+    public UserProjectVO(String projectName, String hostName, String content, String skill, String institution, int seekerId) {
+        this.projectName = projectName;
         this.hostName = hostName;
-        this.contet = contet;
+        this.content = content;
         this.skill = skill;
-        this.agency = agency;
+        this.institution = institution;
+        this.seekerId = seekerId;
     }
 
     public int getProjectId() {
@@ -28,12 +29,12 @@ public class UserProjectVO {
         this.projectId = projectId;
     }
 
-    public String getName() {
-        return name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getHostName() {
@@ -44,12 +45,12 @@ public class UserProjectVO {
         this.hostName = hostName;
     }
 
-    public String getContet() {
-        return contet;
+    public String getContent() {
+        return content;
     }
 
-    public void setContet(String contet) {
-        this.contet = contet;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getSkill() {
@@ -60,6 +61,14 @@ public class UserProjectVO {
         this.skill = skill;
     }
 
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
     public int getSeekerId() {
         return seekerId;
     }
@@ -68,24 +77,16 @@ public class UserProjectVO {
         this.seekerId = seekerId;
     }
 
-    public String getAgency() {
-        return agency;
-    }
-
-    public void setAgency(String agency) {
-        this.agency = agency;
-    }
-
     @Override
     public String toString() {
         return "UserProjectVO{" +
                 "projectId=" + projectId +
-                ", name='" + name + '\'' +
+                ", projectName='" + projectName + '\'' +
                 ", hostName='" + hostName + '\'' +
-                ", contet='" + contet + '\'' +
+                ", content='" + content + '\'' +
                 ", skill='" + skill + '\'' +
+                ", institution='" + institution + '\'' +
                 ", seekerId=" + seekerId +
-                ", agency='" + agency + '\'' +
                 '}';
     }
 }

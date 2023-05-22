@@ -1,25 +1,53 @@
 <template>
   <tool-bar></tool-bar>
-  <select v-model="selectedOption1">
-    <option value="option1">경영·사무</option>
-    <option value="option2">마케팅·광고·홍보</option>
-    <option value="option3">무역·유통</option>
-    <option value="option4">IT·인터넷</option>
-    <option value="option5">생산·제조</option>
-    <option value="option6">영업·고객상담</option>
-    <option value="option7">건설</option>
-    <option value="option8">금융</option>
-    <option value="option9">연구개발·설계</option>
-    <option value="option10">디자인</option>
-    <option value="option11">미디어</option>
-    <option value="option12">전문·특수직</option>
-  </select>
+  <div id="main">
+    <div id="filter">
+      <div id="input">
+        <div>
+          <div>
+            <img src="https://d2bovrvbszerbl.cloudfront.net/assets/icon/ic_search-c35fc43a726d9245c9bf98a8d5b101c1a54f7e71d063e2950d4c81b38873b023.svg">
+          </div>
+          <div>
+            <div>
+              기업명
+            </div>
+            <div>
+              <div>
+                <input type="text" placeholder="기업명을 검색하세요"/>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      <select class="form-select" v-model="selectedOption1">
+        <option value="option1">경영·사무</option>
+        <option value="option2">마케팅·광고·홍보</option>
+        <option value="option3">무역·유통</option>
+        <option value="option4">IT·인터넷</option>
+        <option value="option5">생산·제조</option>
+        <option value="option6">영업·고객상담</option>
+        <option value="option7">건설</option>
+        <option value="option8">금융</option>
+        <option value="option9">연구개발·설계</option>
+        <option value="option10">디자인</option>
+        <option value="option11">미디어</option>
+        <option value="option12">전문·특수직</option>
+      </select>
 
-  <select v-model="selectedOption2">
-    <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
-  </select>
-  <button @click.prevent="saveOption" type="submit" class="btn btn-primary">저장</button>
-  <side-bar></side-bar>
+      <select class="form-select" v-model="selectedOption2">
+        <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
+      </select>
+      <button @click.prevent="saveOption" type="submit">저장</button>
+    </div>
+    <div id="resume">
+      <side-bar :listData="list"></side-bar>
+      <job-posting :company="company"></job-posting>
+    </div>
+  </div>
+
 
 </template>
 
@@ -27,17 +55,31 @@
  
 import SideBar from '../components/SideBar.vue';
 import ToolBar from '../components/ToolBar.vue';
+import JobPosting from '../components/JobPosting.vue';
 import axios from "axios";
 
 export default {
-  components: {SideBar, ToolBar},
+  components: {SideBar, ToolBar, JobPosting},
   data() {
     return {
       selectedOption1: '',
       selectedOption2: '',
-      options2: [] // 두 번째 셀렉트 요소의 옵션 값
+      options2: [], // 두 번째 셀렉트 요소의 옵션 값
+      company: {
+        post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
+        logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
+        company_name: '케이비증권(주)',
+        start_date: '2023.04.28 10:36',
+        end_date: '2023.05.09 18:00',
+        posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
+        site: 'https://kbstar.incruit.com/index_kbstar.asp',
+        field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
+        '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
+        '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
+      }
     }
   },
+  
   methods: {
     async saveOption() {
       alert(this.selectedOption2);
@@ -61,12 +103,22 @@ export default {
     },
   },
   computed: {
-
+    list() {
+      return this.$store.state.list;
+    }
   },
   created() {
      
   },
   watch: {
+    // 소분류 선택한 경우 작동...
+    // 여기서 company list를 가져오도록 한다
+    selectedOption2: function() {
+      if (this.selectedOption2) {
+        alert(this.selectedOption2);
+        
+      }
+    },
     selectedOption1: function(newValue) {
       // 첫 번째 셀렉트 요소의 선택 값이 변경될 때 호출되는 함수
       if (newValue === 'option1') {
@@ -195,9 +247,130 @@ export default {
       this.selectedOption2 = ''; // 두 번째 셀렉트 요소의 선택 값도 초기화합니다.
     }
   }
+  
 }
 </script>
 
-<style>
+<style scoped>
+tool-bar{
+  width: 20%
+}
+#filter {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#main {
+  width: 90%;
+  text-align: center;
+  padding-top: 10px;
+  background-color: #363533;
+  margin: 0 auto;
+}
+#input{
+  width:45%;
+  height: 59px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+  background-color: #515151;
+  margin-right: 1.5%;
+  color: white;
 
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* height: 56px; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* background-color: #fff; */
+  /* box-shadow: 0px 1px 2px rgba(0,0,0,0.04); */
+  cursor: text;
+  padding: 8px 16px;
+}
+#input div{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex: auto;
+  border: 1px solid transparent;
+  box-sizing: content-box;
+}
+#input div div:first-child{
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+#input div div img{
+  vertical-align: middle;
+  border: 0;
+}
+#input div div:last-child{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  white-space: nowrap;
+}
+#input div div div:first-child{
+  width: 100%;
+  color: #777;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+}
+#input div div div:last-child{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#input div div div div{
+  position: relative;
+  width: 100%;
+}
+input{
+  background-color: #515151;
+  color: white;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-weight: 350;
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+}
+input::placeholder {
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
+}
+select{
+  width:21%;
+  height: 59px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+  background-color: #515151;
+  color: white;
+  overflow-y:auto;
+}
+option{
+  overflow-y:scroll;
+}
+#resume {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+button{
+  text-align: center;
+  width: 92px;
+  height: 56px;
+  border: 1px solid #363533;
+  border-radius: 5px;
+  line-height: 56px;
+  background-color: #A46CFF; 
+  color: white;
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  text-decoration: none;
+  margin-left: 0.5%;
+}
 </style>

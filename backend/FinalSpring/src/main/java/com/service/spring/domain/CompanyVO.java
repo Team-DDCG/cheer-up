@@ -5,26 +5,36 @@ import java.sql.Date;
 public class CompanyVO {
     private int companyId; //company_id(pk)
     private String companyName; //company_name
+<<<<<<< HEAD
     private String address;
+=======
+>>>>>>> f3e91eabad5a549a3856991f0b18f91630cdd3f5
     private Date startDate; //start_date
     private Date endDate; //end_date
     private String companyLogo; //company_logo
     private String title;
+    private String companyUrl;//company_url
     private String content;
-    private int category2Id; //category2_id (fk)
 
     public CompanyVO() {
     }
 
+<<<<<<< HEAD
 	public CompanyVO(String name, String address, Date startDate, Date endDate, String companyLogo,
 			String title, String content) {
 		super();
 		this.companyName = name;
 		this.address = address;
+=======
+	public CompanyVO(String companyName, Date startDate, Date endDate, String companyLogo, String title,
+			String companyUrl, String content) {
+		this.companyName = companyName;
+>>>>>>> f3e91eabad5a549a3856991f0b18f91630cdd3f5
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.companyLogo = companyLogo;
 		this.title = title;
+		this.companyUrl = companyUrl;
 		this.content = content;
 	}
 
@@ -36,6 +46,7 @@ public class CompanyVO {
 		this.companyId = companyId;
 	}
 
+<<<<<<< HEAD
 	public String getName() {
 		return companyName;
 	}
@@ -50,6 +61,14 @@ public class CompanyVO {
 
 	public void setAddress(String address) {
 		this.address = address;
+=======
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+>>>>>>> f3e91eabad5a549a3856991f0b18f91630cdd3f5
 	}
 
 	public Date getStartDate() {
@@ -84,6 +103,14 @@ public class CompanyVO {
 		this.title = title;
 	}
 
+	public String getCompanyUrl() {
+		return companyUrl;
+	}
+
+	public void setCompanyUrl(String companyUrl) {
+		this.companyUrl = companyUrl;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -92,20 +119,17 @@ public class CompanyVO {
 		this.content = content;
 	}
 
-	public int getCategory2Id() {
-		return category2Id;
-	}
-
-	public void setCategory2Id(int category2Id) {
-		this.category2Id = category2Id;
-	}
-
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "CompanyVO [companyId=" + companyId + ", name=" + companyName + ", address=" + address + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", companyLogo=" + companyLogo + ", title=" + title
 				+ ", content=" + content + ", category2Id=" + category2Id + "]";
+=======
+		return "CompanyVO [companyId=" + companyId + ", companyName=" + companyName + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", companyLogo=" + companyLogo + ", title=" + title + ", companyUrl="
+				+ companyUrl + ", content=" + content + "]";
+>>>>>>> f3e91eabad5a549a3856991f0b18f91630cdd3f5
 	}
-
     
 }

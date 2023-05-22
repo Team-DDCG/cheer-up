@@ -17,10 +17,8 @@ public class SeekerFitVO {
 	public SeekerFitVO() {
 	}
 
-	public SeekerFitVO(int seekerFitId, String tendency1, String tendency2, String tendency3, String tendency4,
+	public SeekerFitVO(String tendency1, String tendency2, String tendency3, String tendency4,
 			String tendency5, int rate1, int rate2, int rate3, int rate4, int rate5) {
-		super();
-		this.seekerFitId = seekerFitId;
 		this.tendency1 = tendency1;
 		this.tendency2 = tendency2;
 		this.tendency3 = tendency3;

@@ -15,13 +15,14 @@ public class UserLanguageVO {
     public UserLanguageVO() {
     }
 
-    public UserLanguageVO(String language, String type, String grade, Date acquiredDate, String licenseNumber, String agency) {
+    public UserLanguageVO(String language, String type, String grade, Date acquiredDate, String licenseNumber, String agency, int seekerId) {
         this.language = language;
         this.type = type;
         this.grade = grade;
         this.acquiredDate = acquiredDate;
         this.licenseNumber = licenseNumber;
         this.agency = agency;
+        this.seekerId = seekerId;
     }
 
     public int getLanguageId() {

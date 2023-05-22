@@ -1,79 +1,79 @@
 package com.service.spring.domain;
 
+import java.util.Date;
+
 public class ResumeVO {
     private int resumeId; //resume_id(pk)
     private String content;
     private int postCheck; //post_check
-    private String companyName; //company_name;
-    private int commentId; //comment_id(fk)
+    private Date generateDate; //generate_date
     private int seekerId; //seeker_id(fk)
+    private int companyId; // company_id(fk)
 
     public ResumeVO() {
     }
 
-    public ResumeVO(String content, int postCheck, String companyName) {
-        this.content = content;
-        this.postCheck = postCheck;
-        this.companyName = companyName;
-    }
+	public ResumeVO(String content, int postCheck, Date generateDate, int seekerId, int companyId) {
+		this.content = content;
+		this.postCheck = postCheck;
+		this.generateDate = generateDate;
+		this.seekerId = seekerId;
+		this.companyId = companyId;
+	}
 
-    public int getResumeId() {
-        return resumeId;
-    }
+	public int getResumeId() {
+		return resumeId;
+	}
 
-    public void setResumeId(int resumeId) {
-        this.resumeId = resumeId;
-    }
+	public void setResumeId(int resumeId) {
+		this.resumeId = resumeId;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public int getPostCheck() {
-        return postCheck;
-    }
+	public int getPostCheck() {
+		return postCheck;
+	}
 
-    public void setPostCheck(int postCheck) {
-        this.postCheck = postCheck;
-    }
+	public void setPostCheck(int postCheck) {
+		this.postCheck = postCheck;
+	}
 
-    public String getCompanyName() {
-        return companyName;
-    }
+	public Date getGenerateDate() {
+		return generateDate;
+	}
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public void setGenerateDate(Date generateDate) {
+		this.generateDate = generateDate;
+	}
 
-    public int getCommentId() {
-        return commentId;
-    }
+	public int getSeekerId() {
+		return seekerId;
+	}
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
-    }
+	public void setSeekerId(int seekerId) {
+		this.seekerId = seekerId;
+	}
 
-    public int getUserSeekerInfoId() {
-        return seekerId;
-    }
+	public int getCompanyId() {
+		return companyId;
+	}
 
-    public void setUserSeekerInfoId(int userSeekerInfoId) {
-        this.seekerId = userSeekerInfoId;
-    }
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
 
-    @Override
-    public String toString() {
-        return "ResumeVO{" +
-                "resumeId=" + resumeId +
-                ", content='" + content + '\'' +
-                ", postCheck=" + postCheck +
-                ", companyName='" + companyName + '\'' +
-                ", commentId=" + commentId +
-                ", userSeekerInfoId=" + seekerId +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ResumeVO [resumeId=" + resumeId + ", content=" + content + ", postCheck=" + postCheck
+				+ ", generateDate=" + generateDate + ", seekerId=" + seekerId + ", companyId=" + companyId + "]";
+	}
+
+    
 }

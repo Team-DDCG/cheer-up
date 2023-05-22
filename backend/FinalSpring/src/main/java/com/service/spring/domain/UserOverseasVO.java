@@ -9,20 +9,21 @@ public class UserOverseasVO {
     private String nation;
     private Date startDate; //start_date
     private Date endDate; //end_date
-    private String agency;
+    private String institution;
     private String reason;
     private int seekerId; //seeker_id(fk)
 
     public UserOverseasVO() {
     }
 
-    public UserOverseasVO(String purpose, String nation, Date startDate, Date endDate, String agency, String reason) {
+    public UserOverseasVO(String purpose, String nation, Date startDate, Date endDate, String institution, String reason, int seekerId) {
         this.purpose = purpose;
         this.nation = nation;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.agency = agency;
+        this.institution = institution;
         this.reason = reason;
+        this.seekerId = seekerId;
     }
 
     public int getOverseasId() {
@@ -65,12 +66,12 @@ public class UserOverseasVO {
         this.endDate = endDate;
     }
 
-    public String getAgency() {
-        return agency;
+    public String getInstitution() {
+        return institution;
     }
 
-    public void setAgency(String agency) {
-        this.agency = agency;
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     public String getReason() {
@@ -97,7 +98,7 @@ public class UserOverseasVO {
                 ", nation='" + nation + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", agency='" + agency + '\'' +
+                ", institution='" + institution + '\'' +
                 ", reason='" + reason + '\'' +
                 ", seekerId=" + seekerId +
                 '}';
