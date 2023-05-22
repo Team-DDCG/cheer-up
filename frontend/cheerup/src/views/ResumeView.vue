@@ -2,8 +2,27 @@
   <tool-bar></tool-bar>
   <div id="main">
     <div id="filter">
-      <input type="text" placeholder="기업명을 검색하세요"/>
-      <select v-model="selectedOption1">
+      <div id="input">
+        <div>
+          <div>
+            <img src="https://d2bovrvbszerbl.cloudfront.net/assets/icon/ic_search-c35fc43a726d9245c9bf98a8d5b101c1a54f7e71d063e2950d4c81b38873b023.svg">
+          </div>
+          <div>
+            <div>
+              기업명
+            </div>
+            <div>
+              <div>
+                <input type="text" placeholder="기업명을 검색하세요"/>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+      <select class="form-select" v-model="selectedOption1">
         <option value="option1">경영·사무</option>
         <option value="option2">마케팅·광고·홍보</option>
         <option value="option3">무역·유통</option>
@@ -18,7 +37,7 @@
         <option value="option12">전문·특수직</option>
       </select>
 
-      <select v-model="selectedOption2">
+      <select class="form-select" v-model="selectedOption2">
         <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
       </select>
       <button @click.prevent="saveOption" type="submit">저장</button>
@@ -236,8 +255,10 @@ export default {
 tool-bar{
   width: 20%
 }
-.filter {
+#filter {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 #main {
   width: 90%;
@@ -246,13 +267,81 @@ tool-bar{
   background-color: #363533;
   margin: 0 auto;
 }
-input{
-  width:42%;
+#input{
+  width:45%;
   height: 59px;
   border-radius: 5px;
   border: 1px solid #808080;
   background-color: #515151;
-  margin-right: 2.5%;
+  margin-right: 1.5%;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* height: 56px; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 8px; */
+  /* background-color: #fff; */
+  /* box-shadow: 0px 1px 2px rgba(0,0,0,0.04); */
+  cursor: text;
+  padding: 8px 16px;
+}
+#input div{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex: auto;
+  border: 1px solid transparent;
+  box-sizing: content-box;
+}
+#input div div:first-child{
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+}
+#input div div img{
+  vertical-align: middle;
+  border: 0;
+}
+#input div div:last-child{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  white-space: nowrap;
+}
+#input div div div:first-child{
+  width: 100%;
+  color: #777;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+}
+#input div div div:last-child{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#input div div div div{
+  position: relative;
+  width: 100%;
+}
+input{
+  background-color: #515151;
+  color: white;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-weight: 350;
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+}
+input::placeholder {
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
 }
 select{
   width:21%;
@@ -260,6 +349,11 @@ select{
   border-radius: 5px;
   border: 1px solid #808080;
   background-color: #515151;
+  color: white;
+  overflow-y:auto;
+}
+option{
+  overflow-y:scroll;
 }
 #resume {
   display: flex;
@@ -277,6 +371,6 @@ button{
   color: white;
   font-family: 'Montserrat', sans-serif; font-size:15px;
   text-decoration: none;
-  margin-left: 2.5%;
+  margin-left: 0.5%;
 }
 </style>

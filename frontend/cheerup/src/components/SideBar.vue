@@ -1,8 +1,8 @@
 <template>
   <ul class="list">
-    <p>금일 추천 공고 리스트</p>
+    <p><b>금일 추천 공고 리스트</b></p>
     <li v-for="item of listData" :key="item.id" >
-      <b>{{item.time_ago}}</b>
+      <p>{{item.time_ago}}</p>
       <template v-if="$route.name === 'resume'">
         <!-- <span> by <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/> -->
         <!-- <a :href=item.url target="_blank">{{ item.title }}</a> -->
@@ -19,6 +19,15 @@ export default {
 </script>
 
 <style scoped>
+li {
+  list-style: none;
+}
+p {
+  color: white;
+}
+b {
+  border-bottom:2px solid white;
+}
 .list {
   width: 19%;
   padding:20px;
