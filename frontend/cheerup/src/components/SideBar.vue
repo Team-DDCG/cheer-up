@@ -1,12 +1,11 @@
 <template>
   <ul class="list">
     <p><b>금일 추천 공고 리스트</b></p>
-    <li v-for="item of listData" :key="item.id" >
-      <p>{{item.time_ago}}</p>
+    <li v-for="item of listData" :key="item" >
       <template v-if="$route.name === 'resume'">
         <!-- <span> by <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/> -->
         <!-- <a :href=item.url target="_blank">{{ item.title }}</a> -->
-        <router-link :to="`/item/?id=${item.id}`">({{ item.comments_count }})</router-link>
+        <router-link :to="`/item/?id=${item.companyName}`">{{item.companyName}}</router-link>
       </template>
     </li>
   </ul>
