@@ -34,11 +34,6 @@ const routes = [
     name: "resume",
     component: ResumeView,
   },
-  // {
-  //   path: "/resume/:id",
-  //   name: "resume2",
-  //   component: JobPosting,
-  // },
   {
     path: "/ask",
     name: "ask",

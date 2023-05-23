@@ -1,23 +1,22 @@
 <template>
-    <div id="post" v-if="company !== null">
-      <p><b>{{ company.post_name }}</b></p>
+    <div id="post">
+      <p><b>{{ company[0].title }}</b></p>
       <div >
         <div id="image-container">
-          <img :src="company.logo_url" id="logo">
+          <img :src="company[0].companyLogo" id="logo">
         </div>
         <div id="info">
-          <p>회사명: {{ company.company_name }}</p>
-          <p>시작일: {{ company.start_date }} | 마감일 : {{ company.end_date }}</p>
+          <p>회사명: {{ company[0].companyName }}</p>
+          <p>시작일: {{ company[0].startDate }} | 마감일 : {{ company[0].endDate }}</p>
         </div>
-        <a id="site" target="_blank" :href="company.site"><b>채용 사이트 이동</b></a>
+        <a id="site" target="_blank" :href="company[0].companyUrl"><b>채용 사이트 이동</b></a>
       </div>
-      <list-field :listData="company.field"></list-field>
+      <list-field :listData="company[0].position"></list-field>
       <div id="image-container2">
-        <img :src="company.posting_url" id="job">
+        <img :src="company[0].content" id="job">
       </div>
       
     </div>
-    <div id="post" v-else></div>
   </template >
 
   <script>
@@ -27,10 +26,12 @@ import ListField from './ListField.vue';
     components: {ListField},
     data() {
       return {
-
+        // company: ''
+        field: ''
       }
   },
     props: ['company'],
+    // emits: ['update:modelValue'],
   }
   </script>
   
@@ -40,6 +41,7 @@ div {
 }
 #post {
   width: 80%;
+  min-height: 100%;
   padding:20px;
   border: 1px solid #808080;
   border-radius: 5px;

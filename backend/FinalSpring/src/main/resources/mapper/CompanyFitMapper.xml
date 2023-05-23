@@ -14,25 +14,25 @@
 	</delete>
 	
 	 <update id="updateCompanyFit" parameterType="com.service.spring.domain.CompanyFitVO">
-        UPDATE companyFit SET
-        company_name = #{companyName},
-        company_needs1 = #{companyNeeds1},
-        company_needs2 = #{companyNeeds2},
-        company_needs3 = #{companyNeeds3},
-        company_needs4 = #{companyNeeds4},
-        company_needs5 = #{companyNeeds5},
-        company_rate1 = #{companyRate1},
-        company_rate2 = #{companyRate2},
-        company_rate3 = #{companyRate3},
-        company_rate4 = #{companyRate4},
-        company_rate5 = #{companyRate5},
-        WHERE company_fit_id = #{companyFitId}
+        UPDATE company_fit SET
+	    company_name = #{companyName},
+	    company_needs1 = #{companyNeeds1},
+	    company_needs2 = #{companyNeeds2},
+	    company_needs3 = #{companyNeeds3},
+	    company_needs4 = #{companyNeeds4},
+	    company_needs5 = #{companyNeeds5},
+	    company_rate1 = #{companyRate1},
+	    company_rate2 = #{companyRate2},
+	    company_rate3 = #{companyRate3},
+	    company_rate4 = #{companyRate4},
+	    company_rate5 = #{companyRate5}
+	    WHERE company_fit_id = #{companyFitId}
     </update>
     
     <select id="getCompanyFit" parameterType="int" resultType="com.service.spring.domain.CompanyFitVO">
 	    SELECT 
 	    company_rate1, company_rate2, company_rate3, company_rate4, company_rate5, company_needs1, company_needs2, company_needs3, company_needs4, company_needs5, company_name
 	    FROM company_fit
-	    WHERE company_id=#{id}
+	    WHERE company_fit_id=#{id}
 	</select>
 </mapper>

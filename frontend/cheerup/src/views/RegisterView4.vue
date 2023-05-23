@@ -46,7 +46,8 @@
           v-model="mail_check"
           class="form-check-input"
           type="checkbox"
-          value="1"
+          true-value=1
+          lse-value=0
           id="flexCheckChecked"
           checked
         />
@@ -88,9 +89,8 @@ export default {
       //     email: this.email,
       //     mail_check: this.mail_check,
       // }
-
       axios
-        .post("http://127.0.0.1:8888/user/register", {
+        .post("http://127.0.0.1:8080/api/user-info/register", {
           type: this.sessionDataType,
           userName: this.sessionDataName,
           id: this.sessionDataId,

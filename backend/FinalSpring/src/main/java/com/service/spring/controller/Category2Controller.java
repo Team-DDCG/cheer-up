@@ -21,7 +21,7 @@ public class Category2Controller {
 	 @Autowired
 	    private Category2Service category2Service; // 소분류
 
-	    @GetMapping("/{category2Id}")
+	 @GetMapping("/{category2Id}")
 	    public ResponseEntity<Category2VO> getCategory2(@PathVariable int category2Id) {
 	        try {
 	            Category2VO category2 = category2Service.read(category2Id);
@@ -35,14 +35,14 @@ public class Category2Controller {
 	        }
 	    }
 
-	    @GetMapping("/")	
+	    @GetMapping("/")
 	    public ResponseEntity<List<Category2VO>> getAllCategory2() {
 	        try {
 	            List<Category2VO> category2List = category2Service.listAll();
 	            if (!category2List.isEmpty()) {
 	                return ResponseEntity.ok(category2List);
 	            } else {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	            }
 	        } catch (Exception e) {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

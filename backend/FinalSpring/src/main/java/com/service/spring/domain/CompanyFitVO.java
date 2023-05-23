@@ -7,7 +7,7 @@ public class CompanyFitVO {
 	private String companyNeeds2; //company_needs2
 	private String companyNeeds3; //company_needs3
 	private String companyNeeds4; //company_needs4
-	private String companyNEeds5; //company_needs5
+	private String companyNeeds5; //company_needs5
 	private int companyRate1; //company_rate1
 	private int companyRate2; //company_rate2
 	private int companyRate3; //company_rate3
@@ -26,7 +26,7 @@ public class CompanyFitVO {
 		this.companyNeeds2 = companyNeeds2;
 		this.companyNeeds3 = companyNeeds3;
 		this.companyNeeds4 = companyNeeds4;
-		this.companyNEeds5 = companyNEeds5;
+		this.companyNeeds5 = companyNEeds5;
 		this.companyRate1 = companyRate1;
 		this.companyRate2 = companyRate2;
 		this.companyRate3 = companyRate3;
@@ -83,12 +83,12 @@ public class CompanyFitVO {
 		this.companyNeeds4 = companyNeeds4;
 	}
 
-	public String getCompanyNEeds5() {
-		return companyNEeds5;
+	public String getCompanyNeeds5() {
+		return companyNeeds5;
 	}
 
-	public void setCompanyNEeds5(String companyNEeds5) {
-		this.companyNEeds5 = companyNEeds5;
+	public void setCompanyNEeds5(String companyNeeds5) {
+		this.companyNeeds5 = companyNeeds5;
 	}
 
 	public int getCompanyRate1() {
@@ -143,7 +143,7 @@ public class CompanyFitVO {
 	public String toString() {
 		return "CompanyFitVO [companyFitId=" + companyFitId + ", companyName=" + companyName + ", companyNeeds1="
 				+ companyNeeds1 + ", companyNeeds2=" + companyNeeds2 + ", companyNeeds3=" + companyNeeds3
-				+ ", companyNeeds4=" + companyNeeds4 + ", companyNEeds5=" + companyNEeds5 + ", companyRate1="
+				+ ", companyNeeds4=" + companyNeeds4 + ", companyNEeds5=" + companyNeeds5 + ", companyRate1="
 				+ companyRate1 + ", companyRate2=" + companyRate2 + ", companyRate3=" + companyRate3 + ", companyRate4="
 				+ companyRate4 + ", companyRate5=" + companyRate5 + ", seekerId=" + seekerId + "]";
 	}

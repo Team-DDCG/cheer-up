@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
 import com.service.spring.model.CompanyDAO;
 
@@ -41,6 +42,12 @@ public class CompanyDAOImpl implements CompanyDAO{
 	public List<CompanyVO> findAllCompanyByName(String keyword) throws Exception {
 		return sqlSession.selectList(NS + "findAllCompanyByName", keyword);
 	}
+
+	@Override
+	public List<CompanyDataDTO> getCompanyDataByName(String companyName) throws Exception {
+		return sqlSession.selectList(NS + "getCompanyDataByName", companyName);
+	}
+
 
 	
 

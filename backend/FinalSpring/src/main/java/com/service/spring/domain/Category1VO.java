@@ -7,8 +7,7 @@ public class Category1VO {
     public Category1VO() {
     }
 
-    public Category1VO(int category1Id, String c1Name) {
-        this.category1Id = category1Id;
+    public Category1VO(String c1Name) {
         this.name = c1Name;
     }
 
