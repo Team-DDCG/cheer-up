@@ -43,8 +43,7 @@ def career_table_select(user_seeker_id):
 
     conn = dbconn.db_connect()
 
-    # career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
-    career_table = [["user_career_info"], ["user_project_info"]]
+    career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
     total_table = []
     table_index = 0
 
@@ -82,11 +81,10 @@ def career_table_select(user_seeker_id):
 
 # 기업 자소서 문항 정보 DB에서 가져오는 method
 @app.route("/test_company_table_select")
-def company_table_select(user_company_id):
+def company_table_select(company_id):
 
     conn = dbconn.db_connect()
 
-    company_id = user_company_id
     company_table = []   
     table_index = 0
 
@@ -119,12 +117,14 @@ def resumeCreate(seeker_id, company_id):
 
     for company_value in company_table :
 
-        # 자소서 질문, 자소서 최대 길이, 기업명 
-        resume_question = company_value[2]
-        # resume_question = "그동안 접했던 여러 금융기관의 온·오프라인 서비스 중 개선할 필요가 있다고 느낀 서비스에 대해 기술해 주십시오."
-        question_text_max = company_value[3]
-        company_name = "KB국민은행"
+        # 직무, 자소서 질문, 자소서 최대 길이
         position = company_value[1]
+        resume_question = company_value[2]
+        question_text_max = company_value[3]
+        
+        # 회사번호로 기업명 가져오기...?
+        company_name = "KB국민은행"
+        
 
         # Call the chat GPT API 
         completion = openai.ChatCompletion.create(
@@ -141,11 +141,11 @@ def resumeCreate(seeker_id, company_id):
                                             
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
             {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
             {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
             {"role": "user", "content":f"지원 직무 : {position}\n"},
             {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
@@ -167,7 +167,7 @@ def resumeCreate(seeker_id, company_id):
         
         conn = dbconn.db_connect()
         cursor = conn.cursor()
-        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id)"
+        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, SYSDATE, :seeker_id, :company_id)"
         cursor.execute(sql, {'content': message_result, 
                             'seeker_id': seeker_id, 
                             'company_id': company_id})
@@ -213,11 +213,11 @@ def myCharacteristic(seeker_id):
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
             {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
 
             {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 성향과 비율을 나타내드리겠습니다."},           
         ],
@@ -242,12 +242,11 @@ def myCharacteristic(seeker_id):
     cursor = conn.cursor()
 
     sql = ("INSERT INTO characteristic_test VALUES"
-           "(:seeker_id, :characteristic_1, :characteristic_2, :characteristic_3,"
+           "(seeker_fit_seq.nextval, :characteristic_1, :characteristic_2, :characteristic_3,"
            ":characteristic_4, :characteristic_5,"
-           ":percentage_1, :percentage_2, :percentage_3, :percentage_4, :percentage_5)")
+           ":percentage_1, :percentage_2, :percentage_3, :percentage_4, :percentage_5, :seeker_id)")
     
-    cursor.execute(sql, {'seeker_id': seeker_id,
-                         'characteristic_1': arr[0][0],
+    cursor.execute(sql, {'characteristic_1': arr[0][0],
                          'characteristic_2': arr[1][0],
                          'characteristic_3': arr[2][0],
                          'characteristic_4': arr[3][0],
@@ -256,7 +255,8 @@ def myCharacteristic(seeker_id):
                          'percentage_2': arr[1][1],
                          'percentage_3': arr[2][1],
                          'percentage_4': arr[3][1],
-                         'percentage_5': arr[4][1]})
+                         'percentage_5': arr[4][1],
+                         'seeker_id': seeker_id})
     conn.commit()
     cursor.close()
     conn.close()
@@ -297,11 +297,11 @@ def goodnessOfFit(seeker_id, company_name):
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
             {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
 
             {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 {company_name}의 인재상 5개와 그에 따른 비율을 나타내드리겠습니다."},     
 
@@ -337,8 +337,7 @@ def goodnessOfFit(seeker_id, company_name):
            ":company_rate1, :company_rate2, :company_rate3, :company_rate4,"
            ":company_rate5, :seeker_id)")
     
-    cursor.execute(sql, {
-                         'company_name': company_name,
+    cursor.execute(sql, {'company_name': company_name,
                          'company_needs1': arr[0][0],
                          'company_needs2': arr[1][0],
                          'company_needs3': arr[2][0],
