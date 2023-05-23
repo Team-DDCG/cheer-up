@@ -1,12 +1,17 @@
 <template>
   <ul class="list">
     <p><b>금일 추천 공고 리스트</b></p>
+    
     <li v-for="item of listData" :key="item" >
       <template v-if="$route.name === 'resume'">
         <!-- <span> by <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/> -->
         <!-- <a :href=item.url target="_blank">{{ item.title }}</a> -->
-        <router-link :to="`/resume/?id=${item.companyId}`">{{item.companyName}}</router-link>
-        <!-- <a @click="show">{{item.companyName}}</a> -->
+        <!-- <router-link :to="`/resume?id=${item.companyId}`">{{item.companyName}}</router-link> -->
+        <a @click="show(item.companyName)">{{item.companyName}}</a>
+        <!-- <input  :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/> -->
+        <!-- <a @click="show">ssss</a> -->
+        <!-- {{ company }} -->
+        <!-- <button @click="show">{{item.companyName}}</button> -->
       </template>
     </li>
   </ul>
@@ -14,12 +19,20 @@
 
 <script>
 export default {
-  props: ['listData',],
+  data() {
+      return {
+        company: ''
+      }
+  },
+  props: ['listData','modelValue'],
+  emits: ['update:modelValue'],
+  watch:{
+
+  },
   methods: {
-    show() {
-      this.$router.push({
-              path:'?id=0',
-      });
+    show(tag) {
+      this.$emit('child-click', tag);
+      alert(this.company)
     }
   }
 }

@@ -43,9 +43,14 @@
       <button @click.prevent="saveOption" type="submit">저장</button>
     </div>
     <div id="resume">
-      <side-bar :listData="company_list"></side-bar>
-      <!-- <router-view/> -->
-      <job-posting :company="company"></job-posting>
+      <side-bar :listData="company_list" v-model="company" @child-click="handleChildClick"></side-bar>
+      <template v-if="company===''">
+        <div id="post">채용공고를 선택하세요</div>
+      </template>
+      <template v-else>
+        <!-- <job-posting v-model="company"></job-posting> -->
+        <job-posting :company="company"></job-posting>
+      </template>
     </div>
   </div>
 
@@ -66,31 +71,41 @@ export default {
       selectedOption1: '',
       selectedOption2: '',
       options2: [], // 두 번째 셀렉트 요소의 옵션 값
-      company: {
-        post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
-        logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
-        company_name: '케이비증권(주)',
-        start_date: '2023.04.28 10:36',
-        end_date: '2023.05.09 18:00',
-        posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
-        site: 'https://kbstar.incruit.com/index_kbstar.asp',
-        field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
-        '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
-        '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
-      },
+      company: '',
+      // company: {
+        // post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
+        // logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
+        // company_name: '케이비증권(주)',
+        // start_date: '2023.04.28 10:36',
+        // end_date: '2023.05.09 18:00',
+        // posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
+        // site: 'https://kbstar.incruit.com/index_kbstar.asp',
+        // field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
+        // '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
+        // '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
+      // },
       company_list: [],
     }
   },
   
   methods: {
+    handleChildClick(value) {
+      // 자식 컴포넌트의 클릭 이벤트 처리 로직
+      // console.log('자식 컴포넌트에서 전달된 값:', value);
+      axios
+        .get("http://localhost:8080/api/companies/data/"+value, {
+        })
+        .then((res) => {
+          console.log(res);
+          // this.company = res.data[0];
+          this.company = res.data;
+          console.log(this.company);
+        }) 
+        .catch((err) => {
+          console.log(err)
+        });
+    },
     async saveOption() {
-      alert(this.selectedOption2);
-        // const userData = {
-        //     address: this.address,
-        //     email: this.email,
-        //     mail_check: this.mail_check,
-        // }
-
         axios
         .post("http://127.0.0.1:8888/company/register", {
           type: this.selectedOption2
@@ -98,10 +113,6 @@ export default {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     
-
-        // this.$router.push({
-        //     path:'/home',
-        // });
     },
   },
   computed: {
@@ -113,32 +124,32 @@ export default {
      
   },
   mounted() {
-    // this.fetchData(); // 비동기 데이터를 가져오는 메소드 호출
+
   },
   watch: {
-    // 소분류 선택한 경우 작동...
-    // 여기서 company list를 가져오도록 한다
+
+    company: function() {
+      // alert(this.company)
+    },
     selectedOption2: function() {
       if (this.selectedOption2) {
-        // alert(this.selectedOption2);
-        // const data = {
-        //   company_list: this.company_list
-        // }
+
         axios
-        .get("http://localhost:8080/api/company/category", {
-          params: {
-            id: this.selectedOption2
-          }
+        .get("http://localhost:8080/api/companies/category2/"+this.selectedOption2, {
+          // http://localhost:8080/api/companies/category2/1
+          // params: {
+          //   id: this.selectedOption2
+          // }
         })
         .then((res) => {
           console.log(res);
           this.company_list = res.data;
-          // alert(this.company_list);
+
         }) 
         .catch((err) => {
           console.log(err)
-          this.company_list = [{companyName: 'KB국민은행'},{companyName: 'KB증권'},{companyName: '신한은행'}]
-          // this.company_list = [{companyName: '가능한 채용공고가 없어요'},{companyName: '가능한 채용공고가 없어요'}]
+          // this.company_list = [{companyName: 'KB국민은행'},{companyName: 'KB증권'},{companyName: '신한은행'}]
+          this.company_list = [{companyName: '가능한 채용공고가 없어요'}]
         });
       }
     },
@@ -284,6 +295,8 @@ tool-bar{
   border: 1px solid #808080;
   border-radius: 5px;
   background-color: #515151;
+  color:white;
+  font-family: 'Montserrat', sans-serif; font-size:20px;
 }
 #filter {
   width: 100%;
@@ -309,17 +322,11 @@ tool-bar{
   display: flex;
   align-items: center;
   position: relative;
-  /* height: 56px; */
-  /* border: 1px solid #ddd; */
-  /* border-radius: 8px; */
-  /* background-color: #fff; */
-  /* box-shadow: 0px 1px 2px rgba(0,0,0,0.04); */
   cursor: text;
   padding: 8px 16px;
 }
 #input div{
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex: auto;
   border: 1px solid transparent;
@@ -328,7 +335,6 @@ tool-bar{
 #input div div:first-child{
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   width: 24px;
   height: 24px;
   margin-right: 12px;
