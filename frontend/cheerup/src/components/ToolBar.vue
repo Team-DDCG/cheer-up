@@ -11,13 +11,43 @@
       <router-link to="/ask">첨삭게시판</router-link>
       <router-link to="/portfolio">포트폴리오</router-link>
     </div>
-    <router-link to="/login">로그인</router-link>
+    <div v-if="!isLoggedIn">
+      <router-link to="/login">로그인</router-link>
+    </div>
+    <div v-else >
+      <router-link to="/login">나의 이력</router-link>
+      <div style="background-color: #a46cff;color: white;border: 1px solid #a46cff; border-radius: 100%;" @click="logout">Logout</div>
+    </div>
+  
   </header>
 </template>
 
 <script>
 export default {
+  data() {
+      return {
+        user: ''
+      }
+  },
+  computed: {
+    isLoggedIn() {
+      // 로컬 스토리지에서 세션 상태를 확인
+      return localStorage.getItem('isLoggedIn') === 'true';
+    }
+  },
+  created() {
+    // this.user = sessionStorage.getItem("vo");
+  },
+  watch:{
 
+  },
+  methods: {
+    logout() {
+      // 세션 상태를 초기화하고 로그인 페이지로 이동
+      localStorage.removeItem('isLoggedIn');
+      this.$router.push('/login');
+    }
+  }
 }
 </script>
 
