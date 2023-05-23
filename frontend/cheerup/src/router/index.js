@@ -15,6 +15,7 @@ import FindIdView1 from "../views/FindIdView1.vue";
 import FindIdView2 from "../views/FindIdView2.vue";
 import FindPwView1 from "../views/FindPwView1.vue";
 import FindPwView2 from "../views/FindPwView2.vue";
+import MainView from "../views/MainView.vue";
 // import JobPosting from "../components/JobPosting";
 
 const routes = [
@@ -106,6 +107,11 @@ const routes = [
     path: "/findpw2",
     name: "findpw2",
     component: FindPwView2,
+  },
+  {
+    path: "/main",
+    name: "main",
+    component: MainView,
   },
 ];
 

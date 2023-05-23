@@ -41,7 +41,7 @@
             style="width: 80px; height: 40px"
           /> -->
         <span class="remember1">&nbsp;Remember me</span>
-        <router-link to="/findid"
+        <router-link to="/find"
           ><span class="find">아이디/비밀번호찾기</span></router-link
         >
       </div>

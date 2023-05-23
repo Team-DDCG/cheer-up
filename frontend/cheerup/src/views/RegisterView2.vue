@@ -8,7 +8,16 @@
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
-        <hr />
+      
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
       </div>
     </div>
     <div class="mb-3">
@@ -172,4 +181,12 @@ img {
   align-items: center;
   margin-bottom: 90px;
 }
+.main > .main-title .progress{
+   display: flex;
+   margin: 0 auto;
+   width: 1000px;
+   height: 20px; 
+   background: #515151;
+}
+
 </style>

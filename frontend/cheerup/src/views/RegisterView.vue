@@ -8,6 +8,7 @@
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
+        
       </div>
     </div>
     <hr />
@@ -47,7 +48,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 export default {
   data() {
     return {
@@ -56,6 +57,11 @@ export default {
   },
   methods: {
     async submitForm() {
+      if (!this.radioValues) {
+        // 유형을 선택하지 않았을 경우 아무 작업도 수행하지 않음
+        return;
+      }
+
       const userData = {
         type: this.radioValues,
       };
