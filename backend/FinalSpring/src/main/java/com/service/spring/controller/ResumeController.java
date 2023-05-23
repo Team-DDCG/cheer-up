@@ -1,8 +1,9 @@
 package com.service.spring.controller;
 
-import com.service.spring.domain.ResumeCommentVO;
+import com.service.spring.DTO.ResumeCommentDTO;
+import com.service.spring.DTO.ResumeDTO;
+import com.service.spring.DTO.ResumeQnADTO;
 import com.service.spring.domain.ResumeVO;
-import com.service.spring.service.ResumeCommentService;
 import com.service.spring.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/resume")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class ResumeController {
     @Autowired
     private ResumeService resumeService;
@@ -25,7 +27,7 @@ public class ResumeController {
                 return ResponseEntity.status(HttpStatus.CREATED).body("Resume registered successfully");
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register resume");
-            }
+            }	
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register resume");
         }
@@ -58,46 +60,27 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update resume");
         }
     }
-
-    @GetMapping("/{resumeId}")
-    public ResponseEntity<ResumeVO> getResumeByPostCheck(@PathVariable int resumeId) {
-        try {
-            ResumeVO resume = resumeService.getResumeByPostCheck(resumeId);
-            if (resume != null) {
-                return ResponseEntity.ok(resume);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    
+    @GetMapping("/get/{resumeId}")
+    public ResponseEntity<ResumeDTO> getResumeByPostCheck(@PathVariable int resumeId) {
+        ResumeDTO resume = resumeService.getResumeByPostCheck(resumeId);
+        if (resume != null) {
+            return ResponseEntity.ok(resume);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-    @GetMapping("/company/{companyId}")
-    public ResponseEntity<List<ResumeVO>> getQnAByCompanyId(@PathVariable int companyId) {
-        try {
-            List<ResumeVO> resumes = resumeService.getQnAByCompanyId(companyId);
-            if (!resumes.isEmpty()) {
-                return ResponseEntity.ok(resumes);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    @GetMapping("/qna/{companyId}")
+    public ResponseEntity<List<ResumeQnADTO>> getQnAByCompanyId(@PathVariable int companyId) {
+        List<ResumeQnADTO> qnaList = resumeService.getQnAByCompanyId(companyId);
+        return ResponseEntity.ok(qnaList);
     }
 
-    @GetMapping("/{resumeId}/comments")
-    public ResponseEntity<List<ResumeCommentVO>> getCommentByResume(@PathVariable int resumeId) {
-        try {
-            List<ResumeCommentVO> comments = resumeService.getCommentByResume(resumeId);
-            if (!comments.isEmpty()) {
-                return ResponseEntity.ok(comments);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    @GetMapping("/comment/{resumeId}")
+    public ResponseEntity<List<ResumeCommentDTO>> getCommentByResume(@PathVariable int resumeId) {
+        List<ResumeCommentDTO> commentList = resumeService.getCommentByResume(resumeId);
+        return ResponseEntity.ok(commentList);
     }
+
 }

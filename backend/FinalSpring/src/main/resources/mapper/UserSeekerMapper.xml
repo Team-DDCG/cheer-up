@@ -11,7 +11,7 @@
  -->
 
 <mapper namespace="UserSeekerMapper">
-	<insert id="registerUserSeeker" parameterType="userSeekerVO">
+	<insert id="registerUserSeeker" parameterType="com.service.spring.domain.UserSeekerVO">
 		INSERT INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no)
 		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile.originalFilename}, #{category1No}, #{category2No})
 	</insert>
@@ -20,7 +20,7 @@
 		DELETE FROM user_seeker_info WHERE seeker_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserSeeker" parameterType="userSeekerVO">
+	<update id="updateUserSeeker" parameterType="com.service.spring.domain.UserSeekerVO">
 		UPDATE user_seeker_info SET
 		ename = #{ename},
 		cname = #{cname},
@@ -34,7 +34,7 @@
 		WHERE SEEKER_ID = #{seekerId}	
 	</update>
 	
-	<select id="getUserSeeker" parameterType="string" resultType="userInfoVO">
+	<select id="getUserSeeker" parameterType="string" resultType="com.service.spring.domain.UserSeekerVO">
 		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile
 		FROM user_info ui INNER JOIN user_seeker_info si
 		ON ui.user_id = si.user_id

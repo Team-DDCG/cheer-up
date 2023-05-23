@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.service.spring.DTO.ResumeCommentDTO;
+import com.service.spring.DTO.ResumeDTO;
+import com.service.spring.DTO.ResumeQnADTO;
 import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.domain.ResumeVO;
 import com.service.spring.model.ResumeDAO;
@@ -32,17 +35,19 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public ResumeVO getResumeByPostCheck(int resumeId) {
+	public ResumeDTO getResumeByPostCheck(int resumeId) {
 		return resumeDAO.getResumeByPostCheck(resumeId);
 	}
 
 	@Override
-	public List<ResumeVO> getQnAByCompanyId(int companyId) {
+	public List<ResumeQnADTO> getQnAByCompanyId(int companyId) {
 		return resumeDAO.getQnAByCompanyId(companyId);
 	}
 
 	@Override
-	public List<ResumeCommentVO> getCommentByResume(int resumeId) {
+	public List<ResumeCommentDTO> getCommentByResume(int resumeId) {
 		return resumeDAO.getCommentByResume(resumeId);
 	}
+
+
 }

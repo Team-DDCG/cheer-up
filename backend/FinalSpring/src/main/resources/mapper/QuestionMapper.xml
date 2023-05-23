@@ -4,22 +4,28 @@
 
 <mapper namespace="QuestionMapper">
 
-	<insert id="registerQuestion" parameterType="questionVO">
+	<insert id="registerQuestion" parameterType="com.service.spring.domain.QuestionVO">
 		INSERT
-		INTO company(question_id, field, question, length)
-		VALUES(QUESTION_SEQ.NEXTVAL, #{field}, #{question}, #{length})	
+		INTO question(question_id, position, question, length, company_id)
+		VALUES(QUESTION_SEQ.NEXTVAL, #{position}, #{question}, #{length}, #{companyId})	
 	</insert>
 	
 	<delete id="deleteQuestion" parameterType="int">
-		DELETE FROM company WHERE question_id = #{VALUE}
+		DELETE FROM question WHERE question_id = #{VALUE}
 	</delete>
 	
-	<update id="updateQuestion" parameterType="questionVO">
+	<update id="updateQuestion" parameterType="com.service.spring.domain.QuestionVO">
 		UPDATE question SET
 		field = #{field},
 		question = #{question},
 		length = #{length}
 		WHERE company_id = #{companyId}
 	</update> 
+	
+	<select id="getQuestion" parameterType="int" resultType="com.service.spring.domain.QuestionVO">
+		SELECT position, question, length
+		FROM question
+		WHERE company_id = #{value}
+	</select>
 
 </mapper>

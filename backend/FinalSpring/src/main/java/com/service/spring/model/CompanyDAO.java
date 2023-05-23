@@ -11,5 +11,6 @@ public interface CompanyDAO {
 	int deleteCompany(int companyId) throws Exception;
 	
 	List<CompanyVO> getCompanyNameByCategory(int category2Id) throws Exception;
+	List<CompanyVO> findAllCompanyByName(String keyword) throws Exception;
 
 }

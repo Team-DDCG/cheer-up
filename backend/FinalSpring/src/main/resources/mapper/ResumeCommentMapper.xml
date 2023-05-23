@@ -4,7 +4,7 @@
 
 <mapper namespace="ResumeCommentMapper">
 
-	<insert id="registerResumeComment" parameterType="resumeCommentVO">
+	<insert id="registerResumeComment" parameterType="com.service.spring.domain.ResumeCommentVO">
 		INSERT
 		INTO resume_comment(comment_id, content, rate)
 		VALUES(RESUME_COMMENT_SEQ.NEXTVAL, #{content},#{rate})	
@@ -14,12 +14,18 @@
 		DELETE FROM resume WHERE comment_id = #{VALUE}
 	</delete>
 	
-	<update id="updateResumeComment" parameterType="resumeCommentVO">
+	<update id="updateResumeComment" parameterType="com.service.spring.domain.ResumeCommentVO">
 		UPDATE resume_comment SET
 		content = #{content},
 		rate = #{rate}
 		
 		WHERE comment_id = #{commentId}
 	</update>
+	
+	<select id="getResumeComment" parameterType="int" resultType="com.service.spring.domain.ResumeCommentVO">
+		SELECT CONTENT, RATE
+		FROM resume_comment
+		WHERE comment_id = #{commendId}
+	</select>
 
 </mapper>

@@ -10,7 +10,7 @@ import com.service.spring.model.ResumeCommentDAO;
 @Repository
 public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 	
-	public static final String NS = "CompanyMapper.";
+	public static final String NS = "ResumeCommentMapper.";
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -28,6 +28,11 @@ public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 	@Override
 	public int deleteResumeComment(int commentId) throws Exception {
 		return sqlSession.delete(NS+"deleteResumeComment", commentId);
+	}
+
+	@Override
+	public ResumeCommentVO getResumeComment(int commentId) throws Exception {
+		return sqlSession.selectOne(NS + "getResumeComment", commentId);
 	}
 
 }

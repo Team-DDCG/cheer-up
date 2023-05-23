@@ -4,7 +4,7 @@
 
 <mapper namespace="CompanyMapper">
 
-	<insert id="registerCompany" parameterType="companyVO">
+	<insert id="registerCompany" parameterType="com.service.spring.domain.CompanyVO">
 		INSERT
 		INTO company(company_id, company_name, address, start_date, end_date, company_logo, title, company_url, content, question_id)
 		VALUES(COMPANY_SEQ.NEXTVAL, #{name}, #{address}, #{startDATE},#{endDate},#{companyLogo},#{title},#{companyUrl},#{content},#{questionId})	
@@ -14,17 +14,15 @@
 		DELETE FROM company WHERE company_id = #{VALUE}
 	</delete>
 	
-	<update id="updateCompany" parameterType="CompanyVO">
+	<update id="updateCompany" parameterType="com.service.spring.domain.CompanyVO">
 		UPDATE company SET
-		name = #{companyName},
-		address = #{address},
+		company_name = #{companyName},
 		start_date = #{startDate},
 		end_date = #{endDate},
 		company_logo = #{companyLogo},
 		title = #{title},
 		company_url = #{companyUrl},
 		content = #{content}
-		question_id = #{questionId},
 		
 		WHERE company_id = #{companyId}
 	</update>
@@ -37,6 +35,12 @@
 	    ON c2.category2_id = ccr.category2_id
 	    JOIN company c ON ccr.company_id = c.company_id
 	    WHERE ccr.category2_id = #{category2Id}
+	</select>
+	 
+	<select id="findAllCompanyByName" parameterType="string" resultType="com.service.spring.domain.CompanyVO">
+		SELECT company_name
+		FROM company
+		WHERE name LIKE '%' || #{keyword} || '%'
 	</select>
 
 </mapper>

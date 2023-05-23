@@ -11,29 +11,29 @@
  -->
 
 <mapper namespace="UserRewardMapper">
-	<insert id="registerUserReward" parameterType="userRewardVO">
+	<insert id="registerUserReward" parameterType="com.service.spring.domain.UserRewardVO">
 		INSERT
-		INTO user_reward_info(reward_id, name, acquired_date, agency, content)
-		VALUES(user_reward_info_seq.NEXTVAL, #{name}, #{acquiredDate}, #{agency}, #{content})
+		INTO user_reward_info(reward_id, name, acquired_date, host, content)
+		VALUES(user_reward_info_seq.NEXTVAL, #{name}, #{acquiredDate}, #{host}, #{content})
 	</insert>
 	
 	<delete id="deleteUserReward" parameterType="int">
 		DELETE FROM user_reward_info WHERE reward_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserReward" parameterType="userRewardVO">
+	<update id="updateUserReward" parameterType="com.service.spring.domain.UserRewardVO">
 		UPDATE user_reward_info SET
 		name = #{name},
 		acquired_date = #{acquiredDate},
-		agency = #{agency},
+		host = #{host},
 		content = #{content}
 	</update>
 	
-	<select id="getUserReward" parameterType="int" resultType="userRewardVO">
+	<select id="getUserReward" parameterType="int" resultType="com.service.spring.domain.UserRewardVO">
 		SELECT
-		name, acquired_date, agency, content
+		name, acquired_date, host, content
 		FROM user_reward_info
-		WHERE id=#{VALUE}
+		WHERE reward_id=#{VALUE}
 	</select>
 	
 	

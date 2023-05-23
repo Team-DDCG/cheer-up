@@ -11,7 +11,7 @@
  -->
 
 <mapper namespace="UserActivationMapper">
-	<insert id="registerUserActivation" parameterType="userActivationVO">
+	<insert id="registerUserActivation" parameterType="com.service.spring.domain.UserActivationVO">
 		INSERT
 		INTO user_activation_info(activation_id, name, start_date, end_date, content)
 		VALUES(user_activation_info_seq.NEXTVAL, #{name}, #{startDate}, #{endDate}, #{content})
@@ -29,7 +29,7 @@
 		content = #{content},	
 	</update>
 	
-	<select id="getUserActivation" parameterType="int" resultType="userActivationVO">
+	<select id="getUserActivation" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
 		SELECT
 		name, start_date, end_date, content
 		FROM user_activation_info

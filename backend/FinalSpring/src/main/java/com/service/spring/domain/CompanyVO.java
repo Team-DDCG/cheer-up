@@ -5,7 +5,6 @@ import java.sql.Date;
 public class CompanyVO {
     private int companyId; //company_id(pk)
     private String companyName; //company_name
-    private String address;
     private Date startDate; //start_date
     private Date endDate; //end_date
     private String companyLogo; //company_logo
@@ -43,14 +42,6 @@ public class CompanyVO {
 		this.companyName = name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
 	public String getCompanyName() {
 		return companyName;
 	}

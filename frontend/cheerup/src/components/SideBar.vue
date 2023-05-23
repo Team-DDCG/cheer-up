@@ -5,7 +5,8 @@
       <template v-if="$route.name === 'resume'">
         <!-- <span> by <router-link :to="`/user/${item.user}`">{{ item.user }}</router-link></span><br/> -->
         <!-- <a :href=item.url target="_blank">{{ item.title }}</a> -->
-        <router-link :to="`/item/?id=${item.companyName}`">{{item.companyName}}</router-link>
+        <router-link :to="`/resume/?id=${item.companyId}`">{{item.companyName}}</router-link>
+        <!-- <a @click="show">{{item.companyName}}</a> -->
       </template>
     </li>
   </ul>
@@ -13,7 +14,14 @@
 
 <script>
 export default {
-  props: ['listData',]
+  props: ['listData',],
+  methods: {
+    show() {
+      this.$router.push({
+              path:'?id=0',
+      });
+    }
+  }
 }
 </script>
 
@@ -37,5 +45,36 @@ b {
 div {
   width: 50px;
   background-color: #515151;
+}
+a{
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+  padding: 5px 10px 5px 10px;
+}
+a:hover{
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
+  background-color: #A46CFF;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+  padding: 5px 10px 5px 10px;
+}
+.router-link-active{
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
+  background-color: #A46CFF;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+  padding: 5px 10px 5px 10px;
 }
 </style>

@@ -11,7 +11,7 @@
  -->
 
 <mapper namespace="UserLanguageMapperr">
-	<insert id="registerUserLanguage" parameterType="userLanguageVO">
+	<insert id="registerUserLanguage" parameterType="com.service.spring.domain.UserLanguageVO">
 		INSERT
 		INTO user_language_info(language_id, language, type, grade, acquired_date, license_number, agency)
 		VALUES(user_language_info_seq.NEXTVAL, #{language}, #{type}, #{grade}, #{acquiredDate}, #{licenseNumber}, #{agency})
@@ -21,7 +21,7 @@
 		DELETE FROM user_language_info WHERE language_id=#{VALUE}
 	</delete>
 	
-	<update id="updateUserLanguage" parameterType="userLanguageVO">
+	<update id="updateUserLanguage" parameterType="com.service.spring.domain.UserLanguageVO">
 		UPDATE user_language_info SET
 		language = #{language},
 		type = #{type}, 
@@ -31,11 +31,11 @@
 		agency = #{agency}	
 	</update>
 	
-	<select id="getUserLanguage" parameterType="int" resultType="userLanguageVO">
+	<select id="getUserLanguage" parameterType="int" resultType="com.service.spring.domain.UserLanguageVO">
 		SELECT
 		language, type, grade, acquired_date, license_number, agency
 		FROM user_langauge_info
-		WHERE id=#{VALUE}
+		WHERE language_id=#{VALUE}
 	</select>
 	
 	

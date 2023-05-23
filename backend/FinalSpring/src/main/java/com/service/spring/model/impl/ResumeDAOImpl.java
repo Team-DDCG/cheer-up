@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.spring.DTO.ResumeCommentDTO;
+import com.service.spring.DTO.ResumeDTO;
+import com.service.spring.DTO.ResumeQnADTO;
 import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.domain.ResumeVO;
 import com.service.spring.model.ResumeDAO;
@@ -33,19 +36,21 @@ public class ResumeDAOImpl implements ResumeDAO{
         return sqlSession.update(NS + "updateResume", vo);
     }
 
-    @Override
-    public ResumeVO getResumeByPostCheck(int resumeId) {
-        return sqlSession.selectOne(NS + "getResumeByPostCheck", resumeId);
-    }
+	@Override
+	public ResumeDTO getResumeByPostCheck(int resumeId) {
+		return sqlSession.selectOne(NS + "getResumeByPostCheck", resumeId);
+	}
 
-    @Override
-    public List<ResumeVO> getQnAByCompanyId(int companyId) {
-        return sqlSession.selectList(NS + "getQnAByCompanyId", companyId);
-    }
+	@Override
+	public List<ResumeQnADTO> getQnAByCompanyId(int companyId) {
+		return sqlSession.selectList(NS + "getQnAByCompanyId", companyId);
+	}
 
-    @Override
-    public List<ResumeCommentVO> getCommentByResume(int resumeId) {
-        return sqlSession.selectList(NS + "getCommentByResume", resumeId);
-    }
+	@Override
+	public List<ResumeCommentDTO> getCommentByResume(int resumeId) {
+		return sqlSession.selectList(NS + "getCommentByResume", resumeId);
+	}
+
+
 
 }
