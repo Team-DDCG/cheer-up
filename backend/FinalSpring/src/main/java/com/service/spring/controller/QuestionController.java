@@ -61,4 +61,19 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/{companyId}/{position}")
+    public ResponseEntity<List<QuestionVO>> getQuestionsByCompanyIdAndPosition(
+            @PathVariable int companyId,
+            @PathVariable String position) {
+        try {
+            List<QuestionVO> questions = questionService.getQuestionByCompanyIdAndPosition(companyId, position);
+            if (!questions.isEmpty()) {
+                return ResponseEntity.ok(questions);
+            }
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

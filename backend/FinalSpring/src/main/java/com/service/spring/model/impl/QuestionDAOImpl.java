@@ -1,6 +1,7 @@
 package com.service.spring.model.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class QuestionDAOImpl implements QuestionDAO{
 	@Override
 	public List<QuestionVO> getQuestion(int companyId) throws Exception {
 		return sqlSession.selectList(NS + "getQuestion", companyId);
+	}
+
+	@Override
+	public List<QuestionVO> getQuestionByPosition(Map<String, Object> paramMap) throws Exception {
+		return sqlSession.selectList(NS + "getQuestionByPosition", paramMap);
 	}
 
 }

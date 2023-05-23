@@ -30,10 +30,10 @@ public class UserInfoController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUserInfo(@PathVariable String id) {
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<String> deleteUserInfo(@PathVariable int userId) {
         try {
-            int result = userInfoService.deleteUserInfo(id);
+            int result = userInfoService.deleteUserInfo(userId);
             if (result > 0) {
                 return ResponseEntity.ok("User info deleted successfully.");
             } else {
@@ -58,10 +58,10 @@ public class UserInfoController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserInfoVO> getUserInfo(@PathVariable String id) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserInfoVO> getUserInfo(@PathVariable int userId) {
         try {
-            UserInfoVO userInfo = userInfoService.getUserInfo(id);
+            UserInfoVO userInfo = userInfoService.getUserInfo(userId);
             if (userInfo != null) {
                 return ResponseEntity.ok(userInfo);
             } else {
@@ -87,9 +87,9 @@ public class UserInfoController {
     }
 
     @GetMapping("/find/{name}/{id}/{email}")
-    public ResponseEntity<UserInfoVO> findUserPassword(@PathVariable String name, @PathVariable String id, @PathVariable String email) {
+    public ResponseEntity<String> findUserPassword(@PathVariable String name, @PathVariable String id, @PathVariable String email) {
         try {
-            UserInfoVO userInfo = userInfoService.findUserPassword(name, id, email);
+            String userInfo = userInfoService.findUserPassword(name, id, email);
             if (userInfo != null) {
                 return ResponseEntity.ok(userInfo);
             } else {

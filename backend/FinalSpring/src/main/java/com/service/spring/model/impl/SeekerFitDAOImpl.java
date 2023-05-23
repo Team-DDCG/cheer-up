@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,8 +33,8 @@ public class SeekerFitDAOImpl implements SeekerFitDAO{
 	}
 
 	@Override
-	public SeekerFitVO getSeekerFit(int id) {
-		return sqlSession.selectOne(NS + "getSeekerFit", id);
+	public List<SeekerFitVO> getSeekerFit(int id) {
+		return sqlSession.selectList(NS + "getSeekerFit", id);
 	}
 	
 

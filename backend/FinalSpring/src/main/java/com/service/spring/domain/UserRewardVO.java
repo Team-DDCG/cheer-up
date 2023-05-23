@@ -1,11 +1,9 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class UserRewardVO {
 	private int rewardId; //reward_id(pk)
 	private String name;
-	private Date acquiredDate; //acquired_date
+	private String acquiredDate; //acquired_date
 	private String host;
 	private String content;
 	private int seekerId; //seeker_id(fk)
@@ -13,7 +11,7 @@ public class UserRewardVO {
 	public UserRewardVO() {
 	}
 
-	public UserRewardVO(String name, Date acquiredDate, String host, String content, int seekerId) {
+	public UserRewardVO(String name, String acquiredDate, String host, String content, int seekerId) {
 		this.name = name;
 		this.acquiredDate = acquiredDate;
 		this.host = host;
@@ -37,11 +35,11 @@ public class UserRewardVO {
 		this.name = name;
 	}
 
-	public Date getAcquiredDate() {
+	public String getAcquiredDate() {
 		return acquiredDate;
 	}
 
-	public void setAcquiredDate(Date acquiredDate) {
+	public void setAcquiredDate(String acquiredDate) {
 		this.acquiredDate = acquiredDate;
 	}
 

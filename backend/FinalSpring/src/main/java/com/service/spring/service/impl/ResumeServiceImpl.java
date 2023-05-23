@@ -34,8 +34,8 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public ResumeDTO getResumeByPostCheck(int resumeId) {
-		return resumeDAO.getResumeByPostCheck(resumeId);
+	public ResumeDTO getResumeWithCompanyInfoById(int resumeId) {
+		return resumeDAO.getResumeWithCompanyInfoById(resumeId);
 	}
 
 	@Override

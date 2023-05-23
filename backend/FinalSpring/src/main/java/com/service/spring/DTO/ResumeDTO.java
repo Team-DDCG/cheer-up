@@ -1,30 +1,28 @@
 package com.service.spring.DTO;
 
-import java.sql.Date;
-
 public class ResumeDTO {
-	private String name;
+	private String companyName;
     private String title;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private int postCheck;
     
 	public ResumeDTO() {
 		super();
 	}
-	public ResumeDTO(String name, String title, Date startDate, Date endDate, int postCheck) {
+	public ResumeDTO(String name, String title, String startDate, String endDate, int postCheck) {
 		super();
-		this.name = name;
+		this.companyName = name;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.postCheck = postCheck;
 	}
 	public String getName() {
-		return name;
+		return companyName;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.companyName = name;
 	}
 	public String getTitle() {
 		return title;
@@ -32,16 +30,16 @@ public class ResumeDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getPostCheck() {
@@ -52,7 +50,7 @@ public class ResumeDTO {
 	}
 	@Override
 	public String toString() {
-		return "ResumeDTO [name=" + name + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate
+		return "ResumeDTO [name=" + companyName + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", postCheck=" + postCheck + "]";
 	}
     

@@ -6,12 +6,12 @@
 
 	<insert id="registerResumeComment" parameterType="com.service.spring.domain.ResumeCommentVO">
 		INSERT
-		INTO resume_comment(comment_id, content, rate)
-		VALUES(RESUME_COMMENT_SEQ.NEXTVAL, #{content},#{rate})	
+		INTO resume_comment(comment_id, content, rate, mentor_id, resume_id)
+		VALUES(RESUME_COMMENT_SEQ.NEXTVAL, #{content},#{rate},#{mentorId},#{resumeId})
 	</insert>
 	
 	<delete id="deleteResumeComment" parameterType="int">
-		DELETE FROM resume WHERE comment_id = #{VALUE}
+		DELETE FROM resume_comment WHERE comment_id = #{commentId}
 	</delete>
 	
 	<update id="updateResumeComment" parameterType="com.service.spring.domain.ResumeCommentVO">
@@ -25,7 +25,7 @@
 	<select id="getResumeComment" parameterType="int" resultType="com.service.spring.domain.ResumeCommentVO">
 		SELECT CONTENT, RATE
 		FROM resume_comment
-		WHERE comment_id = #{commendId}
+		WHERE resume_id = #{resumeId}
 	</select>
 
 </mapper>

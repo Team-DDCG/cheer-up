@@ -1,5 +1,8 @@
 package com.service.spring.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +21,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public int deleteUserInfo(String id) {
+	public int deleteUserInfo(int id) {
 		return userInfoDAO.deleteUserInfo(id);
 	}
 
@@ -28,18 +31,25 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfoVO getUserInfo(String id) {
-		return userInfoDAO.getUserInfo(id);
+	public UserInfoVO getUserInfo(int userId) {
+		return userInfoDAO.getUserInfo(userId);
 	}
 
 	@Override
 	public String findUserId(String name, String phone) {
-		return userInfoDAO.findUserId(name, phone);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("name", name);
+        paramMap.put("phone", phone);
+		return userInfoDAO.findUserId(paramMap);
 	}
 
 	@Override
-	public UserInfoVO findUserPassword(String name, String id, String email) {
-		return userInfoDAO.findUserPassword(name, id, email);
+	public String findUserPassword(String name, String id, String email) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("name", name);
+        paramMap.put("id", id);
+        paramMap.put("email", email);
+		return userInfoDAO.findUserPassword(paramMap);
 	}
 
 	@Override

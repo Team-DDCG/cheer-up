@@ -12,13 +12,12 @@
 
 <mapper namespace="UserCareerMapper">
 	<insert id="registerUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
-		INSERT
-		INTO user_career_info(career_id, company_name, department, position, start_date, end_date, attending_check, hire_type)
-		VALUES(user_career_info_seq.NEXTVAL, companyName, department, position, startDate, endDate, attendingCheck, hireType)
+		INSERT INTO user_career_info(carrer_id, company_name, department, position, start_date, end_date, attending_check, hire_type, seeker_id)
+		VALUES(user_career_info_seq.NEXTVAL, #{companyName}, #{department}, #{position}, #{startDate}, #{endDate}, #{attendingCheck}, #{hireType}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserCareer" parameterType="int">
-		DELETE FROM user_career_info WHERE career_id=#{VALUE}
+		DELETE FROM user_career_info WHERE carrer_id=#{carrerId}
 	</delete>
 	
 	<update id="updateUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
@@ -28,15 +27,23 @@
 		position = #{position},
 		start_date = #{startDate},
 		end_date = #{endDate},
-		attending_check = #{attendingCheck}
+		attending_check = #{attendingCheck},
 		hire_type = #{hireType}
+		WHERE carrer_id = #{carrerId}
 	</update>
 	
 	<select id="getUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
 		SELECT
 		company_name, department, position, start_date, end_date, attending_check, hire_type
 		FROM user_career_info
-		WHERE id=#{VALUE}
+		WHERE carrer_id=#{carrerId}
+	</select>
+	
+	<select id="getAllUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
+		SELECT
+		company_name, department, position, start_date, end_date, attending_check, hire_type
+		FROM user_career_info
+		WHERE seeker_id=#{seekerId}
 	</select>
 	
 	

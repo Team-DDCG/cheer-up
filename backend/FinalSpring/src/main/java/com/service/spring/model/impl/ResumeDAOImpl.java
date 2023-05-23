@@ -36,8 +36,8 @@ public class ResumeDAOImpl implements ResumeDAO{
     }
 
 	@Override
-	public ResumeDTO getResumeByPostCheck(int resumeId) {
-		return sqlSession.selectOne(NS + "getResumeByPostCheck", resumeId);
+	public ResumeDTO getResumeWithCompanyInfoById(int resumeId) {
+		return sqlSession.selectOne(NS + "getResumeWithCompanyInfoById", resumeId);
 	}
 
 	@Override

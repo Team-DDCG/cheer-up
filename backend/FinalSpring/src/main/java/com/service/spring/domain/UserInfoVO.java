@@ -1,24 +1,23 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
 public class UserInfoVO {
     private int userId; //user_id(pk)
     private String id;
     private String password;
     private String userName; //user_name
-    private Date birthdate;
+    private String birthdate;
     private int sex;
     private String email;
     private String phone;
     private int userStatus; //user_status
-    private Date tstamp;
+    private String tstamp;
     private int mailCheck; //mail_check
     private String address;
 
     public UserInfoVO() {
     }
 
-    public UserInfoVO(String id, String password, String userName, Date birthdate, int sex, String email, String phone, int userStatus, Date tstamp, int mailCheck, String address) {
+    public UserInfoVO(String id, String password, String userName, String birthdate, int sex, String email, String phone, int userStatus, String tstamp, int mailCheck, String address) {
         this.id = id;
         this.password = password;
         this.userName = userName;
@@ -27,7 +26,6 @@ public class UserInfoVO {
         this.email = email;
         this.phone = phone;
         this.userStatus = userStatus;
-        this.tstamp = tstamp;
         this.mailCheck = mailCheck;
         this.address = address;
     }
@@ -64,11 +62,11 @@ public class UserInfoVO {
         this.userName = userName;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -104,11 +102,11 @@ public class UserInfoVO {
         this.userStatus = userStatus;
     }
 
-    public Date getTstamp() {
+    public String getTstamp() {
         return tstamp;
     }
 
-    public void setTstamp(Date tstamp) {
+    public void setTstamp(String tstamp) {
         this.tstamp = tstamp;
     }
 

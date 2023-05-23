@@ -2,6 +2,9 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.SeekerFitVO;
 import com.service.spring.service.SeekerFitService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,9 +62,9 @@ public class SeekerFitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SeekerFitVO> getSeekerFit(@PathVariable int id) {
+    public ResponseEntity<List<SeekerFitVO>> getSeekerFit(@PathVariable int id) {
         try {
-            SeekerFitVO seekerFit = seekerFitService.getSeekerFit(id);
+            List<SeekerFitVO> seekerFit = seekerFitService.getSeekerFit(id);
             if (seekerFit != null) {
                 return ResponseEntity.ok(seekerFit);
             } else {

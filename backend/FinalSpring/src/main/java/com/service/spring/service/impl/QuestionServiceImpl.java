@@ -1,6 +1,8 @@
 package com.service.spring.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,15 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public List<QuestionVO> getQuestion(int companyId) throws Exception {
 		return questionDAO.getQuestion(companyId);
+	}
+
+
+	@Override
+	public List<QuestionVO> getQuestionByCompanyIdAndPosition(int companyId, String position) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("companyId", companyId);
+        paramMap.put("position", position);
+		return questionDAO.getQuestionByPosition(paramMap);
 	}
 	
 

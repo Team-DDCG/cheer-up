@@ -5,8 +5,8 @@
 <mapper namespace="ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.service.spring.domain.ResumeVO">
-		INSERT INTO resume (resume_id, content, post_check, comment_id)
-		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{commentId})	
+		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date)
+		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE)	
 	</insert>
 	
 	<delete id="deleteResume" parameterType="int">
@@ -15,16 +15,16 @@
 	
 	<update id="updateResume" parameterType="com.service.spring.domain.ResumeVO">
 		UPDATE resume SET
-		post_check = #{postCheck},
-		comment_id = #{commentId}
+		content = #{content},
+		post_check = #{postCheck}
 		WHERE resume_id = #{resumeId}
 	</update>
 	
-	<select id="getResumeByPostCheck" resultType="com.service.spring.DTO.ResumeDTO">
-		SELECT c.name, c.title, c.start_date, c.end_date, r.post_check
-		FROM resume r INNER JOIN company c
-		ON r.company_id = c.company_id
-		WHERE r.resume_id = #{resumeId}
+	<select id="getResumeWithCompanyInfoById" resultType="com.service.spring.DTO.ResumeDTO">
+		SELECT c.company_name, c.title, c.start_date, c.end_date, r.post_check
+    FROM resume r INNER JOIN company c
+    ON r.company_id = c.company_id
+    WHERE r.resume_id = #{resumeId}
 	</select>
 	
 	<select id="getQnAByCompanyId" parameterType="int" resultType="com.service.spring.DTO.ResumeQnADTO">

@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,8 @@ public class ResumeCommentServiceImpl implements ResumeCommentService{
 	}
 
 	@Override
-	public ResumeCommentVO getResumeComment(int commentId) throws Exception {
-		return resumeCommentDAO.getResumeComment(commentId);
+	public List<ResumeCommentVO> getResumeComment(int resumeId) throws Exception {
+		return resumeCommentDAO.getResumeComment(resumeId);
 	}
 	
 	

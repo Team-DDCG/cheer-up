@@ -1,22 +1,20 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class UserCareerVO {
-    private int careerId; //career_id(pk)
-    private String companyName; //company_name
+    private int carrerId;
+    private String companyName;
     private String department;
     private String position;
-    private Date startDate; //start_date
-    private Date endDate; //end_date
-    private int attendingCheck; //attending_check
-    private int hireType; //hire_type
-    private int seekerId; // seeker_id(fk)
+    private String startDate;
+    private String endDate;
+    private int attendingCheck;
+    private int hireType;
+    private int seekerId;
 
     public UserCareerVO() {
     }
 
-    public UserCareerVO(String companyName, String department, String position, Date startDate, Date endDate, int attendingCheck, int hireType, int seekerId) {
+    public UserCareerVO(String companyName, String department, String position, String startDate, String endDate, int attendingCheck, int hireType, int seekerId) {
         this.companyName = companyName;
         this.department = department;
         this.position = position;
@@ -27,12 +25,12 @@ public class UserCareerVO {
         this.seekerId = seekerId;
     }
 
-    public int getCareerId() {
-        return careerId;
+    public int getCarrerId() {
+        return carrerId;
     }
 
-    public void setCareerId(int careerId) {
-        this.careerId = careerId;
+    public void setCareerId(int carrerId) {
+        this.carrerId = carrerId;
     }
 
     public String getCompanyName() {
@@ -59,19 +57,19 @@ public class UserCareerVO {
         this.position = position;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -91,26 +89,26 @@ public class UserCareerVO {
         this.hireType = hireType;
     }
 
-    public int getUserSeekerInfoId() {
+    public int getSeekerId() {
         return seekerId;
     }
 
-    public void setUserSeekerInfoId(int userSeekerInfoId) {
-        this.seekerId = userSeekerInfoId;
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
     }
 
     @Override
     public String toString() {
         return "UserCareerVO{" +
-                "careerId=" + careerId +
+                "carrerId=" + carrerId +
                 ", companyName='" + companyName + '\'' +
                 ", department='" + department + '\'' +
                 ", position='" + position + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 ", attendingCheck=" + attendingCheck +
                 ", hireType=" + hireType +
-                ", userSeekerInfoId='" + seekerId + '\'' +
+                ", seekerId=" + seekerId +
                 '}';
     }
 }

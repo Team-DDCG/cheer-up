@@ -4,10 +4,10 @@ import com.service.spring.domain.UserInfoVO;
 
 public interface UserInfoService {
 	int registerUserInfo(UserInfoVO userInfo);
-    int deleteUserInfo(String id);
+    int deleteUserInfo(int userId);
     int updateUserInfo(UserInfoVO userInfo);
-    UserInfoVO getUserInfo(String id);
+    UserInfoVO getUserInfo(int userId);
     String findUserId(String name, String phone);
-    UserInfoVO findUserPassword(String name, String id, String email);
+    String findUserPassword(String name, String id, String email);
     UserInfoVO login(UserInfoVO userInfo);
 }

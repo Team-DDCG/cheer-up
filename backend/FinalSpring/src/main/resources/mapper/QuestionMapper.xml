@@ -16,16 +16,21 @@
 	
 	<update id="updateQuestion" parameterType="com.service.spring.domain.QuestionVO">
 		UPDATE question SET
-		field = #{field},
 		question = #{question},
 		length = #{length}
-		WHERE company_id = #{companyId}
+		WHERE company_id = #{companyId} AND position = #{position}
 	</update> 
 	
 	<select id="getQuestion" parameterType="int" resultType="com.service.spring.domain.QuestionVO">
 		SELECT position, question, length
 		FROM question
 		WHERE company_id = #{value}
+	</select>
+	
+	<select id="getQuestionByPosition" parameterType="map" resultType="com.service.spring.domain.QuestionVO">
+		SELECT question, length
+		FROM question
+		WHERE company_id = #{companyId} AND position = #{position}
 	</select>
 
 </mapper>

@@ -19,11 +19,12 @@
 	</insert>
 	
 	<delete id="deleteUserInfo" parameterType="int">
-		DELETE FROM user_info WHERE id=#{VALUE}
+		DELETE FROM user_info WHERE user_id=#{userId}
 	</delete>
 	
 	<update id="updateUserInfo" parameterType="com.service.spring.domain.UserInfoVO">
 		UPDATE user_info SET
+		id = #{id},
 		password = #{password},
 		user_name = #{userName},
 		birthdate = #{birthdate},
@@ -31,29 +32,28 @@
 		email = #{email},
 		phone = #{phone},
 		user_status = #{userStatus},
-		tstamp = #{tstamp},
 		mail_check = #{mailCheck},
 		address = #{address}
-		WHERE id=#{id}
+		WHERE user_id=#{userId}
 	</update>
 	
 	<select id="getUserInfo" parameterType="int" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT
 		id, password, user_name, birthdate, sex, email, phone, user_status, tstamp, mail_check, address
 		FROM user_info
-		WHERE user_id=#{VALUE}
+		WHERE user_id=#{userId}
 	</select>
 	
-	<select id="findUserId" parameterType="string" resultType="string">
+	<select id="findUserId" parameterType="map" resultType="String">
 		SELECT 
 		id
 		FROM user_info
 		WHERE user_name=#{name} AND phone=#{phone}
 	</select>
 	
-	<select id="findUserPassword" parameterType="string" resultType="com.service.spring.domain.UserInfoVO">
+	<select id="findUserPassword" parameterType="map" resultType="String">
 		SELECT 
-		email
+		password
 		FROM user_info
 		WHERE user_name=#{name} AND id=#{id} AND email=#{email}
 	</select>

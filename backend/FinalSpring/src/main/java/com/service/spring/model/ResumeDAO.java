@@ -11,7 +11,7 @@ public interface ResumeDAO {
 	int registerResume(ResumeVO resume);
     int deleteResume(int resumeId);
     int updateResume(ResumeVO resume);
-    ResumeDTO getResumeByPostCheck(int resumeId);
+    ResumeDTO getResumeWithCompanyInfoById(int resumeId);
     List<ResumeQnADTO> getQnAByCompanyId(int companyId);
     List<ResumeCommentDTO> getCommentByResume(int resumeId);
 }

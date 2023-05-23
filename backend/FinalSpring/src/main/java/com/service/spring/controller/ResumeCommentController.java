@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.service.ResumeCommentService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/resume-comment")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
@@ -65,10 +67,10 @@ public class ResumeCommentController {
 	        }
 	    }
 	    
-	    @GetMapping("/{commentId}")
-	    public ResponseEntity<ResumeCommentVO> getResumeComment(@PathVariable int commentId) {
+	    @GetMapping("/{resumeId}")
+	    public ResponseEntity<List<ResumeCommentVO>> getResumeComment(@PathVariable int resumeId) {
 	        try {
-	            ResumeCommentVO resumeComment = resumeCommentService.getResumeComment(commentId);
+	            List<ResumeCommentVO> resumeComment = resumeCommentService.getResumeComment(resumeId);
 	            if (resumeComment != null) {
 	                return ResponseEntity.ok(resumeComment);
 	            } else {

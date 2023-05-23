@@ -13,27 +13,35 @@
 <mapper namespace="UserActivationMapper">
 	<insert id="registerUserActivation" parameterType="com.service.spring.domain.UserActivationVO">
 		INSERT
-		INTO user_activation_info(activation_id, name, start_date, end_date, content)
-		VALUES(user_activation_info_seq.NEXTVAL, #{name}, #{startDate}, #{endDate}, #{content})
+		INTO user_activation_info(activation_id, activation_name, start_date, end_date, content, seeker_id)
+		VALUES(user_activation_info_seq.NEXTVAL, #{activationName}, #{startDate}, #{endDate}, #{content}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserActivation" parameterType="int">
-		DELETE FROM user_activation_info WHERE activation_id=#{VALUE}
+		DELETE FROM user_activation_info WHERE activation_id=#{activationId}
 	</delete>
 	
-	<update id="updateUserActivation" parameterType="userActivationVO">
+	<update id="updateUserActivation" parameterType="com.service.spring.domain.UserActivationVO">
 		UPDATE user_activation_info SET
-		name = #{name},
+		activation_name = #{activationName},
 		start_date = #{startDate},
 		end_date = #{endDate},
-		content = #{content},	
+		content = #{content}
+		WHERE activation_id = #{activationId}
 	</update>
 	
-	<select id="getUserActivation" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
+	<select id="getActivationDetail" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
 		SELECT
-		name, start_date, end_date, content
+		activation_name, start_date, end_date, content
 		FROM user_activation_info
-		WHERE id=#{VALUE}
+		WHERE activation_id=#{activationId}
+	</select>
+	
+	<select id="getAllActivationById" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
+		SELECT
+		activation_name, start_date, end_date, content
+		FROM user_activation_info
+		WHERE seeker_id=#{seekerId}
 	</select>
 	
 	

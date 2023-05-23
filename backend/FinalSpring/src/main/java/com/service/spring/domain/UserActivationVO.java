@@ -1,19 +1,17 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class UserActivationVO {
     private int activationId; //activation_id(pk)
     private String activationName; //activation_name
-    private Date startDate; //start_date
-    private Date endDate; //end_date
+    private String startDate; //start_date
+    private String endDate; //end_date
     private String content;
     private int seekerId; //seeker_id(fk)
 
     public UserActivationVO() {
     }
 
-    public UserActivationVO(String activationName, Date startDate, Date endDate, String content, int seekerId) {
+    public UserActivationVO(String activationName, String startDate, String endDate, String content, int seekerId) {
         this.activationName = activationName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -37,19 +35,19 @@ public class UserActivationVO {
         this.activationName = activationName;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

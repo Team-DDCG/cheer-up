@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class SeekerFitServiceImpl implements SeekerFitService{
 	}
 
 	@Override
-	public SeekerFitVO getSeekerFit(int id) {
+	public List<SeekerFitVO> getSeekerFit(int id) {
 		return seekerFitDAO.getSeekerFit(id);
 	}
 

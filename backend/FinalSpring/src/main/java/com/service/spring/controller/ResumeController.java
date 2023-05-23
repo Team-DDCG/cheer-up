@@ -62,8 +62,8 @@ public class ResumeController {
     }
     
     @GetMapping("/get/{resumeId}")
-    public ResponseEntity<ResumeDTO> getResumeByPostCheck(@PathVariable int resumeId) {
-        ResumeDTO resume = resumeService.getResumeByPostCheck(resumeId);
+    public ResponseEntity<ResumeDTO> getResumeWithCompanyInfoById(@PathVariable int resumeId) {
+        ResumeDTO resume = resumeService.getResumeWithCompanyInfoById(resumeId);
         if (resume != null) {
             return ResponseEntity.ok(resume);
         } else {

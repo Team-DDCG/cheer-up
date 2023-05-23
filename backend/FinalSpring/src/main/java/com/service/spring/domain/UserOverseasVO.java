@@ -1,14 +1,11 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
-
 public class UserOverseasVO {
     private int overseasId; //overseas_id(pk)
     private String purpose;
     private String nation;
-    private Date startDate; //start_date
-    private Date endDate; //end_date
+    private String startDate; //start_date
+    private String endDate; //end_date
     private String institution;
     private String reason;
     private int seekerId; //seeker_id(fk)
@@ -16,7 +13,7 @@ public class UserOverseasVO {
     public UserOverseasVO() {
     }
 
-    public UserOverseasVO(String purpose, String nation, Date startDate, Date endDate, String institution, String reason, int seekerId) {
+    public UserOverseasVO(String purpose, String nation, String startDate, String endDate, String institution, String reason, int seekerId) {
         this.purpose = purpose;
         this.nation = nation;
         this.startDate = startDate;
@@ -50,19 +47,19 @@ public class UserOverseasVO {
         this.nation = nation;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

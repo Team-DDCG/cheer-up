@@ -1,12 +1,11 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
 
 public class UserLicenseVO {
     private int licenseId; //license_id(pk)
     private String licenseName; //license_name
     private String grade;
-    private Date acquiredDate; //acquired_date
+    private String acquiredDate; //acquired_date
     private String licenseNumber; //license_number
     private String agency;
     private int seekerId; //seeker_id(fk)
@@ -14,7 +13,7 @@ public class UserLicenseVO {
     public UserLicenseVO() {
     }
 
-    public UserLicenseVO(String licenseName, String grade, Date acquiredDate, String licenseNumber, String agency, int seekerId) {
+    public UserLicenseVO(String licenseName, String grade, String acquiredDate, String licenseNumber, String agency, int seekerId) {
         this.licenseName = licenseName;
         this.grade = grade;
         this.acquiredDate = acquiredDate;
@@ -47,11 +46,11 @@ public class UserLicenseVO {
         this.grade = grade;
     }
 
-    public Date getAcquiredDate() {
+    public String getAcquiredDate() {
         return acquiredDate;
     }
 
-    public void setAcquiredDate(Date acquiredDate) {
+    public void setAcquiredDate(String acquiredDate) {
         this.acquiredDate = acquiredDate;
     }
 

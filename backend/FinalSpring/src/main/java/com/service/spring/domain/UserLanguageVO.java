@@ -1,13 +1,11 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class UserLanguageVO {
     private int languageId; //language_id(pk)
     private String language;
     private String type;
     private String grade;
-    private Date acquiredDate; //acquired_date;
+    private String acquiredDate; //acquired_date;
     private String licenseNumber; //license_number;
     private String agency;
     private int seekerId; //seeker_id(fk)
@@ -15,7 +13,7 @@ public class UserLanguageVO {
     public UserLanguageVO() {
     }
 
-    public UserLanguageVO(String language, String type, String grade, Date acquiredDate, String licenseNumber, String agency, int seekerId) {
+    public UserLanguageVO(String language, String type, String grade, String acquiredDate, String licenseNumber, String agency, int seekerId) {
         this.language = language;
         this.type = type;
         this.grade = grade;
@@ -57,11 +55,11 @@ public class UserLanguageVO {
         this.grade = grade;
     }
 
-    public Date getAcquiredDate() {
+    public String getAcquiredDate() {
         return acquiredDate;
     }
 
-    public void setAcquiredDate(Date acquiredDate) {
+    public void setAcquiredDate(String acquiredDate) {
         this.acquiredDate = acquiredDate;
     }
 

@@ -3,7 +3,7 @@ package com.service.spring.DTO;
 public class ResumeCommentDTO {
 	private String content;
     private double rate;
-    private String userId;
+    private String id;
     private String companyName;
     
 	public ResumeCommentDTO() {
@@ -14,7 +14,7 @@ public class ResumeCommentDTO {
 		super();
 		this.content = content;
 		this.rate = rate;
-		this.userId = userId;
+		this.id = userId;
 		this.companyName = companyName;
 	}
 
@@ -35,11 +35,11 @@ public class ResumeCommentDTO {
 	}
 
 	public String getUserId() {
-		return userId;
+		return id;
 	}
 
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.id = userId;
 	}
 
 	public String getCompanyName() {
@@ -52,7 +52,7 @@ public class ResumeCommentDTO {
 
 	@Override
 	public String toString() {
-		return "ResumeCommentDTO [content=" + content + ", rate=" + rate + ", userId=" + userId + ", companyName="
+		return "ResumeCommentDTO [content=" + content + ", rate=" + rate + ", userId=" + id + ", companyName="
 				+ companyName + "]";
 	}
     

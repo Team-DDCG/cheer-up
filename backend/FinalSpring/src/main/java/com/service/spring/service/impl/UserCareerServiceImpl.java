@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +25,18 @@ public class UserCareerServiceImpl implements UserCareerService {
 	}
 
 	@Override
-	public int deleteUserCareer(int careerId) throws Exception {
-		return userCareerDAO.deleteUserCareer(careerId);
+	public int deleteUserCareer(int carrerId) throws Exception {
+		return userCareerDAO.deleteUserCareer(carrerId);
 	}
 
 	@Override
-	public UserCareerVO getUserCareer(int id) throws Exception {
-		return userCareerDAO.getUserCareer(id);
+	public UserCareerVO getUserCareer(int carrerId) throws Exception {
+		return userCareerDAO.getUserCareer(carrerId);
+	}
+
+	@Override
+	public List<UserCareerVO> getAllUserCareer(int seekerId) throws Exception {
+		return userCareerDAO.getAllUserCareer(seekerId);
 	}
 	
 }

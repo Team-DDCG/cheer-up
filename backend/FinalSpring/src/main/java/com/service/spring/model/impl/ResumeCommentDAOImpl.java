@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,8 +33,8 @@ public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 	}
 
 	@Override
-	public ResumeCommentVO getResumeComment(int commentId) throws Exception {
-		return sqlSession.selectOne(NS + "getResumeComment", commentId);
+	public List<ResumeCommentVO> getResumeComment(int resumeId) throws Exception {
+		return sqlSession.selectList(NS + "getResumeComment", resumeId);
 	}
 
 }

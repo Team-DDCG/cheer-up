@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +25,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
     }
 
     @Override
-    public int deleteUserInfo(String id) {
+    public int deleteUserInfo(int id) {
         return sqlSession.delete(NS + "deleteUserInfo", id);
     }
 
@@ -33,30 +35,24 @@ public class UserInfoDAOImpl implements UserInfoDAO {
     }
 
     @Override
-    public UserInfoVO getUserInfo(String id) {
-        return sqlSession.selectOne(NS + "getUserInfo", id);
+    public UserInfoVO getUserInfo(int userId) {
+        return sqlSession.selectOne(NS + "getUserInfo", userId);
     }
 
-    @Override
-    public String findUserId(String name, String phone) {
-        UserInfoVO userInfo = new UserInfoVO();
-        userInfo.setUserName(name);
-        userInfo.setPhone(phone);
-        return sqlSession.selectOne(NS + "findUserId", userInfo);
-    }
 
     @Override
-    public UserInfoVO findUserPassword(String name, String id, String email) {
-        UserInfoVO userInfo = new UserInfoVO();
-        userInfo.setUserName(name);
-        userInfo.setId(id);
-        userInfo.setEmail(email);
-        return sqlSession.selectOne(NS + "findUserPassword", userInfo);
+    public String findUserPassword(Map<String, Object> paramMap) {
+        return sqlSession.selectOne(NS + "findUserPassword", paramMap);
     }
 
     @Override
     public UserInfoVO login(UserInfoVO userInfo) {
         return sqlSession.selectOne(NS + "login", userInfo);
     }
+
+	@Override
+	public String findUserId(Map<String, Object> paramMap) {
+		return sqlSession.selectOne(NS + "findUserId", paramMap);
+	}
 	
 }

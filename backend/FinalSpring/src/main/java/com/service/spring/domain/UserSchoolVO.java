@@ -1,13 +1,11 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class UserSchoolVO {
     private int schoolId; // school_id(pk)
     private int educationType; //education_type
     private String schoolName; //school_name
-    private Date entranceDate; //entrance_date
-    private Date graduationDate; //graduation_date
+    private String entranceDate; //entrance_date
+    private String graduationDate; //graduation_date
     private String major;
     private int attendingCheck; //attending_check
     private int transferCheck; //transfer_check
@@ -19,7 +17,7 @@ public class UserSchoolVO {
     public UserSchoolVO() {
     }
 
-    public UserSchoolVO(int educationType, String schoolName, Date entranceDate, Date graduationDate, String major, int attendingCheck, int transferCheck, String gpa, int highestCheck, String doubleMajor, int seekerId) {
+    public UserSchoolVO(int educationType, String schoolName, String entranceDate, String graduationDate, String major, int attendingCheck, int transferCheck, String gpa, int highestCheck, String doubleMajor, int seekerId) {
         this.educationType = educationType;
         this.schoolName = schoolName;
         this.entranceDate = entranceDate;
@@ -57,19 +55,19 @@ public class UserSchoolVO {
         this.schoolName = schoolName;
     }
 
-    public Date getEntranceDate() {
+    public String getEntranceDate() {
         return entranceDate;
     }
 
-    public void setEntranceDate(Date entranceDate) {
+    public void setEntranceDate(String entranceDate) {
         this.entranceDate = entranceDate;
     }
 
-    public Date getGraduationDate() {
+    public String getGraduationDate() {
         return graduationDate;
     }
 
-    public void setGraduationDate(Date graduationDate) {
+    public void setGraduationDate(String graduationDate) {
         this.graduationDate = graduationDate;
     }
 
