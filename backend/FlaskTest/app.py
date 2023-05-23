@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 import openai
 import cx_Oracle
+import dbconn
 
 app = Flask(__name__)
 CORS(app)
@@ -34,15 +35,13 @@ ORGANIZATION = get_secret("ORGANIZATION")
 openai.organization = SECRET_KEY
 openai.api_key = ORGANIZATION
 
-
 # ==================================================================================================
 
-dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-conn = cx_Oracle.connect('kb_db', '1234', dns)
-
-
-@app.route("/test_sql")
+# 이력사항 DB에서 가져오는 method
+@app.route("/test_career_table_select")
 def career_table_select(user_seeker_id):
+
+    conn = dbconn.db_connect()
 
     # career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
     career_table = [["user_career_info"], ["user_project_info"]]
@@ -52,30 +51,17 @@ def career_table_select(user_seeker_id):
     # 취준생번호 값 받아오기
     seeker_id = user_seeker_id
 
-    # dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-    # conn = cx_Oracle.connect('kb_db', '1234', dns)
     cursor = conn.cursor()
 
-    # career_table에서 테이블 명 하나씩 가져와서 select에 넣어주기
     for table_name in career_table :
-        
         print(table_name[0])
         
         sql = "SELECT * FROM " + table_name[0] + " WHERE seeker_id = " + str(seeker_id)
-        print(sql)
-
         cursor.execute(sql)
-        
-        print(cursor.rowcount)
-
         rows = cursor.fetchall()                  
-        # print(rows)
 
-        # print(career_table[0])
-        # print(career_table[1])
         for row in rows :
             career_table[table_index].append(', '.join(map(str, row)))
-            # career_table[table_index].extend(row)
 
         career_table[table_index].pop(0)
         table_str = ""
@@ -83,137 +69,166 @@ def career_table_select(user_seeker_id):
              table_str += (st + ", ")
 
         total_table.append(table_str)
-        # print(career_table[table_index])
         table_index += 1
 
     print(total_table)
     cursor.close()
+    conn.close()
     return total_table
 
 
-
-
-
 # ==================================================================================================
 
 
+# 기업 자소서 문항 정보 DB에서 가져오는 method
+@app.route("/test_company_table_select")
+def company_table_select(user_company_id):
 
+    conn = dbconn.db_connect()
 
+    company_id = user_company_id
+    company_table = []   
+    table_index = 0
 
-@app.route("/resume_create")
-def resumeCreate():
-    
-    # 취준생번호, 회사번호 값 받아오기
-    seeker_id = 1
-    company_id = 1
-    
-    total_table = career_table_select(seeker_id)
-
-    # 자소서 질문, 자소서 최대 길이, 기업명 
-    resume_question = "가장 재미있고 의미 있었던 IT 프로젝트 또는 교육(공모전, 논문, 이수과목 등)을 진행한 경험을 작성해 주시고, 해당 경험을 어떻게 직무수행에 활용할 것인지 서술해 주십시오. (해당 문항을 주제로 코딩테스트 합격자에 한하여 포트폴리오 제출 예정, 자세한 내용은 코딩테스트 합격자 대상 추후 안내)"
-    # resume_question = "그동안 접했던 여러 금융기관의 온·오프라인 서비스 중 개선할 필요가 있다고 느낀 서비스에 대해 기술해 주십시오."
-    question_text_max = "2000byte"
-    company_name = "KB국민은행"
-
-    # Call the chat GPT API 
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-         {"role": "system", "content": ("내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
-                                       "기업 자기소개서 질문에 맞추어 기업에 제출할 자기소개서를 작성해줘")},
-
-         {"role": "system", "content": ("제일 첫 번째 줄에는 []안에 자소서 내용의 제목에 대해 간략하게 작성해줘")},
-
-         {"role": "system", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 절대 쓰지마, "
-                                       "두괄식으로 작성해줘, "
-                                       "제공해주는 내 정보에 아무런 값이 없다면 참고하지 말아줘")},
-
-         {"role": "user", "content": (f"1. 경력 : ${total_table[0]}\n2. 프로젝트 경험 : ${total_table[1]}\n3. 수상 경험 : ${total_table[2]}\n"
-                                     f"4. 대외활동 경험 : ${total_table[3]}\n5. 해외 경험 : ${total_table[4]}\n6. 보유한 자격증 : ${total_table[5]}\n"
-                                     f"7. 보유 스킬 정보 : ${total_table[6]}\n 기업명 : ${company_name}\n "
-                                     f"자기소개서 질문 : ${resume_question}\n 자기소개서 최대 글자수 : ${question_text_max}")},
-        ],
-        temperature=0.8,
-        max_tokens=2048
-    )
-    
-    print(resume_question)
-    
-    message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
-    
-    print(message_result)
-
-    # DB 접속 및 저장, close
-    dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-    conn = cx_Oracle.connect('kb_db', '1234', dns)
     cursor = conn.cursor()
-    sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id)"
-    cursor.execute(sql, {'content': message_result, 
-                         'seeker_id': seeker_id, 
-                         'company_id': company_id})
-    conn.commit()
+        
+    sql = "SELECT * FROM question WHERE company_id = " + str(company_id)
+    cursor.execute(sql)
+    rows = cursor.fetchall() 
+
+    for row in rows :
+        company_table.append(list(row))
+        table_index += 1
+
     cursor.close()
     conn.close()
+    return company_table
+
+
+
+@app.route("/resume_create/<seeker_id>/<company_id>")
+def resumeCreate(seeker_id, company_id):
     
+    # 취준생번호, 회사번호 값 받아오기
+    # seeker_id = 1
+    # company_id = 1
+    
+    total_table = career_table_select(seeker_id)
+    # company_value[0~3] = 순서 : question_id,  position, question, length
+    company_table = company_table_select(company_id)
+
+    for company_value in company_table :
+
+        # 자소서 질문, 자소서 최대 길이, 기업명 
+        resume_question = company_value[2]
+        # resume_question = "그동안 접했던 여러 금융기관의 온·오프라인 서비스 중 개선할 필요가 있다고 느낀 서비스에 대해 기술해 주십시오."
+        question_text_max = company_value[3]
+        company_name = "KB국민은행"
+        position = company_value[1]
+
+        # Call the chat GPT API 
+        completion = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+            {"role": "system", "content": ("너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
+                                        "기업 자기소개서 질문에 맞추어 기업에 제출할 자기소개서를 작성해주는 AI야")},
+
+            {"role": "assistant", "content": ("자기소개서를 작성하는데 유의할 점이 있나요?")},
+            {"role": "user", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 쓰지말고, 두괄식으로 작성해줘"
+                                        "그리고 내가 제공해주는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 중 없는 것이 있다면 참고하지 말아줘 ")},
+
+            {"role": "assistant", "content": ("경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주시고, 기업명과 지원 직무, 자기소개서 질문, 자기소개서 최대 글자수를 알려주세요.")},
+                                            
+            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
+            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
+            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
+            {"role": "user", "content":f"지원 직무 : {position}\n"},
+            {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
+            {"role": "user", "content":f"자기소개서 최대 글자수 : {question_text_max}"},
+            
+            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 {company_name}의 자기소개서를 작성해드리도록 하겠습니다."},
+            {"role": "user", "content":f"내용에 인삿말(감사합니다, 안녕하세요)과 이름 소개가 들어갔다면 그 부분은 삭제해줘"},
+
+            {"role": "assistant", "content": ("작성된 자기소개서에 추가할 부분이 있나요?")},
+            {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
+            ],
+            temperature=0.8,
+            max_tokens=2048
+        )
+            
+        print(resume_question)
+        
+        message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
+        
+        conn = dbconn.db_connect()
+        cursor = conn.cursor()
+        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id)"
+        cursor.execute(sql, {'content': message_result, 
+                            'seeker_id': seeker_id, 
+                            'company_id': company_id})
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    # return 'good'
     return jsonify({"result": message_result})
 
 
-
-
 # ==================================================================================================
-
 
 
 # 회원 이력정보 작성 후 유료회원 일 경우 또는 유료회원 가입 후 나의 성향 그래프 생성하는 것을 목표.
 # === myCharacteristic() 기능은 회원 정보 가져오고 gpt통해 회원 성향 다섯가지를 DB에 저장하는 기능
-@app.route("/my_characteristic")
-def myCharacteristic():
-
-    # career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"]]
-    # career_table = [["user_career_info"], ["user_project_info"]]
-    # total_table = []
-    # table_index = 0
+@app.route("/my_characteristic/<seeker_id>")
+def myCharacteristic(seeker_id):
 
     # 취준생번호 값 받아오기
-    seeker_id = 1
-
-    # dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-    # conn = cx_Oracle.connect('kb_db', '1234', dns)
-    # cursor = conn.cursor()
+    # seeker_id = 1
 
     total_table = career_table_select(seeker_id)
-
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
-            {"role": "system", "content" : ("내가 제공하는 정보를 기반으로 성향을 나타내기 적합한 단어라고 생각되는 것을 "
-                                           "책임의식, 도전정신, 소통․협력, 창의성, 원칙신뢰, 전문성, 열정, 글로벌역량, 실행력, 사회공헌 "
-                                           "10개 중 5개를 뽑고 비율을 나타내줘")},
+            {"role": "system", "content" : "너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 성향을 나타내주는 AI야 "},
 
-            {"role": "system", "content" : ("다른 말은 다 제외하고 나타내줘, 답변 결과는 다른 말 하나 없이 "
-                                           "'성향1: 비율1/성향2: 비율2/성향3: 비율3/성향4: 비율4/성향5: 비율5'의 형태로만 나타내줘, "
-                                           "성향1에 대한 비율은 비율1이야, "
-                                           "성향은 문자열이라''로 감싸주고 비율은 int값이야, "
-                                           "성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘")},
-            
-            {"role": "system", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
+            {"role": "system", "content" : "성향은 책임의식, 도전정신, 소통․협력, 창의성, 원칙신뢰, 전문성, 열정, 글로벌역량, 실행력, 사회공헌 10개 중 5개를 뽑고 비율을 나타내줘"},
 
-            # {"role": "user", "content": (f"경력 : ${career_info}\n프로젝트 경험 : ${project_info}\n수상 경험 : ${reward_info}\n대외활동 경험 : ${activation_info}\n"
-            #                             f"해외 경험 : ${overseas_info}\n보유한 자격증 : ${license_info}\n 를 기반으로 "
-            #                              "부가적인 말 아예없이 양식에 맞추어 성향 5개와 비율을 나타내주면 돼")},
-            {"role": "user", "content": (f"경력 : ${total_table[0]}\n프로젝트 경험 : ${total_table[1]}를 기반으로 "
-                                        "부가적인 말 아예없이 양식에 맞추어 책임의식, 도전정신, 소통․협력, 창의성, 원칙신뢰, 전문성, 열정, 글로벌역량, 실행력, 사회공헌 중에 적합한 성향 5개와 비율을 나타내주면 돼")},
+            {"role": "assistant", "content" : "성향과 비율을 나타낼 때 맞춰야할 양식이 있나요?"},
+            {"role": "user", "content": "'성향1: 비율1/성향2: 비율2/성향3: 비율3/성향4: 비율4/성향5: 비율5'의 형태로만 나타내줘"},
+            {"role": "user", "content": " 성향1에 대한 비율은 비율1이야"},
+            {"role": "user", "content": " 즉, 성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘"},
+
+            {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
+            {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
+            {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
+
+            # {"role": "system", "content" : ("성향은 문자열이라''로 감싸주고 비율은 int값이야")},
+
+            {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
+
+            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
+            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
+            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+
+            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 성향과 비율을 나타내드리겠습니다."},           
         ],
         temperature=0.7,
         max_tokens=2048
     )
 
-
     message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
     print(message_result)
 
     tmp_text = message_result.split('/')
-    print(tmp_text)
 
     arr = []
     for tmp in tmp_text :
@@ -222,7 +237,8 @@ def myCharacteristic():
     for tmp in arr :
         arr[arr.index(tmp)][1] = int(tmp[1])
 
-    # DB 접속 및 저장, close
+    # DB insert
+    conn = dbconn.db_connect()
     cursor = conn.cursor()
 
     sql = ("INSERT INTO characteristic_test VALUES"
@@ -252,34 +268,43 @@ def myCharacteristic():
 
 
 # 회사의 인재상과 프로젝트 경험 기반으로 인재상 적합도 나타내기
-@app.route("/goodness_of_fit")
-def goodnessOfFit():
+@app.route("/goodness_of_fit/<seeker_id>/<company_name>")
+def goodnessOfFit(seeker_id, company_name):
 
     # 취준생번호 값 받아오기
-    seeker_id = 1
-    # 회사명 값 받아오기
-    company_name = "KB국민은행"
+    # seeker_id = 1
+    # # 회사명 값 받아오기
+    # company_name = "KB국민은행"
 
     total_table = career_table_select(seeker_id)
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content" : (f"${company_name}의 인재상 단어 5개를 뽑고 내가 제공하는 정보를 기반으로 "
-                                            f"${company_name}의 인재상과의 적합도 비율을 나타내줘")},
+            {"role": "system", "content" : (f"너는 {company_name}의 인재상 단어 5개를 뽑고, "
+                                            f"내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 {company_name}의 인재상과의 적합도 비율을 나타내주는 AI야")},
 
-            {"role": "system", "content" : ("다른 말은 다 제외하고 나타내줘, 답변 결과는 다른 말 하나 없이 "
-                                           "'인재상1: 적합도 비율1/인재상2: 적합도 비율2/인재상3: 적합도 비율3/인재상4: 비율4/인재상5: 적합도 비율5'의 형태로만 나타내줘, "
-                                           "인재상1에 대한 비율은 적합도 비율1이야, "
-                                           "인재상은 문자열이라''로 감싸주고 비율은 int값이야, "
-                                           "인재상1: 적합도 비율1을 '전문성': 40과 같이 각각에 단어를 대입한 양식으로 나타내줘, "
-                                           "'/'으로 구분 주어줄 때 공백이 없어야해")},
+            {"role": "assistant", "content" : "인재상과의 적합도 비율을 나타낼 때 맞춰야할 양식이 있나요?"},
+            {"role": "user", "content" : "'인재상1: 적합도 비율1/인재상2: 적합도 비율2/인재상3: 적합도 비율3/인재상4: 비율4/인재상5: 적합도 비율5'의 형태로만 나타내줘 "},
+            {"role": "user", "content" : " 인재상1에 대한 비율은 적합도 비율1이야 "},
+            {"role": "user", "content" : "인재상1: 적합도 비율1을 '전문성': 40과 같이 각각에 단어를 대입한 양식으로 나타내줘, '/'으로 구분 주어줄 때 공백이 없어야해"},
 
-            {"role": "system", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
+            {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
+            {"role": "user", "content": "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
+            {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
 
-            {"role": "user", "content": (f"경력 : ${total_table[0]}\n프로젝트 경험 : ${total_table[1]}\n수상 경험 : ${total_table[2]}\n"
-                                         f"대외활동 경험 : ${total_table[3]}\n해외 경험 : ${total_table[4]}\n보유한 자격증 : ${total_table[5]}\n "
-                                         f"를 기반으로 부가적인 말 아예없이 양식에 맞추어 ${company_name}의 인재상 5개와 비율을 나타내주면 돼")},
+            {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
+
+            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
+            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
+            # {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+            # {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+            # {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+            # {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+            # {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+
+            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 {company_name}의 인재상 5개와 그에 따른 비율을 나타내드리겠습니다."},     
+
         ],
         temperature=0.7,
         max_tokens=2048
@@ -292,24 +317,18 @@ def goodnessOfFit():
 
     # '/' 기준으로 나누어 "인재상1: 적합도 비율1"로 각각 나누어 tmp_text 배열에 string으로 저장 
     tmp_text = message_result.split('/')
-    print(tmp_text)
 
     # ': ' 기준으로 나누어 ['인재상1', '적합도 비율1']로 arr 배열에 차례대로 저장 ( 2차원 배열 )
     arr = []
     for tmp in tmp_text :
         arr.append(tmp.split(': '))
 
-    print(arr)
-
     # 적합도 비율은 int 값이여야 하므로 str -> int로 변환
     for tmp in arr :
         arr[arr.index(tmp)][1] = int(tmp[1])
 
-    print(arr)
-
     # DB 접속 및 저장, close
-    # dns = cx_Oracle.makedsn('127.0.0.1', 1521, 'xe')
-    # conn = cx_Oracle.connect('kb_db', '1234', dns)
+    conn = dbconn.db_connect()
     cursor = conn.cursor()
     
     sql = ("INSERT INTO company_fit VALUES"
@@ -336,6 +355,25 @@ def goodnessOfFit():
     conn.close()
 
     return jsonify({"result": message_result})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
