@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
-import com.service.spring.domain.ResumeCommentVO;
 import com.service.spring.domain.ResumeVO;
 import com.service.spring.model.ResumeDAO;
 
 @Repository
 public class ResumeDAOImpl implements ResumeDAO{
 	
-	public static final String NS = "CompanyMapper.";
+	public static final String NS = "ResumeMapper.";
 
 	@Autowired
 	private SqlSession sqlSession;

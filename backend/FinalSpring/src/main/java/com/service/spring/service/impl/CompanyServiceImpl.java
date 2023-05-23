@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
 import com.service.spring.model.CompanyDAO;
 import com.service.spring.service.CompanyService;
@@ -34,6 +35,17 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public List<CompanyVO> getCompanyNameByCategory(int category2Id) throws Exception {
 		return companyDAO.getCompanyNameByCategory(category2Id);
+	}
+
+
+	@Override
+	public List<CompanyVO> findAllCompanyByName(String keyword) throws Exception {
+		return companyDAO.findAllCompanyByName(keyword);
+	}
+
+	@Override
+	public List<CompanyDataDTO> getCompanyDataByName(String companyName) throws Exception {
+		return companyDAO.getCompanyDataByName(companyName);
 	}
 	
 
