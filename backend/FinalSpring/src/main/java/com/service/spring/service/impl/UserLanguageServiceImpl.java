@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class UserLanguageServiceImpl implements UserLanguageService{
 	@Override
 	public UserLanguageVO getUserLanguage(int id) throws Exception {
 		return userLanguageDAO.getUserLanguage(id);
+	}
+
+	@Override
+	public List<UserLanguageVO> getAllUserLanguage(int seekerId) throws Exception {
+		return userLanguageDAO.getAllUserLanguage(seekerId);
 	}
 
 }

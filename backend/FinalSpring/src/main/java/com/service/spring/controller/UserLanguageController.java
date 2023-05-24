@@ -2,13 +2,16 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.UserLanguageVO;
 import com.service.spring.service.UserLanguageService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-languages")
+@RequestMapping("/api/languages")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserLanguageController {
 
@@ -54,6 +57,20 @@ public class UserLanguageController {
         try {
             UserLanguageVO result = userLanguageService.getUserLanguage(id);
             if (result != null) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<UserLanguageVO>> getAllUserLanguage(@PathVariable int seekerId) {
+        try {
+            List<UserLanguageVO> result = userLanguageService.getAllUserLanguage(seekerId);
+            if (!result.isEmpty()) {
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.notFound().build();

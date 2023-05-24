@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +34,11 @@ public class UserLanguageDAOImpl implements UserLanguageDAO{
 	@Override
 	public UserLanguageVO getUserLanguage(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserLanguage", id);
+	}
+
+	@Override
+	public List<UserLanguageVO> getAllUserLanguage(int seekerId) throws Exception {
+		return sqlSession.selectList(NS + "getAllUserLanguage", seekerId);
 	}
 
 }

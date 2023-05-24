@@ -7,8 +7,8 @@ public class UserLanguageVO {
     private String grade;
     private String acquiredDate; //acquired_date;
     private String licenseNumber; //license_number;
-    private String agency;
     private int seekerId; //seeker_id(fk)
+    private String agency;
 
     public UserLanguageVO() {
     }
@@ -71,12 +71,12 @@ public class UserLanguageVO {
         this.licenseNumber = licenseNumber;
     }
 
-    public int getUserSeekerInfoId() {
+    public int getSeekerId() {
         return seekerId;
     }
 
-    public void setUserSeekerInfoId(int userSeekerInfoId) {
-        this.seekerId = userSeekerInfoId;
+    public void setSeekerId(int seekerId) {
+        this.seekerId = seekerId;
     }
 
     public String getAgency() {

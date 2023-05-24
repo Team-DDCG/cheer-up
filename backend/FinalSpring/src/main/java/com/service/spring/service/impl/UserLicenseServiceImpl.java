@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class UserLicenseServiceImpl implements UserLicenseService {
 	@Override
 	public int registerUserLicnse(UserLicenseVO vo) throws Exception {
 		return userLicenseDAO.registerUserLicense(vo);
+	}
+
+	@Override
+	public List<UserLicenseVO> getAllUserLicense(int seekerId) throws Exception {
+		return userLicenseDAO.getAllUserLicense(seekerId);
 	}
 
 }

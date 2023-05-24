@@ -12,8 +12,8 @@
 
 <mapper namespace="UserSeekerMapper">
 	<insert id="registerUserSeeker" parameterType="com.service.spring.domain.UserSeekerVO">
-		INSERT INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no)
-		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile.originalFilename}, #{category1No}, #{category2No})
+		INSERT INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no, user_id)
+		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile.originalFilename}, #{category1No}, #{category2No}, #{userId})
 	</insert>
 	
 	<delete id="deleteUserSeeker" parameterType="int">

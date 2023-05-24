@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class UserRewardServiceImpl implements UserRewardService{
 	@Override
 	public UserRewardVO getUserReward(int id) throws Exception {
 		return userRewardDAO.getUserReward(id);
+	}
+
+	@Override
+	public List<UserRewardVO> getAllUserReward(int seekerId) throws Exception {
+		return userRewardDAO.getAllUserReward(seekerId);
 	}
 
 }

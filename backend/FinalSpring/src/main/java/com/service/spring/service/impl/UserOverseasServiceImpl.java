@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class UserOverseasServiceImpl implements UserOverseasService {
 	@Override
 	public UserOverseasVO getUserOverseas(int id) throws Exception {
 		return userOverseasDAO.getUserOverseas(id);
+	}
+
+	@Override
+	public List<UserOverseasVO> getAllUserOverseas(int seekerId) throws Exception {
+		return userOverseasDAO.getAllUserOverseas(seekerId);
 	}
 	
 	

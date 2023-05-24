@@ -2,13 +2,16 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.UserOverseasVO;
 import com.service.spring.service.UserOverseasService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-overseas")
+@RequestMapping("/api/overseas")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserOverseasController {
 
@@ -54,6 +57,20 @@ public class UserOverseasController {
         try {
             UserOverseasVO result = userOverseasService.getUserOverseas(id);
             if (result != null) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<UserOverseasVO>> getAllUserOverseas(@PathVariable int seekerId) {
+        try {
+            List<UserOverseasVO> result = userOverseasService.getAllUserOverseas(seekerId);
+            if (!result.isEmpty()) {
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.notFound().build();

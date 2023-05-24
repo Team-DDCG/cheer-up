@@ -12,9 +12,8 @@
 
 <mapper namespace="UserMentorMapper">
 	<insert id="registerUserMentor" parameterType="com.service.spring.domain.UserMentorVO">
-		INSERT
-		INTO user_mentor_info(mentor_id, company_name, career, rating)
-		VALUES(user_mentor_info_seq.NEXTVAL, companyName, career, rating)
+		INSERT INTO user_mentor_info (mentor_id, company_name, career, rating, user_id)
+		VALUES (user_mentor_info_seq.NEXTVAL, #{companyName}, #{career}, #{rating}, #{userId})
 	</insert>
 	
 	<delete id="deleteUserMentor" parameterType="int">
@@ -24,8 +23,10 @@
 	<update id="updateUserMentor" parameterType="com.service.spring.domain.UserMentorVO">
 		UPDATE user_mentor_info SET
 		company_name = #{companyName},
+		user_id = #{userId},
 		career = #{career},
 		rating = #{rating}
+		WHERE mentor_id = #{mentorId}
 	</update>
 	
 	<select id="getUserMentor" parameterType="int" resultType="com.service.spring.domain.UserMentorVO">

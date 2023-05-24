@@ -13,12 +13,12 @@
 <mapper namespace="UserSchoolMapper">
 	<insert id="registerUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
 		INSERT
-		INTO user_school_info(school_info_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major)
-		VALUES(user_school_seq.NEXTVAL, #{educationType}, #{schoolName}, #{entranceDate}, #{graduationDate}, #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor})
+		INTO user_school_info(shcool_info_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major, seeker_id)
+		VALUES(USER_SCHOOL_INFO_SEQ.NEXTVAL, #{educationType}, #{schoolName}, #{entranceDate}, #{graduationDate}, #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserSchool" parameterType="int">
-		DELETE FROM user_school_info WHERE school_info_id=#{VALUE}
+		DELETE FROM user_school_info WHERE shcool_info_id=#{VALUE}
 	</delete>
 	
 	<update id="updateUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
@@ -33,13 +33,21 @@
 		gpa = #{gpa},
 		highest_check = #{highestCheck},
 		double_major = #{doubleMajor}
+		WHERE shcool_info_id = #{schoolId}
 	</update>
 	
 	<select id="getUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
 		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
-		WHERE school_info_id=#{VALUE}
+		WHERE shcool_info_id=#{VALUE}
+	</select>
+	
+	<select id="getAllUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
+		SELECT
+		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
+		FROM user_school_info
+		WHERE seeker_id = #{seekerId}
 	</select>
 	
 	

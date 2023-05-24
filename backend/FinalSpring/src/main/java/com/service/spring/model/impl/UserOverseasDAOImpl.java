@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,5 +34,10 @@ public class UserOverseasDAOImpl implements UserOverseasDAO {
 	@Override
 	public UserOverseasVO getUserOverseas(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserOverseas", id);
+	}
+
+	@Override
+	public List<UserOverseasVO> getAllUserOverseas(int seekerId) throws Exception {
+		return sqlSession.selectList(NS + "getAllUserOverseas", seekerId);
 	}
 }

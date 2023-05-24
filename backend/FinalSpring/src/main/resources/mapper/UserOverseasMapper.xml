@@ -13,8 +13,8 @@
 <mapper namespace="UserOverseasMapper">
 	<insert id="registerUserOverseas" parameterType="com.service.spring.domain.UserOverseasVO">
 		INSERT
-		INTO user_overseas_info(overseas_id, purpose, nation, start_date, end_date, institution, reason)
-		VALUES(user_overseas_info_seq.NEXTVAL, #{purpose}, #{nation}, #{startDate}, #{endDate}, #{institution}, #{reason})
+		INTO user_overseas_info(overseas_id, purpose, nation, start_date, end_date, institution, reason, seeker_id)
+		VALUES(user_overseas_info_seq.NEXTVAL, #{purpose}, #{nation}, #{startDate}, #{endDate}, #{institution}, #{reason}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserOverseas" parameterType="int">
@@ -28,7 +28,9 @@
 		start_date = #{startDate},
 		end_date = #{endDate},
 		institution = #{institution},
-		reason = #{reason}	
+		reason = #{reason},	
+		seeker_id = #{seekerId}
+		WHERE overseas_id = #{overseasId}
 	</update>
 	
 	<select id="getUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
@@ -36,6 +38,13 @@
 		purpose, nation, start_date, end_date, institution, reason
 		FROM user_overseas_info
 		WHERE overseas_id=#{VALUE}
+	</select>
+	
+	<select id="getAllUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
+		SELECT
+		purpose, nation, start_date, end_date, institution, reason
+		FROM user_overseas_info
+		WHERE seeker_id = #{seekerId}
 	</select>
 	
 	

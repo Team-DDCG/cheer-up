@@ -1,5 +1,7 @@
 package com.service.spring.service;
 
+import java.util.List;
+
 import com.service.spring.domain.UserRewardVO;
 
 public interface UserRewardService {
@@ -9,5 +11,6 @@ public interface UserRewardService {
 	int updateUserReward(UserRewardVO vo) throws Exception;
 	
 	UserRewardVO getUserReward(int id) throws Exception;
+	List<UserRewardVO> getAllUserReward(int seekerId) throws Exception;
 
 }

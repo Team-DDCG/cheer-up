@@ -1,5 +1,7 @@
 package com.service.spring.service;
 
+import java.util.List;
+
 import com.service.spring.domain.UserProjectVO;
 
 public interface UserProjectService {
@@ -9,5 +11,5 @@ public interface UserProjectService {
 	int updateUserProject(UserProjectVO vo) throws Exception;
 	
 	UserProjectVO getUserProject(int id) throws Exception;
-
+	List<UserProjectVO> getAllUserProject(int seekerId) throws Exception;
 }
