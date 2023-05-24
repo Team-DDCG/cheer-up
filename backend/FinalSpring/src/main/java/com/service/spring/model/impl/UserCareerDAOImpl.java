@@ -27,13 +27,13 @@ public class UserCareerDAOImpl implements UserCareerDAO {
 	}
 
 	@Override
-	public int deleteUserCareer(int carrerId) throws Exception {
-		return sqlSession.delete(NS + "deleteUserCareer", carrerId);
+	public int deleteUserCareer(int careerId) throws Exception {
+		return sqlSession.delete(NS + "deleteUserCareer", careerId);
 	}
 
 	@Override
-	public UserCareerVO getUserCareer(int seekerId) throws Exception {
-		return sqlSession.selectOne(NS + "getUserCareer", seekerId);
+	public UserCareerVO getUserCareer(int careerId) throws Exception {
+		return sqlSession.selectOne(NS + "getUserCareer", careerId);
 	}
 
 	@Override

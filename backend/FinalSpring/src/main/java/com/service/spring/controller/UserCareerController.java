@@ -42,20 +42,20 @@ public class UserCareerController {
         }
     }
 
-    @DeleteMapping("/{carrerId}")
-    public ResponseEntity<Integer> deleteUserCareer(@PathVariable int carrerId) {
+    @DeleteMapping("/{careerId}")
+    public ResponseEntity<Integer> deleteUserCareer(@PathVariable int careerId) {
         try {
-            int result = userCareerService.deleteUserCareer(carrerId);
+            int result = userCareerService.deleteUserCareer(careerId);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-    @GetMapping("/{carrerId}")
-    public ResponseEntity<UserCareerVO> getUserCareer(@PathVariable int carrerId) {
+    @GetMapping("/{careerId}")
+    public ResponseEntity<UserCareerVO> getUserCareer(@PathVariable int careerId) {
         try {
-            UserCareerVO result = userCareerService.getUserCareer(carrerId);
+            UserCareerVO result = userCareerService.getUserCareer(careerId);
             if (result != null) {
                 return ResponseEntity.ok(result);
             } else {

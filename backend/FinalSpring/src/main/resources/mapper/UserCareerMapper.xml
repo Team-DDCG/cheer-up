@@ -12,12 +12,12 @@
 
 <mapper namespace="UserCareerMapper">
 	<insert id="registerUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
-		INSERT INTO user_career_info(carrer_id, company_name, department, position, start_date, end_date, attending_check, hire_type, seeker_id)
+		INSERT INTO user_career_info(career_id, company_name, department, position, start_date, end_date, attending_check, hire_type, seeker_id)
 		VALUES(user_career_info_seq.NEXTVAL, #{companyName}, #{department}, #{position}, #{startDate}, #{endDate}, #{attendingCheck}, #{hireType}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserCareer" parameterType="int">
-		DELETE FROM user_career_info WHERE carrer_id=#{carrerId}
+		DELETE FROM user_career_info WHERE career_id=#{careerId}
 	</delete>
 	
 	<update id="updateUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
@@ -29,14 +29,14 @@
 		end_date = #{endDate},
 		attending_check = #{attendingCheck},
 		hire_type = #{hireType}
-		WHERE carrer_id = #{carrerId}
+		WHERE career_id = #{careerId}
 	</update>
 	
 	<select id="getUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
 		SELECT
 		company_name, department, position, start_date, end_date, attending_check, hire_type
 		FROM user_career_info
-		WHERE carrer_id=#{carrerId}
+		WHERE career_id=#{careerId}
 	</select>
 	
 	<select id="getAllUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
