@@ -26,6 +26,8 @@
           placeholder="Password"
         />
       </div>
+      <p v-if="check==='error'" class="missing">계정 정보가 확인되지 않습니다</p>
+      <p v-else class="missing"></p>
       <div class="remember">
         <input type="checkbox" name="xxx" value="yyy" checked />
         <!-- <img
@@ -63,6 +65,7 @@ export default {
       id: "",
       password: "",
       save_toggle: false,
+      check: '',
     };
   },
   components: {},
@@ -89,6 +92,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.check = 'error';
         });
     },
   },
@@ -96,6 +100,13 @@ export default {
 </script>
 
 <style scoped>
+.missing {
+  height: 13px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  color: #E51616;
+}
 img {
   vertical-align: 0%;
 }
@@ -115,7 +126,7 @@ img {
   border: 1px solid #808080;
 }
 .main-title {
-  margin: 50px;
+  margin: 30px;
   align-items: center;
   color: #f5f5f5;
   background: #515151;
