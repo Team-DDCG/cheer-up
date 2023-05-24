@@ -71,6 +71,7 @@
 </template>
   
   <script>
+  import axios from "axios";
 export default {
   data() {
     return {
@@ -81,6 +82,17 @@ export default {
     };
   },
   methods: {
+    duplicateCheck() {
+      axios
+        //id duplicate api calling
+        .get("http://127.0.0.1:8080/api/user-info/register", {
+          id:this.id
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    },
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     },
@@ -152,7 +164,6 @@ img {
 }
 
 .mb-3 > .form-label {
-  
   color: #f5f5f5;
 }
 /* #id-box{align-items: center;} */
