@@ -30,8 +30,8 @@ public class UserSeekerDAOImpl implements UserSeekerDAO {
 	}
 
 	@Override
-	public UserSeekerVO getUserSeeker(int id) throws Exception {
-		return sqlSession.selectOne(NS + "getUserSeeker", id);
+	public UserSeekerVO getUserSeeker(int userId) throws Exception {
+		return sqlSession.selectOne(NS + "getUserSeeker", userId);
 	}
 
 }

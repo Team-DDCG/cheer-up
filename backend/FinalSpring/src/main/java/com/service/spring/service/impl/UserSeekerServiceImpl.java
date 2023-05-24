@@ -28,8 +28,8 @@ public class UserSeekerServiceImpl implements UserSeekerService {
 	}
 
 	@Override
-	public UserSeekerVO getUserSeeker(int id) throws Exception {
-		return userSeekerDAO.getUserSeeker(id);
+	public UserSeekerVO getUserSeeker(int userId) throws Exception {
+		return userSeekerDAO.getUserSeeker(userId);
 	}
 	
 	
