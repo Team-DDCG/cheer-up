@@ -1,4 +1,5 @@
 <template>
+<div>
   <header>
     <div>
       <router-link to="/">
@@ -12,68 +13,88 @@
   <div class="container">
     <p class="title2">당신의 취업을 한번에</p>
     <div class="boxes-container">
-        
       <div class="box" id="10">
         <router-link to="/resume">
-        
-        <img src="https://picsum.photos/200" class="image2" />
-        <div class="content">
-          <p class="title">채용 공고</p>
-          <p class="description">
-            <span>사용자가 설정한 필터링에 따라</span><br/>
-            <span>당일 공고를 추천합니다.</span>
-          </p>
-        </div>
+          <img src="https://picsum.photos/200" class="image2" />
+          <div class="content">
+            <p class="title">채용 공고</p>
+            <p class="description">
+              <span>사용자가 설정한 필터링에 따라</span><br/>
+              <span>당일 공고를 추천합니다.</span>
+            </p>
+          </div>
         </router-link>
       </div>
       <div class="box" id="20">
         <router-link to="/자기소개서 작성으로 이동">
-        <img src="https://picsum.photos/200" class="image2" />
-        <div class="content">
-          <p class="title">자기소개서 작성</p>
-          <p class="description">
-            <span>지원하려는 회사에 맞춰</span><br/>
-            <span>자기소개서를 AI가 작성합니다.</span>
-          </p>
-        </div>
+          <img src="https://picsum.photos/200" class="image2" />
+          <div class="content">
+            <p class="title">자기소개서 작성</p>
+            <p class="description">
+              <span>지원하려는 회사에 맞춰</span><br/>
+              <span>자기소개서를 AI가 작성합니다.</span>
+            </p>
+          </div>
         </router-link>
       </div>
       <div class="box" id="30">
         <router-link to="/자기소개서 코칭으로 이동">
-        <img src="https://picsum.photos/200" class="image2" />
-        <div class="content">
-          <p class="title">자기소개서 코칭</p>
-          <p class="description">
-            <span>작성된 자기소개서를 공유하고</span><br/>
-            <span>현직자에게 피드백을 받습니다.</span>
-          </p>
-        </div>
+          <img src="https://picsum.photos/200" class="image2" />
+          <div class="content">
+            <p class="title">자기소개서 코칭</p>
+            <p class="description">
+              <span>작성된 자기소개서를 공유하고</span><br/>
+              <span>현직자에게 피드백을 받습니다.</span>
+            </p>
+          </div>
         </router-link>
       </div>
       <div class="box" id="40">
         <router-link to="/취업 프로그램으로 이동">
-        <img src="https://picsum.photos/200" class="image2" />
-        <div class="content">
-          <p class="title">취업 프로그램</p>
-          <p class="description">
-            <span>정부에서 지원하는</span><br/>
-            <span>취업 지원 프로그램을 추천합니다.</span>
-          </p>
-        </div>
+          <img src="https://picsum.photos/200" class="image2" />
+          <div class="content">
+            <p class="title">취업 프로그램</p>
+            <p class="description">
+              <span>정부에서 지원하는</span><br/>
+              <span>취업 지원 프로그램을 추천합니다.</span>
+            </p>
+          </div>
         </router-link>
       </div>
     </div>
   </div>
   <div class="container2">
     <div class="content2">
-        <p class="title2">가이드 영상 안내</p>
-        <div class="video2"></div>
+      <p class="title2">가이드 영상 안내</p>
+      <div class="video2"></div>
     </div>
   </div>
+    <div class="box2">
+        <button
+          @click.prevent="submitForm"
+          type="submit"
+          class="btn btn-primary"
+        >
+          취얼업과 시작해보기
+        </button>
+  </div>
+   
+   <footer-bar/>
+</div>
+
 </template>
 
 <script>
-export default {};
+import FooterBar from '../components/FooterBar.vue';
+ export default {
+    components: {FooterBar},
+    data() {
+      return {
+
+      }
+  },
+ }
+
 </script>
 
 <style scoped>
@@ -81,7 +102,9 @@ img {
   vertical-align: 0%;
   width: 30px;
 }
-.name1 {
+
+.name1,
+.name2 {
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
   font-size: 30px;
@@ -90,13 +113,9 @@ img {
 }
 
 .name2 {
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  font-size: 30px;
-  font-weight: 700px;
-  text-align: center;
   color: #a46cff;
 }
+
 header {
   position: relative;
   padding: 10px 5px;
@@ -107,10 +126,12 @@ header {
   width: 100%;
   height: 58px;
 }
+
 header div {
   display: flex;
   align-items: center;
 }
+
 header a {
   color: white;
   text-decoration: none;
@@ -118,26 +139,30 @@ header a {
   align-items: center;
   margin-right: 10px;
 }
+
 header div a {
   color: white;
   text-decoration: none;
   padding-bottom: 3px;
   margin: 40px;
 }
+
 header div a + a {
   margin-left: 20px;
 }
+
 header .router-link-active {
   color: #a46cff;
   font-weight: bold;
 }
 
 .container {
-  width: 100%;
+  width: 1160px;
   overflow-x: auto;
 }
-.container >.title2{
-    color: #f5f5f5;
+
+.container > .title2 {
+  color: #f5f5f5;
 }
 
 .boxes-container {
@@ -174,13 +199,15 @@ header .router-link-active {
 
 .title {
   text-align: left;
+  padding-left: 10px;
   font-size: 18px;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.72);
 }
 
 .description {
-    text-align: left;
+  text-align: left;
+  padding-left: 12px;
   margin-top: 10px;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.4);
@@ -195,7 +222,7 @@ header .router-link-active {
 }
 
 .content2 {
-  text-align: center; /* Changed */
+  text-align: center;
   color: #f5f5f5;
   max-width: 1164px;
   margin: 0 auto;
@@ -216,8 +243,34 @@ header .router-link-active {
   background-repeat: no-repeat;
   background-position: center;
 }
-a{
+
+a {
   text-decoration: none;
 }
+
+.box2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.box2 > .btn.btn-primary {
+  margin: 0 auto;
+
+  width: 300px;
+  height: 67px;
+  background: #a46cff;
+  border-width: 1;
+  border-color: #363533;
+  border-radius: 15px;
+  text-align: center;
+  color: #f5f5f5;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
 
 </style>
