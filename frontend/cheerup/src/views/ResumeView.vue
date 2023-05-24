@@ -13,7 +13,7 @@
             </div>
             <div>
               <div>
-                <input type="text" placeholder="기업명을 검색하세요"/>
+                <input type="text" placeholder="기업명을 검색하세요" v-model="searchInput"/>
               </div>
               
             </div>
@@ -73,17 +73,18 @@ export default {
       selectedOption2: '',
       options2: [], // 두 번째 셀렉트 요소의 옵션 값
       company: '',
+      searchInput: '',
       // company: {
-        // post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
-        // logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
-        // company_name: '케이비증권(주)',
-        // start_date: '2023.04.28 10:36',
-        // end_date: '2023.05.09 18:00',
-        // posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
-        // site: 'https://kbstar.incruit.com/index_kbstar.asp',
-        // field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
-        // '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
-        // '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
+      //   post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
+      //   logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
+      //   company_name: '케이비증권(주)',
+      //   start_date: '2023.04.28 10:36',
+      //   end_date: '2023.05.09 18:00',
+      //   posting_url: 'https://c.incru.it/newjobpost/2023/04_kbintro/intro.png',
+      //   site: 'https://kbstar.incruit.com/index_kbstar.asp',
+      //   field: ['UB(자산관리) 부문(신입)', 'IB 부문(인턴)', '글로벌 부문(인턴)', '자본시장 부문(인턴)', 'IT 부문(인턴)', 'IT_플랫폼개발 부문(인턴)', 
+      //   '데이터·AI 부문(인턴)', 'ICT_장애인 부문(인턴)', '변호사(계약직)', '보훈(신입)', 'ESG동반성장_다문화가족 자녀(신입)', 'UB(기업금융) 부문(신입)', '회계사(계약직)', '리스크 관리 전문가(계약직)', '전략기획 전문가(계약직)', 
+      //   '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
       // },
       company_list: [],
     }
@@ -94,13 +95,25 @@ export default {
       // 자식 컴포넌트의 클릭 이벤트 처리 로직
       // console.log('자식 컴포넌트에서 전달된 값:', value);
       axios
-        .get("http://localhost:8080/api/companies/data/"+value, {
+        .get("http://localhost:8080/api/companies/"+value, {
         })
         .then((res) => {
           console.log(res);
           // this.company = res.data[0];
           this.company = res.data;
           console.log(this.company);
+
+          axios
+          .get("http://localhost:8080/api/companies/position/"+value, {
+          })
+          .then((res) => {
+            console.log(res.data);
+            this.company.position = res.data;
+          }) 
+          .catch((err) => {
+            console.log(err)
+          });
+
         }) 
         .catch((err) => {
           console.log(err)
@@ -128,7 +141,22 @@ export default {
 
   },
   watch: {
+    searchInput: function() {
+      // alert(this.searchInput);
+      axios
+        .get("http://localhost:8080/api/companies/search/"+this.searchInput, {
+        })
+        .then((res) => {
+          console.log(res);
+          this.company_list = res.data;
 
+        }) 
+        .catch((err) => {
+          console.log(err)
+          // this.company_list = [{companyName: 'KB국민은행'},{companyName: 'KB증권'},{companyName: '신한은행'}]
+          this.company_list = [{companyName: '가능한 채용공고가 없어요'}]
+        });
+    },
     company: function() {
       // alert(this.company)
     },

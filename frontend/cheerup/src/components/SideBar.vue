@@ -32,13 +32,14 @@ export default {
   methods: {
     show(tag) {
       this.$emit('child-click', tag);
-      alert(this.company)
     }
   }
 }
 </script>
 
 <style scoped>
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700&display=swap');
+
 li {
   list-style: none;
 }
@@ -67,6 +68,7 @@ a{
   align-items: center;
   /* width: 100%; */
   padding: 5px 10px 5px 10px;
+  cursor: pointer;
 }
 a:hover{
   font-family: 'Montserrat', sans-serif; font-size:15px;
@@ -79,7 +81,12 @@ a:hover{
   /* width: 100%; */
   padding: 5px 10px 5px 10px;
 }
-.router-link-active{
+a:not([href]):not([class]), a:not([href]):not([class]):hover{
+  font-family: 'Montserrat', sans-serif; font-size:15px;
+  color: white;
+  text-decoration: none;
+}
+/* .router-link-active{
   font-family: 'Montserrat', sans-serif; font-size:15px;
   color: white;
   background-color: #A46CFF;
@@ -87,7 +94,6 @@ a:hover{
   text-decoration: none;
   display: flex;
   align-items: center;
-  /* width: 100%; */
   padding: 5px 10px 5px 10px;
-}
+} */
 </style>

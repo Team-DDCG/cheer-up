@@ -49,10 +49,10 @@ public class UserSeekerController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserSeekerVO> getUserSeeker(@PathVariable int id) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserSeekerVO> getUserSeeker(@PathVariable int userId) {
         try {
-            UserSeekerVO result = userSeekerService.getUserSeeker(id);
+            UserSeekerVO result = userSeekerService.getUserSeeker(userId);
             if (result != null) {
                 return ResponseEntity.ok(result);
             } else {

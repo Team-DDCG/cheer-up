@@ -22,9 +22,9 @@
 	
 	<select id="getResumeWithCompanyInfoById" resultType="com.service.spring.DTO.ResumeDTO">
 		SELECT c.company_name, c.title, c.start_date, c.end_date, r.post_check
-    FROM resume r INNER JOIN company c
-    ON r.company_id = c.company_id
-    WHERE r.resume_id = #{resumeId}
+	    FROM resume r INNER JOIN company c
+	    ON r.company_id = c.company_id
+	    WHERE r.resume_id = #{resumeId}
 	</select>
 	
 	<select id="getQnAByCompanyId" parameterType="int" resultType="com.service.spring.DTO.ResumeQnADTO">

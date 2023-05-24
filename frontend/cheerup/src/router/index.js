@@ -17,6 +17,8 @@ import FindPwView1 from "../views/FindPwView1.vue";
 import FindPwView2 from "../views/FindPwView2.vue";
 import MainView from "../views/MainView.vue";
 import AiResumeRegisterView from "../views/AiResumeRegisterView.vue";
+// import MypageView from "../views/MypageView.vue";
+import MycvView from "../views/MycvView.vue";
 // import JobPosting from "../components/JobPosting";
 
 const routes = [
@@ -114,6 +116,16 @@ const routes = [
     name: "airesumeregister",
     component: AiResumeRegisterView,
   },
+  // {
+  //   path: "/mypage",
+  //   name: "mypage",
+  //   component: MypageView,
+  // },
+  {
+    path: "/mycv",
+    name: "mycv",
+    component: MycvView,
+  }
 ];
 
 const router = createRouter({

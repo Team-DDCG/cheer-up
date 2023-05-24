@@ -1,5 +1,6 @@
 package com.service.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,15 +99,28 @@ public class CompanyController {
         }
     }
 
-    @GetMapping("/data/{companyName}")
-    public ResponseEntity<List<CompanyDataDTO>> getCompanyDataByName(@PathVariable String companyName) {
+    @GetMapping("/position/{companyName}")
+    public ResponseEntity<String[]> getCompanyPositionByName(@PathVariable String companyName) {
         try {
-            List<CompanyDataDTO> companyDataList = companyService.getCompanyDataByName(companyName);
-            if (!companyDataList.isEmpty()) {
-                return ResponseEntity.ok(companyDataList);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            List<CompanyDataDTO> positions = companyService.getCompanyPositionByName(companyName);
+            
+            List<String> result = new ArrayList<>();
+            for(CompanyDataDTO c : positions) {
+            	result.add(c.getPosition());
             }
+            
+            String[] resultArray = result.toArray(new String[0]);
+            return ResponseEntity.ok(resultArray);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @GetMapping("/{companyName}")
+    public ResponseEntity<CompanyVO> getCompanyDataByName(@PathVariable String companyName) {
+        try {
+            CompanyVO companyData = companyService.getCompanyDataByName(companyName);
+            return ResponseEntity.ok(companyData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

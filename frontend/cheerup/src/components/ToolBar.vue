@@ -2,9 +2,9 @@
   <header>
     <div>
       <router-link to="/">
-      <img src="../assets/logo.png"/>
-      <span class ="name1">취얼</span>
-      <span class ="name2">업</span>
+      <img src="../assets/Logo_kor.png"/>
+      <!-- <span class ="name1">취얼</span>
+      <span class ="name2">업</span> -->
       </router-link>
       <router-link to="/resume">채용공고</router-link>
       <router-link to="/">자기소개서</router-link>
@@ -15,7 +15,7 @@
       <router-link to="/login">로그인</router-link>
     </div>
     <div v-else >
-      <router-link to="/login">나의 이력</router-link>
+      <router-link to="/mycv">나의 이력</router-link>
       <div style="background-color: #a46cff;color: white;border: 1px solid #a46cff; border-radius: 100%;" @click="logout">Logout</div>
     </div>
   
@@ -52,11 +52,14 @@ export default {
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700&display=swap');
+
 img{
   vertical-align:0% ;
-  width: 30px;
+  width: 100px;
+  margin-left: -20px;
 }
-.name1 {
+/* .name1 {
   font-weight: 700;
   font-family: 'Montserrat', sans-serif; font-size:30px;
   text-align: center;
@@ -69,7 +72,7 @@ img{
   font-Weight: 700px;
   text-Align: center;
   color: #a46cff;
-}
+} */
 header {
   position: relative;
   padding:10px 5px;

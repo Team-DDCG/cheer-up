@@ -13,7 +13,7 @@
 <mapper namespace="UserSeekerMapper">
 	<insert id="registerUserSeeker" parameterType="com.service.spring.domain.UserSeekerVO">
 		INSERT INTO user_seeker_info(seeker_id, ename, cname, military, bohun, disabled, nation, profile, category1_no, category2_no, user_id)
-		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile.originalFilename}, #{category1No}, #{category2No}, #{userId})
+		VALUES(user_seeker_info_seq.NEXTVAL, #{ename}, #{cname}, #{military}, #{bohun}, #{disabled}, #{nation}, #{profile}, #{category1No}, #{category2No}, #{userId})
 	</insert>
 	
 	<delete id="deleteUserSeeker" parameterType="int">
@@ -29,12 +29,12 @@
 		disabled = #{disabled},
 		nation = #{nation},
 		category1_no = #{category1No},
-		category2_no = #{category2No}
-		profile = #{profile.originalFilename}
-		WHERE SEEKER_ID = #{seekerId}	
+		category2_no = #{category2No},
+		profile = #{profile}
+		WHERE seeker_id = #{seekerId}	
 	</update>
 	
-	<select id="getUserSeeker" parameterType="string" resultType="com.service.spring.domain.UserSeekerVO">
+	<select id="getUserSeeker" parameterType="int" resultType="com.service.spring.domain.UserSeekerVO">
 		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile
 		FROM user_info ui INNER JOIN user_seeker_info si
 		ON ui.user_id = si.user_id

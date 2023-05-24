@@ -44,7 +44,12 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	@Override
-	public List<CompanyDataDTO> getCompanyDataByName(String companyName) throws Exception {
+	public List<CompanyDataDTO> getCompanyPositionByName(String companyName) throws Exception {
+		return companyDAO.getCompanyPositionByName(companyName);
+	}
+
+	@Override
+	public CompanyVO getCompanyDataByName(String companyName) throws Exception {
 		return companyDAO.getCompanyDataByName(companyName);
 	}
 	

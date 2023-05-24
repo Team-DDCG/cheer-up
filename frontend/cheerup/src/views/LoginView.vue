@@ -77,7 +77,7 @@ export default {
     },
     login() {
       axios
-        .post("http://127.0.0.1:8080/api/user-info/login", {
+        .post("http://127.0.0.1:8080/api/info/login", {
           id: this.id,
           password: this.password,
         })
