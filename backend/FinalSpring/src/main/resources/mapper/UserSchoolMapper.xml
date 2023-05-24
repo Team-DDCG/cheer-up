@@ -13,7 +13,7 @@
 <mapper namespace="UserSchoolMapper">
 	<insert id="registerUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
 		INSERT
-		INTO user_school_info(shcool_info_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major, seeker_id)
+		INTO user_school_info(school_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major, seeker_id)
 		VALUES(USER_SCHOOL_INFO_SEQ.NEXTVAL, #{educationType}, #{schoolName}, #{entranceDate}, #{graduationDate}, #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor}, #{seekerId})
 	</insert>
 	
@@ -33,14 +33,14 @@
 		gpa = #{gpa},
 		highest_check = #{highestCheck},
 		double_major = #{doubleMajor}
-		WHERE shcool_info_id = #{schoolId}
+		WHERE school_id = #{schoolId}
 	</update>
 	
 	<select id="getUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
 		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
-		WHERE shcool_info_id=#{VALUE}
+		WHERE school_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
