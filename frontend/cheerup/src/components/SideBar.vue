@@ -39,6 +39,8 @@ export default {
 </script>
 
 <style scoped>
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700&display=swap');
+
 li {
   list-style: none;
 }

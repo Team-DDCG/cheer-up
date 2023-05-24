@@ -16,6 +16,8 @@ import FindIdView2 from "../views/FindIdView2.vue";
 import FindPwView1 from "../views/FindPwView1.vue";
 import FindPwView2 from "../views/FindPwView2.vue";
 import MainView from "../views/MainView.vue";
+import MypageView from "../views/MypageView.vue";
+import MycvView from "../views/MycvView.vue";
 // import JobPosting from "../components/JobPosting";
 
 const routes = [
@@ -108,6 +110,16 @@ const routes = [
     name: "main",
     component: MainView,
   },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: MypageView,
+  },
+  {
+    path: "/mycv",
+    name: "mycv",
+    component: MycvView,
+  }
 ];
 
 const router = createRouter({
