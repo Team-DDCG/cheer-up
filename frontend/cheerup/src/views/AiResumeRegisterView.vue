@@ -1,20 +1,38 @@
 <template>
-  <tool-bar></tool-bar>
-  <div class="container">
-    <div id="myDiv">
-      <div class="info">
-        <p class="text2">
-          <span class="bold">KB_12445</span>
-          <span>님의</span>
-        </p>
-        <p class="text1">
-          <span class="bold">케이비증권(주)</span>
-          <span>에 대한 기업적합도 분석입니다.</span>
-        </p>
+  <div>
+    <tool-bar></tool-bar>
+    <div class="container">
+      <div id="myDiv">
+        <div class="header">
+          <div class="line">
+          <div class="line1">
+              <p class="title1">AI 자기소개서 생성</p>
+              <p class="title2">[KB증권] 2023 대졸 신입사원 공개채용</p>
+            <div class="line2">
+              <p class="start-date">시작일: 2023-05-10</p>
+              <p class="deadline">마감일: 2023-05-24</p>
+            </div>
+            <hr>
+          </div>
+          </div>
+          <!-- <div class="line2">
+            <p class="start-date">시작일: 2023-05-10</p><br>
+            <p class="deadline">마감일: 2023-05-24</p>
+            <hr>
+          </div> -->
+        </div>
+        <div class="info">
+          <p class="text2">
+            <span class="bold">KB_12445</span>
+            <span>님의</span>
+          </p>
+          <p class="text1">
+            <span class="bold">케이비증권(주)</span>
+            <span>에 대한 기업적합도 분석입니다.</span>
+          </p>
+        </div>
+        <div class="graph-box"></div>
       </div>
-      <div class="graph-box"></div>
-
-
     </div>
   </div>
 </template>
@@ -79,4 +97,28 @@ export default {
   padding-left: 100px;
   margin-top: 30px;
 }
+.container > #myDiv > .header {
+  padding-top: 30px;
+  padding-left: 100px;
+  display: flex;
+  color: #f5f5f5;
+}
+.container > #myDiv > .header > .title1 {
+  width: 112px;
+    height: 14px;
+    font-Size: 15px;
+    font-Weight: 700
+}
+
+.container > #myDiv > .header > .title1 {
+  width: 300px; 
+  height: 14px; 
+  font-Size: 15px; 
+  text-Align: left; 
+  color: #f5f5f5;
+}
+.line1{
+  width: 900px;
+}
+
 </style>
