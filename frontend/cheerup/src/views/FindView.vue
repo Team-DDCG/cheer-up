@@ -89,13 +89,11 @@ img {
   margin: 100px;
   align-items: center;
 }
-#innerBox > .box > .btn.btn-light {
-  width: 218px;
-  height: 209px;
-  border-radius: 6px;
+.btn.btn-light {
+  width: 230px;
+  height: 230px;
   text-align: center;
   color: #363533;
-  border-width: 1px;
   font-size: 28px;
   font-weight: 700;
   margin: 50px;
@@ -104,7 +102,8 @@ img {
   justify-content: center;
 }
 .btn.btn-light:hover {
-  background: #515151;
+  background: #a46cff;
+  color: #f5f5f5;
 }
 
 #innerBox > .box2 > .btn.btn-primary {
