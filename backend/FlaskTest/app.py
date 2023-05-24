@@ -1,3 +1,4 @@
+import time
 from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS
@@ -160,14 +161,16 @@ def resumeCreate(seeker_id, company_id):
             temperature=0.8,
             max_tokens=2048
         )
-            
+
+        time.sleep(30)    
+        
         print(resume_question)
         
         message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
         
         conn = dbconn.db_connect()
         cursor = conn.cursor()
-        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, SYSDATE, :seeker_id, :company_id)"
+        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
         cursor.execute(sql, {'content': message_result, 
                             'seeker_id': seeker_id, 
                             'company_id': company_id})
@@ -199,9 +202,9 @@ def myCharacteristic(seeker_id):
             {"role": "system", "content" : "성향은 책임의식, 도전정신, 소통․협력, 창의성, 원칙신뢰, 전문성, 열정, 글로벌역량, 실행력, 사회공헌 10개 중 5개를 뽑고 비율을 나타내줘"},
 
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 맞춰야할 양식이 있나요?"},
-            {"role": "user", "content": "'성향1: 비율1/성향2: 비율2/성향3: 비율3/성향4: 비율4/성향5: 비율5'의 형태로만 나타내줘"},
-            {"role": "user", "content": " 성향1에 대한 비율은 비율1이야"},
-            {"role": "user", "content": " 즉, 성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘"},
+            {"role": "user", "content": "'뽑은성향1: 비율1/뽑은성향2: 비율2/뽑은성향3: 비율3/뽑은성향4: 비율4/뽑은성향5: 비율5'의 형태로만 나타내줘"},
+            {"role": "user", "content": " 뽑은성향1에 대한 비율은 비율1이야"},
+            {"role": "user", "content": " 즉, 뽑은성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘"},
 
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
@@ -234,28 +237,32 @@ def myCharacteristic(seeker_id):
     for tmp in tmp_text :
         arr.append(tmp.split(': '))
 
+    print(arr)
+
     for tmp in arr :
         arr[arr.index(tmp)][1] = int(tmp[1])
+
+    print(arr)
 
     # DB insert
     conn = dbconn.db_connect()
     cursor = conn.cursor()
 
-    sql = ("INSERT INTO characteristic_test VALUES"
-           "(seeker_fit_seq.nextval, :characteristic_1, :characteristic_2, :characteristic_3,"
-           ":characteristic_4, :characteristic_5,"
-           ":percentage_1, :percentage_2, :percentage_3, :percentage_4, :percentage_5, :seeker_id)")
+    sql = ("INSERT INTO seeker_fit VALUES"
+           "(seeker_fit_seq.nextval, :TENDENCY1, :TENDENCY2, :TENDENCY3,"
+           ":TENDENCY4, :TENDENCY5,"
+           ":RATE1, :RATE2, :RATE3, :RATE4, :RATE5, :seeker_id)")
     
-    cursor.execute(sql, {'characteristic_1': arr[0][0],
-                         'characteristic_2': arr[1][0],
-                         'characteristic_3': arr[2][0],
-                         'characteristic_4': arr[3][0],
-                         'characteristic_5': arr[4][0],
-                         'percentage_1': arr[0][1],
-                         'percentage_2': arr[1][1],
-                         'percentage_3': arr[2][1],
-                         'percentage_4': arr[3][1],
-                         'percentage_5': arr[4][1],
+    cursor.execute(sql, {'TENDENCY1': arr[0][0],
+                         'TENDENCY2': arr[1][0],
+                         'TENDENCY3': arr[2][0],
+                         'TENDENCY4': arr[3][0],
+                         'TENDENCY5': arr[4][0],
+                         'RATE1': arr[0][1],
+                         'RATE2': arr[1][1],
+                         'RATE3': arr[2][1],
+                         'RATE4': arr[3][1],
+                         'RATE5': arr[4][1],
                          'seeker_id': seeker_id})
     conn.commit()
     cursor.close()
@@ -279,15 +286,15 @@ def goodnessOfFit(seeker_id, company_name):
     total_table = career_table_select(seeker_id)
 
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
             {"role": "system", "content" : (f"너는 {company_name}의 인재상 단어 5개를 뽑고, "
                                             f"내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 {company_name}의 인재상과의 적합도 비율을 나타내주는 AI야")},
 
             {"role": "assistant", "content" : "인재상과의 적합도 비율을 나타낼 때 맞춰야할 양식이 있나요?"},
-            {"role": "user", "content" : "'인재상1: 적합도 비율1/인재상2: 적합도 비율2/인재상3: 적합도 비율3/인재상4: 비율4/인재상5: 적합도 비율5'의 형태로만 나타내줘 "},
-            {"role": "user", "content" : " 인재상1에 대한 비율은 적합도 비율1이야 "},
-            {"role": "user", "content" : "인재상1: 적합도 비율1을 '전문성': 40과 같이 각각에 단어를 대입한 양식으로 나타내줘, '/'으로 구분 주어줄 때 공백이 없어야해"},
+            {"role": "user", "content" : "'뽑은인재상 명1: 적합도 비율1/뽑은인재상 명2: 적합도 비율2/뽑은인재상 명3: 적합도 비율3/뽑은인재상 명4: 비율4/뽑은인재상 명5: 적합도 비율5'의 형태로만 나타내줘 "},
+            {"role": "user", "content" : " 뽑은인재상 명1에 대한 비율은 적합도 비율1이야 "},
+            {"role": "user", "content" : "뽑은인재상 명1: 적합도 비율1을 '전문성': 40과 같이 각각에 단어를 대입한 양식으로 나타내줘, '/'으로 구분 주어줄 때 공백이 없어야해"},
 
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content": "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
