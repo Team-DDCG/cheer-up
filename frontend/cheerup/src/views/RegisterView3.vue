@@ -8,15 +8,7 @@
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            aria-valuenow="0"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
+        <progress value="60" max="100" class="progress"></progress>
         
       </div>
     </div>
@@ -175,6 +167,8 @@ img {
 }
 
 .mb-3-button {
+  display: flex; 
+  justify-content: center;
   width: 300px;
   height: 42.01px;
   margin: 0 auto;
@@ -182,11 +176,24 @@ img {
   align-items: center;
   margin-bottom: 90px;
 }
-.main > .main-title .progress{
+.progress{
    display: flex;
    margin: 0 auto;
    width: 1000px;
    height: 20px; 
    background: #515151;
+}
+
+/* 프로그레스 바의 색상을 변경합니다 */
+progress::-webkit-progress-value {
+  background-color: #a46cff;
+}
+
+progress::-moz-progress-bar {
+  background-color: #a46cff;
+}
+
+progress::-ms-fill {
+  background-color: #a46cff;
 }
 </style>
