@@ -8,6 +8,6 @@ public interface UserSeekerDAO {
 	int deleteUserSeeker(int id) throws Exception;
 	int updateUserSeeker(UserSeekerVO vo) throws Exception;
 	
-	UserSeekerVO getUserSeeker(int id) throws Exception;
+	UserSeekerVO getUserSeeker(int userId) throws Exception;
 
 }
