@@ -13,7 +13,7 @@
             </div>
             <div>
               <div>
-                <input type="text" placeholder="기업명을 검색하세요"/>
+                <input type="text" placeholder="기업명을 검색하세요" v-model="searchInput"/>
               </div>
               
             </div>
@@ -72,6 +72,7 @@ export default {
       selectedOption2: '',
       options2: [], // 두 번째 셀렉트 요소의 옵션 값
       company: '',
+      searchInput: '',
       // company: {
       //   post_name: '[KB증권] 2023 대졸 신입사원 공개채용',
       //   logo_url: 'https://daoift3qrrnil.cloudfront.net/company_groups/images/000/002/439/original/KB_Signature_row_kr_3.jpg?1657045156',
@@ -93,13 +94,25 @@ export default {
       // 자식 컴포넌트의 클릭 이벤트 처리 로직
       // console.log('자식 컴포넌트에서 전달된 값:', value);
       axios
-        .get("http://localhost:8080/api/companies/data/"+value, {
+        .get("http://localhost:8080/api/companies/"+value, {
         })
         .then((res) => {
           console.log(res);
           // this.company = res.data[0];
           this.company = res.data;
           console.log(this.company);
+
+          axios
+          .get("http://localhost:8080/api/companies/position/"+value, {
+          })
+          .then((res) => {
+            console.log(res.data);
+            this.company.position = res.data;
+          }) 
+          .catch((err) => {
+            console.log(err)
+          });
+
         }) 
         .catch((err) => {
           console.log(err)
@@ -127,7 +140,22 @@ export default {
 
   },
   watch: {
+    searchInput: function() {
+      // alert(this.searchInput);
+      axios
+        .get("http://localhost:8080/api/companies/search/"+this.searchInput, {
+        })
+        .then((res) => {
+          console.log(res);
+          this.company_list = res.data;
 
+        }) 
+        .catch((err) => {
+          console.log(err)
+          // this.company_list = [{companyName: 'KB국민은행'},{companyName: 'KB증권'},{companyName: '신한은행'}]
+          this.company_list = [{companyName: '가능한 채용공고가 없어요'}]
+        });
+    },
     company: function() {
       // alert(this.company)
     },

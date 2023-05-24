@@ -15,7 +15,7 @@
       <router-link to="/login">로그인</router-link>
     </div>
     <div v-else >
-      <router-link to="/login">나의 이력</router-link>
+      <router-link to="/mycv">나의 이력</router-link>
       <div style="background-color: #a46cff;color: white;border: 1px solid #a46cff; border-radius: 100%;" @click="logout">Logout</div>
     </div>
   

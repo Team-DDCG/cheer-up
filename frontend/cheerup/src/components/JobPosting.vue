@@ -1,19 +1,19 @@
 <template>
     <div id="post">
-      <p><b>{{ company[0].title }}</b></p>
+      <p><b>{{ company.title }}</b></p>
       <div >
         <div id="image-container">
-          <img :src="company[0].companyLogo" id="logo">
+          <img :src="company.companyLogo" id="logo">
         </div>
         <div id="info">
-          <p>회사명: {{ company[0].companyName }}</p>
-          <p>시작일: {{ company[0].startDate }} | 마감일 : {{ company[0].endDate }}</p>
+          <p>회사명: {{ company.companyName }}</p>
+          <p>시작일: {{ company.startDate }} | 마감일 : {{ company.endDate }}</p>
         </div>
-        <a id="site" target="_blank" :href="company[0].companyUrl"><b>채용 사이트 이동</b></a>
+        <a id="site" target="_blank" :href="company.companyUrl"><b>채용 사이트 이동</b></a>
       </div>
-      <list-field :listData="company[0].position"></list-field>
+      <list-field :listData="company.position"></list-field>
       <div id="image-container2">
-        <img :src="company[0].content" id="job">
+        <img :src="company.content" id="job">
       </div>
       
     </div>
