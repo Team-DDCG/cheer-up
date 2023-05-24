@@ -2,7 +2,7 @@ package com.service.spring.domain;
 
 public class UserRewardVO {
 	private int rewardId; //reward_id(pk)
-	private String name;
+	private String rewardName; //reward_name
 	private String acquiredDate; //acquired_date
 	private String host;
 	private String content;
@@ -11,8 +11,8 @@ public class UserRewardVO {
 	public UserRewardVO() {
 	}
 
-	public UserRewardVO(String name, String acquiredDate, String host, String content, int seekerId) {
-		this.name = name;
+	public UserRewardVO(String rewardName, String acquiredDate, String host, String content, int seekerId) {
+		this.rewardName = rewardName;
 		this.acquiredDate = acquiredDate;
 		this.host = host;
 		this.content = content;
@@ -27,12 +27,12 @@ public class UserRewardVO {
 		this.rewardId = rewardId;
 	}
 
-	public String getName() {
-		return name;
+	public String getRewardName() {
+		return rewardName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRewardName(String rewardName) {
+		this.rewardName = rewardName;
 	}
 
 	public String getAcquiredDate() {
@@ -71,7 +71,7 @@ public class UserRewardVO {
 	public String toString() {
 		return "UserRewardVO{" +
 				"rewardId=" + rewardId +
-				", name='" + name + '\'' +
+				", name='" + rewardName + '\'' +
 				", acquiredDate=" + acquiredDate +
 				", host='" + host + '\'' +
 				", content='" + content + '\'' +

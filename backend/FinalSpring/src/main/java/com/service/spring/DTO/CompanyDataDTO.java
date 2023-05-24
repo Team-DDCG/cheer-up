@@ -1,7 +1,5 @@
 package com.service.spring.DTO;
 
-import java.time.LocalDate;
-
 public class CompanyDataDTO {
     private String companyName;
     private String startDate;

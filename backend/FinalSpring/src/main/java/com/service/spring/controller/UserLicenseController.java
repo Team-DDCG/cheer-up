@@ -2,13 +2,16 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.UserLicenseVO;
 import com.service.spring.service.UserLicenseService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-licenses")
+@RequestMapping("/api/licenses")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserLicenseController {
 
@@ -54,6 +57,20 @@ public class UserLicenseController {
         try {
             UserLicenseVO result = userLicenseService.getUserLicense(id);
             if (result != null) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<UserLicenseVO>> getAllUserLicense(@PathVariable int seekerId) {
+        try {
+            List<UserLicenseVO> result = userLicenseService.getAllUserLicense(seekerId);
+            if (!result.isEmpty()) {
                 return ResponseEntity.ok(result);
             } else {
                 return ResponseEntity.notFound().build();

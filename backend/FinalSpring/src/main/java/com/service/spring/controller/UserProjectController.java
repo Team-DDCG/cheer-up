@@ -2,13 +2,16 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.UserProjectVO;
 import com.service.spring.service.UserProjectService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-projects")
+@RequestMapping("/api/projects")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserProjectController {
 
@@ -62,4 +65,19 @@ public class UserProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<UserProjectVO>> getAllUserProject(@PathVariable int seekerId) {
+        try {
+            List<UserProjectVO> result = userProjectService.getAllUserProject(seekerId);
+            if (!result.isEmpty()) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +34,11 @@ public class UserRewardDAOImpl implements UserRewardDAO{
 	@Override
 	public UserRewardVO getUserReward(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserReward", id);
+	}
+
+	@Override
+	public List<UserRewardVO> getAllUserReward(int seekerId) throws Exception {
+		return sqlSession.selectList(NS + "getAllUserReward", seekerId);
 	}
 
 }

@@ -11,10 +11,9 @@
  -->
 
 <mapper namespace="UserLicenseMapper">
-	<insert id="registerUserLicnse" parameterType="com.service.spring.domain.UserLicenseVO">
-		INSERT
-		INTO user_license_info(license_id, license_name, grade, acquired_date, license_number, agency)
-		VALUES(user_license_info_seq.NEXTVAL, name, grade, acquiredDate, licenseNumber, agency)
+	<insert id="registerUserLicense" parameterType="com.service.spring.domain.UserLicenseVO">
+		INSERT INTO user_license_info (license_id, license_name, grade, acquired_date, license_number, agency, seeker_id)
+		VALUES (user_license_info_seq.NEXTVAL, #{licenseName}, #{grade}, #{acquiredDate}, #{licenseNumber}, #{agency}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserLicense" parameterType="int">
@@ -23,19 +22,27 @@
 	
 	<update id="updateUserLicense" parameterType="com.service.spring.domain.UserLicenseVO">
 		UPDATE user_license_info SET
-		license_name = #{name},
+		license_name = #{licenseName},
 		grade = #{grade},
 		acquired_date = #{acquiredDate},
 		license_number = #{licenseNumber},
-		agency = #{agency}
+		agency = #{agency},
+		seeker_id = #{seekerId}
+		WHERE license_id = #{licenseId}
 	</update>
 	
 	<select id="getUserLicense" parameterType="int" resultType="com.service.spring.domain.UserLicenseVO">
 		SELECT
 		license_name, grade, acquired_date, license_number, agency
 		FROM user_license_info
-		WHERE license_id=#{VALUE}
+		WHERE license_id=#{licenseId}
 	</select>
 	
+	<select id="getAllUserLicense" parameterType="int" resultType="com.service.spring.domain.UserLicenseVO">
+		SELECT
+		license_name, grade, acquired_date, license_number, agency
+		FROM user_license_info
+		WHERE seeker_id = #{seekerId}
+	</select>
 	
 </mapper>

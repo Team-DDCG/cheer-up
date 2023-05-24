@@ -1,5 +1,7 @@
 package com.service.spring.model;
 
+import java.util.List;
+
 import com.service.spring.domain.UserSkillVO;
 
 public interface UserSkillDAO {
@@ -9,5 +11,6 @@ public interface UserSkillDAO {
 	int updateUserSkill(UserSkillVO vo) throws Exception;
 	
 	UserSkillVO getUserSkill(int id) throws Exception;
+	List<UserSkillVO> getAllUserSkill(int seekerId) throws Exception;
 
 }

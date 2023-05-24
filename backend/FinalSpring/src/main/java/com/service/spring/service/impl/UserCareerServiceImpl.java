@@ -25,13 +25,13 @@ public class UserCareerServiceImpl implements UserCareerService {
 	}
 
 	@Override
-	public int deleteUserCareer(int carrerId) throws Exception {
-		return userCareerDAO.deleteUserCareer(carrerId);
+	public int deleteUserCareer(int careerId) throws Exception {
+		return userCareerDAO.deleteUserCareer(careerId);
 	}
 
 	@Override
-	public UserCareerVO getUserCareer(int carrerId) throws Exception {
-		return userCareerDAO.getUserCareer(carrerId);
+	public UserCareerVO getUserCareer(int careerId) throws Exception {
+		return userCareerDAO.getUserCareer(careerId);
 	}
 
 	@Override

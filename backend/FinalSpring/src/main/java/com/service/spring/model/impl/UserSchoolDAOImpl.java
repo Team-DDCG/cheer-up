@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +34,11 @@ public class UserSchoolDAOImpl implements UserSchoolDAO {
 	@Override
 	public UserSchoolVO getUserSchool(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserSchool", id);
+	}
+
+	@Override
+	public List<UserSchoolVO> getAllUserSchool(int seekerId) throws Exception {
+		return sqlSession.selectList(NS + "getAllUserSchool", seekerId);
 	}
 
 }

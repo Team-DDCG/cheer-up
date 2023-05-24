@@ -1,5 +1,7 @@
 package com.service.spring.service;
 
+import java.util.List;
+
 import com.service.spring.domain.UserSchoolVO;
 
 public interface UserSchoolService {
@@ -9,5 +11,5 @@ public interface UserSchoolService {
 	int updateUserSchool(UserSchoolVO vo) throws Exception;
 	
 	UserSchoolVO getUserSchool(int id) throws Exception;
-
+	List<UserSchoolVO> getAllUserSchool(int seekerId) throws Exception;
 }

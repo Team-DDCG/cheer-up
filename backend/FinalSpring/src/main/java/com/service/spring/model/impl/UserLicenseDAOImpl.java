@@ -1,5 +1,7 @@
 package com.service.spring.model.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,12 +28,17 @@ public class UserLicenseDAOImpl implements UserLicenseDAO {
 
 	@Override
 	public int updateUserLicense(UserLicenseVO vo) throws Exception {
-		return sqlSession.update(NS + "update UserLicense", vo);
+		return sqlSession.update(NS + "updateUserLicense", vo);
 	}
 
 	@Override
 	public UserLicenseVO getUserLicense(int id) throws Exception {
 		return sqlSession.selectOne(NS + "getUserLicense", id);
+	}
+
+	@Override
+	public List<UserLicenseVO> getAllUserLicense(int seekerId) throws Exception {
+		return sqlSession.selectList(NS + "getAllUserLicense", seekerId);
 	}
 
 }

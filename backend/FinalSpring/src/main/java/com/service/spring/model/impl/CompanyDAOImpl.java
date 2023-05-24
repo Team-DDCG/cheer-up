@@ -44,11 +44,14 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 
 	@Override
-	public List<CompanyDataDTO> getCompanyDataByName(String companyName) throws Exception {
-		return sqlSession.selectList(NS + "getCompanyDataByName", companyName);
+	public List<CompanyDataDTO> getCompanyPositionByName(String companyName) throws Exception {
+		return sqlSession.selectList(NS + "getCompanyPositionByName", companyName);
 	}
 
+	@Override
+	public CompanyVO getCompanyDataByName(String companyName) throws Exception {
+		return sqlSession.selectOne(NS + "getCompanyDataByName", companyName);
+	}
 
-	
 
 }

@@ -1,5 +1,7 @@
 package com.service.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,10 @@ public class UserProjectServiceImpl implements UserProjectService {
 	public UserProjectVO getUserProject(int id) throws Exception {
 		return userProjectDAO.getUserProject(id);
 	}
-	
-	
 
+	@Override
+	public List<UserProjectVO> getAllUserProject(int seekerId) throws Exception {
+		return userProjectDAO.getAllUserProject(seekerId);
+	}
+	
 }

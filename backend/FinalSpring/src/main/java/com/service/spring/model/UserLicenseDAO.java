@@ -1,5 +1,7 @@
 package com.service.spring.model;
 
+import java.util.List;
+
 import com.service.spring.domain.UserLicenseVO;
 
 public interface UserLicenseDAO {
@@ -9,6 +11,6 @@ public interface UserLicenseDAO {
 	int updateUserLicense(UserLicenseVO vo) throws Exception;
 	
 	UserLicenseVO getUserLicense(int id) throws Exception;
-
+	List<UserLicenseVO> getAllUserLicense(int id) throws Exception;
 
 }

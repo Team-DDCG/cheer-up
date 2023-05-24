@@ -2,13 +2,16 @@ package com.service.spring.controller;
 
 import com.service.spring.domain.UserSchoolVO;
 import com.service.spring.service.UserSchoolService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-schools")
+@RequestMapping("/api/schools")
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserSchoolController {
 
@@ -60,6 +63,16 @@ public class UserSchoolController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<UserSchoolVO>> getAllUserSchool(@PathVariable int seekerId) {
+        try {
+            List<UserSchoolVO> userSchools = userSchoolService.getAllUserSchool(seekerId);
+            return ResponseEntity.ok(userSchools);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
