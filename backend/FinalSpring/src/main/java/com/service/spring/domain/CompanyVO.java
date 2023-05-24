@@ -1,12 +1,10 @@
 package com.service.spring.domain;
 
-import java.sql.Date;
-
 public class CompanyVO {
     private int companyId; //company_id(pk)
     private String companyName; //company_name
-    private Date startDate; //start_date
-    private Date endDate; //end_date
+    private String startDate; //start_date
+    private String endDate; //end_date
     private String companyLogo; //company_logo
     private String title;
     private String companyUrl;//company_url
@@ -15,7 +13,7 @@ public class CompanyVO {
     public CompanyVO() {
     }
 
-	public CompanyVO(String companyName, Date startDate, Date endDate, String companyLogo, String title,
+	public CompanyVO(String companyName, String startDate, String endDate, String companyLogo, String title,
 			String companyUrl, String content) {
 		this.companyName = companyName;
 		this.startDate = startDate;
@@ -50,19 +48,19 @@ public class CompanyVO {
 		this.companyName = companyName;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

@@ -13,6 +13,7 @@ public interface CompanyService {
 	List<CompanyVO> getCompanyNameByCategory(int category2Id) throws Exception;
 	List<CompanyVO> findAllCompanyByName(String keyword) throws Exception;
 	
-	List<CompanyDataDTO> getCompanyDataByName(String companyName) throws Exception;
+	List<CompanyDataDTO> getCompanyPositionByName(String companyName) throws Exception;
+	CompanyVO getCompanyDataByName(String companyName) throws Exception;
 }
 
