@@ -84,9 +84,9 @@ img {
 }
 
 #innerBox {
-  padding: 50px;
+  padding: 0 50px 0 50px;
   border-radius: 10px;
-  margin: 100px;
+  margin: 0 100px 0;
   align-items: center;
 }
 .btn.btn-light {
