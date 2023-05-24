@@ -5,21 +5,17 @@
       <div id="myDiv">
         <div class="header">
           <div class="line">
-          <div class="line1">
-              <p class="title1">AI 자기소개서 생성</p>
-              <p class="title2">[KB증권] 2023 대졸 신입사원 공개채용</p>
-            <div class="line2">
-              <p class="start-date">시작일: 2023-05-10</p>
-              <p class="deadline">마감일: 2023-05-24</p>
-            </div>
-            <hr>
+            <div class="line1">
+              <p id="title1">AI 자기소개서 생성</p>
+              <div id="line2">
+                <p class="title2">[KB증권] 2023 대졸 신입사원 공개채용</p>
+                <p class="deadline">시작일: 2023-05-10 | 마감일: 2023-05-24</p>
+
+              </div>
+              <hr>
           </div>
           </div>
-          <!-- <div class="line2">
-            <p class="start-date">시작일: 2023-05-10</p><br>
-            <p class="deadline">마감일: 2023-05-24</p>
-            <hr>
-          </div> -->
+
         </div>
         <div class="info">
           <p class="text2">
@@ -31,23 +27,121 @@
             <span>에 대한 기업적합도 분석입니다.</span>
           </p>
         </div>
-        <div class="graph-box"></div>
+        <div class="graph-box">
+          <div>
+            <p>내 자기소개서 분석</p>
+            <pentagon-graph :data="[0.6, 0.9, 0.6, 0.8, 0.6]"></pentagon-graph>
+          </div>
+          <div>
+            <p>기업적합도 분석</p>
+            <pentagon-graph :data="[0.8, 0.6, 0.7, 0.6, 0.8]"></pentagon-graph>
+          </div>
+          
+        </div>
+        <div class="info">
+          <p class="text2">
+            <span class="bold">KB_12445</span>
+            <span>님의</span>
+          </p>
+          <p class="text1">
+            <span class="bold">케이비증권(주)</span>
+            <span>에 대해 작성된 자기소개서입니다.</span>
+          </p>
+        </div>
+        <div class="info" id="qna">
+          <p class="text1">
+            <span>질문 1. 자신의 장점과 단점을 관련 경험과 작성하시오. (500자 이내)</span>
+          </p>
+          <button>v 복사</button>
+        </div>
+        <div class="answer">
+          <p>[다재다능함]
+            히히 제 장점은 ~~~~~~~~~~~~입니다.
+            ㅇ아ㅡㄹ어마ㅣ러ㅏ밂ㄴ;ㅓ
+
+            [오지랖이 넓음]
+            단점을</p>
+        </div>
       </div>
+      
     </div>
   </div>
 </template>
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
+import PentagonGraph from '../components/PentagonGraph.vue';
 
 export default {
-  components: { ToolBar },
+  components: { ToolBar, PentagonGraph },
+  data() {
+    return {
+
+    }
+  },
+  mounted() {
+
+  },
+  methods: {
+    
+  },
 };
 </script>
 
 
 
 <style scoped>
+.graph-box div {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  margin: 20px;
+}
+.answer {
+  margin: 5px auto;
+  width: 80%;
+  background-color: #808080;
+  height: 100px;
+  padding: 10px;
+}
+#qna{
+  display: flex;
+  justify-content: space-between;
+}
+#qna button{
+  text-align: center;
+  width: 68px;
+  height: 21px;
+  border-radius: 30px;
+  border: 1px solid #363533;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+p{
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+}
+hr{
+  background-color: #F5F5F5;
+  margin: 0;
+  height: 2px;
+}
+#title1{
+  font-weight:bold;
+  font-size: 15px;
+}
+#date{
+  display: flex;
+}
+#line2{
+  display: flex;
+  justify-content: space-between;
+}
 .container {
   display: flex;
   justify-content: center;
@@ -64,15 +158,14 @@ export default {
 }
 
 .graph-box {
-  width: 870px;
-  height: 303px;
+  width: 80%;
   border-radius: 33px;
   background: #363533;
   border-width: 5px;
   border-color: #363533;
   justify-content: center;
   display: flex;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 .text1,
 .text2 {
@@ -94,8 +187,11 @@ export default {
   font-weight: 700;
 }
 .container > #myDiv > .info {
-  padding-left: 100px;
+  /* padding-left: 100px; */
+  /* margin-top: 30px; */
+  margin: 0 auto;
   margin-top: 30px;
+  width: 80%;
 }
 .container > #myDiv > .header {
   padding-top: 30px;

@@ -112,7 +112,7 @@ const routes = [
     component: MainView,
   },
   {
-    path: "/airesumeregister",
+    path: "/airesume",
     name: "airesumeregister",
     component: AiResumeRegisterView,
   },
