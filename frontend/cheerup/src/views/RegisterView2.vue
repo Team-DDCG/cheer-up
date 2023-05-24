@@ -11,7 +11,8 @@
         <progress value="30" max="100" class="progress"></progress>
       </div>
     </div>
-    <div class="mb-3">
+    <div>
+      <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">이름</label>
       <input
         v-model="name"
@@ -21,25 +22,19 @@
         placeholder="Name"
       />
     </div>
-    <div class="mb-3">
+    <div class="mb-3" id="id-box">
       <label for="exampleFormControlInput2" class="form-label">아이디</label>
-      <input
-        type="radio"
-        v-model="radioValues"
-        class="btn-check"
-        name="options"
-        id="option2"
-        autocomplete="off"
-        value="1"
-      />
-
-      <input
+      <div id="duplicate-box">
+        <input
         v-model="id"
         type="text"
         class="form-control"
         id="exampleFormControlInput2"
         placeholder="ID"
       />
+      <button @click.prevent="duplicateCheck" type="submit" class="btn btn-primary">중복확인</button>
+      </div>
+     
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">비밀번호</label>
@@ -51,7 +46,7 @@
         placeholder="Password"
         aria-labelledby="passwordHelpBlock"
       />
-      <div id="passwordHelpBlock" class="form-text"></div>
+      <!-- <div id="passwordHelpBlock" class="form-text"></div> -->
     </div>
     <div class="mb-3">
       <label for="inputPassword2" class="form-label">비밀번호 확인</label>
@@ -70,6 +65,8 @@
         다음
       </button>
     </div>
+    </div>
+    
   </div>
 </template>
   
@@ -148,20 +145,29 @@ img {
 }
 
 .mb-3 {
-  width: 300px;
+  width: 386px;
   height: 42.01px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto 90px 39%;
   align-items: center;
-  margin-bottom: 90px;
 }
 
 .mb-3 > .form-label {
+  
   color: #f5f5f5;
 }
-
-.mb-3-button > .btn.btn-primary {
+/* #id-box{align-items: center;} */
+.form-control{
+  width: 300px;
+}
+.btn.btn-primary {
   background: #a46cff;
+}
+
+#duplicate-box .btn.btn-primary {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  width: 76px;
+  margin-left: 10px;
 }
 
 .mb-3-button {
@@ -173,6 +179,10 @@ img {
   margin-top: 40px;
   align-items: center;
   margin-bottom: 90px;
+}
+#duplicate-box{
+  display: flex;
+  flex-direction:row;
 }
 .progress{
    display: flex;
