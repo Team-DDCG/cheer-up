@@ -1,10 +1,12 @@
 <template>
     <div id="nav" class="navigator_cv">
         <div id="sidenav_cv1" class="sidenav_cv">
-            <a href="#">개인정보</a>
+            <!-- <a href="#">개인정보</a> -->
+            <router-link to="/mycv">개인정보</router-link>
         </div>
         <div id="sidenav_cv2" class="sidenav_cv">
-            <a href="#">학력정보</a>
+            <!-- <a href="#">학력정보</a> -->
+            <router-link to="/mycv1">학력정보</router-link>
         </div>
         <div id="sidenav_cv3" class="sidenav_cv">
             <a href="#">경력사항</a>

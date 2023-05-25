@@ -160,15 +160,20 @@
     /* 전체 폼 와꾸 정리 */
 
      #main {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: 0.8fr 3fr 0.5fr;
+        display: flex;
+        flex-direction:row;
+        width: 100%;
+        /* grid-auto-flow: column; */
+        /* grid-template-columns: 0.8fr 3fr 0.5fr; */
     }
 
     #cv_content{
+        display: flex;
+        flex-direction:row;
         display: grid;
-        row-gap: 10px;
-        column-gap: 20px;
+        width: 80%;
+        /* row-gap: 10px;
+        column-gap: 20px; */
         background-color: #515151;
         padding: 4%;
         margin-bottom: 5%;
@@ -181,7 +186,7 @@
           font-size: 14px;
           font-weight: bolder;
           text-align: left;
-          width: 1080px;
+          width: 100%;
           top: 10px;
           border-bottom:1px solid #808080;
      }
