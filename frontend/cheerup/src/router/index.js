@@ -20,6 +20,7 @@ import AiResumeRegisterView from "../views/AiResumeRegisterView.vue";
 import AiResumeListView from "../views/AiResumeListView.vue";
 // import MypageView from "../views/MypageView.vue";
 import MycvView from "../views/MycvView.vue";
+import MycvView1 from "../views/MycvView1.vue";
 // import JobPosting from "../components/JobPosting";
 import ErrorView from "../views/ErrorView.vue";
 
@@ -137,6 +138,12 @@ const routes = [
     path: "/error",
     name: "error",
     component: ErrorView,
+    
+  },
+  {
+    path: "/mycv1",
+    name: "mycv1",
+    component: MycvView1,
   }
 ];
 

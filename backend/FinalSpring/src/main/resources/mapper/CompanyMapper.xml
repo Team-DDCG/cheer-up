@@ -49,7 +49,7 @@
 	</select>
 	
 	<select id="getCompanyDataByName" parameterType="String" resultType="com.service.spring.domain.CompanyVO">
-		SELECT company_name, start_date, end_date, company_logo, title, company_url, content
+		SELECT c.company_id, company_name, start_date, end_date, company_logo, title, company_url, content
 		FROM company
 		WHERE company_name = #{companyName}
 	</select>

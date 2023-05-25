@@ -1,269 +1,247 @@
-<!-- 나의 이력 페이지_개인정보-->
+<!-- MY PAGE_My info -->
 <template>
-    <meta charset="UTF-8">
-    <!-- navigation_ left -->
     <tool-bar/>
-    <div id="main">
-        <div id="nav" class="navigator_cv">
-        <div id="sidenav_cv1" class="sidenav_cv">
-            <a href="#">개인정보</a>
-        </div>
-        <div id="sidenav_cv2" class="sidenav_cv">
-            <a href="#">학력정보</a>
-        </div>
-        <div id="sidenav_cv3" class="sidenav_cv">
-            <a href="#">경력사항</a>
-        </div>
-        <div id="sidenav_cv4" class="sidenav_cv">
-            <a href="#">프로젝트 경험</a>
-        </div>
-        <div id="sidenav_cv5" class="sidenav_cv">
-            <a href="#">대외 활동</a>
-        </div>
-        <div id="sidenav_cv6" class="sidenav_cv">
-            <a href="#">해외 경험</a>
-        </div>
-        <div id="sidenav_cv7" class="sidenav_cv">
-            <a href="#">어학 점수</a>
-        </div>
-        <div id="sidenav_cv8" class="sidenav_cv">
-            <a href="#">스킬</a>
-        </div>
-        <div id="sidenav_cv9" class="sidenav_cv">
-            <a href="#">자격증</a>
-        </div>
-        <div id="sidenav_cv10" class="sidenav_cv">
-            <a href="#">수상 경력</a>
-        </div>
-    </div>
-    
-
-    <section>
-    <div class ="content-box">
-        <article>
-            <label for="" class="main">나의 이력</label>
-            <div class="myimage">
-                <input id="myimage" type="file" @change="readInputFile"/>
+     <section id="main">
+          <side-bar-cv/>
+          <div id = "cv_content">
+            <header>
+                <label for="" class="title">나의 이력</label>
+            </header>
+            <div class="imginput" id="imgNline">
+                <div class="imginput" id="imgNline_img">
+                    <input id="img" type="file" @change="readInputFile"/>
+                </div>
+            <div class="info-set" id="imgNline_line">
+                <div class="info-set" id="line1">
+                    <div class="formbox">
+                        <label for="" class="form-label">이름</label>
+                        <input
+                        v-model="name"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="이름"
+                        />
                     </div>
-                        <br>
-                    <div id="imagePreview">
-                <img id="img" />
-             </div>
 
-            <div class="formbox">
-                <label for="" class="form-label">이름</label>
-                <input
-                v-model="name"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="이름"
-                />
-            </div>
+                    <div class="formbox">
+                        <label for="" class="form-label">영문이름</label>
+                        <input
+                        v-model="Ename"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Name"
+                        />
+                    </div>
 
-            <div class="formbox">
-                <label for="" class="form-label">영문이름</label>
-                <input
-                v-model="Ename"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Name"
-                />
-            </div>
-
-            <div class="formbox">
-                <label for="" class="form-label">한문이름</label>
-                <input
-                v-model="Cname"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="漢字"
-                />
-            </div>
-
-            <div class="formbox">
-                <label for="" class="form-label">생년월일</label>
-                <input
-                v-model="birth"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Birth date"
-                />
-            </div>
-
-            <div class="form-check-label">
-                <label for="exampleFormControlInput2" class="form-label">성별</label
-                ><br />
-                <div class="form-check form-check-inline">
-                    <input
-                    v-model="sex"
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio1"
-                    value="0"
-                    />
-                    <label class="form-check-label" for="inlineRadio1">남성</label>
+                    <div class="formbox">
+                        <label for="" class="form-label">한문이름</label>
+                        <input
+                        v-model="Cname"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="漢字"
+                        />
+                    </div>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input
-                    v-model="sex"
-                    class="form-check-input"
-                    type="radio"
-                    name="inlineRadioOptions"
-                    id="inlineRadio2"
-                    value="1"
-                    />
-                    <label class="form-check-label" for="inlineRadio2">여성</label>
                 </div>
-            </div>
+                <div class="info-set" id="line2">
+                    <div class="formbox">
+                        <label for="" class="form-label">생년월일</label>
+                        <input
+                        v-model="birth"
+                        type="date"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Birth date"
+                        />
+                    </div>
 
-            <div class="formbox">
-                <label for="" class="form-label">국가</label>
-                <input
-                v-model="nation"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="nation"
-                />
-            </div>
+                    <div class="form-check-label">
+                        <label for="exampleFormControlInput2" class="form-label">성별</label
+                        ><br/>
+                        <div class="form-check form-check-inline">
+                            <input
+                            v-model="sex"
+                            class="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id="inlineRadio1"
+                            value="0"
+                            />
+                            <label class="form-check-label" for="inlineRadio1">남성</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input
+                            v-model="sex"
+                            class="form-check-input"
+                            type="radio"
+                            name="inlineRadioOptions"
+                            id="inlineRadio2"
+                            value="1"
+                            />
+                            <label class="form-check-label" for="inlineRadio2">여성</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="info-set" id="line3">
+                    <div class="formbox">
+                        <label for="" class="form-label">국가</label>
+                        <input
+                        v-model="nation"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="nation"
+                        />
+                    </div>
 
-            <div class="formbox">
-                <label for="" class="form-label">전화번호</label>
-                <input
-                v-model="phone"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="010-0000-0000"
-                />
-            </div>
 
-            <div class="formbox">
-                <label for="" class="form-label">이메일</label>
-                <input
-                v-model="email"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Email"
-                />
-            </div>
+                    <div class="formbox">
+                        <label for="" class="form-label">전화번호</label>
+                        <input
+                        v-model="phone"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="010-0000-0000"
+                        />
+                    </div>
 
-            <div class="formbox2">
-                <label for="" class="form-label">주소</label>
-                <input
-                v-model="address"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Address"
-                />
-            </div>
+                    <div class="formbox">
+                        <label for="" class="form-label">이메일</label>
+                        <input
+                        v-model="email"
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Email"
+                        />
+                    </div>
+                </div>
+                
+                <div class="formbox2" id="line4">
+                    <label for="" class="form-label">주소</label>
+                    <input
+                    v-model="address"
+                    type="text"
+                    class="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="Address"
+                    />
+                </div>
+                
+                <div class="btn" id="line5">
+                <input type="button" class="save-button" onclick="alert('클릭!')">
+                </div>
+          </div>
+     </section>  
+     <footer-bar/>
 
-    </article>
-    </div>
-    </section>
-    </div>
-    
 </template>
-
 <script>
-import ToolBar from '../components/ToolBar.vue';
-
-export default{
-    components: {ToolBar, },
-    data() {
-        return {
+     import ToolBar from '../components/ToolBar.vue';
+     import FooterBar from '../components/FooterBar.vue';
+     import SideBarCv from '../components/SideBarCv.vue';
+     export default{
+     components: { ToolBar, FooterBar, SideBarCv},
+     data() {
+          return {
 
         }
     }
 }
 </script>
-
 <style scoped>
-#main {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-    .sidenav_cv {
-        height: 50px;
-        width: 163px;
-        position: relative;
-        top: 200px;
-        left: 10px;
-        margin: 10px;
-        background-color: #CCCCCC;
-        padding: 13px 8px 8px 32px;
-        font-size: 17px;
-        color: #818181;
-        display: block;
+
+    /* 전체 폼 와꾸 정리 */
+
+     #main {
+        display: flex;
+        flex-direction:row;
+        width: 100%;
+        /* grid-auto-flow: column; */
+        /* grid-template-columns: 0.8fr 3fr 0.5fr; */
     }
 
-    section{
-        margin: 0 auto;
+    #cv_content{
+        display: flex;
+        flex-direction:row;
+        display: grid;
         width: 80%;
-        padding: 20px;
-        border: 1px solid #808080;
-        border-radius: 5px;
+        /* row-gap: 10px;
+        column-gap: 20px; */
         background-color: #515151;
-        font-family: 'Montserrat','san-serif';
-        font-size: 20px;
+        padding: 4%;
+        margin-bottom: 5%;
+        margin-top: 5%;
+        border-radius: 5px;
     }
 
-    .content-box{
-        border: gray; 
-        padding: 50px 8px 70px 32px;
-        color: #808080;
-        background: #515151;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: auto;
-        margin-bottom: 0%;
-        width : 80%;
-        height : 40%;
+    .title{
+          color: #f5f5f5;
+          font-size: 14px;
+          font-weight: bolder;
+          text-align: left;
+          width: 100%;
+          top: 10px;
+          border-bottom:1px solid #808080;
+     }
+     
+    /* 이미지와 라인 정리 */
+    #imgNline_img{
+        grid-row: span 2;
     }
 
-    .formbox{
-        color: #808080;
-        box-sizing: content-box;
-        width : 200px;
-        height: 68px;
-    }
-    .formbox2{
-        color: #808080;
-        box-sizing: content-box;
-        width : 850px;
-        height: 68px;
+
+    #imgNline{
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 10px 20px;
     }
 
-    .formbox > .form-label {
-        color: #f5f5f5;
+
+    /* 라인 정리 */
+    #line1{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px 20px;
     }
 
-    .formbox > .form-check-label {
-        color: #f5f5f5;
-    }  
+    #line2{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 20px;
+    }
+
     
-    .main{
-        color: #f5f5f5;
-        font-size : 20px;
-        font-weight: bold;
+    #line3{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px 20px;
     }
-#nav{
-    margin: 0 auto;
-        width: 18%;
-        border: 1px solid #808080;
-        border-radius: 5px;
-        background-color: #515151;
-        font-family: 'Montserrat','san-serif';
-        font-size: 20px;
-}
 
 
+    /* 폼 정리 */
+    .form-control{
+        font-size: 14px;
+       background-color: #808080; 
+       border-color: #808080;
+    }
+
+    .form-label{
+        font-size: 14px;
+        color: #F5F5F5
+        
+    }
+
+    /* 저장 버튼 */
+    /* input.save-button{
+        background-image: url(../assets/등록\ 버튼.png);
+        width: 100px;
+    } */
+   
 </style>

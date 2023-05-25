@@ -79,7 +79,7 @@ export default {
           // sessionStorage.setItem("accessToken", res.data.access_token);
           sessionStorage.setItem("name", res.data.userName);
           localStorage.setItem('isLoggedIn', 'true');
-          this.$router.push("/");
+          this.$router.push("/main");
         })
         .catch((err) => {
           console.log(err);
@@ -92,9 +92,9 @@ export default {
 
 <style scoped>
 #remember{
-  -webkit-appearance: none;
+  /* -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
+  appearance: none; */
   width: 16px;
   height: 16px;
   border-radius: 5px;
