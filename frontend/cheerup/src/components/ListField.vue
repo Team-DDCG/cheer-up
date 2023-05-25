@@ -15,6 +15,7 @@ export default {
   methods: {
     printMessage(index) {
       console.log(this.listData[index]);
+      console.log(this.company.companyId)
     }
   }
 }
