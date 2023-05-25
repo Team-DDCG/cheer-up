@@ -26,21 +26,14 @@
           placeholder="Password"
         />
       </div>
+      <p v-if="check==='error'" class="missing">계정 정보가 확인되지 않습니다</p>
+      <p v-else class="missing"></p>
       <div class="remember">
-        <input type="checkbox" name="xxx" value="yyy" checked />
-        <!-- <img
-            @click="changeToggle"
-            v-if="save_toggle === false"
-            src="../assets/off-btn.png"
-            style="width: 80px; height: 40px"
-          />
-          <img
-            @click="changeToggle"
-            v-else-if="save_toggle === true"
-            src="../assets/on-btn.png"
-            style="width: 80px; height: 40px"
-          /> -->
-        <span class="remember1">&nbsp;Remember me</span>
+        <div>
+          <input id="remember" type="checkbox" name="xxx" value="yyy" checked />
+          <span class="remember1">&nbsp;Remember me</span>
+        </div>
+
         <router-link to="/find"
           ><span class="find">아이디/비밀번호찾기</span></router-link
         >
@@ -63,6 +56,7 @@ export default {
       id: "",
       password: "",
       save_toggle: false,
+      check: '',
     };
   },
   components: {},
@@ -89,6 +83,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.check = 'error';
         });
     },
   },
@@ -96,6 +91,29 @@ export default {
 </script>
 
 <style scoped>
+#remember{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  margin-right: 5px;
+  /* border: 2px solid #ccc; */
+  outline: none;
+  transition: background-color 0.3s;
+  background-color: #a46cff;
+}
+#remember:checked{
+  background-color: #a46cff;
+}
+.missing {
+  height: 13px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  color: #E51616;
+}
 img {
   vertical-align: 0%;
 }
@@ -115,7 +133,7 @@ img {
   border: 1px solid #808080;
 }
 .main-title {
-  margin: 50px;
+  margin: 30px;
   align-items: center;
   color: #f5f5f5;
   background: #515151;
@@ -205,10 +223,12 @@ img {
 .remember {
   background: #515151;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 300px;
+  margin: 0 auto;
   margin-top: 10px;
-  margin-right: 15px;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -216,16 +236,16 @@ img {
 }
 .remember > .remember1 {
   display: flex;
-  margin-bottom: 8px;
-  margin-right: 5px;
+  /* margin-bottom: 8px; */
+  /* margin-right: 5px; */
   color: #f5f5f5;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
 }
 .remember > .find {
   display: flex;
-  margin-bottom: 8px;
-  margin-right: 5px;
+  /* margin-bottom: 8px; */
+  /* margin-right: 5px; */
   color: #f5f5f5;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
@@ -234,8 +254,6 @@ img {
 a {
   text-decoration: none;
   display: flex;
-  margin-bottom: 8px;
-  margin-right: 5px;
   color: #f5f5f5;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;

@@ -8,7 +8,8 @@
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
-        
+        <progress value="10" max="100" class="progress"></progress>
+
       </div>
     </div>
     <hr />
@@ -84,12 +85,12 @@ img {
 }
 
 #innerBox {
-  padding: 50px;
+  padding: 0 50px 0 50px;
   border-radius: 10px;
-  margin: 100px;
+  margin: 0 100px 0;
   align-items: center;
 }
-#innerBox > .box > .btn.btn-light {
+.btn.btn-light {
   width: 230px;
   height: 230px;
   text-align: center;
@@ -102,10 +103,11 @@ img {
   justify-content: center;
 }
 .btn.btn-light:hover {
-  background: #515151;
+  background: #a46cff;
+  color: #f5f5f5;
 }
 
-#innerBox > .box2 > .btn.btn-primary {
+.btn.btn-primary {
   margin: 0 auto;
 
   width: 300px;
@@ -119,6 +121,11 @@ img {
   font-size: 20px;
   font-weight: 700;
   box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+input[type="radio"].btn-check:checked + label.btn.btn-light {
+  background-color: #a46cff;
+  color: #f5f5f5;
 }
 
 .main-title {
@@ -160,8 +167,26 @@ img {
   align-items: center;
 }
 
-input[type="radio"].btn-check:checked + label.btn.btn-light {
-  background-color: #a46cff;
-  color: #f5f5f5;
+.progress{
+   display: flex;
+   margin: 0 auto;
+   width: 1000px;
+   height: 20px; 
+   background-color: #515151;
 }
+
+/* 프로그레스 바의 색상을 변경합니다 */
+progress::-webkit-progress-value {
+  background-color: #a46cff;
+}
+
+progress::-moz-progress-bar {
+  background-color: #a46cff;
+}
+
+progress::-ms-fill {
+  background-color: #a46cff;
+}
+
+
 </style>
