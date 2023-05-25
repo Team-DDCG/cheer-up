@@ -19,6 +19,7 @@ import MainView from "../views/MainView.vue";
 import AiResumeRegisterView from "../views/AiResumeRegisterView.vue";
 // import MypageView from "../views/MypageView.vue";
 import MycvView from "../views/MycvView.vue";
+import MycvView1 from "../views/MycvView1.vue";
 // import JobPosting from "../components/JobPosting";
 
 const routes = [
@@ -125,6 +126,11 @@ const routes = [
     path: "/mycv",
     name: "mycv",
     component: MycvView,
+  },
+  {
+    path: "/mycv1",
+    name: "mycv1",
+    component: MycvView1,
   }
 ];
 
