@@ -17,9 +17,11 @@ import FindPwView1 from "../views/FindPwView1.vue";
 import FindPwView2 from "../views/FindPwView2.vue";
 import MainView from "../views/MainView.vue";
 import AiResumeRegisterView from "../views/AiResumeRegisterView.vue";
+import AiResumeListView from "../views/AiResumeListView.vue";
 // import MypageView from "../views/MypageView.vue";
 import MycvView from "../views/MycvView.vue";
 // import JobPosting from "../components/JobPosting";
+import ErrorView from "../views/ErrorView.vue";
 
 const routes = [
   {
@@ -116,6 +118,11 @@ const routes = [
     name: "airesumeregister",
     component: AiResumeRegisterView,
   },
+  {
+    path: "/airesumelist",
+    name: "airesumelist",
+    component: AiResumeListView,
+  },
   // {
   //   path: "/mypage",
   //   name: "mypage",
@@ -125,6 +132,11 @@ const routes = [
     path: "/mycv",
     name: "mycv",
     component: MycvView,
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: ErrorView,
   }
 ];
 
