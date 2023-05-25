@@ -26,7 +26,7 @@
         </router-link>
       </div>
       <div class="box" id="20">
-        <router-link to="/자기소개서 작성으로 이동">
+        <router-link to="/">
           <img src="https://picsum.photos/200" class="image2" />
           <div class="content">
             <p class="title">자기소개서 작성</p>
@@ -38,7 +38,7 @@
         </router-link>
       </div>
       <div class="box" id="30">
-        <router-link to="/자기소개서 코칭으로 이동">
+        <router-link to="/ask">
           <img src="https://picsum.photos/200" class="image2" />
           <div class="content">
             <p class="title">자기소개서 코칭</p>
@@ -50,7 +50,7 @@
         </router-link>
       </div>
       <div class="box" id="40">
-        <router-link to="/취업 프로그램으로 이동">
+        <router-link to="/job">
           <img src="https://picsum.photos/200" class="image2" />
           <div class="content">
             <p class="title">취업 프로그램</p>
