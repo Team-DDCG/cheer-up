@@ -11,11 +11,13 @@
 
 <script>
 export default {
+
   props: ['listData','company'],
   methods: {
     printMessage(index) {
       console.log(this.listData[index]);
-      console.log(this.company.companyId)
+      console.log(this.company.companyId);
+      console.log(sessionStorage.getItem("id"));
     }
   }
 }
