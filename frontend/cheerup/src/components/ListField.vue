@@ -1,15 +1,25 @@
 <template>
   <ul class="list">
-    <li v-for="item of listData" :key="item" class="li" >
+    <li v-for="(item, index) of listData" :key="index" class="li" >
       <p>{{item}}</p>
-      <router-link :to="`/item/?id=${item}`"><div><b>자기소개서 AI작성</b></div></router-link>
+      <!-- <router-link :to="`/item/?id=${item}`"><div><b>자기소개서 AI작성</b></div></router-link> -->
+      <!-- <router-link :to="`/airesume`"><div><b>자기소개서 AI작성</b></div></router-link> -->
+      <a @click="printMessage(index)"><div><b>자기소개서 AI작성</b></div></a>
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  props: ['listData',]
+
+  props: ['listData','company'],
+  methods: {
+    printMessage(index) {
+      console.log(this.listData[index]);
+      console.log(this.company.companyId);
+      console.log(sessionStorage.getItem("id"));
+    }
+  }
 }
 </script>
 

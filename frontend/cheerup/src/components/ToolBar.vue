@@ -1,7 +1,7 @@
 <template>
   <header>
     <div>
-      <router-link to="/">
+      <router-link to="/main">
       <img src="../assets/Logo_kor.png"/>
       <!-- <span class ="name1">취얼</span>
       <span class ="name2">업</span> -->

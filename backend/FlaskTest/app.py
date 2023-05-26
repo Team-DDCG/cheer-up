@@ -6,6 +6,7 @@ from flask_cors import CORS
 import openai
 import cx_Oracle
 import dbconn
+from mailmerge import MailMerge
 
 app = Flask(__name__)
 CORS(app)
@@ -346,6 +347,102 @@ def goodnessOfFit(seeker_id, company_name):
     conn.close()
 
     return jsonify({"result": message_result})
+
+@app.route("/make_portfolio/<seeker_id>")
+def makePortfolio(seeker_id):
+    document = MailMerge('./real_kb/portfolio_1.docx')
+    # 문서의 병합필드 확인
+    print(document.get_merge_fields())
+
+    # 직접 이름과 생년월일의 값을 채워보자
+    document.merge(
+        ################## 기본 인적 사항##############################################################
+        user_name='',
+        birthdate='',
+        sex='',
+        address='',
+        phone='',
+        email='',
+
+        # userd_seeker
+        ename='',
+        cname='',
+        nation_origin='',
+        military='',
+        bohun='',
+        disabled='',
+
+        ##################language#########################################################################
+        language='',
+        lang_grade='',
+        lang_type='',
+        lang_acquired_date='',
+        lang_license_number='',
+        lang_agency='',
+
+        ##################skill#########################################################################
+        skill_name='',
+        skill_grade='',
+
+        ##################licence#########################################################################
+        license_name='',
+        license_acquired_date='',
+        license_license_number='',
+        license_agency='',
+
+        ##################school#########################################################################
+        education_type='',
+        highest_check='',
+        school_name='',
+        entrance_date='',
+        graduation_date='',
+        attending_check='',
+
+        major='',
+        gpa='',
+        transfer_check='',
+
+        ##################career#########################################################################
+        company_name='',
+        career_start_date='',
+        career_end_date='',
+        career_attending_check='',
+        department='',
+        position='',
+        hire_type='',
+
+        ##################project#########################################################################
+        project_name='',
+        host_name='',
+        institution='',
+        project_skill='',
+        project_content='',
+
+        ##################Activation#########################################################################
+        activation_name='',
+        act_start_date='',
+        act_end_date='',
+        activation_content='',
+
+        ##################Rewards#########################################################################
+        rewards_name='',
+        rewards_acquired_date='',
+        rewards_host='',
+
+        ##################Overseas#########################################################################
+        oversea_purpose='',
+        ovesea_institution='',
+        nation='',
+        oversea_start_date='',
+        oversea_end_date='',
+        oversea_reason=''
+    )
+
+    # 필드 병합된 결과의 수료증을 직접 생성...파일명도 필드명을 참고해서
+    document.write('./real_kb/수료증_tem_test.docx')
+
+
+
 
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', debug=True, port=5000)

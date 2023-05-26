@@ -11,7 +11,7 @@
         </div>
         <a id="site" target="_blank" :href="company.companyUrl"><b>채용 사이트 이동</b></a>
       </div>
-      <list-field :listData="company.position"></list-field>
+      <list-field :listData="company.position" :company="company"></list-field>
       <div id="image-container2">
         <img :src="company.content" id="job">
       </div>
