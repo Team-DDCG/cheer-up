@@ -21,6 +21,7 @@ export default {
         path: "/airesume", 
         query: { 
           field: this.listData[index],
+          companyName: this.company.companyName,
           companyId: this.company.companyId,
         } 
       });

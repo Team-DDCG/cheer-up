@@ -30,11 +30,11 @@
         <div class="graph-box">
           <div>
             <p>내 자기소개서 분석</p>
-            <pentagon-graph :data="character"></pentagon-graph>
+            <pentagon-graph :data="processedCharacter"></pentagon-graph>
           </div>
           <div>
             <p>기업적합도 분석</p>
-            <pentagon-graph :data="fit"></pentagon-graph>
+            <pentagon-graph :data="processedFit"></pentagon-graph>
           </div>
           
         </div>
@@ -79,36 +79,46 @@ export default {
   data() {
     return {
       field: '',
+      companyName: '',
       companyId: '',
       userId: '',
       character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
+      
     }
   },
   mounted() {
-    // console.log(this.$route.query.field);
+    console.log(this.$route.query.field);
   },
   methods: {
-    
+
   },
   created() {
     this.field = this.$route.query.field;
+    this.companyName = this.$route.query.companyName;
     this.companyId = this.$route.query.companyId;
     this.userId =  sessionStorage.getItem("id");
     console.log(this.field);
+    console.log(this.companyName);
     console.log(this.companyId);
     console.log(this.userId);
 
      axios
-        .get("http://127.0.0.1:5000/my_characteristic/"+sessionStorage.getItem("id"), {
+        .get("http://127.0.0.1:5000/my_characteristic/"+this.userId, {
         })
         .then((res1) => {
-          console.log(res1.data);
+          console.log(res1.data.result);
+          this.character = res1.data.result.map(sublist => sublist[1]/100);
+          console.log(this.character);
+
           axios
-          .get("http://127.0.0.1:5000/goodness_of_fit/"+sessionStorage.getItem("id")+"/"+this.company.companyName, {
+          .get("http://127.0.0.1:5000/goodness_of_fit/"+this.userId+"/"+this.companyName, {
           })
           .then((res2) => {
-            console.log(res2.data);
+            console.log(res2.data.result);
+            this.fit = res2.data.result.map(sublist => sublist[1]/100);          
+            console.log(this.fit);
+
           })
           .catch((err2) => {
             console.log(err2);
@@ -119,7 +129,31 @@ export default {
           console.log(err1);
           this.check = 'error1';
         });
-  }
+  },
+  computed: {
+    processedCharacter() {
+      // character 데이터를 처리한 결과를 반환하는 계산형 속성
+      console.log('processedCharacter');
+      console.log(this.character);
+      
+      return this.character;
+    },
+    processedFit() {
+      // fit 데이터를 처리한 결과를 반환하는 계산형 속성
+      console.log('processedFit');
+      console.log(this.fit);
+      
+      return this.fit;
+    }
+  },
+  // watch: {
+  //   character: function(){
+  //     console.log(this.character);
+  //   },
+  //   fit: function(){
+  //     console.log(this.fit);
+  //   }
+  // }
 };
 </script>
 

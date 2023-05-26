@@ -7,6 +7,7 @@
   <script>
   export default {
     mounted() {
+      console.log("pentagon-graph mounted");
       this.drawPentagonGraphs();
     },
     methods: {
@@ -55,7 +56,16 @@
         type: Array,
         required: true
       }
-    }
+    },
+    watch: {
+      data: {
+        handler() {
+          // data가 변경될 때 수행할 동작
+          this.drawPentagonGraphs();
+        },
+        deep: true // 중첩된 배열의 변경까지 감지하도록 설정
+      }
+},
   };
   </script>
   
