@@ -30,11 +30,11 @@
         <div class="graph-box">
           <div>
             <p>내 자기소개서 분석</p>
-            <pentagon-graph :data="[0.6, 0.9, 0.6, 0.8, 0.6]"></pentagon-graph>
+            <pentagon-graph :data="character"></pentagon-graph>
           </div>
           <div>
             <p>기업적합도 분석</p>
-            <pentagon-graph :data="[0.8, 0.6, 0.7, 0.6, 0.8]"></pentagon-graph>
+            <pentagon-graph :data="fit"></pentagon-graph>
           </div>
           
         </div>
@@ -71,20 +71,55 @@
 <script>
 import ToolBar from "../components/ToolBar.vue";
 import PentagonGraph from '../components/PentagonGraph.vue';
+import axios from "axios";
 
 export default {
   components: { ToolBar, PentagonGraph },
+  
   data() {
     return {
-
+      field: '',
+      companyId: '',
+      userId: '',
+      character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
+      fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
     }
   },
   mounted() {
-
+    // console.log(this.$route.query.field);
   },
   methods: {
     
   },
+  created() {
+    this.field = this.$route.query.field;
+    this.companyId = this.$route.query.companyId;
+    this.userId =  sessionStorage.getItem("id");
+    console.log(this.field);
+    console.log(this.companyId);
+    console.log(this.userId);
+
+     axios
+        .get("http://127.0.0.1:5000/my_characteristic/"+sessionStorage.getItem("id"), {
+        })
+        .then((res1) => {
+          console.log(res1.data);
+          axios
+          .get("http://127.0.0.1:5000/goodness_of_fit/"+sessionStorage.getItem("id")+"/"+this.company.companyName, {
+          })
+          .then((res2) => {
+            console.log(res2.data);
+          })
+          .catch((err2) => {
+            console.log(err2);
+            this.check = 'error2';
+          });
+        })
+        .catch((err1) => {
+          console.log(err1);
+          this.check = 'error1';
+        });
+  }
 };
 </script>
 
