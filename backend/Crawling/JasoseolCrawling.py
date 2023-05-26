@@ -396,7 +396,7 @@ def crawling(driver, number):
                 cursor.execute(sql_id_check, {'company_name': name})
                 result2 = cursor.fetchone()[0]
                 sql = "INSERT INTO question VALUES(question_seq.NEXTVAL, :position, :question, :length, :company_id)"
-                cursor.execute(sql, {'position': categories[0],
+                cursor.execute(sql, {'position': field.text,
                                     'question': question,
                                     'length': length,
                                     'company_id': result2})
@@ -456,7 +456,7 @@ def crawling(driver, number):
                     cursor.execute(sql_id_check, {'company_name': name})
                     result2 = cursor.fetchone()[0]
                     sql = "INSERT INTO question VALUES(question_seq.NEXTVAL, :position, :question, :length, :company_id)"
-                    cursor.execute(sql, {'position': categories[i-1],
+                    cursor.execute(sql, {'position': field.text,
                                         'question': question,
                                         'length': length,
                                         'company_id': result2})
@@ -481,8 +481,8 @@ if __name__ == "__main__":
 
     # crawling(driver, 82000)
 
-    start = 81430
-    end = 81435
+    start = 81433
+    end = 81433
     
     for i in range(start, end+1):
         crawling(driver, i)
