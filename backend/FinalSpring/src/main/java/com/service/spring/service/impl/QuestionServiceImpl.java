@@ -39,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService{
 
 
 	@Override
-	public List<QuestionVO> getQuestionByCompanyIdAndPosition(int companyId, String position) throws Exception {
+	public List<QuestionVO> getQuestionByPosition(int companyId, String position) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("companyId", companyId);
         paramMap.put("position", position);

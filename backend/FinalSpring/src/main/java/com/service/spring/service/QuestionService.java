@@ -10,6 +10,6 @@ public interface QuestionService {
 	int deleteQuestion(int questionId) throws Exception;
 	
 	List<QuestionVO> getQuestion(int companyId) throws Exception;
-	List<QuestionVO> getQuestionByCompanyIdAndPosition(int companyId, String position) throws Exception;
+	List<QuestionVO> getQuestionByPosition(int companyId, String position) throws Exception;
 
 }

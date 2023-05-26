@@ -4,13 +4,13 @@ public class QuestionVO {
     private int questionId; //question_id(pk)
     private String position;
     private String question;
-    private int length;
+    private String length;
     private int companyId; //company_id (fk)
 
     public QuestionVO() {
     }
 
-	public QuestionVO( String position, String question, int length, int companyId) {
+	public QuestionVO( String position, String question, String length, int companyId) {
 		this.position = position;
 		this.question = question;
 		this.length = length;
@@ -41,11 +41,11 @@ public class QuestionVO {
 		this.question = question;
 	}
 
-	public int getLength() {
+	public String getLength() {
 		return length;
 	}
 
-	public void setLength(int length) {
+	public void setLength(String length) {
 		this.length = length;
 	}
 

@@ -66,8 +66,10 @@ public class QuestionController {
     public ResponseEntity<List<QuestionVO>> getQuestionsByCompanyIdAndPosition(
             @PathVariable int companyId,
             @PathVariable String position) {
+    	System.out.println(companyId);
+    	System.out.println(position);
         try {
-            List<QuestionVO> questions = questionService.getQuestionByCompanyIdAndPosition(companyId, position);
+            List<QuestionVO> questions = questionService.getQuestionByPosition(companyId, position);
             if (!questions.isEmpty()) {
                 return ResponseEntity.ok(questions);
             }
