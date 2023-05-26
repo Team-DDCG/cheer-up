@@ -21,13 +21,24 @@ export default {
       console.log(this.company.companyId);
       console.log(sessionStorage.getItem("id"));
       axios
-        .post("http://127.0.0.1:3000/my_characteristic/"+sessionStorage.getItem("id"), {
+        .get("http://127.0.0.1:5000/my_characteristic/"+sessionStorage.getItem("id"), {
 
         })
         .then((res) => {
           // sessionStorage.setItem("name", res.data.userName);
           console.log(res.data);
-          this.$router.push("/main");
+          // this.$router.push("/main");
+          axios
+          .get("http://127.0.0.1:5000/goodness_of_fit/"+sessionStorage.getItem("id")+"/"+this.company.companyName, {
+
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = 'error';
+          });
         })
         .catch((err) => {
           console.log(err);
