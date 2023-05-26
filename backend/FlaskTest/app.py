@@ -254,7 +254,7 @@ def myCharacteristic(seeker_id):
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
             {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
-
+            
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
