@@ -40,16 +40,13 @@ openai.api_key = ORGANIZATION
 
 # 이력사항 DB에서 가져오는 method
 @app.route("/test_career_table_select")
-def career_table_select(user_seeker_id):
+def career_table_select(seeker_id):
 
     conn = dbconn.db_connect()
 
     career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
     total_table = []
     table_index = 0
-
-    # 취준생번호 값 받아오기
-    seeker_id = user_seeker_id
 
     cursor = conn.cursor()
 
@@ -105,12 +102,8 @@ def company_table_select(company_id):
 
 
 
-@app.route("/resume_create/<seeker_id>/<company_id>")
-def resumeCreate(seeker_id, company_id):
-    
-    # 취준생번호, 회사번호 값 받아오기
-    # seeker_id = 1
-    # company_id = 1
+@app.route("/resume_create/<seeker_id>/<company_id>/<company_name>")
+def resumeCreate(seeker_id, company_id, company_name):
     
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
@@ -122,23 +115,23 @@ def resumeCreate(seeker_id, company_id):
         position = company_value[1]
         resume_question = company_value[2]
         question_text_max = company_value[3]
-        
-        # 회사번호로 기업명 가져오기...?
-        company_name = "KB국민은행"
-        
 
         # Call the chat GPT API 
         completion = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
             {"role": "system", "content": ("너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
-                                        "기업 자기소개서 질문에 맞추어 기업에 제출할 자기소개서를 작성해주는 AI야")},
+                                        "기업 자기소개서 질문과 지원 직무에 맞추어 기업에 제출할 자기소개서를 작성해주는 AI야")},
 
             {"role": "assistant", "content": ("자기소개서를 작성하는데 유의할 점이 있나요?")},
             {"role": "user", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 쓰지말고, 두괄식으로 작성해줘"
                                         "그리고 내가 제공해주는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 중 없는 것이 있다면 참고하지 말아줘 ")},
 
-            {"role": "assistant", "content": ("경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주시고, 기업명과 지원 직무, 자기소개서 질문, 자기소개서 최대 글자수를 알려주세요.")},
+            {"role": "assistant", "content": ("인삿말과 이름 소개를 쓰지 않도록 하겠습니다. 더 유의할 점이 있나요?")},
+            {"role": "user", "content": ("내가 제공하는 정보를 너무 다양하고 얕게 작성하지말고 1~2개 정도의 정보를 기반으로 구체적으로 자기소개서를 작성해줘")},
+
+            {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주시고, "
+                                              "기업명과 지원 직무, 자기소개서 질문, 자기소개서 최대 글자수를 알려주세요.")},
                                             
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
             {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
@@ -152,12 +145,14 @@ def resumeCreate(seeker_id, company_id):
             {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
             {"role": "user", "content":f"자기소개서 최대 글자수 : {question_text_max}"},
             
-            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 {company_name}의 자기소개서를 작성해드리도록 하겠습니다."},
-            {"role": "user", "content":f"내용에 인삿말(감사합니다, 안녕하세요)과 이름 소개가 들어갔다면 그 부분은 삭제해줘"},
+            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 "
+                                             f"{company_name} {position} 직무의 자기소개서를 작성해드리도록 하겠습니다."},
+            {"role": "user", "content":f"자기소개서 내용에 인삿말(감사합니다, 안녕하세요)과 이름 소개가 들어갔다면 그 부분은 삭제해줘"},
 
-            {"role": "assistant", "content": ("작성된 자기소개서에 추가할 부분이 있나요?")},
+            {"role": "assistant", "content": ("감사합니다, 안녕하세요와 같은 인삿말이 작성되어 있는 부분은 삭제하겠습니다. 작성된 자기소개서에 추가할 부분이 있나요?")},
             {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
             ],
+            repetition_penalty=1.2,
             temperature=0.8,
             max_tokens=2048
         )
@@ -190,9 +185,6 @@ def resumeCreate(seeker_id, company_id):
 @app.route("/my_characteristic/<seeker_id>")
 def myCharacteristic(seeker_id):
 
-    # 취준생번호 값 받아오기
-    # seeker_id = 1
-
     total_table = career_table_select(seeker_id)
     completion = openai.ChatCompletion.create(
         model="gpt-4",
@@ -203,14 +195,12 @@ def myCharacteristic(seeker_id):
 
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 맞춰야할 양식이 있나요?"},
             {"role": "user", "content": "'뽑은성향1: 비율1/뽑은성향2: 비율2/뽑은성향3: 비율3/뽑은성향4: 비율4/뽑은성향5: 비율5'의 형태로만 나타내줘"},
-            {"role": "user", "content": " 뽑은성향1에 대한 비율은 비율1이야"},
-            {"role": "user", "content": " 즉, 뽑은성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘"},
+            {"role": "assistant", "content": " 뽑은성향1: 비율1/의 형태로 나타내겠습니다. 뽑은성향1에 대한 비율은 비율1이 맞나요?"},
+            {"role": "user", "content": " 맞아. 즉, 뽑은성향1: 비율1을 전문성: 40과 같이 각각에 단어를 대입한 양식으로 나타내줘"},
 
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
             {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
-
-            # {"role": "system", "content" : ("성향은 문자열이라''로 감싸주고 비율은 int값이야")},
 
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
@@ -277,11 +267,6 @@ def myCharacteristic(seeker_id):
 # 회사의 인재상과 프로젝트 경험 기반으로 인재상 적합도 나타내기
 @app.route("/goodness_of_fit/<seeker_id>/<company_name>")
 def goodnessOfFit(seeker_id, company_name):
-
-    # 취준생번호 값 받아오기
-    # seeker_id = 1
-    # # 회사명 값 받아오기
-    # company_name = "KB국민은행"
 
     total_table = career_table_select(seeker_id)
 
@@ -362,39 +347,5 @@ def goodnessOfFit(seeker_id, company_name):
 
     return jsonify({"result": message_result})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', debug=True, port=5000)
-
-
-# @app.route('/')
-# def hello_world():
-#     return 'hello'
-
-    # # 취준생번호 값 받아와서 해당 번호의 
-    # # 경력, 프로젝트 경험, 수상, 대외활동, 해외경험, 자격증, 스킬정보 가져오기
-    # career_info = "1. 웹크롤링을 통한 외래어 빈도 분석 프로그램, 2021.03 ~ 2021.12, 소개 : 국어문화원 교수님과 진행한 지방자치단체 홈페이지의 특정 게시판 웹크롤링을 통하여 외래어 빈도 수를 체크하는 프로그램 제작, 2. KDB산업은행 청년 인턴, 산업기술리서치센터에서 근무"
-    # project_info = "1. 어린이 스마트 배지 2021.03 ~ 2021.06 소개 : 영상처리 기술을 이용한 어린이 보행안전 배지와 부모용 App 개발, 어린이가 착용하는 배지의 경우, 아이가 바라보는 시점을 기준으로 도로의 유형을 구분하고 그에 맞는 알림을 줌, 부모용 App의 경우, 아이의 위치 및 안전구역 설정이 가능하며 아이의 배지 알림을 직접 음성으로 녹음하는 기능이 있음, Semantic segmentation - FCN(fully convolutional networks) 모델 사용, 2. 스터디플래너 App ‘Make You Study’, 2020.03 ~ 2020.06, 소개 : 영상처리 기술을 사용한 출석체크 기능의 스터디플래너 Android App, 타임테이블에 설정한 시간에 알림이 울리고, 책상사진을 찍어 출석체크를 하는 기능, 사용 기술 : firebase, firebase ML Kit, OpenCV, Android Studio, 나의 역할 : 출석체크 기능 담당 - OpenCV의 color Histogram을 이용한 matching 방법을 사용, 프로필에 등록해놓은 책상사진 5장과 출석체크시 촬영한 책상사진을 비교하여 출석을 체크"
-    # reward_info = "1. 제 9회 대한전기학회 산업전기위원회 대학생 작품경진대회 대상 수상, 2. 교내 프라임 경진대회 최우수상 수상 "
-    # activation_info = ""
-    # overseas_info = ""
-    # license_info = ""
