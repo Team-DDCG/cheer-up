@@ -21,6 +21,14 @@ import AiResumeListView from "../views/AiResumeListView.vue";
 // import MypageView from "../views/MypageView.vue";
 import MycvView from "../views/MycvView.vue";
 import MycvView1 from "../views/MycvView1.vue";
+import MycvView2 from "../views/MycvView2.vue";
+import MycvView3 from "../views/MycvView3.vue";
+import MycvView4 from "../views/MycvView4.vue";
+import MycvView5 from "../views/MycvView5.vue";
+import MycvView6 from "../views/MycvView6.vue";
+import MycvView7 from "../views/MycvView7.vue";
+import MycvView8 from "../views/MycvView8.vue";
+import MycvView9 from "../views/MycvView9.vue";
 // import JobPosting from "../components/JobPosting";
 import ErrorView from "../views/ErrorView.vue";
 
@@ -144,6 +152,46 @@ const routes = [
     path: "/mycv1",
     name: "mycv1",
     component: MycvView1,
+  },
+  {
+    path: "/mycv2",
+    name: "mycv2",
+    component: MycvView2,
+  },
+  {
+    path: "/mycv3",
+    name: "mycv3",
+    component: MycvView3,
+  },
+  {
+    path: "/mycv4",
+    name: "mycv4",
+    component: MycvView4,
+  },
+  {
+    path: "/mycv5",
+    name: "mycv5",
+    component: MycvView5,
+  },
+  {
+    path: "/mycv6",
+    name: "mycv6",
+    component: MycvView6,
+  },
+  {
+    path: "/mycv7",
+    name: "mycv7",
+    component: MycvView7,
+  },
+  {
+    path: "/mycv8",
+    name: "mycv8",
+    component: MycvView8,
+  },
+  {
+    path: "/mycv9",
+    name: "mycv9",
+    component: MycvView9,
   }
 ];
 
