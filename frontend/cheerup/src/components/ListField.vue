@@ -18,6 +18,19 @@ export default {
       console.log(this.listData[index]);
       console.log(this.company.companyId);
       console.log(sessionStorage.getItem("id"));
+      axios
+        .post("http://127.0.0.1:3000/my_characteristic/"+sessionStorage.getItem("id"), {
+
+        })
+        .then((res) => {
+          // sessionStorage.setItem("name", res.data.userName);
+          console.log(res.data);
+          this.$router.push("/main");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
     }
   }
 }
