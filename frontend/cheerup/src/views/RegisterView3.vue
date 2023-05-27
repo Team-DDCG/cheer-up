@@ -193,7 +193,7 @@ img {
   width: 300px;
   height: 42.01px;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 60px;
   align-items: center;
   margin-bottom: 90px;
 }

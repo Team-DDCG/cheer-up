@@ -208,7 +208,7 @@ img {
   width: 300px;
   height: 42.01px;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 70px;
   align-items: center;
   margin-bottom: 90px;
 }

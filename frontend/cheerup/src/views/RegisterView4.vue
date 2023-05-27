@@ -202,7 +202,7 @@ img {
   width: 300px;
   height: 42.01px;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 50px;
   align-items: center;
   margin-bottom: 90px;
 }
@@ -426,6 +426,6 @@ progress::-ms-fill {
   transition: transform 0.3s;
 }
 .button-space {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 </style>
