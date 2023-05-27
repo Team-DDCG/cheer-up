@@ -2,9 +2,8 @@
   <div id="main">
     <div class="main-title">
       <div class="name">
-        <img src="../assets/logo.png" />
-        <span class="name1">취</span>
-        <span class="name2">얼업</span>
+        <img src="../assets/login_logo.png" />
+
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
@@ -12,7 +11,7 @@
 
       </div>
     </div>
-    <hr />
+
     <div id="innerBox">
       <div class="box">
         <input
@@ -79,6 +78,9 @@ export default {
 <style scoped>
 img {
   vertical-align: 0%;
+  width: 280px;
+  height: 70px;
+  margin-bottom: 25px;
 }
 #main {
   margin: 0 auto;

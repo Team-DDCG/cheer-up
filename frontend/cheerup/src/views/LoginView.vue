@@ -3,11 +3,9 @@
     <div id="innerBox">
       <div class="main-title">
         <div class="name">
-          <img src="../assets/logo.png" />
-          <span class="name1">취</span>
-          <span class="name2">얼업</span>
+          <img src="../assets/login_logo.png" />
 
-          <p class="sub-title">귀찮은 자소서 작성을 한번에!</p>
+          <p class="sub-title">막막한 취업준비, 든든한 취얼업과 함께!</p>
         </div>
       </div>
       <div class="login-form">
@@ -78,9 +76,8 @@ export default {
         .then((res) => {
           // sessionStorage.setItem("accessToken", res.data.access_token);
           sessionStorage.setItem("name", res.data.userName);
-          sessionStorage.setItem("id", res.data.userId);
           localStorage.setItem('isLoggedIn', 'true');
-          this.$router.push("/main");
+          this.$router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -93,9 +90,9 @@ export default {
 
 <style scoped>
 #remember{
-  /* -webkit-appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none; */
+  appearance: none;
   width: 16px;
   height: 16px;
   border-radius: 5px;
@@ -117,6 +114,9 @@ export default {
 }
 img {
   vertical-align: 0%;
+  width : 270px;
+  height: 65px;
+  margin-bottom : 15px;
 }
 .main {
   width: 100vw;
@@ -248,6 +248,15 @@ img {
   /* margin-bottom: 8px; */
   /* margin-right: 5px; */
   color: #f5f5f5;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+.find:hover {
+  display: flex;
+  /* margin-bottom: 8px; */
+  /* margin-right: 5px; */
+  color: #a46cff;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
 }

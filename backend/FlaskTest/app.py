@@ -52,7 +52,7 @@ def career_table_select(seeker_id):
     cursor = conn.cursor()
 
     for table_name in career_table :
-        print(table_name[0])
+        # print(table_name[0])
         
         sql = "SELECT * FROM " + table_name[0] + " WHERE seeker_id = " + str(seeker_id)
         cursor.execute(sql)
@@ -69,7 +69,7 @@ def career_table_select(seeker_id):
         total_table.append(table_str)
         table_index += 1
 
-    print(total_table)
+    print(total_table[0])
     cursor.close()
     conn.close()
     return total_table
@@ -100,6 +100,58 @@ def company_table_select(company_id):
     cursor.close()
     conn.close()
     return company_table
+
+
+#==================================================================================
+
+@app.route("/test_user_info_table")
+def user_info_table(seeker_id) :
+
+    conn = dbconn.db_connect()
+    cursor = conn.cursor()
+    
+    sql = "SELECT user_id FROM user_seeker_info WHERE seeker_id = " + str(seeker_id)
+    main_sql = "SELECT * FROM user_info WHERE user_id = (" + sql + ")"
+    
+    cursor.execute(main_sql)
+    rows = list(cursor.fetchone())
+
+    cursor.close()
+    conn.close()
+    return list(map(str, rows))
+
+@app.route("/test_portfolio_career_table")
+def portfolio_career_table(seeker_id):
+
+    # seeker_id=1
+    conn = dbconn.db_connect()
+
+    career_table = [["user_seeker_info"], ["user_language_info"], ["user_skill_info"], ["user_license_info"], ["user_school_info"],  ["user_career_info"], ["user_project_info"], ["user_activation_info"], ["user_reward_info"], ["user_overseas_info"]]
+    table_index = 0
+    rowArr = []
+    cursor = conn.cursor()
+
+    for table_name in career_table :
+        
+        sql = "SELECT * FROM " + table_name[0] + " WHERE seeker_id = " + str(seeker_id)
+        cursor.execute(sql)
+        rows = cursor.fetchall()                  
+        
+        for row in rows :
+            for tmp in row :
+                rowArr.append(tmp)
+            career_table[table_index].append(list(rowArr))
+
+        rowArr.clear()
+        career_table[table_index].pop(0)
+        list(map(str, career_table[table_index]))     
+        table_index += 1
+
+    # print(career_table[1][0])
+    cursor.close()
+    conn.close()
+    
+    return career_table
 
 
 
@@ -202,7 +254,7 @@ def myCharacteristic(seeker_id):
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
             {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
-
+            
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
@@ -354,41 +406,48 @@ def makePortfolio(seeker_id):
     # 문서의 병합필드 확인
     print(document.get_merge_fields())
 
+    user_table = user_info_table(seeker_id)
+    
+    
+    career_table = portfolio_career_table(seeker_id)
+
+    print(career_table)
+
     # 직접 이름과 생년월일의 값을 채워보자
     document.merge(
         ################## 기본 인적 사항##############################################################
-        user_name='',
-        birthdate='',
-        sex='',
-        address='',
-        phone='',
-        email='',
+        user_name=user_table[3],
+        birthdate='1999.06.05', # front = ex)990605 이런식으로 적도록 / db = varchar
+        sex = "여",
+        address=user_table[11],
+        phone=user_table[7],
+        email=user_table[6],
 
         # userd_seeker
-        ename='',
-        cname='',
-        nation_origin='',
-        military='',
-        bohun='',
-        disabled='',
+        ename=career_table[0][0][1],
+        cname=career_table[0][0][2],
+        nation_origin=career_table[0][0][7],
+        military="면제", # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
+        bohun=career_table[0][0][4],
+        disabled="미해당", # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
 
         ##################language#########################################################################
-        language='',
-        lang_grade='',
-        lang_type='',
-        lang_acquired_date='',
-        lang_license_number='',
-        lang_agency='',
+        language=career_table[1][0][1],
+        lang_type=career_table[1][0][2],
+        lang_grade=career_table[1][0][3],
+        lang_acquired_date="2023.05.16", # career_table[1][0][4], 이건 일단 보류
+        lang_license_number=career_table[1][0][5],
+        lang_agency=career_table[1][0][7],
 
         ##################skill#########################################################################
         skill_name='',
         skill_grade='',
 
         ##################licence#########################################################################
-        license_name='',
-        license_acquired_date='',
-        license_license_number='',
-        license_agency='',
+        license_name=career_table[3][0][1],
+        license_acquired_date="2022.9.14", #career_table[3][0][3], 보류
+        license_license_number=career_table[3][0][4],
+        license_agency=career_table[3][0][5],
 
         ##################school#########################################################################
         education_type='',
@@ -403,39 +462,39 @@ def makePortfolio(seeker_id):
         transfer_check='',
 
         ##################career#########################################################################
-        company_name='',
-        career_start_date='',
-        career_end_date='',
-        career_attending_check='',
-        department='',
-        position='',
-        hire_type='',
+        company_name=career_table[5][0][1],
+        department=career_table[5][0][2],
+        position=career_table[5][0][3],
+        career_start_date=career_table[5][0][4],
+        career_end_date=career_table[5][0][5],
+        career_attending_check=career_table[5][0][6],
+        hire_type=career_table[5][0][7],
 
         ##################project#########################################################################
-        project_name='',
-        host_name='',
-        institution='',
-        project_skill='',
-        project_content='',
-
+        project_name=career_table[6][0][1],
+        host_name=career_table[6][0][2],
+        project_content=career_table[6][0][3],
+        project_skill=career_table[6][0][4],
+        institution=career_table[6][0][6],
+        
         ##################Activation#########################################################################
-        activation_name='',
-        act_start_date='',
-        act_end_date='',
-        activation_content='',
+        activation_name=career_table[7][0][1],
+        act_start_date=career_table[7][0][2],
+        act_end_date=career_table[7][0][3],
+        activation_content=career_table[7][0][4],
 
         ##################Rewards#########################################################################
-        rewards_name='',
-        rewards_acquired_date='',
-        rewards_host='',
+        rewards_name=career_table[8][0][1],
+        rewards_acquired_date=career_table[8][0][2],
+        rewards_host=career_table[8][0][3],
 
         ##################Overseas#########################################################################
-        oversea_purpose='',
-        ovesea_institution='',
-        nation='',
-        oversea_start_date='',
-        oversea_end_date='',
-        oversea_reason=''
+        oversea_purpose=career_table[9][0][1],
+        nation=career_table[9][0][2],
+        oversea_start_date=career_table[9][0][3],
+        oversea_end_date=career_table[9][0][4],
+        ovesea_institution=career_table[9][0][5],
+        oversea_reason=career_table[9][0][6]
     )
 
     # 필드 병합된 결과의 수료증을 직접 생성...파일명도 필드명을 참고해서
