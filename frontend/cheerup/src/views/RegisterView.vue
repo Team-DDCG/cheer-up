@@ -7,7 +7,14 @@
         <p class="sub-title">
           가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
         </p>
-        <progress value="10" max="100" class="progress"></progress>
+        <!-- <progress value="10" max="100" class="progress"></progress> -->
+
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress" :style="{ width: progressBarWidth, transform: progressBarTransform }"></div>
+          </div>
+        </div>
+
 
       </div>
     </div>
@@ -53,7 +60,12 @@ export default {
   data() {
     return {
       radioValues: "",
+      progressBarWidth: '0%',
+      progressBarTransform: 'translateX(-100%)'
     };
+  },
+  mounted() {
+    this.startLoading();
   },
   methods: {
     async submitForm() {
@@ -71,6 +83,13 @@ export default {
         path: "/register2",
       });
     },
+
+    startLoading() {
+      setTimeout(() => {
+        this.progressBarWidth = '45%';
+        this.progressBarTransform = 'translateX(-55%)';
+      }, 250); 
+    }
   },
 };
 </script>
@@ -178,7 +197,7 @@ input[type="radio"].btn-check:checked + label.btn.btn-light {
 }
 
 /* 프로그레스 바의 색상을 변경합니다 */
-progress::-webkit-progress-value {
+/* progress::-webkit-progress-value {
   background-color: #a46cff;
 }
 
@@ -188,7 +207,27 @@ progress::-moz-progress-bar {
 
 progress::-ms-fill {
   background-color: #a46cff;
+} */
+.progress-container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #515151;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #a46cff;
+  transition: transform 0.3s;
+}
 </style>

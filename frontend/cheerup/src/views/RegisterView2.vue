@@ -5,9 +5,14 @@
         <img src="../assets/login_logo.png" />
 
         <p class="sub-title">
-          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+          취업 준비기간 동안 든든한 동반자가 되어드릴게요!
         </p>
-        <progress value="30" max="100" class="progress"></progress>
+        <!-- <progress value="30" max="100" class="progress"></progress> -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress" :style="{ width: progressBarWidth, transform: progressBarTransform }"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div>
@@ -60,6 +65,7 @@
       <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
         이전
       </button>
+      <div class="button-space"></div>
       <button @click.prevent="submitForm" type="submit" class="btn btn-primary">
         다음
       </button>
@@ -78,7 +84,12 @@ export default {
       name: "",
       id: "",
       password: "",
+      progressBarWidth: '65%',
+      progressBarTransform: 'translateX(-35%)'
     };
+  },
+   mounted() {
+    this.startLoading();
   },
   methods: {
     duplicateCheck() {
@@ -112,6 +123,14 @@ export default {
         path: "/register3",
       });
     },
+
+    startLoading() {
+      setTimeout(() => {
+        this.progressBarWidth = '80%';
+        this.progressBarTransform = 'translateX(-20%)';
+      }, 250); 
+    }
+
   },
   created() {
     // this.sessionDataType = sessionStorage.getItem('type');
@@ -161,7 +180,7 @@ img {
 .mb-3 {
   width: 386px;
   height: 42.01px;
-  margin: 40px auto 90px 39%;
+  margin: 40px auto 90px 42.2%;
   align-items: center;
 }
 
@@ -179,7 +198,7 @@ img {
 #duplicate-box .btn.btn-primary {
   font-family: "Montserrat", sans-serif;
   font-size: 13px;
-  width: 76px;
+  width: 80px;
   margin-left: 10px;
 }
 
@@ -206,7 +225,7 @@ img {
 }
 
 /* 프로그레스 바의 색상을 변경합니다 */
-progress::-webkit-progress-value {
+/* progress::-webkit-progress-value {
   background-color: #a46cff;
 }
 
@@ -216,6 +235,33 @@ progress::-moz-progress-bar {
 
 progress::-ms-fill {
   background-color: #a46cff;
+} */
+
+.progress-container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #515151;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #a46cff;
+  transition: transform 0.3s;
+}
+
+.button-space {
+  margin: 0 10px;
 }
 
 </style>

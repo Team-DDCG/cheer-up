@@ -5,9 +5,14 @@
         <img src="../assets/login_logo.png" />
 
         <p class="sub-title">
-          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+          취얼업과 함께 취뽀할 준비 되셨나요?😉💕
         </p>
-        <progress value="90" max="100" class="progress"></progress>
+        <!-- <progress value="90" max="100" class="progress"></progress> -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress" :style="{ width: progressBarWidth, transform: progressBarTransform }"></div>
+          </div>
+        </div>
         
       </div>
     </div>
@@ -49,6 +54,7 @@
       </div>
     </div>
     <div class="mb-3-button">
+      <div class="button-space"></div>
       <button @click.prevent="goBack()" type="submit" class="btn btn-secondary">
         이전
       </button>
@@ -68,7 +74,12 @@ export default {
       address: "",
       email: "",
       mail_check: 0,
+      progressBarWidth: '90%',
+      progressBarTransform: 'translateX(-10%)'
     };
+  },
+  mounted() {
+    this.startLoading();
   },
   methods: {
     goBack() {
@@ -101,6 +112,12 @@ export default {
         path: "/",
       });
     },
+    startLoading() {
+      setTimeout(() => {
+        this.progressBarWidth = '100%';
+        this.progressBarTransform = 'translateX(0)'
+      }, 250); 
+    }
   },
   created() {
     this.sessionDataType = sessionStorage.getItem("type");
@@ -197,7 +214,7 @@ img {
    background: #515151;
 }
 /* 프로그레스 바의 색상을 변경합니다 */
-progress::-webkit-progress-value {
+/* progress::-webkit-progress-value {
   background-color: #a46cff;
 }
 
@@ -207,7 +224,7 @@ progress::-moz-progress-bar {
 
 progress::-ms-fill {
   background-color: #a46cff;
-}
+} */
 
 /*bg*/
 /*txt*/
@@ -223,7 +240,7 @@ progress::-ms-fill {
   width: 250px;
   height: 50px;
   background-color: #a46cff;
-  margin: 20px;
+  margin: 10px;
   color: white;
   position: relative;
   overflow: hidden;
@@ -384,5 +401,31 @@ progress::-ms-fill {
 
 .buttons button:focus {
   outline: 0;
+}
+
+.progress-container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #515151;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #a46cff;
+  transition: transform 0.3s;
+}
+.button-space {
+  margin-top: 20px;
 }
 </style>

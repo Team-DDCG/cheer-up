@@ -186,8 +186,8 @@ img {
   height: 50px;
   border-radius: 30px;
   margin: 0 auto;
-  box-shadow: 0 2px black;
-  border: 1px solid #363533;
+  box-shadow: 0 2px 3px #363533;
+  border: 1px solid #515151;
   border-radius: 13px;
   line-height: 50px;
   margin-bottom: 10px;

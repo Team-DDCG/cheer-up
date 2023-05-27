@@ -5,10 +5,15 @@
         <img src="../assets/login_logo.png" />
 
         <p class="sub-title">
-          가입 유형을 선택하고, 취얼업의 다양한 기능을 누려보세요!
+          거의 다 왔어요!🥰
         </p>
-        <progress value="60" max="100" class="progress"></progress>
-        
+        <!-- <progress value="60" max="100" class="progress"></progress> -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress" :style="{ width: progressBarWidth, transform: progressBarTransform }"></div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="mb-3">
@@ -61,6 +66,7 @@
       <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
         이전
       </button>
+      <div class="button-space"></div>
       <button @click.prevent="submitForm" type="submit" class="btn btn-primary">
         다음
       </button>
@@ -75,7 +81,12 @@ export default {
       birth: "",
       phone: "",
       sex: "",
+      progressBarWidth: '80%',
+      progressBarTransform: 'translateX(-20%)'
     };
+  },
+  mounted() {
+    this.startLoading();
   },
   methods: {
     goBack() {
@@ -98,6 +109,13 @@ export default {
         path: "/register4",
       });
     },
+
+    startLoading() {
+      setTimeout(() => {
+        this.progressBarWidth = '90%';
+        this.progressBarTransform = 'translateX(-10%)'
+      }, 250); 
+    }
   },
   created() {
     // this.sessionDataType = sessionStorage.getItem('type');
@@ -166,6 +184,7 @@ img {
 
 .mb-3-button > .btn.btn-primary {
   background: #a46cff;
+
 }
 
 .mb-3-button {
@@ -187,7 +206,7 @@ img {
 }
 
 /* 프로그레스 바의 색상을 변경합니다 */
-progress::-webkit-progress-value {
+/* progress::-webkit-progress-value {
   background-color: #a46cff;
 }
 
@@ -197,5 +216,31 @@ progress::-moz-progress-bar {
 
 progress::-ms-fill {
   background-color: #a46cff;
+} */
+
+.progress-container {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #515151;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #a46cff;
+  transition: transform 0.3s;
+}
+.button-space {
+  margin: 0 10px;
 }
 </style>
