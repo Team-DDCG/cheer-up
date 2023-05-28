@@ -104,7 +104,7 @@ export default {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get("http://127.0.0.1:8080/api/projects/all/"+this.seekerId, {
+      .get(this.$store.state.baseUrl+"api/projects/all/"+this.seekerId, {
       })
       .then((res) => {
         this.projects = res.data;

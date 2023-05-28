@@ -107,7 +107,7 @@ export default {
     console.log(this.userId);
 
     axios
-      .get("http://localhost:8080/api/companies/"+this.companyName, {
+      .get(this.$store.state.baseUrl+"api/companies/"+this.companyName, {
       })
       .then((res) => {
         console.log(res);

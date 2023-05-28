@@ -95,7 +95,7 @@ export default {
       // 자식 컴포넌트의 클릭 이벤트 처리 로직
       // console.log('자식 컴포넌트에서 전달된 값:', value);
       axios
-        .get("http://localhost:8080/api/companies/"+value, {
+        .get(this.$store.state.baseUrl+"api/companies/"+value, {
         })
         .then((res) => {
           console.log(res);
@@ -104,7 +104,7 @@ export default {
           console.log(this.company);
 
           axios
-          .get("http://localhost:8080/api/companies/position/"+value, {
+          .get(this.$store.state.baseUrl+"api/companies/position/"+value, {
           })
           .then((res) => {
             console.log(res.data);
@@ -122,7 +122,7 @@ export default {
     // Filter Save api
     async saveOption() {
         axios
-        .post("http://127.0.0.1:8888/company/register", {
+        .post(this.$store.state.baseUrl+"company/register", {
           type: this.selectedOption2
         })
         .then((res) => console.log(res))
@@ -145,7 +145,7 @@ export default {
     searchInput: function() {
       // alert(this.searchInput);
       axios
-        .get("http://localhost:8080/api/companies/search/"+this.searchInput, {
+        .get(this.$store.state.baseUrl+"api/companies/search/"+this.searchInput, {
         })
         .then((res) => {
           console.log(res);
@@ -165,7 +165,7 @@ export default {
       if (this.selectedOption2) {
 
         axios
-        .get("http://localhost:8080/api/companies/category2/"+this.selectedOption2, {
+        .get(this.$store.state.baseUrl+"api/companies/category2/"+this.selectedOption2, {
           // http://localhost:8080/api/companies/category2/1
           // params: {
           //   id: this.selectedOption2

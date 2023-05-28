@@ -6,6 +6,7 @@ export default createStore({
     list: [],
     username: '',
     item: "",
+    baseUrl: "http://localhost:8888/",
   },
   getters: {},
   mutations: {

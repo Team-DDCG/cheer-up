@@ -80,7 +80,7 @@ export default {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
     axios
-      .get("http://127.0.0.1:8080/api/info/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
       })
       .then((res) => {
         this.user = res.data;
@@ -91,7 +91,7 @@ export default {
         this.check = 'error';
       });
     axios
-      .get("http://127.0.0.1:8080/api/seekers/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
       })
       .then((res) => {
         this.seeker = res.data;

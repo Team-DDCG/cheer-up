@@ -139,14 +139,14 @@ export default {
 
 
     axios
-      .get("http://127.0.0.1:8080/api/info/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
       })
       .then((res) => {
         this.user = res.data;
         console.log(this.user);
         if(this.user.userStatus === 0) {
           axios
-          .get("http://localhost:8080/api/seekers/"+this.userId, {
+          .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
           })
           .then((res) => {
             // this.seekerId = res.data.seekerId;
@@ -163,7 +163,7 @@ export default {
         this.check = 'error';
       });
     axios
-      .get("http://127.0.0.1:8080/api/seekers/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
       })
       .then((res) => {
         this.seeker = res.data;

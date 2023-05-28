@@ -84,7 +84,7 @@ export default {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get("http://127.0.0.1:8080/api/activation/all/"+this.seekerId, {
+      .get(this.$store.state.baseUrl+"api/activation/all/"+this.seekerId, {
       })
       .then((res) => {
         this.activation = res.data;
