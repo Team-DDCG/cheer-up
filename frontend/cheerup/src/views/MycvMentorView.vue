@@ -6,86 +6,61 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 프로젝트경험</label>
+          <label for="" class="title">나의 이력- 멘토</label>
         </header>
-        <div v-for="item of projects" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
-                <label for="" class="form-label">프로젝트명</label>
+                <label for="" class="form-label">회원번호</label>
                 <input
-                  v-model="item.projectName"
+                  v-model="user.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="프로젝트명"
+                  placeholder="회원번호"
                 />
               </div>
               <div class="formbox">
-                <label for="" class="form-label">주최기관</label>
+                <label for="" class="form-label">멘토평점</label>
                 <input
-                  v-model="item.hostName"
+                  v-model="seeker.ename"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="주최기관"
+                  placeholder="멘토평점"
                 />
               </div>
-            </div>
-          <div class="info-set" id="line2">
-            <div class="formbox">
-              <label for="" class="form-label">시작일</label>
-              <input
-                v-model="item.startDate"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="시작일"
-              />
-            </div>
-            <div class="formbox">
-              <label for="" class="form-label">마감일</label>
-              <input
-                v-model="item.endDate"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="퇴사일"
-              />
-            </div>
-            <div class="formbox">
-              <label for="" class="form-label">사용기술</label>
-              <input
-                v-model="item.skill"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="사용기술"
-              />
-            </div>
-          </div>         
-            <div class="info-set" id="line3">
               <div class="formbox">
-              <label for="" class="form-label">프로젝트 내용</label>
-              <input
-                v-model="item.content"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="프로젝트 내용"
-              />
-            </div>
-            </div>
-          </div>
-        <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+                <label for="" class="form-label">회사이름</label>
+                <input
+                  v-model="seeker.cname"
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="회사이름"
+                />
+              </div>    
+              <div class="formbox">
+                <label for="" class="form-label">경력</label>
+                <input
+                  v-model="seeker.cname"
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="경력"
+                />
+              </div>        
+          </div>  
+        <div class="btn" id="line6">
+          <button class="btn btn-primary">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
+      
     </section>
   </div>
-  <footer-bar />
+  <div class="footer">
+    <footer-bar></footer-bar>
+  </div>
 </template>
 <script>
 import ToolBar from "../components/ToolBar.vue";
@@ -96,19 +71,31 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      projects:'',
+      user: '',
+      seeker: '',
+      userId: '',
     };
   },
   created() {
-    this.seekerId = sessionStorage.getItem("seekerId");
-    console.log(this.seekerId);
+    this.userId = sessionStorage.getItem("id");
+    console.log(this.userId);
     axios
-      .get("http://127.0.0.1:8080/api/projects/all/"+this.seekerId, {
+      .get("http://127.0.0.1:8080/api/info/"+this.userId, {
       })
       .then((res) => {
-        this.projects = res.data;
-        console.log(this.projects);
+        this.user = res.data;
+        console.log(this.user);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+    axios
+      .get("http://127.0.0.1:8080/api/seekers/"+this.userId, {
+      })
+      .then((res) => {
+        this.seeker = res.data;
+        console.log(this.seeker);
       })
       .catch((err) => {
         console.log(err);
@@ -166,36 +153,32 @@ export default {
 /* 라인 정리 */
 #line1 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
 
 #line2 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr ;
   gap: 10px 20px;
 }
 
 #line3 {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px 20px;
-}
-#line4 {
-  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
-#line5 {
+#line4 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+
+#line6 {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -215,8 +198,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -226,12 +208,12 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
-
-  
-    
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
+}
+.footer {
+  
 }
 </style>
