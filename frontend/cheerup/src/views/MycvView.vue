@@ -17,7 +17,7 @@
               <div class="formbox">
                 <label for="" class="form-label">이름</label>
                 <input
-                  v-model="name"
+                  v-model="user.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -28,7 +28,7 @@
               <div class="formbox">
                 <label for="" class="form-label">영문이름</label>
                 <input
-                  v-model="Ename"
+                  v-model="seeker.ename"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -39,7 +39,7 @@
               <div class="formbox">
                 <label for="" class="form-label">한문이름</label>
                 <input
-                  v-model="Cname"
+                  v-model="seeker.cname"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -52,7 +52,7 @@
             <div class="formbox">
               <label for="" class="form-label">생년월일</label>
               <input
-                v-model="birth"
+                v-model="user.birthdate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -64,7 +64,7 @@
               <label for="exampleFormControlInput2" class="form-label"
                 >성별</label
               ><br />
-              <select v-model="gender" class="form-control" id="exampleFormControlSelect1">
+              <select v-model="user.sex" class="form-control" id="exampleFormControlSelect1">
                 <option value="0">남성</option>
                 <option value="1">여성</option>
               </select>
@@ -72,7 +72,7 @@
             <div class="formbox">
               <label for="" class="form-label">국가</label>
               <input
-                v-model="nation"
+                v-model="seeker.nation"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -84,7 +84,7 @@
           <div class="formbox">
             <label for="" class="form-label">전화번호</label>
             <input
-              v-model="phone"
+              v-model="user.phone"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -94,7 +94,7 @@
           <div class="formbox">
             <label for="" class="form-label">이메일</label>
             <input
-              v-model="email"
+              v-model="user.email"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -107,7 +107,7 @@
         <div class="formbox2" id="line4">
           <label for="" class="form-label">주소</label>
           <input
-            v-model="address"
+            v-model="user.address"
             type="text"
             class="form-control"
             id="exampleFormControlInput1"
@@ -131,11 +131,42 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      user: '',
+      seeker: '',
+      userId: '',
+    };
   },
+  created() {
+    this.userId = sessionStorage.getItem("id");
+    console.log(this.userId);
+    axios
+      .get("http://127.0.0.1:8080/api/info/"+this.userId, {
+      })
+      .then((res) => {
+        this.user = res.data;
+        console.log(this.user);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+    axios
+      .get("http://127.0.0.1:8080/api/seekers/"+this.userId, {
+      })
+      .then((res) => {
+        this.seeker = res.data;
+        console.log(this.seeker);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

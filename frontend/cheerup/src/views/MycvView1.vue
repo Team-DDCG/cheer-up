@@ -148,8 +148,13 @@ import SideBarCv from "../components/SideBarCv.vue";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      user: '',
+    };
   },
+  created() {
+
+  }
 };
 </script>
 <style scoped>

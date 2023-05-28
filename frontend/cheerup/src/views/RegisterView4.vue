@@ -92,18 +92,18 @@ export default {
       //     mail_check: this.mail_check,
       // }
       axios
-        .post("http://127.0.0.1:8080/api/user-info/register", {
-          type: this.sessionDataType,
-          userName: this.sessionDataName,
+        .post("http://127.0.0.1:8080/api/info/register", {
+          // type: this.sessionDataType,
           id: this.sessionDataId,
           password: this.sessionDataPassword,
+          userName: this.sessionDataName,
           birthdate: this.sessionDataBirth,
           sex: this.sessionDataSex,
+          email: this.email,
           phone: this.sessionDataPhone,
-          userStatus: 1,
+          userStatus: this.sessionDataType,
           mailCheck: this.mail_check,
           address: this.address,
-          email: this.email,
         })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));

@@ -76,6 +76,7 @@ export default {
         .then((res) => {
           // sessionStorage.setItem("accessToken", res.data.access_token);
           sessionStorage.setItem("name", res.data.userName);
+          sessionStorage.setItem("id", res.data.userId);
           localStorage.setItem('isLoggedIn', 'true');
           this.$router.push("/");
         })
