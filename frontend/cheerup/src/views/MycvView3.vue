@@ -8,11 +8,12 @@
         <header>
           <label for="" class="title">나의 이력 - 프로젝트경험</label>
         </header>
+        <div v-for="item of projects" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">프로젝트명</label>
                 <input
-                  v-model="projectname"
+                  v-model="item.projectName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -22,7 +23,7 @@
               <div class="formbox">
                 <label for="" class="form-label">주최기관</label>
                 <input
-                  v-model="host"
+                  v-model="item.hostName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -34,7 +35,7 @@
             <div class="formbox">
               <label for="" class="form-label">시작일</label>
               <input
-                v-model="start"
+                v-model="item.startDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -44,7 +45,7 @@
             <div class="formbox">
               <label for="" class="form-label">마감일</label>
               <input
-                v-model="end"
+                v-model="item.endDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -54,7 +55,7 @@
             <div class="formbox">
               <label for="" class="form-label">사용기술</label>
               <input
-                v-model="skill"
+                v-model="item.skill"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -66,7 +67,7 @@
               <div class="formbox">
               <label for="" class="form-label">프로젝트 내용</label>
               <input
-                v-model="content"
+                v-model="item.content"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -74,6 +75,7 @@
               />
             </div>
             </div>
+          </div>
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -89,11 +91,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      projects:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get("http://127.0.0.1:8080/api/projects/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.projects = res.data;
+        console.log(this.projects);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

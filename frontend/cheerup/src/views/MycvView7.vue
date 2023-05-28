@@ -9,11 +9,12 @@
         <header>
           <label for="" class="title">나의 이력 - 스킬</label>
         </header>
+        <div v-for="item of skills" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">스킬명</label>
                 <input
-                  v-model="skillname"
+                  v-model="item.skillName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -23,7 +24,7 @@
               <div class="formbox">
                 <label for="" class="form-label">스킬숙련도</label>
                 <input
-                  v-model="skillgrade"
+                  v-model="item.grade"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -31,7 +32,7 @@
                 />
               </div>
             </div>
-          
+          </div>
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -48,11 +49,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      skills:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get("http://127.0.0.1:8080/api/skills/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.skills = res.data;
+        console.log(this.skills);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

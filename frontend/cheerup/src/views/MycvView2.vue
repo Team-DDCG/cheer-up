@@ -8,12 +8,13 @@
         <header>
           <label for="" class="title">나의 이력 - 경력사항</label>
         </header>
+        <div v-for="item of career" :key="item">
           <div class="info-set" id="imgNline_line">
             <div class="info-set" id="line1">
               <div class="formbox">
-                <label for="" class="form-label">회사명</label>
+                <label for="exampleFormControlInput1" class="form-label">회사명</label>
                 <input
-                  v-model="companyname"
+                  v-model="item.companyName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -21,78 +22,71 @@
                 />
               </div>
               <div class="formbox">
-                <label for="" class="form-label">부서</label>
+                <label for="exampleFormControlInput2" class="form-label">부서</label>
                 <input
-                  v-model="department"
+                  v-model="item.department"
                   type="text"
                   class="form-control"
-                  id="exampleFormControlInput1"
+                  id="exampleFormControlInput2"
                   placeholder="부서"
                 />
               </div>
               <div class="formbox">
-                <label for="" class="form-label">직위</label>
+                <label for="exampleFormControlInput3" class="form-label">직위</label>
                 <input
-                  v-model="position"
+                  v-model="item.position"
                   type="text"
                   class="form-control"
-                  id="exampleFormControlInput1"
+                  id="exampleFormControlInput3"
                   placeholder="부서"
                 />
               </div>
             </div>
           </div>
           <div class="info-set" id="line2">
-            <!-- <div class="form-check-label">
-                <label for="exampleFormControlInput2" class="form-label"
-                >성별</label
-              ><br />
-              <select v-model="gender" class="form-control" id="exampleFormControlSelect1">
-                <option value="0">남성</option>
-                <option value="1">여성</option>
-              </select>
-            </div> -->
+   
             <div class="formbox">
-              <label for="" class="form-label">입사일</label>
+              <label for="exampleFormControlInput4" class="form-label">입사일</label>
               <input
-                v-model="start"
+                v-model="item.startDate"
                 type="date"
                 class="form-control"
-                id="exampleFormControlInput1"
+                id="exampleFormControlInput4"
                 placeholder="입사일"
               />
             </div>
             <div class="formbox">
-              <label for="" class="form-label">퇴사일</label>
+              <label for="exampleFormControlInput5" class="form-label">퇴사일</label>
               <input
-                v-model="end"
+                v-model="item.endDate"
                 type="date"
                 class="form-control"
-                id="exampleFormControlInput1"
+                id="exampleFormControlInput5"
                 placeholder="퇴사일"
               />
             </div>
             <div class="formbox">
-              <label for="" class="form-label">재직여부</label>
+              <label for="exampleFormControlInput6" class="form-label">재직여부</label>
               <input
-                v-model="attendingcheck"
+                v-model="item.attendingCheck"
                 type="text"
                 class="form-control"
-                id="exampleFormControlInput1"
+                id="exampleFormControlInput6"
                 placeholder="재직여부"
               />
             </div>
             <div class="formbox">
-              <label for="" class="form-label">고용형태</label>
+              <label for="exampleFormControlInput7" class="form-label">고용형태</label>
               <input
-                v-model="hiretype"
+                v-model="item.hireType"
                 type="text"
                 class="form-control"
-                id="exampleFormControlInput1"
+                id="exampleFormControlInput7"
                 placeholder="고용형태"
               />
             </div>
-          </div>         
+          </div> 
+        </div>        
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -110,11 +104,31 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      career:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get("http://127.0.0.1:8080/api/careers/seeker/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.career = res.data;
+        console.log(this.career);
+        console.log(this.career.length);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>
