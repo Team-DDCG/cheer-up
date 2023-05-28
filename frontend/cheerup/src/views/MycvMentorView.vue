@@ -9,20 +9,20 @@
           <label for="" class="title">나의 이력- 멘토</label>
         </header>
             <div class="info-set" id="line1">
-              <div class="formbox">
+              <!-- <div class="formbox">
                 <label for="" class="form-label">회원번호</label>
                 <input
-                  v-model="user.userName"
+                  v-model="mentor.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="회원번호"
                 />
-              </div>
+              </div> -->
               <div class="formbox">
                 <label for="" class="form-label">멘토평점</label>
                 <input
-                  v-model="seeker.ename"
+                  v-model="mentor.rating"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -32,7 +32,7 @@
               <div class="formbox">
                 <label for="" class="form-label">회사이름</label>
                 <input
-                  v-model="seeker.cname"
+                  v-model="mentor.companyName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -42,7 +42,7 @@
               <div class="formbox">
                 <label for="" class="form-label">경력</label>
                 <input
-                  v-model="seeker.cname"
+                  v-model="mentor.career"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -71,31 +71,19 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      user: '',
-      seeker: '',
       userId: '',
+      mentor:'',
     };
   },
   created() {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
     axios
-      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/mentors/"+this.userId, {
       })
       .then((res) => {
-        this.user = res.data;
-        console.log(this.user);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.check = 'error';
-      });
-    axios
-      .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
-      })
-      .then((res) => {
-        this.seeker = res.data;
-        console.log(this.seeker);
+        this.mentor = res.data;
+        console.log(this.mentor);
       })
       .catch((err) => {
         console.log(err);

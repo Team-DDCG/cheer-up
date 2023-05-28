@@ -32,7 +32,7 @@
               </div>
             </div>
           <div class="info-set" id="line2">
-            <div class="formbox">
+            <!-- <div class="formbox">
               <label for="" class="form-label">시작일</label>
               <input
                 v-model="item.startDate"
@@ -51,7 +51,7 @@
                 id="exampleFormControlInput1"
                 placeholder="퇴사일"
               />
-            </div>
+            </div> -->
             <div class="formbox">
               <label for="" class="form-label">사용기술</label>
               <input

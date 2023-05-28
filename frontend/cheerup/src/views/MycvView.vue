@@ -12,14 +12,14 @@
               <div class="formbox">
                 <label for="" class="form-label">아이디</label>
                 <input
-                  v-model="user.userName"
+                  v-model="user.id"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="아이디"
                 />
               </div>
-              <div class="formbox">
+              <!-- <div class="formbox">
                 <label for="" class="form-label">비밀번호</label>
                 <input
                   v-model="seeker.ename"
@@ -28,11 +28,11 @@
                   id="exampleFormControlInput1"
                   placeholder="비밀번호"
                 />
-              </div>
+              </div> -->
               <div class="formbox">
                 <label for="" class="form-label">이름</label>
                 <input
-                  v-model="seeker.cname"
+                  v-model="user.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -87,7 +87,7 @@
                 >이메일수신여부</label
               ><br />
               <select
-                v-model="email"
+                v-model="user.mailCheck"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
@@ -137,37 +137,12 @@ export default {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
 
-
     axios
       .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
       })
       .then((res) => {
         this.user = res.data;
         console.log(this.user);
-        if(this.user.userStatus === 0) {
-          axios
-          .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
-          })
-          .then((res) => {
-            // this.seekerId = res.data.seekerId;
-            sessionStorage.setItem("seekerId",res.data.seekerId);
-          })
-          .catch((err) => {
-            console.log(err);
-            this.check = 'error';
-          });
-        } 
-      })
-      .catch((err) => {
-        console.log(err);
-        this.check = 'error';
-      });
-    axios
-      .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
-      })
-      .then((res) => {
-        this.seeker = res.data;
-        console.log(this.seeker);
       })
       .catch((err) => {
         console.log(err);

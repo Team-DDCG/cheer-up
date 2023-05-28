@@ -48,6 +48,7 @@ export default {
     logout() {
       // 세션 상태를 초기화하고 로그인 페이지로 이동
       localStorage.removeItem('isLoggedIn');
+      sessionStorage.clear();
       this.$router.push('/login');
     }
   }
