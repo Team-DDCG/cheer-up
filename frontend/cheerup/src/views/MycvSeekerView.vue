@@ -63,7 +63,7 @@
             <div class="formbox">
               <label for="" class="form-label">직무카테고리1</label>
               <input
-                v-model="user.birthdate"
+                v-model="seeker.category1No"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -73,7 +73,7 @@
             <div class="formbox">
               <label for="" class="form-label">직무카테고리2</label>
               <input
-                v-model="user.birthdate"
+                v-model="seeker.category2No"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -87,7 +87,7 @@
                 >군필여부</label
               ><br />
               <select
-                v-model="military"
+                v-model="seeker.military"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
@@ -103,7 +103,7 @@
                 >보훈대상여부</label
               ><br />
               <select
-                v-model="bohun"
+                v-model="seeker.bohun"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
@@ -116,7 +116,7 @@
                 >장애대상여부</label
               ><br />
               <select
-                v-model="disabled"
+                v-model="seeker.disabled"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
@@ -147,25 +147,13 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      user: '',
-      seeker: '',
       userId: '',
+      seeker:'',
     };
   },
   created() {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
-    axios
-      .get("http://127.0.0.1:8080/api/info/"+this.userId, {
-      })
-      .then((res) => {
-        this.user = res.data;
-        console.log(this.user);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.check = 'error';
-      });
     axios
       .get("http://127.0.0.1:8080/api/seekers/"+this.userId, {
       })

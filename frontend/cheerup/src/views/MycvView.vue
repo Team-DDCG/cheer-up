@@ -12,14 +12,14 @@
               <div class="formbox">
                 <label for="" class="form-label">아이디</label>
                 <input
-                  v-model="user.userName"
+                  v-model="user.id"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="아이디"
                 />
               </div>
-              <div class="formbox">
+              <!-- <div class="formbox">
                 <label for="" class="form-label">비밀번호</label>
                 <input
                   v-model="seeker.ename"
@@ -28,11 +28,11 @@
                   id="exampleFormControlInput1"
                   placeholder="비밀번호"
                 />
-              </div>
+              </div> -->
               <div class="formbox">
                 <label for="" class="form-label">이름</label>
                 <input
-                  v-model="seeker.cname"
+                  v-model="user.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -87,7 +87,7 @@
                 >이메일수신여부</label
               ><br />
               <select
-                v-model="email"
+                v-model="user.mailCheck"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
