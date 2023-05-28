@@ -6,9 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.service.spring.DTO.CategoryDTO;
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
+import com.service.spring.domain.UserSeekerVO;
 import com.service.spring.model.CompanyDAO;
 
 @Repository
@@ -55,8 +55,8 @@ public class CompanyDAOImpl implements CompanyDAO{
 	}
 
 	@Override
-	public int saveCategories(CategoryDTO dto) throws Exception {
-		return sqlSession.update(NS + "saveCategories", dto);
+	public int saveCategories(UserSeekerVO vo) throws Exception {
+		return sqlSession.update(NS + "saveCategories", vo);
 	}
 
 

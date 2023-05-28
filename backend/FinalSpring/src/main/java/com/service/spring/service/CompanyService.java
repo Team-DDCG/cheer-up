@@ -2,9 +2,9 @@ package com.service.spring.service;
 
 import java.util.List;
 
-import com.service.spring.DTO.CategoryDTO;
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
+import com.service.spring.domain.UserSeekerVO;
 
 public interface CompanyService {
 	int registerCompany(CompanyVO vo) throws Exception;
@@ -16,6 +16,6 @@ public interface CompanyService {
 	
 	List<CompanyDataDTO> getCompanyPositionByName(String companyName) throws Exception;
 	CompanyVO getCompanyDataByName(String companyName) throws Exception;
-	int saveCategories(CategoryDTO dto) throws Exception;
+	int saveCategories(UserSeekerVO vo) throws Exception;
 }
 
