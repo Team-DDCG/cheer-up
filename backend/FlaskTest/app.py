@@ -89,7 +89,7 @@ def company_table_select(company_id, position):
 
     cursor = conn.cursor()
         
-    sql = "SELECT position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = " + str(position)
+    sql = "SELECT position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = '" + str(position) + "'"
     cursor.execute(sql)
     rows = cursor.fetchall() 
 
@@ -161,13 +161,14 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
+    message_result = ''
 
     for company_value in company_table :
 
         # 직무, 자소서 질문, 자소서 최대 길이
-        # position = company_value[1]
-        resume_question = company_value[2]
-        question_text_max = company_value[3]
+        # position = company_value[0]
+        resume_question = company_value[1]
+        question_text_max = company_value[2]
 
         # Call the chat GPT API 
         completion = openai.ChatCompletion.create(
@@ -205,7 +206,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             {"role": "assistant", "content": ("감사합니다, 안녕하세요와 같은 인삿말이 작성되어 있는 부분은 삭제하겠습니다. 작성된 자기소개서에 추가할 부분이 있나요?")},
             {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
             ],
-            repetition_penalty=1.2,
+            # repetition_penalty=1.2,
             temperature=0.8,
             max_tokens=2048
         )
