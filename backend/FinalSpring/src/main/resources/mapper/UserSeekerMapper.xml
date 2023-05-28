@@ -31,14 +31,14 @@
 		category1_no = #{category1No},
 		category2_no = #{category2No},
 		profile = #{profile}
-		WHERE seeker_id = #{seekerId}	
+		WHERE seeker_id = #{seekerId}	s
 	</update>
 	
 	<select id="getUserSeeker" parameterType="int" resultType="com.service.spring.domain.UserSeekerVO">
 		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile, si.seeker_id
 		FROM user_info ui INNER JOIN user_seeker_info si
 		ON ui.user_id = si.user_id
-		WHERE ui.user_id = #{userId} AND ui.user_status = 1
+		WHERE ui.user_id = #{userId} AND ui.user_status = 0
 	</select>
 	
 </mapper>
