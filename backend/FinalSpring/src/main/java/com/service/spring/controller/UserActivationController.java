@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/activation")
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 public class UserActivationController {
     private final UserActivationService userActivationService;
 
