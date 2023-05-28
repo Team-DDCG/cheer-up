@@ -80,7 +80,7 @@ def career_table_select(seeker_id):
 
 # 기업 자소서 문항 정보 DB에서 가져오는 method
 @app.route("/test_company_table_select")
-def company_table_select(company_id):
+def company_table_select(company_id, position):
 
     conn = dbconn.db_connect()
 
@@ -89,7 +89,7 @@ def company_table_select(company_id):
 
     cursor = conn.cursor()
         
-    sql = "SELECT * FROM question WHERE company_id = " + str(company_id)
+    sql = "SELECT position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = " + str(position)
     cursor.execute(sql)
     rows = cursor.fetchall() 
 
@@ -155,17 +155,17 @@ def portfolio_career_table(seeker_id):
 
 
 
-@app.route("/resume_create/<seeker_id>/<company_id>/<company_name>")
-def resumeCreate(seeker_id, company_id, company_name):
+@app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
+def resumeCreate(seeker_id, company_id, company_name, position):
     
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
-    company_table = company_table_select(company_id)
+    company_table = company_table_select(company_id, position)
 
     for company_value in company_table :
 
         # 직무, 자소서 질문, 자소서 최대 길이
-        position = company_value[1]
+        # position = company_value[1]
         resume_question = company_value[2]
         question_text_max = company_value[3]
 
@@ -254,7 +254,7 @@ def myCharacteristic(seeker_id):
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
             {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
-            
+
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
