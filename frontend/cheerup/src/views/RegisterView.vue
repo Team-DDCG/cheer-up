@@ -80,7 +80,7 @@ export default {
       sessionStorage.setItem("type", userData.type);
 
       this.$router.push({
-        path: "/register2",
+        path: "/register1",
       });
     },
 

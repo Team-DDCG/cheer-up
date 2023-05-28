@@ -2,16 +2,13 @@
 <div>
   <header>
     <div>
-      <router-link to="/">
-        <img src="../assets/logo.png" />
-        <span class="name1">취얼</span>
-        <span class="name2">업</span>
-      </router-link>
+
     </div>
     <router-link to="/login">로그인</router-link>
   </header>
   <div class="container">
-    <p class="title2">당신의 취업을 한번에</p>
+    <img src="../assets/main_tem.png" style="width : 60%;" />
+    <!-- <p class="title2">당신의 취업을 한번에</p> -->
     <div class="boxes-container">
       <div class="box" id="10">
         <router-link to="/resume">

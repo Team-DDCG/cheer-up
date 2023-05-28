@@ -25,7 +25,7 @@
         id="exampleFormControlInput1"
         placeholder="Name"
       />
-    </div>
+      </div>
     <div class="mb-3" id="id-box">
       <label for="exampleFormControlInput2" class="form-label">아이디</label>
       <div id="duplicate-box">

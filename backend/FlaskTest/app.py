@@ -80,7 +80,7 @@ def career_table_select(seeker_id):
 
 # 기업 자소서 문항 정보 DB에서 가져오는 method
 @app.route("/test_company_table_select")
-def company_table_select(company_id):
+def company_table_select(company_id, position):
 
     conn = dbconn.db_connect()
 
@@ -89,7 +89,7 @@ def company_table_select(company_id):
 
     cursor = conn.cursor()
         
-    sql = "SELECT * FROM question WHERE company_id = " + str(company_id)
+    sql = "SELECT position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = " + str(position)
     cursor.execute(sql)
     rows = cursor.fetchall() 
 
@@ -155,17 +155,17 @@ def portfolio_career_table(seeker_id):
 
 
 
-@app.route("/resume_create/<seeker_id>/<company_id>/<company_name>")
-def resumeCreate(seeker_id, company_id, company_name):
+@app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
+def resumeCreate(seeker_id, company_id, company_name, position):
     
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
-    company_table = company_table_select(company_id)
+    company_table = company_table_select(company_id, position)
 
     for company_value in company_table :
 
         # 직무, 자소서 질문, 자소서 최대 길이
-        position = company_value[1]
+        # position = company_value[1]
         resume_question = company_value[2]
         question_text_max = company_value[3]
 
@@ -254,7 +254,7 @@ def myCharacteristic(seeker_id):
             {"role": "assistant", "content" : "성향과 비율을 나타낼 때 유의할 점이 있나요?"},
             {"role": "user", "content" : "기입이 되지않은 정보의 경우 무시하고 기입된 것 위주로만 판단해줘"},
             {"role": "user", "content" : " 부가적인 말이나 다른 말은 다 제외하고 내가 제시해준 양식에만 맞추어서 답변해줘"},
-            
+
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
@@ -400,25 +400,120 @@ def goodnessOfFit(seeker_id, company_name):
 
     return jsonify({"result": arr})
 
+
 @app.route("/make_portfolio/<seeker_id>")
 def makePortfolio(seeker_id):
-    document = MailMerge('./real_kb/portfolio_1.docx')
+    document = MailMerge('C:\\kb\\cheer-up_portfoliio\\real_fin_KB\\ver3_new_excel\\portfolio_1.docx')
     # 문서의 병합필드 확인
     print(document.get_merge_fields())
 
     user_table = user_info_table(seeker_id)
-    
-    
     career_table = portfolio_career_table(seeker_id)
 
     print(career_table)
 
-    # 직접 이름과 생년월일의 값을 채워보자
+    # 직접 값을 채워보자
+    ## 유동적인 필드 값을 처리하기 위해 필드 담는 변수 초기화 ##
+    language_fields = []
+    skill_fields = []
+    license_fields = []
+    school_fields = []
+    career_fields = []
+    project_fields = []
+    activation_fields = []
+    rewards_fields = []
+    overseas_fields = []
+
+    # 유동적인 필드 값 추출 및 필드 리스트에 추가
+    for language in career_table[1]:
+        language_fields.append({
+            'language': language[1],
+            'lang_type': language[2],
+            'lang_grade': language[3],
+            'lang_acquired_date': "2023.05.16",
+            'lang_license_number': language[5],
+            'lang_agency': language[7]
+        })
+
+    for skill in skill_table[2]:
+        skill_fields.append({
+            'skill_name': skill[0][1],
+            'skill_grade': skill[0][2]
+        })
+
+    for license in career_table[3]:
+        license_fields.append({
+            'license_name': license[0][1],
+            'license_acquired_date': "2022.9.14",
+            'license_license_number': license[0][4],
+            'license_agency': license[0][5]
+        })
+
+    for school in school_table[4]:
+        school_fields.append({
+            'education_type': school[0][1],
+            'highest_check': school[0][2],
+            'school_name': school[0][3],
+            'entrance_date': school[0][4],
+            'graduation_date': school[0][5],
+            'attending_check': school[0][6],
+            'major': school[0][7],
+            'gpa': school[0][8],
+            'transfer_check': school[0][9]
+        })
+
+    for career in career_table[5]:
+        career_fields.append({
+            'company_name': career[0][1],
+            'department': career[0][2],
+            'position': career[0][3],
+            'career_start_date': career[0][4],
+            'career_end_date': career[0][5],
+            'career_attending_check': career[0][6],
+            'hire_type': career[0][7]
+        })
+
+    for project in project_table[6]:
+        project_fields.append({
+            'project_name': project[0][1],
+            'host_name': project[0][2],
+            'project_content': project[0][3],
+            'project_skill': project[0][4],
+            'institution': project[0][5]
+        })
+
+    for activation in activation_table[7]:
+        activation_fields.append({
+            'activation_name': activation[0][1],
+            'act_start_date': activation[0][2],
+            'act_end_date': activation[0][3],
+            'activation_content': activation[0][4]
+        })
+
+    for rewards in rewards_table[8]:
+        rewards_fields.append({
+            'rewards_name': rewards[0][1],
+            'rewards_acquired_date': rewards[0][2],
+            'rewards_host': rewards[0][3]
+        })
+
+    for overseas in overseas_table[9]:
+        overseas_fields.append({
+            'oversea_purpose': overseas[0][1],
+            'nation': overseas[0][2],
+            'oversea_start_date': overseas[0][3],
+            'oversea_end_date': overseas[0][4],
+            'ovesea_institution': overseas[0][5],
+            'oversea_reason': overseas[0][6]
+        })
+
+    # 문서 병합 시 유동적인 필드를 추가하기
     document.merge(
-        ################## 기본 인적 사항##############################################################
+        # 고정 필드들은 그대로 유지
+        # 기본 인적사항
         user_name=user_table[3],
-        birthdate='1999.06.05', # front = ex)990605 이런식으로 적도록 / db = varchar
-        sex = "여",
+        birthdate='1999.06.05',  # front = ex)990605 이런식으로 적도록 / db = varchar
+        sex="여",
         address=user_table[11],
         phone=user_table[7],
         email=user_table[6],
@@ -427,29 +522,64 @@ def makePortfolio(seeker_id):
         ename=career_table[0][0][1],
         cname=career_table[0][0][2],
         nation_origin=career_table[0][0][7],
-        military="면제", # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
+        military="면제",  # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
         bohun=career_table[0][0][4],
-        disabled="미해당", # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
+        disabled="미해당",  # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
 
-        ##################language#########################################################################
+        # 유동적인 필드들을 반복하면서 추가
+        **{f'language_{index}': language for index, language in enumerate(language_fields)},
+        **{f'skill_{index}': skill for index, skill in enumerate(skill_fields)},
+        **{f'license_{index}': license for index, license in enumerate(license_fields)},
+        **{f'school_{index}': school for index, school in enumerate(school_fields)},
+        **{f'career_{index}': career for index, career in enumerate(career_fields)},
+        **{f'project_{index}': project for index, project in enumerate(project_fields)},
+        **{f'activation_{index}': activation for index, activation in enumerate(activation_fields)},
+        **{f'rewards_{index}': rewards for index, rewards in enumerate(rewards_fields)},
+        **{f'overseas_{index}': overseas for index, overseas in enumerate(overseas_fields)},
+
+    )
+
+    # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
+    document.write('./real_kb/portfolio.docx')
+
+
+'''
+    document.merge(
+        ################## 기본 인적 사항###############
+        user_name=user_table[3],
+        birthdate='1999.06.05',  # front = ex)990605 이런식으로 적도록 / db = varchar
+        sex="여",
+        address=user_table[11],
+        phone=user_table[7],
+        email=user_table[6],
+
+        # userd_seeker
+        ename=career_table[0][0][1],
+        cname=career_table[0][0][2],
+        nation_origin=career_table[0][0][7],
+        military="면제",  # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
+        bohun=career_table[0][0][4],
+        disabled="미해당",  # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
+
+        ##################language#######################
         language=career_table[1][0][1],
         lang_type=career_table[1][0][2],
         lang_grade=career_table[1][0][3],
-        lang_acquired_date="2023.05.16", # career_table[1][0][4], 이건 일단 보류
+        lang_acquired_date="2023.05.16",  # career_table[1][0][4], 이건 일단 보류
         lang_license_number=career_table[1][0][5],
         lang_agency=career_table[1][0][7],
 
-        ##################skill#########################################################################
+        ##################skill############################
         skill_name='',
         skill_grade='',
 
-        ##################licence#########################################################################
+        ##################licence############################
         license_name=career_table[3][0][1],
-        license_acquired_date="2022.9.14", #career_table[3][0][3], 보류
+        license_acquired_date="2022.9.14",  # career_table[3][0][3], 보류
         license_license_number=career_table[3][0][4],
         license_agency=career_table[3][0][5],
 
-        ##################school#########################################################################
+        ##################school##############################
         education_type='',
         highest_check='',
         school_name='',
@@ -461,7 +591,7 @@ def makePortfolio(seeker_id):
         gpa='',
         transfer_check='',
 
-        ##################career#########################################################################
+        ##################career###############################
         company_name=career_table[5][0][1],
         department=career_table[5][0][2],
         position=career_table[5][0][3],
@@ -470,25 +600,25 @@ def makePortfolio(seeker_id):
         career_attending_check=career_table[5][0][6],
         hire_type=career_table[5][0][7],
 
-        ##################project#########################################################################
+        ##################project###############################
         project_name=career_table[6][0][1],
         host_name=career_table[6][0][2],
         project_content=career_table[6][0][3],
         project_skill=career_table[6][0][4],
         institution=career_table[6][0][6],
-        
-        ##################Activation#########################################################################
+
+        ##################Activation###############################
         activation_name=career_table[7][0][1],
         act_start_date=career_table[7][0][2],
         act_end_date=career_table[7][0][3],
         activation_content=career_table[7][0][4],
 
-        ##################Rewards#########################################################################
+        ##################Rewards###################################
         rewards_name=career_table[8][0][1],
         rewards_acquired_date=career_table[8][0][2],
         rewards_host=career_table[8][0][3],
 
-        ##################Overseas#########################################################################
+        ##################Overseas###################################
         oversea_purpose=career_table[9][0][1],
         nation=career_table[9][0][2],
         oversea_start_date=career_table[9][0][3],
@@ -497,10 +627,7 @@ def makePortfolio(seeker_id):
         oversea_reason=career_table[9][0][6]
     )
 
-    # 필드 병합된 결과의 수료증을 직접 생성...파일명도 필드명을 참고해서
-    document.write('./real_kb/수료증_tem_test.docx')
-
-
+'''
 
 
 if __name__ == '__main__':
