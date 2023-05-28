@@ -50,6 +50,11 @@ public class ResumeDAOImpl implements ResumeDAO{
 		return sqlSession.selectList(NS + "getCommentByResume", resumeId);
 	}
 
+	@Override
+	public ResumeVO getResume(int resumeId) {
+		return sqlSession.selectOne(NS + "getResume", resumeId);
+	}
+
 
 
 }

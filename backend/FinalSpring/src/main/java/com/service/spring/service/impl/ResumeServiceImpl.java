@@ -48,5 +48,10 @@ public class ResumeServiceImpl implements ResumeService{
 		return resumeDAO.getCommentByResume(resumeId);
 	}
 
+	@Override
+	public ResumeVO getResume(int resumeId) {
+		return resumeDAO.getResume(resumeId);
+	}
+
 
 }
