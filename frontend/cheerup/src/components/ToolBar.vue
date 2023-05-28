@@ -8,7 +8,7 @@
       </router-link>
 
       <router-link to="/resume" class="nav-link">채용공고</router-link>
-      <router-link to="/" class="nav-link">자기소개서</router-link>
+      <router-link to="/resumelist" class="nav-link">자기소개서</router-link>
       <router-link to="/ask" class="nav-link">첨삭게시판</router-link>
       <router-link to="/portfolio" class="nav-link">포트폴리오</router-link>
 
