@@ -6,7 +6,7 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력</label>
+          <label for="" class="title">나의 이력- 개인정보</label>
         </header>
         <div class="imginput" id="imgNline">
           <div class="imginput" id="imgNline_img">
@@ -103,8 +103,52 @@
           </div>
         </div>
         </div>
-
-        <div class="formbox2" id="line4">
+          <div class="info-set" id="line4">
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >군필여부</label
+              ><br />
+              <select
+                v-model="military"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="0">필</option>
+                <option value="1">미필</option>
+                <option value="2">면제</option>
+                <option value="2">복무중</option>
+                <option value="3">해당없음</option>
+              </select>
+            </div>
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >보훈대상여부</label
+              ><br />
+              <select
+                v-model="bohun"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="0">대상</option>
+                <option value="1">비대상</option>
+              </select>
+            </div>
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >장애대상여부</label
+              ><br />
+              <select
+                v-model="disabled"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="0">대상</option>
+                <option value="1">비대상</option>
+              </select>
+            </div>
+          </div>
+       
+        <div class="formbox2" id="line5">
           <label for="" class="form-label">주소</label>
           <input
             v-model="user.address"
@@ -114,13 +158,13 @@
             placeholder="Address"
           />
         </div>
-        <div class="btn" id="line5">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+        
+        <div class="btn" id="line6">
+          <button class="btn btn-primary">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
+      
     </section>
   </div>
   <div class="footer">
@@ -233,11 +277,16 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
+#line4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px 20px;
+}
 
-#line5{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#line6 {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -257,8 +306,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -268,15 +316,12 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
-
-  
-    
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
 }
-.footer{
-  margin-top: 20px;
+.footer {
+  
 }
 </style>
