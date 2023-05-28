@@ -161,7 +161,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
-    message_result = ''
+    result_arr = []
 
     for company_value in company_table :
 
@@ -217,18 +217,19 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         
         message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
         
-        conn = dbconn.db_connect()
-        cursor = conn.cursor()
-        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
-        cursor.execute(sql, {'content': message_result, 
-                            'seeker_id': seeker_id, 
-                            'company_id': company_id})
-        conn.commit()
-        cursor.close()
-        conn.close()
+        # conn = dbconn.db_connect()
+        # cursor = conn.cursor()
+        # sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
+        # cursor.execute(sql, {'content': message_result, 
+        #                     'seeker_id': seeker_id, 
+        #                     'company_id': company_id})
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
+        result_arr.append([resume_question, question_text_max, message_result])
 
     # return 'good'
-    return jsonify({"result": message_result})
+    return jsonify({"result": result_arr})
 
 
 # ==================================================================================================
