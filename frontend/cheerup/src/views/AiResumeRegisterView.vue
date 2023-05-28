@@ -136,7 +136,7 @@ export default {
             console.log(this.fit);
 
             axios
-              .get("http://127.0.0.1:5000/resume_create/"+this.userId+"/"+this.companyId+"/"+this.companyName+"/"+this.postion, {
+              .get("http://127.0.0.1:5000/resume_create/"+this.userId+"/"+this.companyId+"/"+this.companyName+"/"+this.field, {
               })
               .then((res3) => {
                 console.log(res3.data.result);
