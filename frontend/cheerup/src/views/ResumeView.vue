@@ -92,8 +92,9 @@ export default {
   
   methods: {
     handleChildClick(value) {
+
       // 자식 컴포넌트의 클릭 이벤트 처리 로직
-      // console.log('자식 컴포넌트에서 전달된 값:', value);
+      console.log('자식 컴포넌트에서 전달된 값:', value);
       axios
         .get("http://localhost:8080/api/companies/"+value, {
         })
