@@ -6,7 +6,7 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력</label>
+          <label for="" class="title">나의 이력 - 수상경력</label>
         </header>
           <div class="wrapper" id="wrapper">
             <div class="info-set" id="line1">

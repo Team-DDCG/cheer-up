@@ -6,7 +6,7 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력</label>
+          <label for="" class="title">나의 이력 - 자격증</label>
         </header>
             <div class="info-set" id="line1">
               <div class="formbox">
@@ -200,5 +200,13 @@ export default {
 a {
   text-decoration: none;
   color: #f5f5f5;
+}
+
+
+
+/* contents_중간에 넣기_wrapper 와꾸 */
+#wrapper{
+  padding-left: 10%;
+  padding-right: 10%;
 }
 </style>

@@ -6,7 +6,7 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력</label>
+          <label for="" class="title">나의 이력- 개인정보</label>
         </header>
         <div class="imginput" id="imgNline">
           <div class="imginput" id="imgNline_img">
