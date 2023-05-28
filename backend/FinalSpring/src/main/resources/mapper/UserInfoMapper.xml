@@ -59,7 +59,7 @@
 	
 	<select id="login" parameterType="com.service.spring.domain.UserInfoVO" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT
-		user_id, id, password, user_name, TO_CHAR(birthdate, 'YYYY-MM-DD'), sex, email, phone, user_status, TO_CHAR(tstamp, 'YYYY-MM-DD'), mail_check, address
+		user_id, id, password, user_name, TO_CHAR(birthdate, 'YYYY-MM-DD') AS birthdate, sex, email, phone, user_status, TO_CHAR(tstamp, 'YYYY-MM-DD') AS tstamp, mail_check, address
 		FROM user_info
 		WHERE id=#{id} AND password=#{password}
 	</select>

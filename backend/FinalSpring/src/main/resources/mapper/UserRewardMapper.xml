@@ -33,14 +33,14 @@
 	
 	<select id="getUserReward" parameterType="int" resultType="com.service.spring.domain.UserRewardVO">
 		SELECT
-		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD'), host, content
+		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, host, content
 		FROM user_reward_info
 		WHERE reward_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserReward" parameterType="int" resultType="com.service.spring.domain.UserRewardVO">
 		SELECT
-		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD'), host, content
+		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, host, content
 		FROM user_reward_info
 		WHERE seeker_id=#{seekerId}
 	</select>

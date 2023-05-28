@@ -33,14 +33,14 @@
 	
 	<select id="getUserLanguage" parameterType="int" resultType="com.service.spring.domain.UserLanguageVO">
 		SELECT
-		language, type, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD'), license_number, agency
+		language, type, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, license_number, agency
 		FROM user_language_info
 		WHERE language_id = #{languageId}
 	</select>
 	
 	<select id="getAllUserLanguage" parameterType="int" resultType="com.service.spring.domain.UserLanguageVO">
 		SELECT
-		language, type, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD'), license_number, agency
+		language, type, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, license_number, agency
 		FROM user_language_info
 		WHERE seeker_id = #{seekerId}
 	</select>

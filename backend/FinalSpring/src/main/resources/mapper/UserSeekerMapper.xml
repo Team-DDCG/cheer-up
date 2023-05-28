@@ -35,10 +35,10 @@
 	</update>
 	
 	<select id="getUserSeeker" parameterType="int" resultType="com.service.spring.domain.UserSeekerVO">
-		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile
+		SELECT si.ename, si.cname, si.military, si.bohun, si.disabled, si.nation, si.profile, si.seeker_id
 		FROM user_info ui INNER JOIN user_seeker_info si
 		ON ui.user_id = si.user_id
-		WHERE ui.user_id = #{userId}
+		WHERE ui.user_id = #{userId} AND ui.user_status = 1
 	</select>
 	
 </mapper>

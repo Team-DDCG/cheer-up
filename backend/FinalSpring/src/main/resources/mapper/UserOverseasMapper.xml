@@ -35,14 +35,14 @@
 	
 	<select id="getUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
 		SELECT
-		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), institution, reason
+		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_Date, institution, reason
 		FROM user_overseas_info
 		WHERE overseas_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
 		SELECT
-		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), institution, reason
+		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_date, institution, reason
 		FROM user_overseas_info
 		WHERE seeker_id = #{seekerId}
 	</select>
