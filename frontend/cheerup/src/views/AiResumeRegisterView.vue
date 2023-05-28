@@ -8,8 +8,8 @@
             <div class="line1">
               <p id="title1">AI 자기소개서 생성</p>
               <div id="line2">
-                <p class="title2">[KB증권] 2023 대졸 신입사원 공개채용</p>
-                <p class="deadline">시작일: 2023-05-10 | 마감일: 2023-05-24</p>
+                <p class="title2">{{company.title}}</p>
+                <p class="deadline">시작일: {{company.startDate}} | 마감일: {{ company.endDate }}</p>
 
               </div>
               <hr>
@@ -19,11 +19,11 @@
         </div>
         <div class="info">
           <p class="text2">
-            <span class="bold">KB_12445</span>
+            <span class="bold">{{userName}}</span>
             <span>님의</span>
           </p>
           <p class="text1">
-            <span class="bold">케이비증권(주)</span>
+            <span class="bold">{{companyName}}</span>
             <span>에 대한 기업적합도 분석입니다.</span>
           </p>
         </div>
@@ -40,11 +40,11 @@
         </div>
         <div class="info">
           <p class="text2">
-            <span class="bold">KB_12445</span>
+            <span class="bold">{{ userName }}</span>
             <span>님의</span>
           </p>
           <p class="text1">
-            <span class="bold">케이비증권(주)</span>
+            <span class="bold">{{companyName}}</span>
             <span>에 대해 작성된 자기소개서입니다.</span>
           </p>
         </div>
@@ -78,10 +78,12 @@ export default {
   
   data() {
     return {
+      company: '',
       field: '',
       companyName: '',
       companyId: '',
       userId: '',
+      userName: '',
       character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
       
@@ -94,6 +96,7 @@ export default {
 
   },
   created() {
+    this.userName = sessionStorage.getItem("name");
     this.field = this.$route.query.field;
     this.companyName = this.$route.query.companyName;
     this.companyId = this.$route.query.companyId;
@@ -102,6 +105,19 @@ export default {
     console.log(this.companyName);
     console.log(this.companyId);
     console.log(this.userId);
+
+    axios
+      .get("http://localhost:8080/api/companies/"+this.companyName, {
+      })
+      .then((res) => {
+        console.log(res);
+        this.company = res.data;
+        console.log(this.company);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
 
      axios
         .get("http://127.0.0.1:5000/my_characteristic/"+this.userId, {

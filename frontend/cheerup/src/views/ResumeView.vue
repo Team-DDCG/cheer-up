@@ -119,6 +119,7 @@ export default {
           console.log(err)
         });
     },
+    // Filter Save api
     async saveOption() {
         axios
         .post("http://127.0.0.1:8888/company/register", {
