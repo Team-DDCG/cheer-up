@@ -128,8 +128,8 @@ const routes = [
     component: AiResumeRegisterView,
   },
   {
-    path: "/airesumelist",
-    name: "airesumelist",
+    path: "/resumelist",
+    name: "resumelist",
     component: AiResumeListView,
   },
   // {

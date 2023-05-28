@@ -2,14 +2,17 @@
   <header>
     <div>
       <router-link to="/main">
-      <img src="../assets/Logo_kor.png"/>
+      <img src="../assets/main_logo.png"/>
       <!-- <span class ="name1">취얼</span>
       <span class ="name2">업</span> -->
       </router-link>
-      <router-link to="/resume">채용공고</router-link>
-      <router-link to="/">자기소개서</router-link>
-      <router-link to="/ask">첨삭게시판</router-link>
-      <router-link to="/portfolio">포트폴리오</router-link>
+
+      <router-link to="/resume" class="nav-link">채용공고</router-link>
+      <router-link to="/resumelist" class="nav-link">자기소개서</router-link>
+      <router-link to="/ask" class="nav-link">첨삭게시판</router-link>
+      <router-link to="/portfolio" class="nav-link">포트폴리오</router-link>
+
+      
     </div>
     <div v-if="!isLoggedIn">
       <router-link to="/login">로그인</router-link>
@@ -100,5 +103,10 @@ header div a + a {margin-left:20px}
 header .router-link-active {
   color: #A46CFF;
   font-weight: bold;
+  pointer-events: none; /* hover기능 안받으면서 클릭도 되지않음 */
+}
+
+header .nav-link:hover {
+  color: rgb(187, 187, 187); /* hover 시 색상 변경 */
 }
 </style>
