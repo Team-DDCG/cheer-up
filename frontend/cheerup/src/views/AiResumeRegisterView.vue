@@ -135,6 +135,18 @@ export default {
             this.fit = res2.data.result.map(sublist => sublist[1]/100);          
             console.log(this.fit);
 
+            axios
+              .get("http://127.0.0.1:5000/resume_create/"+this.userId+"/"+this.companyId+"/"+this.companyName+"/"+this.postion, {
+              })
+              .then((res3) => {
+                console.log(res3.data.result);
+
+              })
+              .catch((err3) => {
+                console.log(err3);
+                this.check = 'error3';
+              });
+
           })
           .catch((err2) => {
             console.log(err2);
