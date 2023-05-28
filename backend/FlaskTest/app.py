@@ -311,7 +311,7 @@ def myCharacteristic(seeker_id):
     cursor.close()
     conn.close()
 
-    return jsonify({"result": message_result})
+    return jsonify({"result": arr})
 
 
 # ==================================================================================================
@@ -398,7 +398,7 @@ def goodnessOfFit(seeker_id, company_name):
     cursor.close()
     conn.close()
 
-    return jsonify({"result": message_result})
+    return jsonify({"result": arr})
 
 @app.route("/make_portfolio/<seeker_id>")
 def makePortfolio(seeker_id):
