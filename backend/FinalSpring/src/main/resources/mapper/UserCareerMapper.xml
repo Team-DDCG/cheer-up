@@ -13,7 +13,7 @@
 <mapper namespace="UserCareerMapper">
 	<insert id="registerUserCareer" parameterType="com.service.spring.domain.UserCareerVO">
 		INSERT INTO user_career_info(career_id, company_name, department, position, start_date, end_date, attending_check, hire_type, seeker_id)
-		VALUES(user_career_info_seq.NEXTVAL, #{companyName}, #{department}, #{position}, #{startDate}, #{endDate}, #{attendingCheck}, #{hireType}, #{seekerId})
+		VALUES(user_career_info_seq.NEXTVAL, #{companyName}, #{department}, #{position}, TO_DATE(#{startDate}, 'YYYY-MM-DD'), TO_DATE(#{endDate}, 'YYYY-MM-DD'), #{attendingCheck}, #{hireType}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserCareer" parameterType="int">
@@ -25,8 +25,8 @@
 		company_name = #{companyName},
 		department = #{department},
 		position = #{position},
-		start_date = #{startDate},
-		end_date = #{endDate},
+		start_date = TO_DATE(#{startDate}, 'YYYY-MM-DD'),
+		end_date = TO_DATE(#{endDate}, 'YYYY-MM-DD'),
 		attending_check = #{attendingCheck},
 		hire_type = #{hireType}
 		WHERE career_id = #{careerId}
@@ -34,14 +34,14 @@
 	
 	<select id="getUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
 		SELECT
-		company_name, department, position, start_date, end_date, attending_check, hire_type
+		company_name, department, position, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), attending_check, hire_type
 		FROM user_career_info
 		WHERE career_id=#{careerId}
 	</select>
 	
 	<select id="getAllUserCareer" parameterType="int" resultType="com.service.spring.domain.UserCareerVO">
 		SELECT
-		company_name, department, position, start_date, end_date, attending_check, hire_type
+		company_name, department, position, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), attending_check, hire_type
 		FROM user_career_info
 		WHERE seeker_id=#{seekerId}
 	</select>

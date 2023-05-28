@@ -14,7 +14,7 @@
 	<insert id="registerUserReward" parameterType="com.service.spring.domain.UserRewardVO">
 		INSERT
 		INTO user_reward_info(reward_id, reward_name, acquired_date, host, content, seeker_id)
-		VALUES(user_reward_info_seq.NEXTVAL, #{rewardName}, #{acquiredDate}, #{host}, #{content}, #{seekerId})
+		VALUES(user_reward_info_seq.NEXTVAL, #{rewardName}, TO_DATE(#{acquiredDate}, 'YYYY-MM-DD'), #{host}, #{content}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserReward" parameterType="int">
@@ -24,7 +24,7 @@
 	<update id="updateUserReward" parameterType="com.service.spring.domain.UserRewardVO">
 		UPDATE user_reward_info SET
 		reward_name = #{rewardName},
-		acquired_date = #{acquiredDate},
+		acquired_date = TO_DATE(#{acquiredDate}, 'YYYY-MM-DD'),
 		host = #{host},
 		content = #{content},
 		seeker_id = #{seekerId}
@@ -33,14 +33,14 @@
 	
 	<select id="getUserReward" parameterType="int" resultType="com.service.spring.domain.UserRewardVO">
 		SELECT
-		reward_name, acquired_date, host, content
+		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD'), host, content
 		FROM user_reward_info
 		WHERE reward_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserReward" parameterType="int" resultType="com.service.spring.domain.UserRewardVO">
 		SELECT
-		reward_name, acquired_date, host, content
+		reward_name, TO_CHAR(acquired_date, 'YYYY-MM-DD'), host, content
 		FROM user_reward_info
 		WHERE seeker_id=#{seekerId}
 	</select>

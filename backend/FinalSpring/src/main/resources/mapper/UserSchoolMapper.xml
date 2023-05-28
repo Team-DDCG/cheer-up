@@ -14,7 +14,7 @@
 	<insert id="registerUserSchool" parameterType="com.service.spring.domain.UserSchoolVO">
 		INSERT
 		INTO user_school_info(school_id, education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major, seeker_id)
-		VALUES(USER_SCHOOL_INFO_SEQ.NEXTVAL, #{educationType}, #{schoolName}, #{entranceDate}, #{graduationDate}, #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor}, #{seekerId})
+		VALUES(USER_SCHOOL_INFO_SEQ.NEXTVAL, #{educationType}, #{schoolName}, TO_DATE(#{entranceDate}, 'YYYY-MM-DD'), TO_DATE(#{graduationDate}, 'YYYY-MM-DD'), #{major}, #{attendingCheck}, #{transferCheck}, #{gpa}, #{highestCheck}, #{doubleMajor}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserSchool" parameterType="int">
@@ -25,8 +25,8 @@
 		UPDATE user_school_info SET
 		education_type = #{educationType},
 		school_name = #{schoolName},
-		entrance_date = #{entranceDate},
-		graduation_date = #{graduationDate},
+		entrance_date = TO_DATE(#{entranceDate}, 'YYYY-MM-DD'),
+		graduation_date = TO_DATE(#{graduationDate}, 'YYYY-MM-DD'),
 		major = #{major},
 		attending_check = #{attendingCheck},
 		transfer_check = #{transferCheck},
@@ -38,14 +38,14 @@
 	
 	<select id="getUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
-		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
+		education_type, school_name,TO_CHAR(entrance_date, 'YYYY-MM-DD'), TO_CHAR(graduation_date, 'YYYY-MM-DD'), major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
 		WHERE school_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
-		education_type, school_name, entrance_date, graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
+		education_type, school_name, TO_CHAR(entrance_date, 'YYYY-MM-DD'), TO_CHAR(graduation_date, 'YYYY-MM-DD'), major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
 		WHERE seeker_id = #{seekerId}
 	</select>

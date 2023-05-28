@@ -14,7 +14,7 @@
 	<insert id="registerUserOverseas" parameterType="com.service.spring.domain.UserOverseasVO">
 		INSERT
 		INTO user_overseas_info(overseas_id, purpose, nation, start_date, end_date, institution, reason, seeker_id)
-		VALUES(user_overseas_info_seq.NEXTVAL, #{purpose}, #{nation}, #{startDate}, #{endDate}, #{institution}, #{reason}, #{seekerId})
+		VALUES(user_overseas_info_seq.NEXTVAL, #{purpose}, #{nation}, TO_DATE(#{startDate}, 'YYYY-MM-DD'), TO_DATE(#{endDate}, 'YYYY-MM-DD'), #{institution}, #{reason}, #{seekerId})
 	</insert>
 	
 	<delete id="deleteUserOverseas" parameterType="int">
@@ -25,8 +25,8 @@
 		UPDATE user_overseas_info SET
 		purpose = #{purpose},
 		nation = #{nation},
-		start_date = #{startDate},
-		end_date = #{endDate},
+		start_date = TO_DATE(#{startDate}, 'YYYY-MM-DD'),
+		end_date = TO_DATE(#{endDate}, 'YYYY-MM-DD'),
 		institution = #{institution},
 		reason = #{reason},	
 		seeker_id = #{seekerId}
@@ -35,14 +35,14 @@
 	
 	<select id="getUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
 		SELECT
-		purpose, nation, start_date, end_date, institution, reason
+		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), institution, reason
 		FROM user_overseas_info
 		WHERE overseas_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserOverseas" parameterType="int" resultType="com.service.spring.domain.UserOverseasVO">
 		SELECT
-		purpose, nation, start_date, end_date, institution, reason
+		purpose, nation, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), institution, reason
 		FROM user_overseas_info
 		WHERE seeker_id = #{seekerId}
 	</select>
