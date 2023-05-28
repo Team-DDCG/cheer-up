@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.service.spring.DTO.CategoryDTO;
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
 import com.service.spring.domain.UserSeekerVO;
@@ -129,10 +128,10 @@ public class CompanyController {
     }
     
     @PutMapping("/categories/{seekerId}")
-    public ResponseEntity<String> saveCategories(@PathVariable int seekerId, @RequestBody CategoryDTO dto) {
+    public ResponseEntity<String> saveCategories(@PathVariable int seekerId, @RequestBody UserSeekerVO vo) {
         try {
-        	dto.setSeekerId(seekerId);
-            int result = companyService.saveCategories(dto);
+        	vo.setSeekerId(seekerId);
+            int result = companyService.saveCategories(vo);
             if (result == 1) {
                 return ResponseEntity.ok("Categories saved successfully.");
             } else {
