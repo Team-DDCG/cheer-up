@@ -8,11 +8,12 @@
         <header>
           <label for="" class="title">나의 이력 - 대외활동</label>
         </header>
+        <div v-for="item of activation" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">활동명</label>
                 <input
-                  v-model="projectname"
+                  v-model="item.activationName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -24,7 +25,7 @@
             <div class="formbox">
               <label for="" class="form-label">시작일</label>
               <input
-                v-model="start"
+                v-model="item.startDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -34,7 +35,7 @@
             <div class="formbox">
               <label for="" class="form-label">종료일</label>
               <input
-                v-model="end"
+                v-model="item.endDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -46,7 +47,7 @@
               <div class="formbox">
               <label for="" class="form-label">담당업무 및 내용</label>
               <input
-                v-model="content"
+                v-model="item.content"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -54,6 +55,7 @@
               />
             </div>
             </div>
+          </div>
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -69,11 +71,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      activation:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/activation/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.activation = res.data;
+        console.log(this.activation);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

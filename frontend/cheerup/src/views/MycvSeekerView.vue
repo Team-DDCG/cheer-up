@@ -6,106 +6,126 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력- 회원공통</label>
+          <label for="" class="title">나의 이력- 개인정보</label>
         </header>
+        <div class="imginput" id="imgNline">
+          <div class="imginput" id="imgNline_img">
+            <input id="img" type="file" @change="readInputFile" />
+          </div>
+          <div class="info-set" id="imgNline_line">
             <div class="info-set" id="line1">
               <div class="formbox">
-                <label for="" class="form-label">아이디</label>
-                <input
-                  v-model="user.id"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="아이디"
-                />
-              </div>
-              <!-- <div class="formbox">
-                <label for="" class="form-label">비밀번호</label>
+              <label for="" class="form-label">회원번호</label>
+              <input
+                v-model="seeker.nation"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="회원번호"
+              />
+            </div>
+
+              <div class="formbox">
+                <label for="" class="form-label">영문이름</label>
                 <input
                   v-model="seeker.ename"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="비밀번호"
+                  placeholder="Ename"
                 />
-              </div> -->
+              </div>
+
               <div class="formbox">
-                <label for="" class="form-label">이름</label>
+                <label for="" class="form-label">한문이름</label>
                 <input
-                  v-model="user.userName"
+                  v-model="seeker.cname"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="이름"
+                  placeholder="漢字"
                 />
-              </div>           
+              </div>
+              
+            </div>
           </div>
           <div class="info-set" id="line2">
             <div class="formbox">
-              <label for="" class="form-label">생년월일</label>
+              <label for="" class="form-label">국적</label>
               <input
-                v-model="user.birthdate"
-                type="date"
+                v-model="seeker.nation"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="nation"
+              />
+            </div>
+            <div class="formbox">
+              <label for="" class="form-label">직무카테고리1</label>
+              <input
+                v-model="seeker.category1No"
+                type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Birth date"
               />
             </div>
-            <div class="form-check-label">
+            <div class="formbox">
+              <label for="" class="form-label">직무카테고리2</label>
+              <input
+                v-model="seeker.category2No"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Birth date"
+              />
+            </div>            
+          </div>       
+          <div class="info-set" id="line3">
+            <div class="formbox">
               <label for="exampleFormControlInput2" class="form-label"
-                >성별</label
-              ><br />
-              <select v-model="user.sex" class="form-control" id="exampleFormControlSelect1">
-                <option value="0">남성</option>
-                <option value="1">여성</option>
-              </select>
-            </div>
-          </div>
-        <div class="info-set" id="line3">
-          <div class="formbox">
-            <label for="" class="form-label">전화번호</label>
-            <input
-              v-model="user.phone"
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="010-0000-0000"
-            />
-          </div>
-          <div class="formbox">
-            <label for="" class="form-label">이메일</label>
-            <input
-              v-model="user.email"
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Email"
-            />
-          </div>
-          <div class="formbox">
-              <label for="exampleFormControlInput2" class="form-label"
-                >이메일수신여부</label
+                >군필여부</label
               ><br />
               <select
-                v-model="user.mailCheck"
+                v-model="seeker.military"
                 class="form-control"
                 id="exampleFormControlSelect1"
               >
-                <option value="0">동의</option>
-                <option value="1">비동의</option>
+                <option value="0">필</option>
+                <option value="1">미필</option>
+                <option value="2">면제</option>
+                <option value="2">복무중</option>
+                <option value="3">해당없음</option>
               </select>
             </div>
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >보훈대상여부</label
+              ><br />
+              <select
+                v-model="seeker.bohun"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="0">대상</option>
+                <option value="1">비대상</option>
+              </select>
+            </div>
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >장애대상여부</label
+              ><br />
+              <select
+                v-model="seeker.disabled"
+                class="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="0">대상</option>
+                <option value="1">비대상</option>
+              </select>
+            </div>
+          </div>          
         </div>      
-          <div class="formbox2" id="line5">
-          <label for="" class="form-label">주소</label>
-          <input
-            v-model="user.address"
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Address"
-          />
-        </div>                 
         <div class="btn" id="line6">
           <button class="btn btn-primary">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
@@ -127,22 +147,19 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      user: '',
-      seeker: '',
       userId: '',
-      // seekerId: '',
+      seeker:'',
     };
   },
   created() {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
-
     axios
-      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
       })
       .then((res) => {
-        this.user = res.data;
-        console.log(this.user);
+        this.seeker = res.data;
+        console.log(this.seeker);
       })
       .catch((err) => {
         console.log(err);
@@ -188,7 +205,7 @@ export default {
 
 /* 이미지와 라인 정리 */
 #imgNline_img {
-  grid-row: span 3;
+  grid-row: span 4;
 }
 
 #imgNline {
@@ -206,7 +223,7 @@ export default {
 
 #line2 {
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px 20px;
 }
 
@@ -220,7 +237,6 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px 20px;
 }
-
 
 #line6 {
   display: flex;

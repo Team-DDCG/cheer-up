@@ -32,14 +32,14 @@
 	
 	<select id="getActivationDetail" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
 		SELECT
-		activation_name, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), content
+		activation_name, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_date, content
 		FROM user_activation_info
 		WHERE activation_id=#{activationId}
 	</select>
 	
 	<select id="getAllActivationById" parameterType="int" resultType="com.service.spring.domain.UserActivationVO">
 		SELECT
-		activation_name, TO_CHAR(start_date, 'YYYY-MM-DD'), TO_CHAR(end_date, 'YYYY-MM-DD'), content
+		activation_name, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_date, content
 		FROM user_activation_info
 		WHERE seeker_id=#{seekerId}
 	</select>

@@ -92,7 +92,7 @@ export default {
       //     mail_check: this.mail_check,
       // }
       axios
-        .post("http://127.0.0.1:8080/api/info/register", {
+        .post(this.$store.state.baseUrl+"api/info/register", {
           // type: this.sessionDataType,
           id: this.sessionDataId,
           password: this.sessionDataPassword,

@@ -9,12 +9,13 @@
           <label for="" class="title">나의 이력 - 학력정보
           </label>
         </header>
+        <div v-for="item of schools" :key="item">
           <div class="info-set" id="imgNline_line">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">학교명</label>
                 <input
-                  v-model="schoolname"
+                  v-model="item.schoolName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -35,19 +36,10 @@
             </div>
           </div>
           <div class="info-set" id="line2">
-            <!-- <div class="form-check-label">
-                <label for="exampleFormControlInput2" class="form-label"
-                >성별</label
-              ><br />
-              <select v-model="gender" class="form-control" id="exampleFormControlSelect1">
-                <option value="0">남성</option>
-                <option value="1">여성</option>
-              </select>
-            </div> -->
             <div class="formbox">
               <label for="" class="form-label">전공</label>
               <input
-                v-model="major"
+                v-model="item.major"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -57,7 +49,7 @@
             <div class="formbox">
               <label for="" class="form-label">입학일</label>
               <input
-                v-model="enterance"
+                v-model="item.enteranceDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -67,7 +59,7 @@
             <div class="formbox">
               <label for="" class="form-label">졸업일</label>
               <input
-                v-model="gradutation"
+                v-model="item.gradutationDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -79,7 +71,7 @@
           <div class="formbox">
             <label for="" class="form-label">재학여부</label>
             <input
-              v-model="attending"
+              v-model="item.attendingCheck"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -89,7 +81,7 @@
           <div class="formbox">
             <label for="" class="form-label">편입여부</label>
             <input
-              v-model="transfer"
+              v-model="item.transferCheck"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -101,7 +93,7 @@
           <div class="formbox">
             <label for="" class="form-label">복수전공</label>
             <input
-              v-model="doublemajor"
+              v-model="item.doubleMajor"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -123,7 +115,7 @@
           <div class="formbox">
             <label for="" class="form-label">평점</label>
             <input
-              v-model="doublemajor"
+              v-model="item.gpa"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
@@ -131,6 +123,7 @@
             />            
           </div>
           </div> 
+        </div>
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -146,15 +139,29 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      user: '',
+      seekerId: '',
+      schools:'',
     };
   },
   created() {
-
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/schools/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.schools = res.data;
+        console.log(this.schools);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
   }
 };
 </script>

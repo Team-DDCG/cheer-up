@@ -38,14 +38,14 @@
 	
 	<select id="getUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
-		education_type, school_name,TO_CHAR(entrance_date, 'YYYY-MM-DD'), TO_CHAR(graduation_date, 'YYYY-MM-DD'), major, attending_check, transfer_check, gpa, highest_check, double_major
+		education_type, school_name,TO_CHAR(entrance_date, 'YYYY-MM-DD') AS entrance_date, TO_CHAR(graduation_date, 'YYYY-MM-DD') AS graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
 		WHERE school_id=#{VALUE}
 	</select>
 	
 	<select id="getAllUserSchool" parameterType="int" resultType="com.service.spring.domain.UserSchoolVO">
 		SELECT
-		education_type, school_name, TO_CHAR(entrance_date, 'YYYY-MM-DD'), TO_CHAR(graduation_date, 'YYYY-MM-DD'), major, attending_check, transfer_check, gpa, highest_check, double_major
+		education_type, school_name, TO_CHAR(entrance_date, 'YYYY-MM-DD') AS entrance_date, TO_CHAR(graduation_date, 'YYYY-MM-DD') AS graduation_date, major, attending_check, transfer_check, gpa, highest_check, double_major
 		FROM user_school_info
 		WHERE seeker_id = #{seekerId}
 	</select>

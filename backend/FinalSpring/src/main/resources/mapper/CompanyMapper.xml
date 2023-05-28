@@ -6,7 +6,7 @@
 
 	<insert id="registerCompany" parameterType="com.service.spring.domain.CompanyVO">
 		INSERT INTO company (company_id, company_name, start_date, end_date, company_logo, title, company_url, content)
-		VALUES (COMPANY_SEQ.NEXTVAL, #{name}, TO_DATE(#{startDate}, 'YYYY-MM-DD'), TO_DATE(#{endDate}, 'YYYY-MM-DD'), #{companyLogo}, #{title}, #{companyUrl}, #{content})	
+		VALUES (COMPANY_SEQ.NEXTVAL, #{companyName}, #{startDate}, #{endDate}, #{companyLogo}, #{title}, #{companyUrl}, #{content})	
 	</insert>
 	
 	<delete id="deleteCompany" parameterType="int">
@@ -16,8 +16,8 @@
 	<update id="updateCompany" parameterType="com.service.spring.domain.CompanyVO">
 		UPDATE company SET
 		company_name = #{companyName},
-		start_date = TO_DATE(#{startDate}, 'YYYY-MM-DD'),
-		end_date = TO_DATE(#{endDate}, 'YYYY-MM-DD'),
+		start_date = #{startDate},
+		end_date = #{endDate},
 		company_logo = #{companyLogo},
 		title = #{title},
 		company_url = #{companyUrl},
@@ -26,7 +26,7 @@
 	</update>
 	
 	<select id="getCompanyNameByCategory" parameterType="int" resultType="com.service.spring.domain.CompanyVO">
-		SELECT DISTINCT c.company_name AS name
+		SELECT DISTINCT c.company_name
 		FROM category1 c1 JOIN category2 c2
 		ON c1.category1_id = c2.category1_id
 		JOIN company_category_relation ccr
@@ -42,14 +42,14 @@
 	</select>
 	
 	<select id="getCompanyPositionByName" parameterType="String" resultType="com.service.spring.DTO.CompanyDataDTO">
-		SELECT DISTINCT c.company_name, TO_CHAR(c.start_date, 'YYYY-MM-DD') AS c.start_date, TO_CHAR(c.end_date, 'YYYY-MM-DD') AS c.end_date, c.company_logo, c.title, c.company_url, c.content, q.position
+		SELECT DISTINCT c.company_name, c.start_date, c.end_date, c.company_logo, c.title, c.company_url, c.content, q.position
 		FROM company c JOIN question q
 		ON c.company_id = q.company_id 
 		WHERE c.company_name = #{companyName}
 	</select>
 	
 	<select id="getCompanyDataByName" parameterType="String" resultType="com.service.spring.domain.CompanyVO">
-		SELECT company_id, company_name, TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, TO_CHAR(end_date, 'YYYY-MM-DD') AS end_date, company_logo, title, company_url, content
+		SELECT company_id, company_name, start_date, end_date, company_logo, title, company_url, content
 		FROM company
 		WHERE company_name = #{companyName}
 	</select>

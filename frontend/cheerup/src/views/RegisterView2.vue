@@ -95,7 +95,7 @@ export default {
     duplicateCheck() {
       axios
         //id duplicate api calling
-        .get("http://127.0.0.1:8080/api/user-info/register", {
+        .get(this.$store.state.baseUrl+"api/user-info/register", {
           id:this.id
         })
         .then((res) => {

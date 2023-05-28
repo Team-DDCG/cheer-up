@@ -1,54 +1,97 @@
 <template>
     <div id="nav" class="navigator_cv">
         <div id="sidenav_cv1" class="sidenav_cv">
-            <!-- <a href="#">개인정보</a> -->
             <router-link to="/mycv">개인정보</router-link>
         </div>
-        <div id="sidenav_cv2" class="sidenav_cv">
-            <!-- <a href="#">학력정보</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv2" class="sidenav_cv">
+            <router-link to="/mycvseeker">취준생</router-link>
+        </div>
+        <div v-if="mentorId!==null" id="sidenav_cv3" class="sidenav_cv">
+            <router-link to="/mycvmentor">멘토</router-link>
+        </div>
+        <div v-if="seekerId!==null" id="sidenav_cv4" class="sidenav_cv">
             <router-link to="/mycv1">학력정보</router-link>
         </div>
-        <div id="sidenav_cv3" class="sidenav_cv">
-            <!-- <a href="#">경력사항</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv5" class="sidenav_cv">
             <router-link to="/mycv2">경력사항</router-link>
         </div>
-        <div id="sidenav_cv4" class="sidenav_cv">
-            <!-- <a href="#">프로젝트 경험</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv6" class="sidenav_cv">
             <router-link to="/mycv3">프로젝트 경험</router-link>
         </div>
-        <div id="sidenav_cv5" class="sidenav_cv">
-            <!-- <a href="#">대외 활동</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv7" class="sidenav_cv">
             <router-link to="/mycv4">대외 활동</router-link>
         </div>
-        <div id="sidenav_cv6" class="sidenav_cv">
-            <!-- <a href="#">해외 경험</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv8" class="sidenav_cv">
             <router-link to="/mycv5">해외 경험</router-link>
         </div>
-        <div id="sidenav_cv7" class="sidenav_cv">
-            <!-- <a href="#">어학 점수</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv9" class="sidenav_cv">
             <router-link to="/mycv6">어학 점수</router-link>
         </div>
-        <div id="sidenav_cv8" class="sidenav_cv">
-            <!-- <a href="#">스킬</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv10" class="sidenav_cv">
             <router-link to="/mycv7">스킬</router-link>
         </div>
-        <div id="sidenav_cv9" class="sidenav_cv">
-            <!-- <a href="#">자격증</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv11" class="sidenav_cv">
             <router-link to="/mycv8">자격증</router-link>
         </div>
-        <div id="sidenav_cv10" class="sidenav_cv">
-            <!-- <a href="#">수상 경력</a> -->
+        <div v-if="seekerId!==null" id="sidenav_cv12" class="sidenav_cv">
             <router-link to="/mycv9">수상 경력</router-link>
         </div>
     </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-data() {
+    data() {
     return {
+      seekerId:null,
+      mentorId:null,
+    };
+  },
+  beforeCreate() {
+    this.userId = sessionStorage.getItem("id");
+    console.log(this.userId);
 
-    }
-},
+
+    axios
+      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
+      })
+      .then((res) => {
+        this.user = res.data;
+        console.log(this.user);
+        if(this.user.userStatus === 0) {
+          axios
+          .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
+          })
+          .then((res) => {
+            this.seekerId = res.data.seekerId;
+            sessionStorage.setItem("seekerId",res.data.seekerId);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = 'error';
+          });
+        } else {
+            axios
+            .get(this.$store.state.baseUrl+"api/mentors/"+this.userId, {
+            })
+            .then((res) => {
+                this.mentorId = res.data.seekerId;
+                sessionStorage.setItem("mentorId",res.data.mentorId);
+            })
+            .catch((err) => {
+                console.log(err);
+                this.check = 'error';
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+    },
+  created() {
+
+  }
 
 }
 </script>

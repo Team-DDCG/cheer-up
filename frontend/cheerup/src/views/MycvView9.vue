@@ -8,12 +8,13 @@
         <header>
           <label for="" class="title">나의 이력 - 수상경력</label>
         </header>
+        <div v-for="item of rewards" :key="item">
           <div class="wrapper" id="wrapper">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">수상명</label>
                 <input
-                  v-model="rewardname"
+                  v-model="item.rewardName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -23,7 +24,7 @@
               <div class="formbox">
                 <label for="" class="form-label">주최 기관</label>
                 <input
-                  v-model="host"
+                  v-model="item.host"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -33,7 +34,7 @@
               <div class="formbox">
                 <label for="" class="form-label">수상 날짜</label>
                 <input
-                  v-model="acquireddate"
+                  v-model="item.acquiredDate"
                   type="date"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -45,7 +46,7 @@
             <div class="formbox">
               <label for="" class="form-label">담당 업무 및 수상 내용</label>
               <input
-                v-model="licensenumber"
+                v-model="item.content"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -54,6 +55,7 @@
             </div> 
              </div>    
             </div>     
+          </div>
             <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -71,11 +73,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      rewards:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/rewards/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.rewards = res.data;
+        console.log(this.rewards);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

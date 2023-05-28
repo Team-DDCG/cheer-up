@@ -82,5 +82,15 @@ public class ResumeController {
         List<ResumeCommentDTO> commentList = resumeService.getCommentByResume(resumeId);
         return ResponseEntity.ok(commentList);
     }
+    
+    @GetMapping("/{resumeId}")
+    public ResponseEntity<?> getResume(@PathVariable int resumeId) {
+        ResumeVO resume = resumeService.getResume(resumeId);
+        if (resume != null) {
+            return ResponseEntity.ok(resume);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resume not found.");
+        }
+    }
 
 }

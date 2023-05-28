@@ -6,106 +6,50 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력- 회원공통</label>
+          <label for="" class="title">나의 이력- 멘토</label>
         </header>
             <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">아이디</label>
-                <input
-                  v-model="user.id"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="아이디"
-                />
-              </div>
               <!-- <div class="formbox">
-                <label for="" class="form-label">비밀번호</label>
+                <label for="" class="form-label">회원번호</label>
                 <input
-                  v-model="seeker.ename"
+                  v-model="mentor.userName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="비밀번호"
+                  placeholder="회원번호"
                 />
               </div> -->
               <div class="formbox">
-                <label for="" class="form-label">이름</label>
+                <label for="" class="form-label">멘토평점</label>
                 <input
-                  v-model="user.userName"
+                  v-model="mentor.rating"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="이름"
+                  placeholder="멘토평점"
                 />
-              </div>           
-          </div>
-          <div class="info-set" id="line2">
-            <div class="formbox">
-              <label for="" class="form-label">생년월일</label>
-              <input
-                v-model="user.birthdate"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Birth date"
-              />
-            </div>
-            <div class="form-check-label">
-              <label for="exampleFormControlInput2" class="form-label"
-                >성별</label
-              ><br />
-              <select v-model="user.sex" class="form-control" id="exampleFormControlSelect1">
-                <option value="0">남성</option>
-                <option value="1">여성</option>
-              </select>
-            </div>
-          </div>
-        <div class="info-set" id="line3">
-          <div class="formbox">
-            <label for="" class="form-label">전화번호</label>
-            <input
-              v-model="user.phone"
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="010-0000-0000"
-            />
-          </div>
-          <div class="formbox">
-            <label for="" class="form-label">이메일</label>
-            <input
-              v-model="user.email"
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Email"
-            />
-          </div>
-          <div class="formbox">
-              <label for="exampleFormControlInput2" class="form-label"
-                >이메일수신여부</label
-              ><br />
-              <select
-                v-model="user.mailCheck"
-                class="form-control"
-                id="exampleFormControlSelect1"
-              >
-                <option value="0">동의</option>
-                <option value="1">비동의</option>
-              </select>
-            </div>
-        </div>      
-          <div class="formbox2" id="line5">
-          <label for="" class="form-label">주소</label>
-          <input
-            v-model="user.address"
-            type="text"
-            class="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Address"
-          />
-        </div>                 
+              </div>
+              <div class="formbox">
+                <label for="" class="form-label">회사이름</label>
+                <input
+                  v-model="mentor.companyName"
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="회사이름"
+                />
+              </div>    
+              <div class="formbox">
+                <label for="" class="form-label">경력</label>
+                <input
+                  v-model="mentor.career"
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="경력"
+                />
+              </div>        
+          </div>  
         <div class="btn" id="line6">
           <button class="btn btn-primary">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
@@ -127,22 +71,19 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      user: '',
-      seeker: '',
       userId: '',
-      // seekerId: '',
+      mentor:'',
     };
   },
   created() {
     this.userId = sessionStorage.getItem("id");
     console.log(this.userId);
-
     axios
-      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
+      .get(this.$store.state.baseUrl+"api/mentors/"+this.userId, {
       })
       .then((res) => {
-        this.user = res.data;
-        console.log(this.user);
+        this.mentor = res.data;
+        console.log(this.mentor);
       })
       .catch((err) => {
         console.log(err);
@@ -200,7 +141,7 @@ export default {
 /* 라인 정리 */
 #line1 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
 
@@ -212,7 +153,7 @@ export default {
 
 #line3 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
 #line4 {

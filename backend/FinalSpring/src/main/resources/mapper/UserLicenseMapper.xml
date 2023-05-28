@@ -33,14 +33,14 @@
 	
 	<select id="getUserLicense" parameterType="int" resultType="com.service.spring.domain.UserLicenseVO">
 		SELECT
-		license_name, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD'), license_number, agency
+		license_name, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, license_number, agency
 		FROM user_license_info
 		WHERE license_id=#{licenseId}
 	</select>
 	
 	<select id="getAllUserLicense" parameterType="int" resultType="com.service.spring.domain.UserLicenseVO">
 		SELECT
-		license_name, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD'), license_number, agency
+		license_name, grade, TO_CHAR(acquired_date, 'YYYY-MM-DD') AS acquired_date, license_number, agency
 		FROM user_license_info
 		WHERE seeker_id = #{seekerId}
 	</select>

@@ -8,11 +8,12 @@
         <header>
           <label for="" class="title">나의 이력 - 해외경험</label>
         </header>
+        <div v-for="item of overseas" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">거주 국가</label>
                 <input
-                  v-model="nation"
+                  v-model="item.nation"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -24,7 +25,7 @@
             <div class="formbox">
               <label for="" class="form-label">거주 시작일</label>
               <input
-                v-model="start"
+                v-model="item.startDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -34,7 +35,7 @@
             <div class="formbox">
               <label for="" class="form-label">거주 종료일</label>
               <input
-                v-model="end"
+                v-model="item.endDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -44,7 +45,7 @@
             <div class="formbox">
                 <label for="" class="form-label">기관</label>
                 <input
-                  v-model="institution"
+                  v-model="item.institution"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -56,12 +57,13 @@
               <div class="formbox">
               <label for="" class="form-label">거주사유</label>
               <input
-                v-model="content"
+                v-model="item.reason"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="거주사유"
               />
+            </div>
             </div>
             </div>
         <div class="btn" id="button">
@@ -79,11 +81,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      overseas:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/overseas/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.overseas = res.data;
+        console.log(this.overseas);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

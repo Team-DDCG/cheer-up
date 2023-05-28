@@ -8,11 +8,12 @@
         <header>
           <label for="" class="title">나의 이력 - 자격증</label>
         </header>
+        <div v-for="item of licenses" :key="item">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">자격증명</label>
                 <input
-                  v-model="language"
+                  v-model="item.licenseName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -22,7 +23,7 @@
               <div class="formbox">
                 <label for="" class="form-label">자격 등급</label>
                 <input
-                  v-model="type"
+                  v-model="item.grade"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -32,7 +33,7 @@
               <div class="formbox">
                 <label for="" class="form-label">취득일자</label>
                 <input
-                  v-model="acquireddate"
+                  v-model="item.acquiredDate"
                   type="date"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -44,7 +45,7 @@
             <div class="formbox">
               <label for="" class="form-label">등록/자격 번호</label>
               <input
-                v-model="licensenumber"
+                v-model="item.licenseNumber"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -54,14 +55,15 @@
             <div class="formbox">
               <label for="" class="form-label">발행기관</label>
               <input
-                v-model="agency"
+                v-model="item.agency"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="발행기관"
               />
             </div>   
-          </div>         
+          </div>   
+        </div>      
         <div class="btn" id="button">
             <button  class="btn btn-primary">
         저장
@@ -77,11 +79,30 @@
 import ToolBar from "../components/ToolBar.vue";
 import FooterBar from "../components/FooterBar.vue";
 import SideBarCv from "../components/SideBarCv.vue";
+import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      licenses:'',
+    };
   },
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/licenses/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.licenses = res.data;
+        console.log(this.licenses);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 <style scoped>

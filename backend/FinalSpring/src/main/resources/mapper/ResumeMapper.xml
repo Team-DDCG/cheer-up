@@ -20,6 +20,12 @@
 		WHERE resume_id = #{resumeId}
 	</update>
 	
+	<select id="getResume" resultType="com.service.spring.domain.ResumeVO">
+		SELECT content, post_check, company_id, generate_date
+		FROM resume
+		WHERE resume_id = #{resumeId}
+	</select>
+	
 	<select id="getResumeWithCompanyInfoById" resultType="com.service.spring.DTO.ResumeDTO">
 		SELECT c.company_name, c.title, c.start_date, c.end_date, r.post_check
 	    FROM resume r INNER JOIN company c
