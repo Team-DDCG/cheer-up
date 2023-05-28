@@ -2,6 +2,7 @@ package com.service.spring.model;
 
 import java.util.List;
 
+import com.service.spring.DTO.CategoryDTO;
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
 
@@ -15,4 +16,5 @@ public interface CompanyDAO {
 	
 	List<CompanyDataDTO> getCompanyPositionByName(String companyName) throws Exception;
 	CompanyVO getCompanyDataByName(String companyName) throws Exception;
+	int saveCategories(CategoryDTO dto) throws Exception;
 }

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.spring.DTO.CategoryDTO;
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
+import com.service.spring.domain.UserSeekerVO;
 import com.service.spring.service.CompanyService;
 
 @RestController
@@ -123,6 +125,21 @@ public class CompanyController {
             return ResponseEntity.ok(companyData);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    @PutMapping("/categories/{seekerId}")
+    public ResponseEntity<String> saveCategories(@PathVariable int seekerId, @RequestBody CategoryDTO dto) {
+        try {
+        	dto.setSeekerId(seekerId);
+            int result = companyService.saveCategories(dto);
+            if (result == 1) {
+                return ResponseEntity.ok("Categories saved successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save categories.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }
