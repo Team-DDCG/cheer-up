@@ -10,11 +10,20 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-
+  data() {
+    return {
+      seekerInfo: [],
+      total: 0,
+    }
+  },
   props: ['listData','company'],
   methods: {
-    printMessage(index) {
+    updateTotal(res) {
+      this.total = this.total + res.data;
+    },
+    async printMessage(index) {
       // console.log(this.listData[index]);
       // console.log(this.company.companyId);
 
@@ -23,17 +32,126 @@ export default {
       if (myValue !== null) {
         // 특정 값이 존재하는 경우
         console.log('세션 값이 존재합니다:', myValue);
-        this.$router.push({ 
-        path: "/airesume", 
-        query: { 
-          field: this.listData[index],
-          companyName: this.company.companyName,
-          companyId: this.company.companyId,
-        } 
-      });
+
+
+        
+        //activation
+        await axios
+        .get(this.$store.state.baseUrl+"api/activation/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['activation',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+        //careers
+        await axios
+        .get(this.$store.state.baseUrl+"api/careers/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['careers',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //languages
+        await axios
+        .get(this.$store.state.baseUrl+"api/languages/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['languages',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //licenses
+        await axios
+        .get(this.$store.state.baseUrl+"api/licenses/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['licenses',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //overseas
+        await axios
+        .get(this.$store.state.baseUrl+"api/overseas/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['overseas',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //projects
+        await axios
+        .get(this.$store.state.baseUrl+"api/projects/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['projects',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //reward
+        await axios
+        .get(this.$store.state.baseUrl+"api/rewards/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['reward',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+         //skills
+        await axios
+        .get(this.$store.state.baseUrl+"api/skills/number/"+myValue, {
+        })
+        .then((res) => {
+          this.seekerInfo.push(['skills',res.data]);
+          this.updateTotal(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+        console.log(this.seekerInfo);
+        console.log(this.total);
+
+        if(this.total >= 3) {
+          this.$router.push({ 
+          path: "/airesume", 
+          query: { 
+            field: this.listData[index],
+            companyName: this.company.companyName,
+            companyId: this.company.companyId,
+          } 
+        });
+        } else {
+          alert("자기소개서를 작성하기 위한 정보가 부족해요!");
+        }
+
+
+        
       } else {
         // 특정 값이 존재하지 않는 경우
-        alert('세션 값이 존재하지 않습니다.');
+        alert('로그인을 해주시거나 취업준비생이 아니에요');
         console.log('세션 값이 존재하지 않습니다.');
       }
 
