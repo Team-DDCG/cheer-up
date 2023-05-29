@@ -6,46 +6,53 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 수상경력</label>
+          <div class="title">
+            <label for="">나의 이력 - 수상경력</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addReward">추가</button>
+              <button class="btn btn-primary" @click="removeReward">
+                삭제
+              </button>
+            </div>
+          </div>
         </header>
-        <div v-for="item of rewards" :key="item">
-          <div class="wrapper" id="wrapper">
-            <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">수상명</label>
-                <input
-                  v-model="item.rewardName"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="수상명"
-                  required
-                />
-              </div>
-              <div class="formbox">
-                <label for="" class="form-label">주최 기관</label>
-                <input
-                  v-model="item.host"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="주최 기관"
-                  required
-                />
-              </div>
-              <div class="formbox">
-                <label for="" class="form-label">수상 날짜</label>
-                <input
-                  v-model="item.acquiredDate"
-                  type="date"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="수상 날짜"
-                  required
-                />
+        <div v-for="(item, index) of rewards" :key="index" class="info-form">
+          <div class="info-set" id="line1">
+            <div class="formbox">
+              <label for="" class="form-label">수상명</label>
+              <input
+                v-model="item.rewardName"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="수상명"
+                required
+              />
             </div>
+            <div class="formbox">
+              <label for="" class="form-label">주최 기관</label>
+              <input
+                v-model="item.host"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="주최 기관"
+                required
+              />
             </div>
-            <div class="info-set" id="line2">
+            <div class="formbox">
+              <label for="" class="form-label">수상 날짜</label>
+              <input
+                v-model="item.acquiredDate"
+                type="date"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="수상 날짜"
+                required
+              />
+            </div>
+          </div>
+          <div class="info-set" id="line2">
             <div class="formbox">
               <label for="" class="form-label">담당 업무 및 수상 내용</label>
               <input
@@ -56,21 +63,19 @@
                 placeholder="담당 업무 및 수상 내용"
                 required
               />
-            </div> 
-             </div>    
-            </div>     
+            </div>
           </div>
-            <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          <hr />
+        </div>
+        <div class="btn" id="button">
+          <button class="btn btn-primary" @click="saveRewards">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
-          </div>
+        </div>
       </div>
     </section>
   </div>
   <div class="footer">
-  <footer-bar />
+    <footer-bar />
   </div>
 </template>
 <script>
@@ -82,25 +87,72 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      rewards:'',
+      seekerId: "",
+      rewards: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/rewards/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/rewards/all/" + this.seekerId, {})
       .then((res) => {
         this.rewards = res.data;
         console.log(this.rewards);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addReward() {
+      this.rewards.push({
+        rewardName: "",
+        host: "",
+        acquiredDate: "",
+        content: "",
+      });
+    },
+    removeReward() {
+      if (this.rewards.length > 0) {
+        this.rewards.pop();
+      }
+    },
+    saveRewards() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/rewards/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.rewards.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/rewards",{
+              rewardName: this.rewards[i].rewardName, 
+              host: this.rewards[i].host, 
+              acquiredDate: this.rewards[i].acquiredDate, 
+              content: this.rewards[i].content, 
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -129,6 +181,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -158,7 +213,7 @@ export default {
 
 #line2 {
   display: grid;
-  grid-template-columns: 1fr ;
+  grid-template-columns: 1fr;
   gap: 10px 20px;
 }
 
@@ -178,10 +233,10 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#button {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -198,8 +253,7 @@ export default {
 
 /* 저장 버튼 */
 
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -209,22 +263,21 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
-
-    
+.button-group button {
+  margin-left: auto;
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
 }
-
-
-/* contents_중간에 넣기_wrapper 와꾸 */
-#wrapper{
-  padding-left: 10%;
-  padding-right: 10%;
+hr {
+  color: #f5f5f5;
 }
-
-
-
 </style>

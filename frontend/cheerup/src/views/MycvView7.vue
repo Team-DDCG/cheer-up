@@ -1,51 +1,56 @@
 <!-- MY PAGE_My info -->
 <template>
-<div class="wrapper">
-  <tool-bar />
+  <div class="wrapper">
+    <tool-bar />
 
     <section id="main">
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 스킬</label>
-        </header>
-        <div v-for="item of skills" :key="item">
-            <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">스킬명</label>
-                <input
-                  v-model="item.skillName"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="언어"
-                  required
-                />
-              </div>
-              <div class="formbox">
-                <label for="" class="form-label">스킬숙련도</label>
-                <input
-                  v-model="item.grade"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="어학 종류"
-                  required
-                />
-              </div>
+          <div class="title">
+            <label for="">나의 이력 - 스킬</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addSkill">추가</button>
+              <button class="btn btn-primary" @click="removeSkill">삭제</button>
             </div>
           </div>
+        </header>
+        <div v-for="(item, index) of skills" :key="index" class="info-form">
+          <div class="info-set" id="line1">
+            <div class="formbox">
+              <label for="" class="form-label">스킬명</label>
+              <input
+                v-model="item.skillName"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="언어"
+                required
+              />
+            </div>
+            <div class="formbox">
+              <label for="" class="form-label">스킬숙련도</label>
+              <input
+                v-model="item.grade"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="어학 종류"
+                required
+              />
+            </div>
+          </div>
+          <hr> 
+        </div>
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          <button class="btn btn-primary" @click="saveSkills">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
     </section>
 
-  <footer-bar />
-</div>
+    <footer-bar />
+  </div>
 </template>
 <script>
 import ToolBar from "../components/ToolBar.vue";
@@ -56,30 +61,68 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      skills:'',
+      seekerId: "",
+      skills: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/skills/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/skills/all/" + this.seekerId, {})
       .then((res) => {
         this.skills = res.data;
         console.log(this.skills);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addSkill() {
+      this.skills.push({ skillName: "", grade: "" });
+    },
+    removeSkill(index) {
+      this.skills.splice(index, 1);
+    },
+    saveSkills() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/skills/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.skills.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/skills",{
+              skillName: this.skills[i].skillName, 
+              grade: this.skills[i].grade, 
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
 /* 전체 폼 와꾸 정리 */
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -109,6 +152,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -158,10 +204,10 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#button {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -181,8 +227,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -192,21 +237,27 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
-  
-    
+.button-group button {
+  margin-left: auto;
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
 }
-
+hr {
+  color: #f5f5f5;
+}
 
 /* contents_중간에 넣기_wrapper 와꾸 */
-#wrapper{
+#wrapper {
   padding-left: 10%;
   padding-right: 10%;
 }
-
-
 </style>

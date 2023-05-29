@@ -6,9 +6,15 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 자격증</label>
+          <div class="title">
+            <label for="">나의 이력 - 자격증</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addLicense">추가</button>
+              <button class="btn btn-primary" @click="removeLicense">삭제</button>
+            </div>
+          </div>
         </header>
-        <div v-for="item of licenses" :key="item">
+        <div v-for="(item, index) of licenses" :key="index" class="info-form">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">자격증명</label>
@@ -67,10 +73,11 @@
                 required
               />
             </div>   
-          </div>   
+          </div> 
+          <hr>   
         </div>      
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
+            <button  class="btn btn-primary" @click="saveLicenses">
         저장
       </button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
@@ -87,26 +94,75 @@ import SideBarCv from "../components/SideBarCv.vue";
 import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
-  data() {
+ data() {
     return {
-      seekerId: '',
-      licenses:'',
+      seekerId: "",
+      licenses: []
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/licenses/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/licenses/all/" + this.seekerId, {})
       .then((res) => {
         this.licenses = res.data;
         console.log(this.licenses);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
+  },
+  methods: {
+    addLicense() {
+      this.licenses.push({
+        licenseName: "",
+        grade: "",
+        acquiredDate: "",
+        licenseNumber: "",
+        agency: ""
+      });
+    },
+    removeLicense() {
+      if (this.licenses.length > 0) {
+        this.licenses.pop();
+      }
+    },
+    saveLicenses() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/licenses/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.licenses.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/licenses",{
+              licenseName: this.licenses[i].licenseName, 
+              grade: this.licenses[i].grade, 
+              acquiredDate: this.licenses[i].acquiredDate, 
+              licenseNumber: this.licenses[i].licenseNumber, 
+              agency: this.licenses[i].agency, 
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    }
   }
 };
 </script>
@@ -136,6 +192,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -223,8 +282,20 @@ export default {
   
     
 }
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
+
+.button-group button {
+  margin-left: auto;
+}
 a {
   text-decoration: none;
+  color: #f5f5f5;
+}
+hr{
   color: #f5f5f5;
 }
 
