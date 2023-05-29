@@ -60,6 +60,11 @@ public class ResumeDAOImpl implements ResumeDAO{
 		return sqlSession.selectList(NS + "getAllResumeBySeekerId", seekerId);
 	}
 
+	@Override
+	public int togglePostCheck(int resumeId) {
+		return sqlSession.update(NS + "togglePostCheck", resumeId);
+	}
+
 
 
 }

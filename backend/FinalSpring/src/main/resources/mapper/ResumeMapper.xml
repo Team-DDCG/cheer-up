@@ -58,5 +58,11 @@
 		JOIN user_seeker_info usi ON usi.seeker_id = r.seeker_id
 		WHERE usi.seeker_id = #{seekerId}
 	</select>
+	
+	<update id="togglePostCheck" parameterType="int">
+		UPDATE resume
+  		SET post_check = CASE WHEN post_check = 0 THEN 1 ELSE 0 END
+  		WHERE resume_id = #{resumeId}
+	</update>
 
 </mapper>

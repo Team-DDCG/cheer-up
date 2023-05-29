@@ -16,4 +16,5 @@ public interface ResumeService {
     List<ResumeQnADTO> getQnAByCompanyId(int companyId);
     List<ResumeCommentDTO> getCommentByResume(int resumeId);
     List<ResumeDTO> getAllResumeBySeekerId(int seekerId);
+    int togglePostCheck(int resumeId);
 }
