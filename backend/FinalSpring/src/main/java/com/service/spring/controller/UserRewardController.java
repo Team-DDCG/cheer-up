@@ -75,4 +75,14 @@ public class UserRewardController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getRewardNumber(@PathVariable int seekerId) {
+        try {
+            int rewardNumber = userRewardService.getRewardNumber(seekerId);
+            return ResponseEntity.ok(rewardNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

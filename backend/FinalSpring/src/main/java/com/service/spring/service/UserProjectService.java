@@ -12,4 +12,5 @@ public interface UserProjectService {
 	
 	UserProjectVO getUserProject(int id) throws Exception;
 	List<UserProjectVO> getAllUserProject(int seekerId) throws Exception;
+	int getProjectNumber(int seekerId) throws Exception;
 }

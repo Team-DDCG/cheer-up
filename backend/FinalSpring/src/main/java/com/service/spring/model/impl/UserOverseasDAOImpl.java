@@ -40,4 +40,11 @@ public class UserOverseasDAOImpl implements UserOverseasDAO {
 	public List<UserOverseasVO> getAllUserOverseas(int seekerId) throws Exception {
 		return sqlSession.selectList(NS + "getAllUserOverseas", seekerId);
 	}
+
+	@Override
+	public int getOverseasNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getOverseasNumber", seekerId);
+	}
+
+	
 }

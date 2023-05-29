@@ -39,5 +39,10 @@ public class UserProjectServiceImpl implements UserProjectService {
 	public List<UserProjectVO> getAllUserProject(int seekerId) throws Exception {
 		return userProjectDAO.getAllUserProject(seekerId);
 	}
+
+	@Override
+	public int getProjectNumber(int seekerId) throws Exception {
+		return userProjectDAO.getProjectNumber(seekerId);
+	}
 	
 }

@@ -38,6 +38,11 @@ public class UserOverseasServiceImpl implements UserOverseasService {
 	public List<UserOverseasVO> getAllUserOverseas(int seekerId) throws Exception {
 		return userOverseasDAO.getAllUserOverseas(seekerId);
 	}
+
+	@Override
+	public int getOverseasNumber(int seekerId) throws Exception {
+		return userOverseasDAO.getOverseasNumber(seekerId);
+	}
 	
 	
 

@@ -40,5 +40,10 @@ public class UserProjectDAOImpl implements UserProjectDAO {
 	public List<UserProjectVO> getAllUserProject(int seekerId) throws Exception {
 		return sqlSession.selectList(NS + "getAllUserProject", seekerId);
 	}
+
+	@Override
+	public int getProjectNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getProjectNumber", seekerId);
+	}
 	
 }

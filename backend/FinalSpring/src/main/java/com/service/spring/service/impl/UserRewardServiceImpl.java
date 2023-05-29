@@ -39,4 +39,9 @@ public class UserRewardServiceImpl implements UserRewardService{
 		return userRewardDAO.getAllUserReward(seekerId);
 	}
 
+	@Override
+	public int getRewardNumber(int seekerId) throws Exception {
+		return userRewardDAO.getRewardNumber(seekerId);
+	}
+
 }

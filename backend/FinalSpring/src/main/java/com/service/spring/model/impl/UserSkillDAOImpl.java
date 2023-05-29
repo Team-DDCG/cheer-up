@@ -42,4 +42,9 @@ public class UserSkillDAOImpl implements UserSkillDAO {
 		return sqlSession.selectList(NS + "getAllUserSkill", seekerId);
 	}
 
+	@Override
+	public int getSkillNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getSkillNumber", seekerId);
+	}
+
 }

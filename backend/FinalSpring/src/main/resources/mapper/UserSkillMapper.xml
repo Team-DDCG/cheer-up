@@ -42,7 +42,7 @@
 		WHERE seeker_id=#{seekerId}
 	</select>
 	
-	<select id="getSkillNumber" parameterType="int">
+	<select id="getSkillNumber" parameterType="int" resultType="int">
 		select count(*) FROM user_skill_info 
 		WHERE seeker_id = #{seekerId}
 	</select>

@@ -46,7 +46,7 @@
 		WHERE seeker_id=#{seekerId}
 	</select>
 	
-	<select id="getProjectNumber" parameterType="int">
+	<select id="getProjectNumber" parameterType="int" resultType="int">
 		select count(*) FROM user_project_info 
 		WHERE seeker_id = #{seekerId}	
 	</select>
