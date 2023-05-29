@@ -43,15 +43,12 @@
 export default {
     data() {
     return {
-
+      seekerId: sessionStorage.getItem("seekerId"),
+      mentorId: sessionStorage.getItem("mentorId"),
     };
   },
   beforeCreate() {
-    try {
-      this.seekerId = sessionStorage.getItem("seekerId");
-    } catch (error) {
-      this.mentorId = sessionStorage.getItem("mentorId");
-    }
+
     },
   created() {
 

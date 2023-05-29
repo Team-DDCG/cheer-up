@@ -17,7 +17,13 @@ export default {
     printMessage(index) {
       // console.log(this.listData[index]);
       // console.log(this.company.companyId);
-      this.$router.push({ 
+
+      const myValue = sessionStorage.getItem('seekerId'); // 세션 스토리지에서 가져올 특정 키 값
+      
+      if (myValue !== null) {
+        // 특정 값이 존재하는 경우
+        console.log('세션 값이 존재합니다:', myValue);
+        this.$router.push({ 
         path: "/airesume", 
         query: { 
           field: this.listData[index],
@@ -25,6 +31,13 @@ export default {
           companyId: this.company.companyId,
         } 
       });
+      } else {
+        // 특정 값이 존재하지 않는 경우
+        alert('세션 값이 존재하지 않습니다.');
+        console.log('세션 값이 존재하지 않습니다.');
+      }
+
+      
     }
   }
 }

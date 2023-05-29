@@ -1,7 +1,7 @@
 <template>
 <div>
   <tool-bar></tool-bar>
-     <div class="container">
+    <div class="container" v-if="seekerId && id">
       <div id="myDiv">
         <div class="header">
           <div class="line">
@@ -32,7 +32,10 @@ import ToolBar from "../components/ToolBar.vue";
 export default {
   components: { ToolBar },
   data() {
-    return {};
+    return {
+      seekerId: sessionStorage.getItem("seekerId"),
+      id: sessionStorage.getItem("id"),
+    };
   },
   mounted() {},
   methods: {},

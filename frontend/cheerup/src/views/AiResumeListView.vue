@@ -1,7 +1,7 @@
 <template>
   <div>
     <tool-bar></tool-bar>
-    <div class="container">
+    <div class="container" v-if="seekerId && id">
       <div id="myDiv">
         <div class="header">
           <div class="line">
@@ -60,13 +60,12 @@ export default {
   components: { ToolBar },
   data() {
     return {
-      seekerId: '',
+      seekerId: sessionStorage.getItem("seekerId"),
+      id: sessionStorage.getItem("id"),
       resume: '',
     };
   },
   created() {
-    this.seekerId = sessionStorage.getItem("seekerId");
-    console.log(this.seekerId);
     axios
       .get(this.$store.state.baseUrl+"api/resume/all/"+this.seekerId, {
       })
