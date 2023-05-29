@@ -49,7 +49,7 @@
             <div class="formbox">
               <label for="" class="form-label">입학일</label>
               <input
-                v-model="item.enteranceDate"
+                v-model="item.entranceDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
@@ -59,7 +59,7 @@
             <div class="formbox">
               <label for="" class="form-label">졸업일</label>
               <input
-                v-model="item.gradutationDate"
+                v-model="item.graduationDate"
                 type="date"
                 class="form-control"
                 id="exampleFormControlInput1"
