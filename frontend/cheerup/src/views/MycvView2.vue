@@ -6,18 +6,26 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 경력사항 <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
-        </div></label>
-        
+          <div class="title">
+            <label for="">나의 이력 - 경력사항</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addCareer">추가</button>
+              <button
+                class="btn btn-primary"
+                @click="removeCareer(career.length - 1)"
+              >
+                삭제
+              </button>
+            </div>
+          </div>
         </header>
-        <div v-for="item of career" :key="item">
+        <div v-for="(item, index) of career" :key="index" class="info-form">
           <div class="info-set" id="imgNline_line">
             <div class="info-set" id="line1">
               <div class="formbox">
-                <label for="exampleFormControlInput1" class="form-label">회사명</label>
+                <label for="exampleFormControlInput1" class="form-label"
+                  >회사명</label
+                >
                 <input
                   v-model="item.companyName"
                   type="text"
@@ -28,7 +36,9 @@
                 />
               </div>
               <div class="formbox">
-                <label for="exampleFormControlInput2" class="form-label">부서</label>
+                <label for="exampleFormControlInput2" class="form-label"
+                  >부서</label
+                >
                 <input
                   v-model="item.department"
                   type="text"
@@ -39,7 +49,9 @@
                 />
               </div>
               <div class="formbox">
-                <label for="exampleFormControlInput3" class="form-label">직위</label>
+                <label for="exampleFormControlInput3" class="form-label"
+                  >직위</label
+                >
                 <input
                   v-model="item.position"
                   type="text"
@@ -52,9 +64,10 @@
             </div>
           </div>
           <div class="info-set" id="line2">
-   
             <div class="formbox">
-              <label for="exampleFormControlInput4" class="form-label">입사일</label>
+              <label for="exampleFormControlInput4" class="form-label"
+                >입사일</label
+              >
               <input
                 v-model="item.startDate"
                 type="date"
@@ -65,7 +78,9 @@
               />
             </div>
             <div class="formbox">
-              <label for="exampleFormControlInput5" class="form-label">퇴사일</label>
+              <label for="exampleFormControlInput5" class="form-label"
+                >퇴사일</label
+              >
               <input
                 v-model="item.endDate"
                 type="date"
@@ -97,7 +112,7 @@
                 <option value="1">퇴사</option>
               </select>
             </div>
-            
+
             <div class="formbox">
               <!-- <label for="exampleFormControlInput7" class="form-label">고용형태</label>
               <input
@@ -121,12 +136,10 @@
                 <option value="2">인턴</option>
               </select>
             </div>
-          </div> 
-        </div>        
-        <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          </div><hr>
+        </div>
+        <div class="button-group">
+          <button class="btn btn-primary" @click="saveCareer">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
@@ -145,16 +158,18 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      career:'',
+      seekerId: "",
+      career: "",
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/careers/seeker/"+this.seekerId, {
-      })
+      .get(
+        this.$store.state.baseUrl + "api/careers/seeker/" + this.seekerId,
+        {}
+      )
       .then((res) => {
         this.career = res.data;
         console.log(this.career);
@@ -162,9 +177,29 @@ export default {
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addCareer() {
+      this.career.push({
+        companyName: "",
+        department: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        attendingCheck: "0",
+        hireType: "0",
+      });
+    },
+    removeCareer(index) {
+      this.career.splice(index, 1);
+    },
+    saveCareer() {
+      // Perform your save logic here
+      // You can access the career data using 'this.career'
+    },
+  },
 };
 </script>
 <style scoped>
@@ -193,6 +228,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -242,10 +280,14 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
+
+.button-group button {
+  margin-left: auto;
 }
 
 /* 폼 정리 */
@@ -265,8 +307,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -276,15 +317,15 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
-
-  
-    
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
 }
-.footer{
+.footer {
   margin-top: 485px;
+}
+hr{
+  color: #f5f5f5;
 }
 </style>
