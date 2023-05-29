@@ -296,7 +296,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         question_text_max = company_value[3]
 
         question_length_num, question_length_str = split_str_num(question_text_max)
-        question_length_min = question_length_num - 100
+        question_length_min = str(int(question_length_num) - 100)
 
         # print("num : " + result_num)
         # print("str : " + result_str)
@@ -453,7 +453,7 @@ def resume_matching(seeker_id, company_id, company_name, position):
     question_str = ""
 
     for i in range(len(question_table)) :
-        question_str += ((i+1) + ". " + question_table[i][2] + "\n\n ")
+        question_str += (str(i+1) + ". " + question_table[i][2] + "\n\n ")
 
     # Call the chat GPT API 
     completion = openai.ChatCompletion.create(
