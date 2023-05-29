@@ -153,7 +153,35 @@ def portfolio_career_table(seeker_id):
     
     return career_table
 
+@app.route("/sentence_question/<question_id>")
+def sentence_question(question_id) :
+    conn = dbconn.db_connect()
 
+    cursor = conn.cursor()
+        
+    sql = "SELECT position, question FROM question WHERE question_id = " + str(question_id) 
+    cursor.execute(sql)
+    rows = list(cursor.fetchall())
+
+    list(map(str, rows))
+
+    cursor.close()
+    conn.close()
+    return rows
+
+@app.route("/resume_select/<resume_id>")
+def resume_select(resume_id) :
+
+    conn = dbconn.db_connect()
+    cursor = conn.cursor()
+        
+    sql = "SELECT content FROM resume WHERE resume_id = " + str(resume_id) 
+    cursor.execute(sql)
+    rows = list(cursor.fetchone())
+
+    cursor.close()
+    conn.close()
+    return rows
 
 def split_str_num(str_num):
     for index in range(len(str_num)):
@@ -245,6 +273,62 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     # return 'good'
     return jsonify({"result": result_arr})
 
+
+# ==================================================================================================
+
+@app.route("/sentence_update/<seeker_id>/<resume_id>/<question_id>/<sentence>")
+def sentenceUpdate(seeker_id, resume_id, question_id, sentence):
+
+    # question_table[0][0~1] = 순서 : 0 - 직무 , 1 - 문항질문
+    question_table = sentence_question(question_id)
+    # resume 내용 가져오기
+    resume_content = resume_select(resume_id)
+    total_table = career_table_select(seeker_id)
+
+    # Call the chat GPT API 
+    completion = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+        {"role": "system", "content": ("너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
+                                    "자기소개서를 내가 지정해주는 문장만 수정해주는 AI야")},
+
+        {"role": "assistant", "content": ("자기소개서를 수정하는데 유의할 점이 있나요?")},
+        {"role": "user", "content": ("제공해주는 자기소개서 문맥에 맞게 내가 지정해주는 문장만 수정해야해"
+                                    "그리고 내가 제공해주는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 중 없는 것이 있다면 참고하지 말아줘 ")},
+
+        {"role": "assistant", "content": ("더 유의할 점이 있나요?")},
+        {"role": "user", "content": ("답변은 수정한 문장으로만 답변해줘")},
+
+        {"role": "assistant", "content": ("자기소개서를 수정하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
+                                        
+        {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
+        {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
+        {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
+        {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
+        {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
+        {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
+        {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+
+        {"role": "assistant", "content": ("지원 직무와 자기소개서 질문, 자기소개서 전체 내용을 알려주세요.")},
+        {"role": "user", "content":f"지원 직무 : {question_table[0][0]}\n"},
+        {"role": "user", "content":f"자기소개서 질문 : {question_table[0][1]}\n"},
+        {"role": "user", "content":f"자기소개서 전체 내용 : {resume_content[0]}\n"},
+
+        {"role": "assistant", "content": ("수정하고 싶은 문장이 무엇인가요?")},
+        {"role": "user", "content":f"자기소개서 전체 내용 : {sentence}"},
+
+        {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 "
+                                            f"{sentence} 부분을 수정해드리도록 하겠습니다. 답변은 수정된 문장만 출력됩니다."},
+        ],
+        # repetition_penalty=1.2,
+        temperature=0.8,
+        max_tokens=2048
+    )
+
+    
+    message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
+
+    return jsonify({"result": message_result})
 
 # ==================================================================================================
 
