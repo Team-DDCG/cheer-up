@@ -1,6 +1,6 @@
 <template>
     <div>
-      <canvas ref="canvas" width="150" height="150"></canvas>
+      <canvas ref="canvas" width="200" height="200"></canvas>
     </div>
   </template>
   
@@ -23,7 +23,7 @@
 
             this.drawPentagonGraph(context, centerX, centerY, radius, this.data, 2, '#A46CFF'); // First graph with red color
             // this.data = [1,1,1,1,1];
-            this.drawPentagonGraph(context, centerX, centerY, radius, [1,1,1,1,1], 0.5, 'white'); // Second graph with blue color
+            this.drawPentagonGraph2(context, centerX, centerY, radius, [1,1,1,1,1], 0.5, 'white', this.labels); // Second graph with blue color
             this.drawPentagonGraph(context, centerX, centerY, radius, [0.8,0.8,0.8,0.8,0.8], 0.5, 'white'); // Second graph with blue color
             this.drawPentagonGraph(context, centerX, centerY, radius, [0.6,0.6,0.6,0.6,0.6], 0.5, 'white'); // Second graph with blue color
             this.drawPentagonGraph(context, centerX, centerY, radius, [0.4,0.4,0.4,0.4,0.4], 0.5, 'white'); // Second graph with blue color
@@ -49,15 +49,51 @@
             //   context.fillStyle = '#f00'; // Graph fill color
             context.stroke();
             //   context.fill();
+        },
+        drawPentagonGraph2(context, centerX, centerY, radius, data, lineWidth, color, labels) {
+            context.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (Math.PI * 2 / 5) * i - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * radius * data[i];
+                const y = centerY + Math.sin(angle) * radius * data[i];
+
+                if (i === 0) {
+                context.moveTo(x, y);
+                } else {
+                context.lineTo(x, y);
+                }
+                context.fillStyle = 'white'; // 텍스트 색상
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillText(labels[i], x, y);
+            }
+            context.closePath();
+
+            context.lineWidth = lineWidth;
+            context.strokeStyle = color; // Graph line color
+            //   context.fillStyle = '#f00'; // Graph fill color
+            context.stroke();
+            //   context.fill();
         }
     },
     props: {
+      labels: {
+        type: Array,
+        required: true
+      },
       data: {
         type: Array,
         required: true
       }
     },
     watch: {
+      labels: {
+        handler() {
+          // data가 변경될 때 수행할 동작
+          this.drawPentagonGraphs();
+        },
+        deep: true // 중첩된 배열의 변경까지 감지하도록 설정
+      },
       data: {
         handler() {
           // data가 변경될 때 수행할 동작

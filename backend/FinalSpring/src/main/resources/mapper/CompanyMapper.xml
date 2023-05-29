@@ -54,6 +54,13 @@
 		WHERE company_name = #{companyName}
 	</select>
 	
+	<update id="saveCategories" parameterType="com.service.spring.domain.UserSeekerVO">
+		UPDATE user_seeker_info SET
+		category1_no = #{category1No},
+		category2_no = #{category2No}
+		WHERE seeker_id = #{seekerId}
+	</update>
+	
 		
 
 </mapper>

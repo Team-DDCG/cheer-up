@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
+import com.service.spring.domain.UserSeekerVO;
 import com.service.spring.model.CompanyDAO;
 import com.service.spring.service.CompanyService;
 
@@ -52,6 +53,12 @@ public class CompanyServiceImpl implements CompanyService{
 	public CompanyVO getCompanyDataByName(String companyName) throws Exception {
 		return companyDAO.getCompanyDataByName(companyName);
 	}
+
+	@Override
+	public int saveCategories(UserSeekerVO vo) throws Exception {
+		return companyDAO.saveCategories(vo);
+	}
+
 	
 
 }

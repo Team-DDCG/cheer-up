@@ -30,11 +30,11 @@
         <div class="graph-box">
           <div>
             <p>내 자기소개서 분석</p>
-            <pentagon-graph :data="processedCharacter"></pentagon-graph>
+            <pentagon-graph :data="processedCharacter" :labels="c_label"></pentagon-graph>
           </div>
           <div>
             <p>기업적합도 분석</p>
-            <pentagon-graph :data="processedFit"></pentagon-graph>
+            <pentagon-graph :data="processedFit" :labels="f_label"></pentagon-graph>
           </div>
           
         </div>
@@ -48,19 +48,16 @@
             <span>에 대해 작성된 자기소개서입니다.</span>
           </p>
         </div>
-        <div class="info" id="qna">
-          <p class="text1">
-            <span>질문 1. 자신의 장점과 단점을 관련 경험과 작성하시오. (500자 이내)</span>
-          </p>
-          <button>v 복사</button>
-        </div>
-        <div class="answer">
-          <p>[다재다능함]
-            히히 제 장점은 ~~~~~~~~~~~~입니다.
-            ㅇ아ㅡㄹ어마ㅣ러ㅏ밂ㄴ;ㅓ
-
-            [오지랖이 넓음]
-            단점을</p>
+        <div v-for="item of answer" :key="item" class="wrapper">
+          <div class="info" id="qna">
+            <p class="text1">
+              <span>{{item[0]}} {{item[1]}}</span>
+            </p>
+            <button>v 복사</button>
+          </div>
+          <div class="answer">
+            <p>{{item[2]}}</p>
+          </div>
         </div>
       </div>
       
@@ -85,8 +82,10 @@ export default {
       userId: '',
       userName: '',
       character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
+      c_label: [],
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
-      
+      f_label: [],
+      answer: [],
     }
   },
   mounted() {
@@ -124,16 +123,30 @@ export default {
         })
         .then((res1) => {
           console.log(res1.data.result);
-          this.character = res1.data.result.map(sublist => sublist[1]/100);
+          this.character = res1.data.result.map(sublist => sublist[1]/50);
+          this.c_label = res1.data.result.map(sublist => sublist[0]);
           console.log(this.character);
-
+          console.log(this.c_label);
           axios
           .get("http://127.0.0.1:5000/goodness_of_fit/"+this.userId+"/"+this.companyName, {
           })
           .then((res2) => {
             console.log(res2.data.result);
-            this.fit = res2.data.result.map(sublist => sublist[1]/100);          
+            this.fit = res2.data.result.map(sublist => sublist[1]/100); 
+            this.f_label = res2.data.result.map(sublist => sublist[0]);
             console.log(this.fit);
+            console.log(this.f_label);
+            axios
+              .get("http://127.0.0.1:5000/resume_create/"+this.userId+"/"+this.companyId+"/"+this.companyName+"/"+this.field, {
+              })
+              .then((res3) => {
+                console.log(res3.data.result);
+                this.answer = res3.data.result;
+              })
+              .catch((err3) => {
+                console.log(err3);
+                this.check = 'error3';
+              });
 
           })
           .catch((err2) => {
@@ -176,6 +189,10 @@ export default {
 
 
 <style scoped>
+.wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
 .graph-box div {
   display: flex;
   flex-direction:column;
@@ -184,9 +201,7 @@ export default {
 }
 .answer {
   margin: 5px auto;
-  width: 80%;
   background-color: #808080;
-  height: 100px;
   padding: 10px;
 }
 #qna{

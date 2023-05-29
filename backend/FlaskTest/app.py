@@ -168,6 +168,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
+    result_arr = []
 
     for company_value in company_table :
 
@@ -218,7 +219,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             {"role": "assistant", "content": ("감사합니다, 안녕하세요와 같은 인삿말이 작성되어 있는 부분은 삭제하겠습니다. 작성된 자기소개서에 추가할 부분이 있나요?")},
             {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
             ],
-            repetition_penalty=1.2,
+            # repetition_penalty=1.2,
             temperature=0.8,
             max_tokens=2048
         )
@@ -326,7 +327,7 @@ def myCharacteristic(seeker_id):
     cursor.close()
     conn.close()
 
-    return jsonify({"result": message_result})
+    return jsonify({"result": arr})
 
 
 # ==================================================================================================
@@ -413,7 +414,7 @@ def goodnessOfFit(seeker_id, company_name):
     cursor.close()
     conn.close()
 
-    return jsonify({"result": message_result})
+    return jsonify({"result": arr})
 
 
 @app.route("/make_portfolio/<seeker_id>")

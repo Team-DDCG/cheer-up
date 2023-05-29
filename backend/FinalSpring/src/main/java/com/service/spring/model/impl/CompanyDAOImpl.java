@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.service.spring.DTO.CompanyDataDTO;
 import com.service.spring.domain.CompanyVO;
+import com.service.spring.domain.UserSeekerVO;
 import com.service.spring.model.CompanyDAO;
 
 @Repository
@@ -51,6 +52,11 @@ public class CompanyDAOImpl implements CompanyDAO{
 	@Override
 	public CompanyVO getCompanyDataByName(String companyName) throws Exception {
 		return sqlSession.selectOne(NS + "getCompanyDataByName", companyName);
+	}
+
+	@Override
+	public int saveCategories(UserSeekerVO vo) throws Exception {
+		return sqlSession.update(NS + "saveCategories", vo);
 	}
 
 
