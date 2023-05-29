@@ -25,26 +25,27 @@
                   <td class="c2">[신입]kb국민은행 신입 채용</td>
                   <td class="c3">2023.05.16</td>
                   <td class="c4">2023.05.31</td>
-                  <td class="c5">O</td>
+                  <td class="c5">
+                    <div class="checkbox-wrapper-9">
+                      <input type="checkbox" id="cb4-9" class="tgl tgl-flat" />
+                      <label for="cb4-9" class="tgl-btn"></label>
+                    </div>
+                  </td>
                 </tr>
               </table>
             </div>
           </div>
         </div>
         <div class="footer">
-        <div class="mb-3-button">
-          <div class="button-container">
-            <button type="submit" class="btn btn-info"><router-link to="/airesume">
-              자기소개서 AI 작성</router-link>
-            </button>
-            <button type="submit" class="btn btn-secondary">
-              저장
-            </button>
-            <button type="submit" class="btn btn-primary">
-              삭제
-            </button>
+          <div class="mb-3-button">
+            <div class="button-container">
+              <button type="submit" class="btn btn-info">
+                <router-link to="/airesume"> 자기소개서 AI 작성</router-link>
+              </button>
+              <button type="submit" class="btn btn-secondary">저장</button>
+              <button type="submit" class="btn btn-primary">삭제</button>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -144,32 +145,124 @@ td {
 .button-container {
   display: flex;
   justify-content: right;
-  
+
   padding-right: 30px;
-  
 }
-.btn.btn-secondary{
+.btn.btn-secondary {
   background: #a46cff;
-  border-Color: #808080;
+  border-color: #808080;
   margin-right: 5px;
 }
 .btn.btn-primary {
   background: #a46cff;
-  border-Color: #808080;
+  border-color: #808080;
 }
-.footer{
+.footer {
   margin-top: 550px;
 }
-.btn.btn-info{
+.btn.btn-info {
   background: #a46cff;
   display: flex;
   margin: 0 auto;
   margin-right: 730px;
   color: white;
-  border-Color: #808080;
+  border-color: #808080;
 }
 a {
   text-decoration: none;
   color: #f5f5f5;
+}
+.checkbox-wrapper-9 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkbox-wrapper-9 .tgl {
+  display: none;
+}
+
+.checkbox-wrapper-9 .tgl,
+  .checkbox-wrapper-9 .tgl:after,
+  .checkbox-wrapper-9 .tgl:before,
+  .checkbox-wrapper-9 .tgl *,
+  .checkbox-wrapper-9 .tgl *:after,
+  .checkbox-wrapper-9 .tgl *:before,
+  .checkbox-wrapper-9 .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+
+.checkbox-wrapper-9 .tgl::-moz-selection,
+  .checkbox-wrapper-9 .tgl:after::-moz-selection,
+  .checkbox-wrapper-9 .tgl:before::-moz-selection,
+  .checkbox-wrapper-9 .tgl *::-moz-selection,
+  .checkbox-wrapper-9 .tgl *:after::-moz-selection,
+  .checkbox-wrapper-9 .tgl *:before::-moz-selection,
+  .checkbox-wrapper-9 .tgl + .tgl-btn::-moz-selection,
+  .checkbox-wrapper-9 .tgl::selection,
+  .checkbox-wrapper-9 .tgl:after::selection,
+  .checkbox-wrapper-9 .tgl:before::selection,
+  .checkbox-wrapper-9 .tgl *::selection,
+  .checkbox-wrapper-9 .tgl *:after::selection,
+  .checkbox-wrapper-9 .tgl *:before::selection,
+  .checkbox-wrapper-9 .tgl + .tgl-btn::selection {
+  background: none;
+}
+
+.checkbox-wrapper-9 .tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 2em;
+  height: 1.5em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-wrapper-9 .tgl + .tgl-btn:after,
+  .checkbox-wrapper-9 .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+
+.checkbox-wrapper-9 .tgl + .tgl-btn:after {
+  left: 0;
+}
+
+.checkbox-wrapper-9 .tgl + .tgl-btn:before {
+  display: none;
+}
+
+.checkbox-wrapper-9 .tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+.checkbox-wrapper-9 .tgl-flat + .tgl-btn {
+  padding: 2px;
+  transition: all 0.2s ease;
+  background: #fff;
+  border: 4px solid #f2f2f2;
+  border-radius: 2em;
+}
+
+.checkbox-wrapper-9 .tgl-flat + .tgl-btn:after {
+  transition: all 0.2s ease;
+  background: #f2f2f2;
+  content: "";
+  border-radius: 1em;
+}
+
+.checkbox-wrapper-9 .tgl-flat:checked + .tgl-btn {
+  border: 4px solid #a46cff;
+}
+
+.checkbox-wrapper-9 .tgl-flat:checked + .tgl-btn:after {
+  left: 50%;
+  background: #a46cff;
 }
 </style>
