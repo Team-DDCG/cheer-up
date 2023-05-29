@@ -22,7 +22,7 @@
                 <tr v-for="item of resume" :key="item">
                   <td><input type="checkbox" class="post-check" /></td>
                   <td class="c1">{{ item.companyName }}</td>
-                  <td class="c2"><router-link :to="`/myresume?id=${item.resumeId}`">{{ item.title }}</router-link></td>
+                  <td class="c2"><router-link :to="`/myresume/id=${item.resumeId}`">{{ item.title }}</router-link></td>
                   <td class="c3">{{ item.startDate }}</td>
                   <td class="c4">{{ item.endDate }}</td>
                   <td class="c5">
