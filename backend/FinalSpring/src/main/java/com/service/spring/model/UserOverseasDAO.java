@@ -11,5 +11,5 @@ public interface UserOverseasDAO {
 	
 	UserOverseasVO getUserOverseas(int id) throws Exception;
 	List<UserOverseasVO> getAllUserOverseas(int seekerId) throws Exception;
-
+	int getOverseasNumber(int seekerId) throws Exception;
 }

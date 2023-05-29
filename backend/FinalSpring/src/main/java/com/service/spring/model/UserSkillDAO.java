@@ -12,5 +12,6 @@ public interface UserSkillDAO {
 	
 	UserSkillVO getUserSkill(int id) throws Exception;
 	List<UserSkillVO> getAllUserSkill(int seekerId) throws Exception;
+	int getSkillNumber(int seekerId) throws Exception;
 
 }

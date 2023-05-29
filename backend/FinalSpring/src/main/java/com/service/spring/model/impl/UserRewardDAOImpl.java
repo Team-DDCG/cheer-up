@@ -41,4 +41,9 @@ public class UserRewardDAOImpl implements UserRewardDAO{
 		return sqlSession.selectList(NS + "getAllUserReward", seekerId);
 	}
 
+	@Override
+	public int getRewardNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getRewardNumber", seekerId);
+	}
+
 }

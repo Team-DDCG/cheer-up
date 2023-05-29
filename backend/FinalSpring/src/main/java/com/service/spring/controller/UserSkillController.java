@@ -75,4 +75,14 @@ public class UserSkillController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getSkillNumber(@PathVariable("seekerId") int seekerId) {
+        try {
+            int skillNumber = userSkillService.getSkillNumber(seekerId);
+            return ResponseEntity.ok(skillNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

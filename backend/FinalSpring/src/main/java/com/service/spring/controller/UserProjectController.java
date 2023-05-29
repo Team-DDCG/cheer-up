@@ -79,5 +79,15 @@ public class UserProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getProjectNumber(@PathVariable int seekerId) {
+        try {
+            int projectNumber = userProjectService.getProjectNumber(seekerId);
+            return ResponseEntity.ok(projectNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }

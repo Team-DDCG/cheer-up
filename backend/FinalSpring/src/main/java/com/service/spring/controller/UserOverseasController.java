@@ -79,4 +79,15 @@ public class UserOverseasController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getOverseasNumber(@PathVariable int seekerId) {
+        try {
+            int overseasNumber = userOverseasService.getOverseasNumber(seekerId);
+            return ResponseEntity.ok(overseasNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
 }

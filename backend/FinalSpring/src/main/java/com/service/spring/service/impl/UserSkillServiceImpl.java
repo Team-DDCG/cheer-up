@@ -38,5 +38,10 @@ public class UserSkillServiceImpl implements UserSkillService{
 	public List<UserSkillVO> getAllUserSkill(int seekerId) throws Exception {
 		return userSkillDAO.getAllUserSkill(seekerId);
 	}
+
+	@Override
+	public int getSkillNumber(int seekerId) throws Exception {
+		return userSkillDAO.getSkillNumber(seekerId);
+	}
 	
 }

@@ -12,5 +12,7 @@ public interface UserRewardService {
 	
 	UserRewardVO getUserReward(int id) throws Exception;
 	List<UserRewardVO> getAllUserReward(int seekerId) throws Exception;
+	int getRewardNumber(int seekerId) throws Exception;
+
 
 }

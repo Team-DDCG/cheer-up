@@ -47,7 +47,7 @@
 		WHERE seeker_id = #{seekerId}
 	</select>
 	
-	<select id="getOverseasNumber" parameterType="int">
+	<select id="getOverseasNumber" parameterType="int" resultType="int">
 		select count(*) FROM user_overseas_info 
 		WHERE seeker_id = #{seekerId}
 	</select>
