@@ -18,6 +18,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="프로젝트명"
+                  required
                 />
               </div>
             </div>
@@ -30,6 +31,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="시작일"
+                required
               />
             </div>
             <div class="formbox">
@@ -40,6 +42,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="퇴사일"
+                required
               />
             </div>
           </div>         
@@ -52,6 +55,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="담당업무 및 내용"
+                required
               />
             </div>
             </div>

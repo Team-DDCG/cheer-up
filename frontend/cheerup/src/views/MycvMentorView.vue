@@ -26,7 +26,7 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="멘토평점"
+                  placeholder="멘토평점" required
                 />
               </div>
               <div class="formbox">
@@ -36,7 +36,7 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="회사이름"
+                  placeholder="회사이름" required
                 />
               </div>    
               <div class="formbox">
@@ -46,7 +46,7 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="경력"
+                  placeholder="경력" required
                 />
               </div>        
           </div>  

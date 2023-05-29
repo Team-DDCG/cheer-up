@@ -17,6 +17,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="아이디"
+                  required
                 />
               </div>
               <!-- <div class="formbox">
@@ -36,7 +37,8 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="이름"
+                  placeholder="이름" 
+                  required
                 />
               </div>           
           </div>
@@ -49,13 +51,14 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Birth date"
+                required
               />
             </div>
             <div class="form-check-label">
               <label for="exampleFormControlInput2" class="form-label"
                 >성별</label
               ><br />
-              <select v-model="user.sex" class="form-control" id="exampleFormControlSelect1">
+              <select v-model="user.sex" class="form-control" id="exampleFormControlSelect1" required>
                 <option value="0">남성</option>
                 <option value="1">여성</option>
               </select>
@@ -70,6 +73,7 @@
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="010-0000-0000"
+              required
             />
           </div>
           <div class="formbox">
@@ -80,6 +84,7 @@
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="Email"
+              required
             />
           </div>
           <div class="formbox">
@@ -90,6 +95,7 @@
                 v-model="user.mailCheck"
                 class="form-control"
                 id="exampleFormControlSelect1"
+                required
               >
                 <option value="0">동의</option>
                 <option value="1">비동의</option>
@@ -104,6 +110,7 @@
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="Address"
+            required
           />
         </div>                 
         <div class="btn" id="line6">

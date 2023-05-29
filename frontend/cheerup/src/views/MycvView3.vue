@@ -18,6 +18,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="프로젝트명"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -28,6 +29,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="주최기관"
+                  required
                 />
               </div>
             </div>
@@ -60,6 +62,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="사용기술"
+                required
               />
             </div>
           </div>         
@@ -72,6 +75,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="프로젝트 내용"
+                required
               />
             </div>
             </div>

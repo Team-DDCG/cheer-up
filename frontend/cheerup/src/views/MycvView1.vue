@@ -20,6 +20,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="학교명"
+                  required
                 />
               </div>
 
@@ -31,6 +32,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="학력사항"
+                  required
                 />
               </div>
             </div>
@@ -43,7 +45,8 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="전공"
+                placeholder="전공" 
+                required
               />
             </div>
             <div class="formbox">
@@ -54,6 +57,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="입학일"
+                required
               />
             </div>
             <div class="formbox">
@@ -64,29 +68,45 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="졸업일"
+                required
               />
             </div>
           </div>
         <div class="info-set" id="line3">
           <div class="formbox">
-            <label for="" class="form-label">재학여부</label>
+            <!-- <label for="" class="form-label">재학여부</label>
             <input
               v-model="item.attendingCheck"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="재학여부"
-            />
+            /> -->
+            <label for="exampleFormControlInput2" class="form-label"
+                >재학여부</label
+              ><br />
+              <select v-model="item.attendingCheck" class="form-control" id="exampleFormControlSelect1" required>
+                <option value="0">재학</option>
+                <option value="1">휴학</option>
+                <option value="2">졸업</option>
+              </select>
           </div>
           <div class="formbox">
-            <label for="" class="form-label">편입여부</label>
+            <!-- <label for="" class="form-label">편입여부</label>
             <input
               v-model="item.transferCheck"
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="편입여부"
-            />
+            /> -->
+            <label for="exampleFormControlInput2" class="form-label"
+                >편입여부</label
+              ><br />
+              <select v-model="item.transferCheck" class="form-control" id="exampleFormControlSelect1" required>
+                <option value="0">대상</option>
+                <option value="1">비대상</option>
+              </select>
           </div>
         </div>
          <div class="info-set" id="line4">
@@ -97,7 +117,7 @@
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
-              placeholder="복수전공"
+              placeholder="복수전공" required
             />
           </div>
         </div>
@@ -109,7 +129,7 @@
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
-              placeholder="복수전공"
+              placeholder="복수전공" required
             />
           </div>
           <div class="formbox">
@@ -119,7 +139,7 @@
               type="text"
               class="form-control"
               id="exampleFormControlInput1"
-              placeholder="복수전공"
+              placeholder="복수전공" required
             />            
           </div>
           </div> 
