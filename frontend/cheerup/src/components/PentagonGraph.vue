@@ -56,12 +56,23 @@
         }
     },
     props: {
+      labels: {
+        type: Array,
+        required: true
+      },
       data: {
         type: Array,
         required: true
       }
     },
     watch: {
+      labels: {
+        handler() {
+          // data가 변경될 때 수행할 동작
+          this.drawPentagonGraphs();
+        },
+        deep: true // 중첩된 배열의 변경까지 감지하도록 설정
+      },
       data: {
         handler() {
           // data가 변경될 때 수행할 동작
