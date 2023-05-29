@@ -36,5 +36,10 @@ public class ResumeCommentDAOImpl implements ResumeCommentDAO{
 	public List<ResumeCommentVO> getResumeComment(int resumeId) throws Exception {
 		return sqlSession.selectList(NS + "getResumeComment", resumeId);
 	}
+	
+	@Override
+	public int setRate(int commentId) throws Exception {
+		return sqlSession.update(NS + "setRate", commentId);
+	}
 
 }

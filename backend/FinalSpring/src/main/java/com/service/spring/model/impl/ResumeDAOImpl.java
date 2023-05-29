@@ -71,5 +71,4 @@ public class ResumeDAOImpl implements ResumeDAO{
 	}
 
 
-
 }

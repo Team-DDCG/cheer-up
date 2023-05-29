@@ -27,5 +27,11 @@
 		FROM resume_comment
 		WHERE resume_id = #{resumeId}
 	</select>
+	
+	<update id="setRate" parameterType="int">
+		UPDATE resume_comment SET
+		rate = #{rate}
+		WHERE comment_id = #{commentId}
+	</update> 
 
 </mapper>

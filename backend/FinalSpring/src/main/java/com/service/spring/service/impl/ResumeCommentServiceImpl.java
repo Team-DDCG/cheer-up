@@ -34,7 +34,9 @@ public class ResumeCommentServiceImpl implements ResumeCommentService{
 	public List<ResumeCommentVO> getResumeComment(int resumeId) throws Exception {
 		return resumeCommentDAO.getResumeComment(resumeId);
 	}
-	
-	
 
+	@Override
+	public int setRate(int commentId) throws Exception {
+		return resumeCommentDAO.setRate(commentId);
+	}
 }

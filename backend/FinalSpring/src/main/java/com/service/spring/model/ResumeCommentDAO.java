@@ -10,4 +10,5 @@ public interface ResumeCommentDAO {
 	int deleteResumeComment(int commentId) throws Exception;
 	
 	List<ResumeCommentVO> getResumeComment(int resumeId) throws Exception;
+	int setRate(int commentId) throws Exception;
 }

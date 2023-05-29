@@ -80,5 +80,18 @@ public class ResumeCommentController {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	        }
 	    }
+	    
+	    @PutMapping("/comments/rate/{commentId}")
+	    public ResponseEntity<Void> setRate(@PathVariable int commentId) {
+	        try {
+	            int result = resumeCommentService.setRate(commentId);
+	            if (result == 1) {
+	                return new ResponseEntity<>(HttpStatus.OK);
+	            }
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        } catch (Exception e) {
+	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+	    }
 
 }
