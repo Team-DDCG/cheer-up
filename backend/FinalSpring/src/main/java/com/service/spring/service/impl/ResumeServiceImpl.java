@@ -53,5 +53,10 @@ public class ResumeServiceImpl implements ResumeService{
 		return resumeDAO.getResume(resumeId);
 	}
 
+	@Override
+	public List<ResumeDTO> getAllResumeBySeekerId(int seekerId) {
+		return resumeDAO.getAllResumeBySeekerId(seekerId);
+	}
+
 
 }

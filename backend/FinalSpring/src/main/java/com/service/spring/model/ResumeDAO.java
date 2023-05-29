@@ -15,4 +15,5 @@ public interface ResumeDAO {
     ResumeVO getResume(int resumeId);
     List<ResumeQnADTO> getQnAByCompanyId(int companyId);
     List<ResumeCommentDTO> getCommentByResume(int resumeId);
+    List<ResumeDTO> getAllResumeBySeekerId(int seekerId);
 }
