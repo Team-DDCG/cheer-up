@@ -8,11 +8,11 @@ public class CompanyFitVO {
 	private String companyNeeds3; //company_needs3
 	private String companyNeeds4; //company_needs4
 	private String companyNeeds5; //company_needs5
-	private int companyRate1; //company_rate1
-	private int companyRate2; //company_rate2
-	private int companyRate3; //company_rate3
-	private int companyRate4; //company_rate4
-	private int companyRate5; //company_rate5
+	private float companyRate1; //company_rate1
+	private float companyRate2; //company_rate2
+	private float companyRate3; //company_rate3
+	private float companyRate4; //company_rate4
+	private float companyRate5; //company_rate5
 	private int seekerId; //seeker_id(fk)
 	private String position;
 	
@@ -20,8 +20,8 @@ public class CompanyFitVO {
 	}
 
 	public CompanyFitVO(String companyName, String companyNeeds1, String companyNeeds2, String companyNeeds3,
-			String companyNeeds4, String companyNeeds5, int companyRate1, int companyRate2, int companyRate3,
-			int companyRate4, int companyRate5, int seekerId, String position) {
+			String companyNeeds4, String companyNeeds5, float companyRate1, float companyRate2, float companyRate3,
+			float companyRate4, float companyRate5, int seekerId, String position) {
 		super();
 		this.companyName = companyName;
 		this.companyNeeds1 = companyNeeds1;
@@ -94,43 +94,43 @@ public class CompanyFitVO {
 		this.companyNeeds5 = companyNeeds5;
 	}
 
-	public int getCompanyRate1() {
+	public float getCompanyRate1() {
 		return companyRate1;
 	}
 
-	public void setCompanyRate1(int companyRate1) {
+	public void setCompanyRate1(float companyRate1) {
 		this.companyRate1 = companyRate1;
 	}
 
-	public int getCompanyRate2() {
+	public float getCompanyRate2() {
 		return companyRate2;
 	}
 
-	public void setCompanyRate2(int companyRate2) {
+	public void setCompanyRate2(float companyRate2) {
 		this.companyRate2 = companyRate2;
 	}
 
-	public int getCompanyRate3() {
+	public float getCompanyRate3() {
 		return companyRate3;
 	}
 
-	public void setCompanyRate3(int companyRate3) {
+	public void setCompanyRate3(float companyRate3) {
 		this.companyRate3 = companyRate3;
 	}
 
-	public int getCompanyRate4() {
+	public float getCompanyRate4() {
 		return companyRate4;
 	}
 
-	public void setCompanyRate4(int companyRate4) {
+	public void setCompanyRate4(float companyRate4) {
 		this.companyRate4 = companyRate4;
 	}
 
-	public int getCompanyRate5() {
+	public float getCompanyRate5() {
 		return companyRate5;
 	}
 
-	public void setCompanyRate5(int companyRate5) {
+	public void setCompanyRate5(float companyRate5) {
 		this.companyRate5 = companyRate5;
 	}
 

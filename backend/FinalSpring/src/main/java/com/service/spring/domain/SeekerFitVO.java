@@ -7,11 +7,11 @@ public class SeekerFitVO {
 	private String tendency3; 
 	private String tendency4; 
 	private String tendency5; 
-	private int rate1; 
-	private int rate2; 
-	private int rate3; 
-	private int rate4; 
-	private int rate5;
+	private float rate1; 
+	private float rate2; 
+	private float rate3; 
+	private float rate4; 
+	private float rate5;
 	private int seekerId; //seeker_id(fk)
 	private String position;
 	
@@ -19,7 +19,7 @@ public class SeekerFitVO {
 	}
 
 	public SeekerFitVO(String tendency1, String tendency2, String tendency3, String tendency4, String tendency5,
-			int rate1, int rate2, int rate3, int rate4, int rate5, int seekerId, String position) {
+			float rate1, float rate2, float rate3, float rate4, float rate5, int seekerId, String position) {
 		super();
 		this.tendency1 = tendency1;
 		this.tendency2 = tendency2;
@@ -83,43 +83,43 @@ public class SeekerFitVO {
 		this.tendency5 = tendency5;
 	}
 
-	public int getRate1() {
+	public float getRate1() {
 		return rate1;
 	}
 
-	public void setRate1(int rate1) {
+	public void setRate1(float rate1) {
 		this.rate1 = rate1;
 	}
 
-	public int getRate2() {
+	public float getRate2() {
 		return rate2;
 	}
 
-	public void setRate2(int rate2) {
+	public void setRate2(float rate2) {
 		this.rate2 = rate2;
 	}
 
-	public int getRate3() {
+	public float getRate3() {
 		return rate3;
 	}
 
-	public void setRate3(int rate3) {
+	public void setRate3(float rate3) {
 		this.rate3 = rate3;
 	}
 
-	public int getRate4() {
+	public float getRate4() {
 		return rate4;
 	}
 
-	public void setRate4(int rate4) {
+	public void setRate4(float rate4) {
 		this.rate4 = rate4;
 	}
 
-	public int getRate5() {
+	public float getRate5() {
 		return rate5;
 	}
 
-	public void setRate5(int rate5) {
+	public void setRate5(float rate5) {
 		this.rate5 = rate5;
 	}
 
