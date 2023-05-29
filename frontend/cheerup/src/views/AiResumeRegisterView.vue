@@ -30,11 +30,11 @@
         <div class="graph-box">
           <div>
             <p>내 자기소개서 분석</p>
-            <pentagon-graph :data="processedCharacter"></pentagon-graph>
+            <pentagon-graph :data="processedCharacter" :labels="c_label"></pentagon-graph>
           </div>
           <div>
             <p>기업적합도 분석</p>
-            <pentagon-graph :data="processedFit"></pentagon-graph>
+            <pentagon-graph :data="processedFit" :labels="f_label"></pentagon-graph>
           </div>
           
         </div>
@@ -82,7 +82,9 @@ export default {
       userId: '',
       userName: '',
       character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
+      c_label: [],
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
+      f_label: [],
       answer: [],
     }
   },
@@ -122,16 +124,18 @@ export default {
         .then((res1) => {
           console.log(res1.data.result);
           this.character = res1.data.result.map(sublist => sublist[1]/100);
+          this.c_label = res1.data.result.map(sublist => sublist[0]);
           console.log(this.character);
-
+          console.log(this.c_label);
           axios
           .get("http://127.0.0.1:5000/goodness_of_fit/"+this.userId+"/"+this.companyName, {
           })
           .then((res2) => {
             console.log(res2.data.result);
-            this.fit = res2.data.result.map(sublist => sublist[1]/100);          
+            this.fit = res2.data.result.map(sublist => sublist[1]/100); 
+            this.f_label = res2.data.result.map(sublist => sublist[0]);
             console.log(this.fit);
-
+            console.log(this.f_label);
             axios
               .get("http://127.0.0.1:5000/resume_create/"+this.userId+"/"+this.companyId+"/"+this.companyName+"/"+this.field, {
               })

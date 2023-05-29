@@ -41,6 +41,10 @@
                 } else {
                 context.lineTo(x, y);
                 }
+                context.fillStyle = 'white'; // 텍스트 색상
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillText(labels[i], x, y);
             }
             context.closePath();
 
