@@ -283,7 +283,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     matching_arr = resume_matching(seeker_id, company_id, company_name, position)
     print(matching_arr)
     matching_index = 0
-    total_table = career_table_select(seeker_id)
+    # total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
     result_arr = []
@@ -380,7 +380,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
 
         matching_index += 1
 
-        result_arr.append([[resume_question, message_result]])
+        result_arr.append([[resume_question, question_text_max, message_result]])
 
     # return 'good'
     return jsonify({"result": result_arr})
