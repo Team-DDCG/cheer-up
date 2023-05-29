@@ -123,7 +123,7 @@ export default {
         })
         .then((res1) => {
           console.log(res1.data.result);
-          this.character = res1.data.result.map(sublist => sublist[1]/100);
+          this.character = res1.data.result.map(sublist => sublist[1]/50);
           this.c_label = res1.data.result.map(sublist => sublist[0]);
           console.log(this.character);
           console.log(this.c_label);
