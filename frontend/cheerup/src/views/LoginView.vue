@@ -55,6 +55,7 @@ export default {
       password: "",
       save_toggle: false,
       check: '',
+      user:'',
     };
   },
   components: {},
@@ -78,6 +79,47 @@ export default {
           sessionStorage.setItem("name", res.data.userName);
           sessionStorage.setItem("id", res.data.userId);
           localStorage.setItem('isLoggedIn', 'true');
+
+
+          axios
+            .get(this.$store.state.baseUrl+"api/info/"+res.data.userId, {
+            })
+            .then((res) => {
+              this.user = res.data;
+              console.log(this.user);
+              if(this.user.userStatus === 0) {
+                axios
+                .get(this.$store.state.baseUrl+"api/seekers/"+res.data.userId, {
+                })
+                .then((res) => {
+                  this.seekerId = res.data.seekerId;
+                  sessionStorage.setItem("seekerId",res.data.seekerId);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  this.check = 'error';
+                });
+              } else {
+                  axios
+                  .get(this.$store.state.baseUrl+"api/mentors/"+res.data.userId, {
+                  })
+                  .then((res) => {
+                      this.mentorId = res.data.seekerId;
+                      sessionStorage.setItem("mentorId",res.data.mentorId);
+                  })
+                  .catch((err) => {
+                      console.log(err);
+                      this.check = 'error';
+                  });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              this.check = 'error';
+            });
+
+
+
           this.$router.push("/");
         })
         .catch((err) => {

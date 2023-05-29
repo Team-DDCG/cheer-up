@@ -39,55 +39,19 @@
     </div>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
     data() {
     return {
-      seekerId:null,
-      mentorId:null,
+
     };
   },
   beforeCreate() {
-    this.userId = sessionStorage.getItem("id");
-    console.log(this.userId);
-
-
-    axios
-      .get(this.$store.state.baseUrl+"api/info/"+this.userId, {
-      })
-      .then((res) => {
-        this.user = res.data;
-        console.log(this.user);
-        if(this.user.userStatus === 0) {
-          axios
-          .get(this.$store.state.baseUrl+"api/seekers/"+this.userId, {
-          })
-          .then((res) => {
-            this.seekerId = res.data.seekerId;
-            sessionStorage.setItem("seekerId",res.data.seekerId);
-          })
-          .catch((err) => {
-            console.log(err);
-            this.check = 'error';
-          });
-        } else {
-            axios
-            .get(this.$store.state.baseUrl+"api/mentors/"+this.userId, {
-            })
-            .then((res) => {
-                this.mentorId = res.data.seekerId;
-                sessionStorage.setItem("mentorId",res.data.mentorId);
-            })
-            .catch((err) => {
-                console.log(err);
-                this.check = 'error';
-            });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.check = 'error';
-      });
+    try {
+      this.seekerId = sessionStorage.getItem("seekerId");
+    } catch (error) {
+      this.mentorId = sessionStorage.getItem("mentorId");
+    }
     },
   created() {
 
