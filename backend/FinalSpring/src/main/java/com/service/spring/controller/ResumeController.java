@@ -1,5 +1,6 @@
 package com.service.spring.controller;
 
+import com.service.spring.DTO.PositionDTO;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
@@ -120,6 +121,18 @@ public class ResumeController {
             return new ResponseEntity<>(questions, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    
+    @GetMapping("/resumes")
+    public ResponseEntity<List<ResumeVO>> getAllResumeByPosition(@RequestBody PositionDTO dto) {
+        // Assuming you have a service or repository class to fetch resumes based on position
+        List<ResumeVO> resumes = resumeService.getAllResumeByPosition(dto);
+
+        if (resumes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(resumes, HttpStatus.OK);
     }
 
 }

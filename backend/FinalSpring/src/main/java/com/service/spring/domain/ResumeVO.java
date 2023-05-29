@@ -8,15 +8,21 @@ public class ResumeVO {
     private int seekerId; //seeker_id(fk)
     private int companyId; // company_id(fk)
     private int questionId;
+    private String position;
+    
     public ResumeVO() {
     }
 
-	public ResumeVO(String content, int postCheck, String generateDate, int seekerId, int companyId, int questionId) {
+	public ResumeVO(String content, int postCheck, String generateDate, int seekerId, int companyId, int questionId,
+			String position) {
+		super();
 		this.content = content;
 		this.postCheck = postCheck;
+		this.generateDate = generateDate;
 		this.seekerId = seekerId;
 		this.companyId = companyId;
 		this.questionId = questionId;
+		this.position = position;
 	}
 
 	public int getResumeId() {
@@ -66,7 +72,6 @@ public class ResumeVO {
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
-	
 
 	public int getQuestionId() {
 		return questionId;
@@ -76,14 +81,13 @@ public class ResumeVO {
 		this.questionId = questionId;
 	}
 
-	@Override
-	public String toString() {
-		return "ResumeVO [resumeId=" + resumeId + ", content=" + content + ", postCheck=" + postCheck
-				+ ", generateDate=" + generateDate + ", seekerId=" + seekerId + ", companyId=" + companyId
-				+ ", questionId=" + questionId + "]";
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 	
-
-    
 }

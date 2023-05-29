@@ -14,12 +14,14 @@ public class SeekerFitVO {
 	private int rate5;
 	private int seekerId; //seeker_id(fk)
 	private int resumeId;
+	private String position;
 	
 	public SeekerFitVO() {
 	}
 
-	public SeekerFitVO(String tendency1, String tendency2, String tendency3, String tendency4,
-			String tendency5, int rate1, int rate2, int rate3, int rate4, int rate5, int seekerId, int resumeId) {
+	public SeekerFitVO(String tendency1, String tendency2, String tendency3, String tendency4, String tendency5,
+			int rate1, int rate2, int rate3, int rate4, int rate5, int seekerId, int resumeId, String position) {
+		super();
 		this.tendency1 = tendency1;
 		this.tendency2 = tendency2;
 		this.tendency3 = tendency3;
@@ -32,6 +34,7 @@ public class SeekerFitVO {
 		this.rate5 = rate5;
 		this.seekerId = seekerId;
 		this.resumeId = resumeId;
+		this.position = position;
 	}
 
 	public int getSeekerFitId() {
@@ -129,7 +132,6 @@ public class SeekerFitVO {
 	public void setSeekerId(int seekerId) {
 		this.seekerId = seekerId;
 	}
-	
 
 	public int getResumeId() {
 		return resumeId;
@@ -139,12 +141,12 @@ public class SeekerFitVO {
 		this.resumeId = resumeId;
 	}
 
-	@Override
-	public String toString() {
-		return "SeekerFitVO [seekerFitId=" + seekerFitId + ", tendency1=" + tendency1 + ", tendency2=" + tendency2
-				+ ", tendency3=" + tendency3 + ", tendency4=" + tendency4 + ", tendency5=" + tendency5 + ", rate1="
-				+ rate1 + ", rate2=" + rate2 + ", rate3=" + rate3 + ", rate4=" + rate4 + ", rate5=" + rate5
-				+ ", seekerId=" + seekerId + ", resumeId=" + resumeId + "]";
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 	

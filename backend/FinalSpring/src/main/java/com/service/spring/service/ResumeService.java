@@ -2,6 +2,7 @@ package com.service.spring.service;
 
 import java.util.List;
 
+import com.service.spring.DTO.PositionDTO;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
@@ -18,4 +19,5 @@ public interface ResumeService {
     List<ResumeDTO> getAllResumeBySeekerId(int seekerId);
     int togglePostCheck(int resumeId);
     List<ResumeVO> getAllQuestionByResumeId(int resumeId);
+    List<ResumeVO> getAllResumeByPosition(PositionDTO dto);
 }

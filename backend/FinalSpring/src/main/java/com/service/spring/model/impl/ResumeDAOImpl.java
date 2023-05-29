@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.spring.DTO.PositionDTO;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
@@ -68,6 +69,11 @@ public class ResumeDAOImpl implements ResumeDAO{
 	@Override
 	public List<ResumeVO> getAllQuestionByResumeId(int resumeId) {
 		return sqlSession.selectList(NS + "getAllQuestionByResumeId", resumeId);
+	}
+
+	@Override
+	public List<ResumeVO> getAllResumeByPosition(PositionDTO dto) {
+		return sqlSession.selectList(NS + "getAllResumeByPosition", dto);
 	}
 
 

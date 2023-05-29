@@ -5,8 +5,8 @@
 <mapper namespace="ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.service.spring.domain.ResumeVO">
-		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date, question_id)
-		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE, #{questionId})	
+		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date, question_id, position)
+		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE, #{questionId}, #{position})	
 	</insert>
 	
 	<delete id="deleteResume" parameterType="int">
@@ -70,6 +70,14 @@
 		FROM resume r JOIN question q
 		ON r.question_id = q.question_id
 		WHERE r.resume_id = #{resumeId}
+	</select>
+	
+	<select id="getAllResumeByPosition" parameterType="com.service.spring.DTO.PositionDTO" resultType="com.service.spring.domain.ResumeVO">
+		SELECT r.resume_id, r.content, r.post_check, r.generate_date, r.seeker_id, r.company_id, r.question_id
+		FROM user_seeker_info s
+		JOIN resume r ON s.seeker_id = r.seeker_id
+		JOIN company c ON c.company_id = r.company_id
+		WHERE c.company_id = #{companyId} AND s.seeker_id = #{seekerId} AND r.position = #{position}
 	</select>
 
 </mapper>

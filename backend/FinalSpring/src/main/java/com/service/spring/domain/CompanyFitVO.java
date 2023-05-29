@@ -15,19 +15,21 @@ public class CompanyFitVO {
 	private int companyRate5; //company_rate5
 	private int seekerId; //seeker_id(fk)
 	private int resumeId;
+	private String postiion;
 	
 	public CompanyFitVO() {
 	}
 
-	public CompanyFitVO(String companyName, String companyNeeds1, String companyNeeds2,
-			String companyNeeds3, String companyNeeds4, String companyNEeds5, int companyRate1, int companyRate2,
-			int companyRate3, int companyRate4, int companyRate5, int seekerId, int resumeId) {
+	public CompanyFitVO(String companyName, String companyNeeds1, String companyNeeds2, String companyNeeds3,
+			String companyNeeds4, String companyNeeds5, int companyRate1, int companyRate2, int companyRate3,
+			int companyRate4, int companyRate5, int seekerId, int resumeId, String postiion) {
+		super();
 		this.companyName = companyName;
 		this.companyNeeds1 = companyNeeds1;
 		this.companyNeeds2 = companyNeeds2;
 		this.companyNeeds3 = companyNeeds3;
 		this.companyNeeds4 = companyNeeds4;
-		this.companyNeeds5 = companyNEeds5;
+		this.companyNeeds5 = companyNeeds5;
 		this.companyRate1 = companyRate1;
 		this.companyRate2 = companyRate2;
 		this.companyRate3 = companyRate3;
@@ -35,6 +37,7 @@ public class CompanyFitVO {
 		this.companyRate5 = companyRate5;
 		this.seekerId = seekerId;
 		this.resumeId = resumeId;
+		this.postiion = postiion;
 	}
 
 	public int getCompanyFitId() {
@@ -89,7 +92,7 @@ public class CompanyFitVO {
 		return companyNeeds5;
 	}
 
-	public void setCompanyNEeds5(String companyNeeds5) {
+	public void setCompanyNeeds5(String companyNeeds5) {
 		this.companyNeeds5 = companyNeeds5;
 	}
 
@@ -140,7 +143,6 @@ public class CompanyFitVO {
 	public void setSeekerId(int seekerId) {
 		this.seekerId = seekerId;
 	}
-	
 
 	public int getResumeId() {
 		return resumeId;
@@ -150,18 +152,14 @@ public class CompanyFitVO {
 		this.resumeId = resumeId;
 	}
 
-	public void setCompanyNeeds5(String companyNeeds5) {
-		this.companyNeeds5 = companyNeeds5;
+	public String getPostiion() {
+		return postiion;
 	}
 
-	@Override
-	public String toString() {
-		return "CompanyFitVO [companyFitId=" + companyFitId + ", companyName=" + companyName + ", companyNeeds1="
-				+ companyNeeds1 + ", companyNeeds2=" + companyNeeds2 + ", companyNeeds3=" + companyNeeds3
-				+ ", companyNeeds4=" + companyNeeds4 + ", companyNeeds5=" + companyNeeds5 + ", companyRate1="
-				+ companyRate1 + ", companyRate2=" + companyRate2 + ", companyRate3=" + companyRate3 + ", companyRate4="
-				+ companyRate4 + ", companyRate5=" + companyRate5 + ", seekerId=" + seekerId + ", resumeId=" + resumeId
-				+ "]";
-	}	
+	public void setPostiion(String postiion) {
+		this.postiion = postiion;
+	}
+
+	
 
 }
