@@ -18,7 +18,7 @@
 	</insert>
 	
 	<delete id="deleteUserOverseas" parameterType="int">
-		DELETE FROM user_overseas_info WHERE overseas_id=#{VALUE}
+		DELETE FROM user_overseas_info WHERE seeker_id=#{seekerId}
 	</delete>
 	
 	<update id="updateUserOverseas" parameterType="com.service.spring.domain.UserOverseasVO">

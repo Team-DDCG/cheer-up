@@ -17,7 +17,7 @@
 	</insert>
 	
 	<delete id="deleteUserLicense" parameterType="int">
-		DELETE FROM user_license_info WHERE license_id=#{VALUE}
+		DELETE FROM user_license_info WHERE seeker_id=#{seekerId}
 	</delete>
 	
 	<update id="updateUserLicense" parameterType="com.service.spring.domain.UserLicenseVO">

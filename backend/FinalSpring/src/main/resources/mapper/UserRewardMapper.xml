@@ -18,7 +18,7 @@
 	</insert>
 	
 	<delete id="deleteUserReward" parameterType="int">
-		DELETE FROM user_reward_info WHERE reward_id=#{VALUE}
+		DELETE FROM user_reward_info WHERE seeker_id=#{seekerId}
 	</delete>
 	
 	<update id="updateUserReward" parameterType="com.service.spring.domain.UserRewardVO">

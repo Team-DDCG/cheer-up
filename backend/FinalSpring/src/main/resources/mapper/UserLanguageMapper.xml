@@ -17,7 +17,7 @@
 	</insert>
 	
 	<delete id="deleteUserLanguage" parameterType="int">
-		DELETE FROM user_language_info WHERE language_id=#{VALUE}
+		DELETE FROM user_language_info WHERE seeker_id=#{seekerId}
 	</delete>
 	
 	<update id="updateUserLanguage" parameterType="com.service.spring.domain.UserLanguageVO">

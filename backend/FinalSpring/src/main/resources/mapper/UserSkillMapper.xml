@@ -18,7 +18,7 @@
 	</insert>
 	
 	<delete id="deleteUserSkill" parameterType="int">
-		DELETE FROM user_skill_info WHERE skill_id=#{VALUE}
+		DELETE FROM user_skill_info WHERE seeker_id=#{seekerId}
 	</delete>
 	
 	<update id="updateUserSkill" parameterType="com.service.spring.domain.UserSkillVO">
