@@ -59,6 +59,9 @@
             <p>{{item[2]}}</p>
           </div>
         </div>
+        <div class="button-group">
+          <button class="btn btn-primary" @click="saveResume">저장</button>
+      </div>
       </div>
       
     </div>
@@ -86,13 +89,80 @@ export default {
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
       f_label: [],
       answer: [],
+      seekerId: sessionStorage.getItem("seekerId")
     }
   },
   mounted() {
     console.log(this.$route.query.field);
   },
   methods: {
+    saveResume() {
+      //seeker-fit save
+      //resumeId는 아직 생성 안되서 post못해줌
+      axios
+      .post(this.$store.state.baseUrl+"api/seeker-fit/", {
+        "tendency1" : this.c_label[0],
+        "tendency2" : this.c_label[1],
+        "tendency3" : this.c_label[2],
+        "tendency4" : this.c_label[3],
+        "tendency5" : this.c_label[4],
+        "rate1" : this.character[0],
+        "rate2" : this.character[1],
+        "rate3" : this.character[2],
+        "rate4" : this.character[3],
+        "rate5" : this.character[4],
+        "seekerId" : this.seekerId,
+        "position" : this.field
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
 
+      axios
+      .post(this.$store.state.baseUrl+"api/company-fit/", {
+        "companyName" : this.companyName,
+        "companyNeeds1" : this.f_label[0],
+        "companyNeeds2" : this.f_label[1],
+        "companyNeeds3" : this.f_label[2],
+        "companyNeeds4" : this.f_label[3],
+        "companyNeeds5" : this.f_label[4],
+        "companyRate1" : this.fit[0],
+        "companyRate2" : this.fit[1],
+        "companyRate3" : this.fit[2],
+        "companyRate4" : this.fit[3],
+        "companyRate5" : this.fit[4],
+        "seekerId" : this.seekerId,
+        "position" : this.field
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+
+      for (let i = 0; i < this.answer.length; i++) {
+        axios
+        .post(this.$store.state.baseUrl+"api/resume/", {
+          "content" : this.answer[i][2],
+          "postCheck" : 0,
+          "seekerId" : this.seekerId,
+          "position" : this.field,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.check = 'error';
+        });
+      }
+    }
   },
   created() {
     this.userName = sessionStorage.getItem("name");
