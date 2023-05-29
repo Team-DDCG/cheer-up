@@ -21,16 +21,17 @@
                 </tr>
                 <tr v-for="item of resume" :key="item">
                   <td><input type="checkbox" class="post-check" /></td>
-                  <td class="c1">{{ item.name }}</td>
-                  <td class="c2">{{ item.title }}</td>
+                  <td class="c1">{{ item.companyName }}</td>
+                  <td class="c2"><router-link :to="`/myresume/id=${item.resumeId}`">{{ item.title }}</router-link></td>
                   <td class="c3">{{ item.startDate }}</td>
                   <td class="c4">{{ item.endDate }}</td>
                   <td class="c5">
                     <div class="checkbox-wrapper-9">
-                      <input type="checkbox" id="cb4-9" class="tgl tgl-flat" />
-                      <label for="cb4-9" class="tgl-btn"></label>
+                      <input type="checkbox" :id="`cb4-${item.resumeId}`" class="tgl tgl-flat" :checked="parseInt(item.postCheck) === 1" @change="handleCheckboxChange(item)" />
+                      <label :for="`cb4-${item.resumeId}`" class="tgl-btn"></label>
                     </div>
                   </td>
+                
                 </tr>
               </table>
             </div>
@@ -77,6 +78,21 @@ export default {
         console.log(err);
         this.check = 'error';
       });
+  },
+  methods: {
+    handleCheckboxChange(item) {
+      console.log(item.resumeId);
+      axios
+      .patch(this.$store.state.baseUrl+"api/resume/"+item.resumeId, {
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+    }
   }
 };
 </script>
