@@ -13,14 +13,13 @@ public class SeekerFitVO {
 	private int rate4; 
 	private int rate5;
 	private int seekerId; //seeker_id(fk)
-	private int resumeId;
 	private String position;
 	
 	public SeekerFitVO() {
 	}
 
 	public SeekerFitVO(String tendency1, String tendency2, String tendency3, String tendency4, String tendency5,
-			int rate1, int rate2, int rate3, int rate4, int rate5, int seekerId, int resumeId, String position) {
+			int rate1, int rate2, int rate3, int rate4, int rate5, int seekerId, String position) {
 		super();
 		this.tendency1 = tendency1;
 		this.tendency2 = tendency2;
@@ -33,7 +32,6 @@ public class SeekerFitVO {
 		this.rate4 = rate4;
 		this.rate5 = rate5;
 		this.seekerId = seekerId;
-		this.resumeId = resumeId;
 		this.position = position;
 	}
 
@@ -133,13 +131,6 @@ public class SeekerFitVO {
 		this.seekerId = seekerId;
 	}
 
-	public int getResumeId() {
-		return resumeId;
-	}
-
-	public void setResumeId(int resumeId) {
-		this.resumeId = resumeId;
-	}
 
 	public String getPosition() {
 		return position;

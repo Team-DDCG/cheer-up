@@ -14,15 +14,14 @@ public class CompanyFitVO {
 	private int companyRate4; //company_rate4
 	private int companyRate5; //company_rate5
 	private int seekerId; //seeker_id(fk)
-	private int resumeId;
-	private String postiion;
+	private String position;
 	
 	public CompanyFitVO() {
 	}
 
 	public CompanyFitVO(String companyName, String companyNeeds1, String companyNeeds2, String companyNeeds3,
 			String companyNeeds4, String companyNeeds5, int companyRate1, int companyRate2, int companyRate3,
-			int companyRate4, int companyRate5, int seekerId, int resumeId, String postiion) {
+			int companyRate4, int companyRate5, int seekerId, String position) {
 		super();
 		this.companyName = companyName;
 		this.companyNeeds1 = companyNeeds1;
@@ -36,8 +35,7 @@ public class CompanyFitVO {
 		this.companyRate4 = companyRate4;
 		this.companyRate5 = companyRate5;
 		this.seekerId = seekerId;
-		this.resumeId = resumeId;
-		this.postiion = postiion;
+		this.position = position;
 	}
 
 	public int getCompanyFitId() {
@@ -144,20 +142,13 @@ public class CompanyFitVO {
 		this.seekerId = seekerId;
 	}
 
-	public int getResumeId() {
-		return resumeId;
+
+	public String getPosition() {
+		return position;
 	}
 
-	public void setResumeId(int resumeId) {
-		this.resumeId = resumeId;
-	}
-
-	public String getPostiion() {
-		return postiion;
-	}
-
-	public void setPostiion(String postiion) {
-		this.postiion = postiion;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 	
