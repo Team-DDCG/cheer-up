@@ -43,37 +43,124 @@ openai.api_key = ORGANIZATION
 @app.route("/test_career_table_select")
 def career_table_select(seeker_id):
 
+    
     conn = dbconn.db_connect()
 
     career_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
-    total_table = []
     table_index = 0
-
+    career_index = 0
     cursor = conn.cursor()
 
     for table_name in career_table :
-        # print(table_name[0])
+
+        if table_name[0] == "user_seeker_info" :
+            career_table[table_index].append("[개인 정보] \n")
+            select_value = "*"
+
+        elif table_name[0] == "user_language_info" :
+            career_table[table_index].append("[어학 정보] \n")
+            select_value = "language, type, grade"
+
+        elif table_name[0] == "user_skill_info" :
+            career_table[table_index].append("[보유 기술] \n")
+            select_value = "skill_name"
+
+        elif table_name[0] == "user_license_info" :
+            career_table[table_index].append("[보유 자격증] \n")
+            select_value = "license_name, grade"
+
+        elif table_name[0] == "user_career_info" :
+            career_table[table_index].append("[경력] \n")
+            select_value = "company_name, department, position, attending_check"
+
+        elif table_name[0] == "user_project_info" :
+            career_table[table_index].append("[프로젝트 경험] \n")
+            select_value = "project_name, host_name, content, skill"
+
+        elif table_name[0] == "user_activation_info" :
+            career_table[table_index].append("[대외 활동] \n")
+            select_value = "activation_name, content"
+
+        elif table_name[0] == "user_reward_info" :
+            career_table[table_index].append("[수상 경력] \n")
+            select_value = "reward_name, host, content"
+
+        elif table_name[0] == "user_overseas_info" :
+            career_table[table_index].append("[해외 경험] \n")
+            select_value = "nation, institution, purpose, reason"  
+
         
-        sql = "SELECT * FROM " + table_name[0] + " WHERE seeker_id = " + str(seeker_id)
+        sql = "SELECT "+ select_value +" FROM " + table_name[0] + " WHERE seeker_id = " + str(seeker_id)
         cursor.execute(sql)
-        rows = cursor.fetchall()                  
+        rows = cursor.fetchall() 
+        # print(rows)                 
+        # total_table = [["user_career_info"], ["user_project_info"], ["user_reward_info"], ["user_activation_info"], ["user_overseas_info"], ["user_license_info"], ["user_skill_info"]]
+        # print(total_table)
 
         for row in rows :
-            career_table[table_index].append(', '.join(map(str, row)))
+            # career_table[table_index].append(str(career_index)+" : ")
+            tmp_row = list(row)
+            print(tmp_row)
+            
+            # tmp_row2 = list(map(str,tmp_row))
+            # print(tmp_row2[1])
+            if career_table[table_index][0] == "user_career_info" :
+                career_str = "- " + tmp_row[0] + "의 " + tmp_row[1] + " 부서에서 " + tmp_row[2] +" 직무로 근무\n"
+                career_table[table_index].append(career_str)
+                # print(total_table)
+                # career_index += 1
+            elif career_table[table_index][0] == "user_project_info" :
+                career_str = "- 프로젝트 제목 : " + tmp_row[0] + ", 주최 : " + tmp_row[1] + ", 프로젝트 설명 : " + tmp_row[2] + ", 사용 기술 : " + tmp_row[3] + "\n"
+                career_table[table_index].append(career_str)
 
+            elif career_table[table_index][0] == "user_reward_info" :
+                career_str = "- " + tmp_row[1] + "에서 " + tmp_row[0] + "을(를) 받음" + ", 수상 이유는 " + tmp_row[2] + "\n"
+                career_table[table_index].append(career_str)    
+            
+            elif career_table[table_index][0] == "user_activation_info" :
+                career_str = "- 활동명 : " + tmp_row[0] + ", 활동 내용 : " + tmp_row[1] + "\n"
+                career_table[table_index].append(career_str)
+
+            elif career_table[table_index][0] == "user_overseas_info" :
+                career_str = "- 거주 국가 : " + tmp_row[0] + ", 소속 기관 : " + tmp_row[1] + ", 거주 목적 : " + tmp_row[2] + ", 거주 사유 : " + tmp_row[3] + "\n"
+                career_table[table_index].append(career_str)
+
+            elif career_table[table_index][0] == "user_skill_info" :
+                career_str = "- " + tmp_row[0] + "\n"
+                career_table[table_index].append(career_str)
+                # print(total_table)
+                # career_index += 1
+            # for i in range(len(tmp_row)) :
+                
+                
+                # print(tmp_str)
+        #     for tmp in row :
+        #         career_table[table_index].append(tmp)
+        #         # print(rowArr)
+        #         # print(career_table[table_index]) 
+
+                       
+            
+            
         career_table[table_index].pop(0)
-        table_str = ""
-        for st in career_table[table_index] :
-             table_str += (st + ", ")
+        # # print(career_table[table_index][0])
+        
 
-        total_table.append(table_str)
+
+        career_table[table_index].append(' '.join(map(str, career_table[table_index])))
+        #     # career_table[table_index].append(list(career_table[table_index]))
+            
+        #     # rowArr.clear()
+        
+        # list(map(str, career_table[table_index]))     
         table_index += 1
-
-    print(total_table[0])
+        # total_table.append([])
+        # career_index += 1
     cursor.close()
     conn.close()
-    return total_table
+    return career_table
 
+# career_table[0][len(career_table[0])-1]
 
 # ==================================================================================================
 
@@ -192,7 +279,6 @@ def split_str_num(str_num):
 @app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
 def resumeCreate(seeker_id, company_id, company_name, position):
     
-    result_arr = []
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
@@ -226,13 +312,13 @@ def resumeCreate(seeker_id, company_id, company_name, position):
 
             {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
                                             
-            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
-            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+            {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+            {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+            {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+            {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+            {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+            {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
 
             {"role": "assistant", "content": ("기업명과 지원 직무, 자기소개서 질문, 자기소개서 글자 수 범위를 알려주세요.")},
             {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
@@ -301,13 +387,13 @@ def sentenceUpdate(seeker_id, resume_id, question_id, sentence):
 
         {"role": "assistant", "content": ("자기소개서를 수정하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
                                         
-        {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
-        {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-        {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-        {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-        {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-        {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-        {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+        {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+        {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+        {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+        {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+        {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+        {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+        {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
 
         {"role": "assistant", "content": ("지원 직무와 자기소개서 질문, 자기소개서 전체 내용을 알려주세요.")},
         {"role": "user", "content":f"지원 직무 : {question_table[0][0]}\n"},
@@ -332,6 +418,55 @@ def sentenceUpdate(seeker_id, resume_id, question_id, sentence):
 
 # ==================================================================================================
 
+@app.route("/resume_matching/<seeker_id>/<company_id>/<company_name>/<position>")
+def resume_matching(seeker_id, company_id, company_name, position):
+
+    total_table = career_table_select(seeker_id)
+    # company_value[0~3] = 순서 : question_id,  position, question, length
+    question_table = company_table_select(company_id, position)
+    question_str = ""
+
+    for i in range(len(question_table)) :
+        question_str += ((i+1) + ". " + question_table[i][2] + "\n\n ")
+
+    # Call the chat GPT API 
+    completion = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+        {"role": "system", "content": ("너는 내가 제공하는 이력사항을 기반으로 자기소개서 문항과 어울리는 이력사항을 매칭해주는 AI야")},
+
+        {"role": "assistant", "content": ("문항과 이력사항을 매칭하는데 유의할 점이 있나요?")},
+        {"role": "user", "content": ("나의 이력정보를 기반으로 어떤 이력정보를 각각 자기소개서 문항에 적용해서 자기소개서를 작성하는게 좋을지"
+                                    "한 문항당 이력정보 1~2개를 문항마다 최대한 중복없이 이력정보 내용없이 숫자만 써서 뽑아줘")},
+
+        {"role": "assistant", "content": ("이력사항과 자기소개서 문항을 매칭하기 위해 이력정보를 알려주세요.")},
+                                        
+        {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+        {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+        {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+        {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+        {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+        {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+        {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
+
+        {"role": "assistant", "content": ("지원 직무와 자기소개서 문항을 알려주세요.")},
+        {"role": "user", "content":f"지원 직무 : {question_table[0][1]}\n"},
+        {"role": "user", "content":f"자기소개서 질문 : {question_str}\n"},
+
+        ],
+        # repetition_penalty=1.2,
+        temperature=0.8,
+        max_tokens=2048
+    )
+
+    
+    message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
+
+    return jsonify({"result": message_result})
+
+
+
+# ==================================================================================================
 
 # 회원 이력정보 작성 후 유료회원 일 경우 또는 유료회원 가입 후 나의 성향 그래프 생성하는 것을 목표.
 # === myCharacteristic() 기능은 회원 정보 가져오고 gpt통해 회원 성향 다섯가지를 DB에 저장하는 기능
@@ -357,13 +492,13 @@ def myCharacteristic(seeker_id):
 
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
-            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
-            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+            {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+            {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+            {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+            {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+            {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+            {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
 
             {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 성향과 비율을 나타내드리겠습니다."},           
         ],
@@ -440,13 +575,13 @@ def goodnessOfFit(seeker_id, company_name):
 
             {"role": "assistant", "content": "경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요."},
 
-            {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
-            {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
-            {"role": "user", "content":f"3. 수상 경험 : {total_table[2]}\n"},
-            {"role": "user", "content":f"4. 대외활동 경험 : {total_table[3]}\n"},
-            {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
-            {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
-            {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+            {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+            {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+            {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+            {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+            {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+            {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+            {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
 
             {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 {company_name}의 인재상 5개와 그에 따른 비율을 나타내드리겠습니다."},     
 
