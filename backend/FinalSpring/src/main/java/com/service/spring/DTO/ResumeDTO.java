@@ -1,6 +1,7 @@
 package com.service.spring.DTO;
 
 public class ResumeDTO {
+	private int resumeId;
 	private String companyName;
     private String title;
     private String startDate;
@@ -10,19 +11,29 @@ public class ResumeDTO {
 	public ResumeDTO() {
 		super();
 	}
-	public ResumeDTO(String name, String title, String startDate, String endDate, int postCheck) {
+	public ResumeDTO(int resumeId, String name, String title, String startDate, String endDate, int postCheck) {
 		super();
+		this.resumeId = resumeId;
 		this.companyName = name;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.postCheck = postCheck;
 	}
-	public String getName() {
+	
+	
+	public int getResumeId() {
+		return resumeId;
+	}
+	public void setResumeId(int resumeId) {
+		this.resumeId = resumeId;
+	}
+	
+	public String getCompanyName() {
 		return companyName;
 	}
-	public void setName(String name) {
-		this.companyName = name;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	public String getTitle() {
 		return title;
