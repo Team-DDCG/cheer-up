@@ -5,8 +5,8 @@
 <mapper namespace="SeekerFitMapper">
 	<insert id="registerSeekerFit" parameterType="seekerFitVO">
 		INSERT
-		INTO seeker_fit(seeker_fit_id, tendency1, tendency2, tendency3, tendency4, tendency5, rate1, rate2, rate3, rate4, rate5, seeker_id, resume_id, position)
-		VALUES(seeker_fit_seq.NEXTVAL, #{tendency1}, #{tendency2}, #{tendency3}, #{tendency4}, #{tendency5}, #{rate1}, #{rate2}, #{rate3}, #{rate4}, #{rate5}, #{seekerId}, #{resumeId}, #{position})
+		INTO seeker_fit(seeker_fit_id, tendency1, tendency2, tendency3, tendency4, tendency5, rate1, rate2, rate3, rate4, rate5, seeker_id,  position)
+		VALUES(seeker_fit_seq.NEXTVAL, #{tendency1}, #{tendency2}, #{tendency3}, #{tendency4}, #{tendency5}, #{rate1}, #{rate2}, #{rate3}, #{rate4}, #{rate5}, #{seekerId}, #{position})
 	</insert>
 	
 	<delete id="deleteSeekerFit" parameterType="int">
