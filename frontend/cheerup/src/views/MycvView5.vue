@@ -6,22 +6,39 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 해외경험</label>
-        </header>
-        <div v-for="item of overseas" :key="item">
-            <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">거주 국가</label>
-                <input
-                  v-model="item.nation"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="거주 국가"
-                  required
-                />
-              </div>
+          <div class="title">
+            <label for="">나의 이력 - 해외경험</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addOverseas">추가</button>
+              <button class="btn btn-primary" @click="removeOverseas">삭제</button>
             </div>
+          </div>
+        </header>
+        <div v-for="(item, index) of overseas" :key="index" class="info-form">
+          <div class="info-set" id="line1">
+            <div class="formbox">
+              <label for="" class="form-label">거주 목적</label>
+              <input
+                v-model="item.purpose"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="거주 목적"
+                required
+              />
+            </div>
+            <div class="formbox">
+              <label for="" class="form-label">거주 국가</label>
+              <input
+                v-model="item.nation"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="거주 국가"
+                required
+              />
+            </div>
+          </div>
           <div class="info-set" id="line2">
             <div class="formbox">
               <label for="" class="form-label">거주 시작일</label>
@@ -46,19 +63,19 @@
               />
             </div>
             <div class="formbox">
-                <label for="" class="form-label">기관</label>
-                <input
-                  v-model="item.institution"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="기관"
-                  required
-                />
-              </div>
-          </div>         
-            <div class="info-set" id="line3">
-              <div class="formbox">
+              <label for="" class="form-label">기관</label>
+              <input
+                v-model="item.institution"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="기관"
+                required
+              />
+            </div>
+          </div>
+          <div class="info-set" id="line3">
+            <div class="formbox">
               <label for="" class="form-label">거주사유</label>
               <input
                 v-model="item.reason"
@@ -69,12 +86,11 @@
                 required
               />
             </div>
-            </div>
-            </div>
+          </div>
+          <hr> 
+        </div>
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          <button class="btn btn-primary" @click="saveOverseas">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
@@ -91,25 +107,76 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      overseas:'',
+      seekerId: "",
+      overseas: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/overseas/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/overseas/all/" + this.seekerId, {})
       .then((res) => {
         this.overseas = res.data;
         console.log(this.overseas);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addOverseas() {
+      this.overseas.push({
+        purpose: "",
+        nation: "",
+        startDate: "",
+        endDate: "",
+        institution: "",
+        reason: "",
+      });
+    },
+    removeOverseas() {
+      if (this.overseas.length > 0) {
+        this.overseas.pop();
+      }
+    },
+    saveOverseas() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/overseas/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.overseas.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/overseas",{
+              purpose: this.overseas[i].purpose,
+              nation: this.overseas[i].nation,
+              startDate: this.overseas[i].startDate,
+              endDate: this.overseas[i].endDate,
+              institution: this.overseas[i].institution,
+              reason: this.overseas[i].reason,
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -138,6 +205,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -187,10 +257,10 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#button {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -210,8 +280,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -221,12 +290,21 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
-  
-    
+.button-group button {
+  margin-left: auto;
 }
 a {
   text-decoration: none;
+  color: #f5f5f5;
+}
+hr {
   color: #f5f5f5;
 }
 </style>

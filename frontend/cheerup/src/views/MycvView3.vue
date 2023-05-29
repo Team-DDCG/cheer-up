@@ -6,9 +6,15 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 프로젝트경험</label>
+          <div class="title">
+            <label for="">나의 이력 - 프로젝트경험</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addProject" >추가</button>
+              <button class="btn btn-primary" @click="removeProject">삭제</button>
+            </div>
+          </div>
         </header>
-        <div v-for="item of projects" :key="item">
+        <div v-for="(item, index) of projects" :key="index" class="info-form">
             <div class="info-set" id="line1">
               <div class="formbox">
                 <label for="" class="form-label">프로젝트명</label>
@@ -22,38 +28,29 @@
                 />
               </div>
               <div class="formbox">
-                <label for="" class="form-label">주최기관</label>
+                <label for="" class="form-label">주최명</label>
                 <input
                   v-model="item.hostName"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="주최기관"
+                  placeholder="주최명"
+                  required
+                />
+              </div>
+              <div class="formbox">
+                <label for="" class="form-label">참여기관</label>
+                <input
+                  v-model="item.institution"
+                  type="text"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="참여기관"
                   required
                 />
               </div>
             </div>
           <div class="info-set" id="line2">
-            <!-- <div class="formbox">
-              <label for="" class="form-label">시작일</label>
-              <input
-                v-model="item.startDate"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="시작일"
-              />
-            </div>
-            <div class="formbox">
-              <label for="" class="form-label">마감일</label>
-              <input
-                v-model="item.endDate"
-                type="date"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="퇴사일"
-              />
-            </div> -->
             <div class="formbox">
               <label for="" class="form-label">사용기술</label>
               <input
@@ -79,12 +76,12 @@
               />
             </div>
             </div>
+            <hr>
           </div>
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
+            <button  class="btn btn-primary" @click="saveProjects">
         저장
       </button>
-          <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
     </section>
@@ -100,25 +97,74 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      projects:'',
+      seekerId: "",
+      projects: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/projects/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/projects/all/" + this.seekerId, {})
       .then((res) => {
         this.projects = res.data;
         console.log(this.projects);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addProject() {
+      this.projects.push({
+        projectName: "",
+        hostName: "",
+        institution: "",
+        skill: "",
+        content: "",
+      });
+    },
+    removeProject() {
+      if (this.projects.length > 0) {
+        this.projects.pop();
+      }
+    },
+    saveProjects() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/projects/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.projects.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/projects",{
+              projectName: this.projects[i].projectName,
+              hostName: this.projects[i].hostName,
+              institution: this.projects[i].institution,
+              skill: this.projects[i].skill,
+              content: this.projects[i].content,
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -147,6 +193,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -234,8 +283,20 @@ export default {
   
     
 }
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
+
+.button-group button {
+  margin-left: auto;
+}
 a {
   text-decoration: none;
+  color: #f5f5f5;
+}
+hr{
   color: #f5f5f5;
 }
 </style>

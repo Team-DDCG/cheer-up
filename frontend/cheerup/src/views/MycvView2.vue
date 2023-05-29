@@ -198,6 +198,42 @@ export default {
     saveCareer() {
       // Perform your save logic here
       // You can access the career data using 'this.career'
+      // 동일한 seekerId를 가지는 모든 career를 지우는 함수 필요
+      // 이후 위의 career.length 만큼 반복하면서 career등록
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/careers/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.career.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/careers/register/",{
+              companyName : this.career[i].companyName,
+              department : this.career[i].department,
+              position : this.career[i].position,
+              startDate : this.career[i].startDate,
+              endDate : this.career[i].endDate,
+              attendingCheck : this.career[i].attendingCheck,
+              hireType : this.career[i].hireType,
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
     },
   },
 };

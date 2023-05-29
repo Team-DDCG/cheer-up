@@ -6,46 +6,52 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 어학점수</label>
-        </header>
-        <div v-for="item of languages" :key="item">
-            <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">언어</label>
-                <input
-                  v-model="item.language"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="언어"
-                  required
-                />
-              </div>
-              <div class="formbox">
-                <label for="" class="form-label">어학 종류</label>
-                <input
-                  v-model="item.type"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="어학 종류"
-                  required
-                />
-              </div>
+          <div class="title">
+            <label for="">나의 이력 - 어학점수</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addLanguage">추가</button>
+              <button class="btn btn-primary" @click="removeLanguage">삭제</button>
             </div>
+          </div>
+        </header>
+        <div v-for="(item, index) of languages" :key="index" class="info-form">
+          <div class="info-set" id="line1">
+            <div class="formbox">
+              <label for="" class="form-label">언어</label>
+              <input
+                v-model="item.language"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="언어"
+                required
+              />
+            </div>
+            <div class="formbox">
+              <label for="" class="form-label">어학 종류</label>
+              <input
+                v-model="item.type"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="어학 종류"
+                required
+              />
+            </div>
+          </div>
           <div class="info-set" id="line2">
             <div class="formbox">
-                <label for="" class="form-label">어학등급/점수</label>
-                <input
-                  v-model="item.grade"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="어학등급/점수"
-                  required
-                />
-              </div>
-              <div class="formbox">
+              <label for="" class="form-label">어학등급/점수</label>
+              <input
+                v-model="item.grade"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="어학등급/점수"
+                required
+              />
+            </div>
+            <div class="formbox">
               <label for="" class="form-label">취득일자</label>
               <input
                 v-model="item.acquiredDate"
@@ -56,10 +62,9 @@
                 required
               />
             </div>
-              
-          </div>         
-            <div class="info-set" id="line3">
-              <div class="formbox">
+          </div>
+          <div class="info-set" id="line3">
+            <div class="formbox">
               <label for="" class="form-label">등록/자격 번호</label>
               <input
                 v-model="item.licenseNumber"
@@ -81,12 +86,11 @@
                 required
               />
             </div>
-            </div>
           </div>
+          <hr> 
+        </div>
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          <button class="btn btn-primary" @click="saveLanguages">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
@@ -103,25 +107,76 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
-      languages:'',
+      seekerId: "",
+      languages: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
     console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/languages/all/"+this.seekerId, {
-      })
+      .get(this.$store.state.baseUrl + "api/languages/all/" + this.seekerId, {})
       .then((res) => {
         this.languages = res.data;
         console.log(this.languages);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
-  }
+  },
+  methods: {
+    addLanguage() {
+      this.languages.push({
+        language: "",
+        type: "",
+        grade: "",
+        acquiredDate: "",
+        licenseNumber: "",
+        agency: "",
+      });
+    },
+    removeLanguage() {
+      if (this.languages.length > 0) {
+        this.languages.pop();
+      }
+    },
+    saveLanguages() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/languages/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.languages.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/languages",{
+              language: this.languages[i].language,
+              type: this.languages[i].type,
+              grade: this.languages[i].grade,
+              acquiredDate: this.languages[i].acquiredDate,
+              licenseNumber: this.languages[i].licenseNumber,
+              agency: this.languages[i].agency,
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -150,6 +205,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -173,13 +231,13 @@ export default {
 /* 라인 정리 */
 #line1 {
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
 
 #line2 {
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
 }
 
@@ -199,10 +257,10 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#button {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -222,8 +280,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -233,12 +290,21 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
-  
-    
+.button-group button {
+  margin-left: auto;
 }
 a {
   text-decoration: none;
+  color: #f5f5f5;
+}
+hr {
   color: #f5f5f5;
 }
 </style>

@@ -6,22 +6,28 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 대외활동</label>
-        </header>
-        <div v-for="item of activation" :key="item">
-            <div class="info-set" id="line1">
-              <div class="formbox">
-                <label for="" class="form-label">활동명</label>
-                <input
-                  v-model="item.activationName"
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="프로젝트명"
-                  required
-                />
-              </div>
+          <div class="title">
+            <label for="">나의 이력 - 대외활동</label>
+            <div class="button-group">
+              <button class="btn btn-primary" @click="addActivation">추가</button>
+              <button class="btn btn-primary" @click="removeActivation">삭제</button>
             </div>
+          </div>
+        </header>
+        <div v-for="(item, index) of activation" :key="index" class="info-form">
+          <div class="info-set" id="line1">
+            <div class="formbox">
+              <label for="" class="form-label">활동명</label>
+              <input
+                v-model="item.activationName"
+                type="text"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="프로젝트명"
+                required
+              />
+            </div>
+          </div>
           <div class="info-set" id="line2">
             <div class="formbox">
               <label for="" class="form-label">시작일</label>
@@ -45,9 +51,9 @@
                 required
               />
             </div>
-          </div>         
-            <div class="info-set" id="line3">
-              <div class="formbox">
+          </div>
+          <div class="info-set" id="line3">
+            <div class="formbox">
               <label for="" class="form-label">담당업무 및 내용</label>
               <input
                 v-model="item.content"
@@ -58,12 +64,11 @@
                 required
               />
             </div>
-            </div>
           </div>
+          <hr> 
+        </div>
         <div class="btn" id="button">
-            <button  class="btn btn-primary">
-        저장
-      </button>
+          <button class="btn btn-primary" @click="saveActivations">저장</button>
           <!-- <input type="button" class="save-button" onclick="alert('클릭!')" />저장 -->
         </div>
       </div>
@@ -78,27 +83,74 @@ import SideBarCv from "../components/SideBarCv.vue";
 import axios from "axios";
 export default {
   components: { ToolBar, FooterBar, SideBarCv },
-  data() {
+   data() {
     return {
-      seekerId: '',
-      activation:'',
+      seekerId: "",
+      activation: [],
     };
   },
   created() {
     this.seekerId = sessionStorage.getItem("seekerId");
-    console.log(this.seekerId);
     axios
-      .get(this.$store.state.baseUrl+"api/activation/all/"+this.seekerId, {
-      })
+      .get(
+        this.$store.state.baseUrl + "api/activation/all/" + this.seekerId,
+        {}
+      )
       .then((res) => {
         this.activation = res.data;
-        console.log(this.activation);
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
       });
-  }
+  },
+  methods: {
+    addActivation() {
+      this.activation.push({
+        activationName: "",
+        startDate: "",
+        endDate: "",
+        content: "",
+      });
+    },
+    removeActivation() {
+      if (this.activation.length > 0) {
+        this.activation.pop();
+      }
+    },
+    saveActivations() {
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/activation/delete/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.activation.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/activation/register",{
+              activationName: this.activation[i].activationName,
+              startDate: this.activation[i].startDate,
+              endDate: this.activation[i].endDate,
+              content: this.activation[i].content,
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -127,6 +179,9 @@ export default {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #f5f5f5;
   font-size: 14px;
   font-weight: bolder;
@@ -176,10 +231,10 @@ export default {
   gap: 10px 20px;
 }
 
-#button{
-    display: flex;
-    margin: auto 0 0 auto;
-    gap: 10px 20px;
+#button {
+  display: flex;
+  margin: auto 0 0 auto;
+  gap: 10px 20px;
 }
 
 /* 폼 정리 */
@@ -199,8 +254,7 @@ export default {
         background-image: url(../assets/등록\ 버튼.png);
         width: 100px;
     } */
-.btn.btn-primary{
-
+.btn.btn-primary {
   height: 42.01px;
   border-radius: 5px;
   border-color: #808080;
@@ -210,12 +264,21 @@ export default {
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
-  
-    
+.button-group button {
+  margin-left: auto;
 }
 a {
   text-decoration: none;
+  color: #f5f5f5;
+}
+hr {
   color: #f5f5f5;
 }
 </style>
