@@ -8,8 +8,8 @@
       <router-link to="/login">로그인</router-link>
     </div>
     <div v-else >
-      <router-link to="/mycv">나의 이력</router-link>
-      <div style="background-color: #a46cff;color: white;border: 1px solid #a46cff; border-radius: 100%;" @click="logout">Logout</div>
+      <router-link to="/mycv"><b>나의 이력</b></router-link>
+      <div @click="logout"><img class="profile" src="../assets/my_profile.png"></div>
     </div>
   </header>
   <div class="container">
@@ -115,11 +115,17 @@ import FooterBar from '../components/FooterBar.vue';
 </script>
 
 <style scoped>
+b{
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+}
 img {
   vertical-align: 0%;
-  width: 30px;
+  width: 40px;
 }
-
+.profile{
+  width: 40px;
+}
 .name1,
 .name2 {
   font-weight: 700;
