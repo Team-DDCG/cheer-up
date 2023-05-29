@@ -33,8 +33,8 @@ public class SeekerFitDAOImpl implements SeekerFitDAO{
 	}
 
 	@Override
-	public List<SeekerFitVO> getSeekerFit(int id) {
-		return sqlSession.selectList(NS + "getSeekerFit", id);
+	public SeekerFitVO getSeekerFit(int id) {
+		return sqlSession.selectOne(NS + "getSeekerFit", id);
 	}
 	
 

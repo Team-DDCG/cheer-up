@@ -62,9 +62,9 @@ public class SeekerFitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<SeekerFitVO>> getSeekerFit(@PathVariable int id) {
+    public ResponseEntity<SeekerFitVO> getSeekerFit(@PathVariable int id) {
         try {
-            List<SeekerFitVO> seekerFit = seekerFitService.getSeekerFit(id);
+            SeekerFitVO seekerFit = seekerFitService.getSeekerFit(id);
             if (seekerFit != null) {
                 return ResponseEntity.ok(seekerFit);
             } else {

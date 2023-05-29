@@ -5,8 +5,8 @@
 <mapper namespace="CompanyFitMapper">
 	<insert id="registerCompanyFit" parameterType="com.service.spring.domain.CompanyFitVO">
 		INSERT
-		INTO company_fit(company_fit_id, company_name, company_needs1, company_needs2, company_needs3, company_needs4, company_needs5, company_rate1, company_rate2, company_rate3, company_rate4, company_rate5)
-		VALUES(company_fit_seq.NEXTVAL, #{companyName}, #{companyNeeds1}, #{companyNeeds2}, #{companyNeeds3}, #{companyNeeds4}, #{companyNeeds5}, #{companyRate1}, #{companyRate2}, #{companyRate3}, #{companyRate4}, #{companyRate5})
+		INTO company_fit(company_fit_id, company_name, company_needs1, company_needs2, company_needs3, company_needs4, company_needs5, company_rate1, company_rate2, company_rate3, company_rate4, company_rate5, seeker_id, resume_id)
+		VALUES(company_fit_seq.NEXTVAL, #{companyName}, #{companyNeeds1}, #{companyNeeds2}, #{companyNeeds3}, #{companyNeeds4}, #{companyNeeds5}, #{companyRate1}, #{companyRate2}, #{companyRate3}, #{companyRate4}, #{companyRate5}, #{seekerId}, #{resumeId})
 	</insert>
 	
 	<delete id="deleteCompanyFit" parameterType="int">
@@ -31,8 +31,8 @@
     
     <select id="getCompanyFit" parameterType="int" resultType="com.service.spring.domain.CompanyFitVO">
 	    SELECT 
-	    company_rate1, company_rate2, company_rate3, company_rate4, company_rate5, company_needs1, company_needs2, company_needs3, company_needs4, company_needs5, company_name
+	    company_rate1, company_rate2, company_rate3, company_rate4, company_rate5, company_needs1, company_needs2, company_needs3, company_needs4, company_needs5, company_name, seeker_id
 	    FROM company_fit
-	    WHERE company_fit_id=#{id}
+	    WHERE resume_id=#{id}
 	</select>
 </mapper>

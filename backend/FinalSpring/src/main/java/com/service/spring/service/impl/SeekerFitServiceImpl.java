@@ -31,7 +31,7 @@ public class SeekerFitServiceImpl implements SeekerFitService{
 	}
 
 	@Override
-	public List<SeekerFitVO> getSeekerFit(int id) {
+	public SeekerFitVO getSeekerFit(int id) {
 		return seekerFitDAO.getSeekerFit(id);
 	}
 

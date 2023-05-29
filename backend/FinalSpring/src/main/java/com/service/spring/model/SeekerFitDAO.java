@@ -8,5 +8,5 @@ public interface SeekerFitDAO {
 	int registerSeekerFit(SeekerFitVO seekerFit);
     int deleteSeekerFit(int fitId);
     int updateSeekerFit(SeekerFitVO seekerFit);
-    List<SeekerFitVO> getSeekerFit(int id);
+    SeekerFitVO getSeekerFit(int id);
 }
