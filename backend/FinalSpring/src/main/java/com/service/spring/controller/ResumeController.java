@@ -102,5 +102,15 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    
+    @PatchMapping("/{resumeId}")
+    public ResponseEntity<String> togglePostCheck(@PathVariable int resumeId) {
+        int result = resumeService.togglePostCheck(resumeId);
+        if (result == 1) {
+            return ResponseEntity.ok("Post check toggled successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resume not found.");
+        }
+    }
 
 }
