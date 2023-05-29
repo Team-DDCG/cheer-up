@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 from flask import Flask
 from flask import request, jsonify
@@ -279,6 +280,9 @@ def split_str_num(str_num):
 @app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
 def resumeCreate(seeker_id, company_id, company_name, position):
     
+    matching_arr = resume_matching(seeker_id, company_id, company_name, position)
+    print(matching_arr)
+    matching_index = 0
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
@@ -293,6 +297,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
 
         question_length_num, question_length_str = split_str_num(question_text_max)
         question_length_min = question_length_num - 100
+
         # print("num : " + result_num)
         # print("str : " + result_str)
 
@@ -300,25 +305,11 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         completion = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
-            {"role": "system", "content": ("너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
+            {"role": "system", "content": ("너는 내가 제공하는 이력 정보 기반으로 "
                                         "기업 자기소개서 질문과 지원 직무에 맞추어 기업에 제출할 자기소개서를 작성해주는 AI야")},
 
             {"role": "assistant", "content": ("자기소개서를 작성하는데 유의할 점이 있나요?")},
-            {"role": "user", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 쓰지말고, 두괄식으로 작성해줘"
-                                        "그리고 내가 제공해주는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 중 없는 것이 있다면 참고하지 말아줘 ")},
-
-            {"role": "assistant", "content": ("인삿말과 이름 소개를 쓰지 않도록 하겠습니다. 더 유의할 점이 있나요?")},
-            {"role": "user", "content": ("내가 제공하는 정보를 너무 다양하고 얕게 작성하지말고 1~2개 정도의 정보를 기반으로 구체적으로 자기소개서를 작성해줘")},
-
-            {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
-                                            
-            {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
-            {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
-            {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
-            {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
-            {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
-            {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
-            {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
+            {"role": "user", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 쓰지말고, 두괄식으로 작성해줘")},
 
             {"role": "assistant", "content": ("기업명과 지원 직무, 자기소개서 질문, 자기소개서 글자 수 범위를 알려주세요.")},
             {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
@@ -326,11 +317,12 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
             {"role": "user", "content":f"자기소개서 최대 글자수 : {question_length_min}{question_length_str} ~ {question_length_num}{question_length_str} 사이"},
             
-            {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 "
-                                             f"{company_name} {position} 직무의 자기소개서를 작성해드리도록 하겠습니다."},
-            {"role": "user", "content":f"자기소개서 내용에 인삿말(감사합니다, 안녕하세요)과 이름 소개가 들어갔다면 그 부분은 삭제해줘"},
+            {"role": "assistant", "content": ("자기소개서 질문에 적용하고 싶은 이력 정보가 있나요?")},
+            {"role": "user", "content": f"{matching_arr[0][matching_index]} \n 첫 줄은 자기소개서 질문이고, 그 다음에 있는 해당하는 이력 정보를 기반으로 자기소개서를 작성해줘"},
 
-            {"role": "assistant", "content": ("감사합니다, 안녕하세요와 같은 인삿말이 작성되어 있는 부분은 삭제하겠습니다. 작성된 자기소개서에 추가할 부분이 있나요?")},
+            {"role": "assistant", "content": f"{company_name} {position} 직무의 자기소개서를 작성해드리도록 하겠습니다."},
+            
+            {"role": "assistant", "content": ("작성된 자기소개서에 추가할 부분이 있나요?")},
             {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
             ],
             # repetition_penalty=1.2,
@@ -338,6 +330,48 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             max_tokens=2048
         )
 
+        # # Call the chat GPT API 
+        # completion = openai.ChatCompletion.create(
+        #     model="gpt-4",
+        #     messages=[
+        #     {"role": "system", "content": ("너는 내가 제공하는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 등을 기반으로 "
+        #                                 "기업 자기소개서 질문과 지원 직무에 맞추어 기업에 제출할 자기소개서를 작성해주는 AI야")},
+
+        #     {"role": "assistant", "content": ("자기소개서를 작성하는데 유의할 점이 있나요?")},
+        #     {"role": "user", "content": ("인삿말(감사합니다, 안녕하세요)과 이름 소개는 쓰지말고, 두괄식으로 작성해줘"
+        #                                 "그리고 내가 제공해주는 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보 중 없는 것이 있다면 참고하지 말아줘 ")},
+
+        #     {"role": "assistant", "content": ("인삿말과 이름 소개를 쓰지 않도록 하겠습니다. 더 유의할 점이 있나요?")},
+        #     {"role": "user", "content": ("내가 제공하는 정보를 너무 다양하고 얕게 작성하지말고 1~2개 정도의 정보를 기반으로 구체적으로 자기소개서를 작성해줘")},
+
+        #     {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
+                                            
+        #     {"role": "user", "content":f"{total_table[0][len(total_table[0])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[1][len(total_table[1])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[2][len(total_table[2])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[3][len(total_table[3])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[4][len(total_table[4])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[5][len(total_table[5])-1]}\n"},
+        #     {"role": "user", "content":f"{total_table[6][len(total_table[6])-1]}\n"},
+
+        #     {"role": "assistant", "content": ("기업명과 지원 직무, 자기소개서 질문, 자기소개서 글자 수 범위를 알려주세요.")},
+        #     {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
+        #     {"role": "user", "content":f"지원 직무 : {position}\n"},
+        #     {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
+        #     {"role": "user", "content":f"자기소개서 최대 글자수 : {question_length_min}{question_length_str} ~ {question_length_num}{question_length_str} 사이"},
+            
+        #     {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 "
+        #                                      f"{company_name} {position} 직무의 자기소개서를 작성해드리도록 하겠습니다."},
+        #     {"role": "user", "content":f"자기소개서 내용에 인삿말(감사합니다, 안녕하세요)과 이름 소개가 들어갔다면 그 부분은 삭제해줘"},
+
+        #     {"role": "assistant", "content": ("감사합니다, 안녕하세요와 같은 인삿말이 작성되어 있는 부분은 삭제하겠습니다. 작성된 자기소개서에 추가할 부분이 있나요?")},
+        #     {"role": "user", "content": ("제일 첫 번째 줄에는 []안에 작성된 자기소개서 내용의 제목을 간략하게 작성해줘")},
+        #     ],
+        #     # repetition_penalty=1.2,
+        #     temperature=0.8,
+        #     max_tokens=2048
+        # )
+        
         time.sleep(30)    
         
         print(resume_question)
@@ -353,6 +387,8 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         conn.commit()
         cursor.close()
         conn.close()
+
+        matching_index += 1
 
         result_arr.append([[resume_question, message_result]])
 
@@ -435,9 +471,7 @@ def resume_matching(seeker_id, company_id, company_name, position):
         messages=[
         {"role": "system", "content": ("너는 내가 제공하는 이력사항을 기반으로 자기소개서 문항과 어울리는 이력사항을 매칭해주는 AI야")},
 
-        {"role": "assistant", "content": ("문항과 이력사항을 매칭하는데 유의할 점이 있나요?")},
-        {"role": "user", "content": ("나의 이력정보를 기반으로 어떤 이력정보를 각각 자기소개서 문항에 적용해서 자기소개서를 작성하는게 좋을지"
-                                    "한 문항당 이력정보 1~2개를 문항마다 최대한 중복없이 이력정보 내용없이 숫자만 써서 뽑아줘")},
+
 
         {"role": "assistant", "content": ("이력사항과 자기소개서 문항을 매칭하기 위해 이력정보를 알려주세요.")},
                                         
@@ -453,16 +487,27 @@ def resume_matching(seeker_id, company_id, company_name, position):
         {"role": "user", "content":f"지원 직무 : {question_table[0][1]}\n"},
         {"role": "user", "content":f"자기소개서 질문 : {question_str}\n"},
 
+        {"role": "assistant", "content": ("문항과 이력사항을 매칭하는데 유의할 점이 있나요?")},
+        {"role": "user", "content": ("나의 이력정보를 기반으로 어떤 이력정보를 각각 자기소개서 문항에 적용해서 자기소개서를 작성하는게 좋을지"
+                                    "한 문항당 이력정보 1~2개를 문항마다 최대한 중복없이 이력정보를 뽑아줘")},
         ],
-        # repetition_penalty=1.2,
-        temperature=0.8,
+        temperature=0.5,
         max_tokens=2048
     )
-
     
     message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
 
-    return jsonify({"result": message_result})
+    result_matching = []
+
+    for i in range(len(question_table)-1) :
+        message_result = message_result.replace((str(i+2)+". "), '$')
+        print(str(i+1)+". ")
+        print(message_result)
+
+    result_matching.append(message_result.split('$'))
+
+    return result_matching
+
 
 
 
@@ -863,7 +908,6 @@ def makePortfolio(seeker_id):
     )
 
 '''
-
 
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', debug=True, port=5000)
