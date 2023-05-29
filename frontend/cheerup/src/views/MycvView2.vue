@@ -6,7 +6,12 @@
       <side-bar-cv />
       <div id="cv_content">
         <header>
-          <label for="" class="title">나의 이력 - 경력사항</label>
+          <label for="" class="title">나의 이력 - 경력사항 <div class="btn" id="button">
+            <button  class="btn btn-primary">
+        저장
+      </button>
+        </div></label>
+        
         </header>
         <div v-for="item of career" :key="item">
           <div class="info-set" id="imgNline_line">
@@ -19,6 +24,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="회사명"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -29,6 +35,7 @@
                   class="form-control"
                   id="exampleFormControlInput2"
                   placeholder="부서"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -39,6 +46,7 @@
                   class="form-control"
                   id="exampleFormControlInput3"
                   placeholder="부서"
+                  required
                 />
               </div>
             </div>
@@ -53,6 +61,7 @@
                 class="form-control"
                 id="exampleFormControlInput4"
                 placeholder="입사일"
+                required
               />
             </div>
             <div class="formbox">
@@ -63,27 +72,54 @@
                 class="form-control"
                 id="exampleFormControlInput5"
                 placeholder="퇴사일"
+                required
               />
             </div>
             <div class="formbox">
-              <label for="exampleFormControlInput6" class="form-label">재직여부</label>
+              <!-- <label for="exampleFormControlInput6" class="form-label">재직여부</label>
               <input
                 v-model="item.attendingCheck"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput6"
                 placeholder="재직여부"
-              />
+              /> -->
+              <label for="exampleFormControlInput6" class="form-label"
+                >재직여부</label
+              ><br />
+              <select
+                v-model="item.attendingCheck"
+                class="form-control"
+                id="exampleFormControlInput6"
+                required
+              >
+                <option value="0">재직중</option>
+                <option value="1">퇴사</option>
+              </select>
             </div>
+            
             <div class="formbox">
-              <label for="exampleFormControlInput7" class="form-label">고용형태</label>
+              <!-- <label for="exampleFormControlInput7" class="form-label">고용형태</label>
               <input
                 v-model="item.hireType"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput7"
                 placeholder="고용형태"
-              />
+              /> -->
+              <label for="exampleFormControlInput7" class="form-label"
+                >고용형태</label
+              ><br />
+              <select
+                v-model="item.hireType"
+                class="form-control"
+                id="exampleFormControlInput7"
+                required
+              >
+                <option value="0">정규직</option>
+                <option value="1">비정규직</option>
+                <option value="2">인턴</option>
+              </select>
             </div>
           </div> 
         </div>        

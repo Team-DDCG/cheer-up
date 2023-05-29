@@ -18,6 +18,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="거주 국가"
+                  required
                 />
               </div>
             </div>
@@ -30,6 +31,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="거주 시작일"
+                required
               />
             </div>
             <div class="formbox">
@@ -40,6 +42,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="거주 종료일"
+                required
               />
             </div>
             <div class="formbox">
@@ -50,6 +53,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="기관"
+                  required
                 />
               </div>
           </div>         
@@ -62,6 +66,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="거주사유"
+                required
               />
             </div>
             </div>

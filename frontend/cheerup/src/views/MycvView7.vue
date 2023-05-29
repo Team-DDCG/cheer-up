@@ -19,6 +19,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="언어"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -29,6 +30,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="어학 종류"
+                  required
                 />
               </div>
             </div>

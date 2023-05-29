@@ -19,6 +19,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="수상명"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -29,6 +30,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="주최 기관"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -39,6 +41,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="수상 날짜"
+                  required
                 />
             </div>
             </div>
@@ -50,7 +53,8 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="등록/자격 번호"
+                placeholder="담당 업무 및 수상 내용"
+                required
               />
             </div> 
              </div>    

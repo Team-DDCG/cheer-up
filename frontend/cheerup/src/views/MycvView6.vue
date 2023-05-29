@@ -18,6 +18,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="언어"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -28,6 +29,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="어학 종류"
+                  required
                 />
               </div>
             </div>
@@ -40,6 +42,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="어학등급/점수"
+                  required
                 />
               </div>
               <div class="formbox">
@@ -50,6 +53,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="퇴사일"
+                required
               />
             </div>
               
@@ -63,6 +67,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="등록/자격 번호"
+                required
               />
             </div>
             <div class="formbox">
@@ -73,6 +78,7 @@
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="발행기관"
+                required
               />
             </div>
             </div>

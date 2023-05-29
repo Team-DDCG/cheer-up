@@ -21,7 +21,7 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="회원번호"
+                placeholder="회원번호" required
               />
             </div>
 
@@ -32,7 +32,7 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="Ename"
+                  placeholder="Ename" required
                 />
               </div>
 
@@ -43,7 +43,7 @@
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="漢字"
+                  placeholder="漢字" required
                 />
               </div>
               
@@ -57,7 +57,7 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="nation"
+                placeholder="nation" required
               />
             </div>
             <div class="formbox">
@@ -67,7 +67,7 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="Birth date"
+                placeholder="Birth date" required
               />
             </div>
             <div class="formbox">
@@ -77,7 +77,7 @@
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="Birth date"
+                placeholder="Birth date" required
               />
             </div>            
           </div>       
@@ -89,7 +89,7 @@
               <select
                 v-model="seeker.military"
                 class="form-control"
-                id="exampleFormControlSelect1"
+                id="exampleFormControlSelect1" required
               >
                 <option value="0">필</option>
                 <option value="1">미필</option>
@@ -105,7 +105,7 @@
               <select
                 v-model="seeker.bohun"
                 class="form-control"
-                id="exampleFormControlSelect1"
+                id="exampleFormControlSelect1" required
               >
                 <option value="0">대상</option>
                 <option value="1">비대상</option>
@@ -118,7 +118,7 @@
               <select
                 v-model="seeker.disabled"
                 class="form-control"
-                id="exampleFormControlSelect1"
+                id="exampleFormControlSelect1" required
               >
                 <option value="0">대상</option>
                 <option value="1">비대상</option>
