@@ -46,5 +46,9 @@
 		WHERE seeker_id=#{seekerId}
 	</select>
 	
+	<select id="getCareerNumber" parameterType="int" resultType="int">
+		select count(*) FROM user_career_info 
+		WHERE seeker_id = #{seekerId}
+	</select>
 	
 </mapper>

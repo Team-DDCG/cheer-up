@@ -38,5 +38,10 @@ public class UserCareerServiceImpl implements UserCareerService {
 	public List<UserCareerVO> getAllUserCareer(int seekerId) throws Exception {
 		return userCareerDAO.getAllUserCareer(seekerId);
 	}
+
+	@Override
+	public int getCareerNumber(int seekerId) {
+		return userCareerDAO.getCareerNumber(seekerId);
+	}
 	
 }

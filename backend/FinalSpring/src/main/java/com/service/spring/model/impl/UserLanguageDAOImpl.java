@@ -41,4 +41,9 @@ public class UserLanguageDAOImpl implements UserLanguageDAO{
 		return sqlSession.selectList(NS + "getAllUserLanguage", seekerId);
 	}
 
+	@Override
+	public int getLanguageNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getLanguageNumber", seekerId);
+	}
+
 }

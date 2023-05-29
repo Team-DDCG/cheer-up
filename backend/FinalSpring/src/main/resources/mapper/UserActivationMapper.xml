@@ -44,5 +44,10 @@
 		WHERE seeker_id=#{seekerId}
 	</select>
 	
+	<select id="getActivationNumber" parameterType="int" resultType="int">
+		select count(*) FROM user_activation_info 
+		WHERE seeker_id = #{seekerId}
+	</select>
+	
 	
 </mapper>

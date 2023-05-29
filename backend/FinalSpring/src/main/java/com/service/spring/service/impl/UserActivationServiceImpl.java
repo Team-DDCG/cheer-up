@@ -40,4 +40,9 @@ public class UserActivationServiceImpl implements UserActivationService{
 		return userActivationDAO.getAllActivationById(seekerId); 
 	}
 
+	@Override
+	public int getActivationNumber(int seekerId) {
+		return userActivationDAO.getActivationNumber(seekerId);
+	}
+
 }

@@ -45,4 +45,9 @@
 		WHERE seeker_id = #{seekerId}
 	</select>
 	
+	<select id="getLicenseNumber" parameterType="int" resultType="int">
+		select count(*) FROM user_license_info 
+		WHERE seeker_id = #{seekerId}	
+	</select>
+	
 </mapper>

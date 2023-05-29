@@ -41,4 +41,9 @@ public class UserCareerDAOImpl implements UserCareerDAO {
 		return sqlSession.selectList(NS + "getAllUserCareer", seekerId);
 	}
 
+	@Override
+	public int getCareerNumber(int seekerId) {
+		return sqlSession.selectOne(NS + "getCareerNumber", seekerId);
+	}
+
 }

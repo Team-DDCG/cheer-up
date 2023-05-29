@@ -79,4 +79,14 @@ public class UserLicenseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getLicenseNumber(@PathVariable int seekerId) {
+        try {
+            int licenseNumber = userLicenseService.getLicenseNumber(seekerId);
+            return ResponseEntity.ok(licenseNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

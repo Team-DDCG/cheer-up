@@ -43,4 +43,9 @@ public class UserActivationDAOImpl implements UserActivationDAO{
 		return sqlSession.selectList(NS + "getAllActivationById", seekerId);
 	}
 
+	@Override
+	public int getActivationNumber(int seekerId) {
+		return sqlSession.selectOne(NS + "getActivationNumber", seekerId);
+	}
+
 }

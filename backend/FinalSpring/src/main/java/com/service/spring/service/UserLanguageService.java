@@ -11,4 +11,5 @@ public interface UserLanguageService {
 	
 	UserLanguageVO getUserLanguage(int id) throws Exception;
 	List<UserLanguageVO> getAllUserLanguage(int seekerId) throws Exception;
+	int getLanguageNumber(int seekerId) throws Exception;
 }

@@ -45,5 +45,9 @@
 		WHERE seeker_id=#{seekerId}
 	</select>
 	
+	<select id="getRewardNumber" parameterType="int">
+		select count(*) FROM user_reward_info 
+		WHERE seeker_id = #{seekerId}	
+	</select>
 	
 </mapper>

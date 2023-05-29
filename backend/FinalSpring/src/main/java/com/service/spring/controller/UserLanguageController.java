@@ -79,4 +79,14 @@ public class UserLanguageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getLanguageNumber(@PathVariable int seekerId) {
+        try {
+            int languageNumber = userLanguageService.getLanguageNumber(seekerId);
+            return ResponseEntity.ok(languageNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

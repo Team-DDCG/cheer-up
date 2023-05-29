@@ -38,7 +38,7 @@
 	
 	<select id="getUserInfo" parameterType="int" resultType="com.service.spring.domain.UserInfoVO">
 		SELECT
-		id, password, user_name, TO_CHAR(birthdate, 'YYYY-MM-DD') AS birthdate, sex, email, phone, user_status, TO_CHAR(tstamp, 'YYYY-MM-DD') AS tstamp, mail_check, address
+		user_id, id, password, user_name, TO_CHAR(birthdate, 'YYYY-MM-DD') AS birthdate, sex, email, phone, user_status, TO_CHAR(tstamp, 'YYYY-MM-DD') AS tstamp, mail_check, address
 		FROM user_info
 		WHERE user_id=#{userId}
 	</select>

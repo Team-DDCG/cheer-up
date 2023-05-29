@@ -70,4 +70,9 @@ public class UserActivationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public int getActivationNumber(@PathVariable int seekerId) {
+        return userActivationService.getActivationNumber(seekerId);
+    }
 }

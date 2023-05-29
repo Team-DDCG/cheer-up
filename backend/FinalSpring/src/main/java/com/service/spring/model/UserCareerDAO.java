@@ -11,4 +11,5 @@ public interface UserCareerDAO {
 
     UserCareerVO getUserCareer(int careerId) throws Exception;
     List<UserCareerVO> getAllUserCareer(int seekerId) throws Exception;
+    int getCareerNumber(int seekerId);
 }

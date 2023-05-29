@@ -45,5 +45,10 @@
 		WHERE seeker_id = #{seekerId}
 	</select>
 	
+	<select id="getLanguageNumber" parameterType="int" resultType="int">
+		select count(*) FROM user_language_info 
+		WHERE seeker_id = #{seekerId}
+	</select>
+	
 	
 </mapper>

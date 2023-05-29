@@ -12,4 +12,6 @@ public interface UserLicenseService {
 	
 	UserLicenseVO getUserLicense(int id) throws Exception;
 	List<UserLicenseVO> getAllUserLicense(int seekerId) throws Exception;
+	int getLicenseNumber(int seekerId) throws Exception;
+
 }

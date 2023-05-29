@@ -39,4 +39,9 @@ public class UserLanguageServiceImpl implements UserLanguageService{
 		return userLanguageDAO.getAllUserLanguage(seekerId);
 	}
 
+	@Override
+	public int getLanguageNumber(int seekerId) throws Exception {
+		return userLanguageDAO.getLanguageNumber(seekerId);
+	}
+
 }

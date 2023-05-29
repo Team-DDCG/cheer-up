@@ -13,4 +13,5 @@ public interface UserActivationService {
     
     UserActivationVO getActivationDetail(int activationId);
     List<UserActivationVO> getAllActivationById(int seekerId);
+    int getActivationNumber(int seekerId);
 }

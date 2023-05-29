@@ -41,4 +41,9 @@ public class UserLicenseDAOImpl implements UserLicenseDAO {
 		return sqlSession.selectList(NS + "getAllUserLicense", seekerId);
 	}
 
+	@Override
+	public int getLicenseNumber(int seekerId) throws Exception {
+		return sqlSession.selectOne(NS + "getLicenseNumber", seekerId);
+	}
+
 }

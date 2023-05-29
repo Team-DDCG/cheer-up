@@ -39,4 +39,9 @@ public class UserLicenseServiceImpl implements UserLicenseService {
 		return userLicenseDAO.getAllUserLicense(seekerId);
 	}
 
+	@Override
+	public int getLicenseNumber(int seekerId) throws Exception {
+		return userLicenseDAO.getLicenseNumber(seekerId);
+	}
+
 }

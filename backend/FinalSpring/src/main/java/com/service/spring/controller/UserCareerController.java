@@ -78,4 +78,14 @@ public class UserCareerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @GetMapping("/number/{seekerId}")
+    public ResponseEntity<Integer> getCareerNumber(@PathVariable int seekerId) {
+        try {
+            int careerNumber = userCareerService.getCareerNumber(seekerId);
+            return ResponseEntity.ok(careerNumber);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
