@@ -25,7 +25,12 @@
                   <td class="c2">{{ item.title }}</td>
                   <td class="c3">{{ item.startDate }}</td>
                   <td class="c4">{{ item.endDate }}</td>
-                  <td class="c5">{{ item.postCheck }}</td>
+                  <td class="c5">
+                    <div class="checkbox-wrapper-9">
+                      <input type="checkbox" id="cb4-9" class="tgl tgl-flat" />
+                      <label for="cb4-9" class="tgl-btn"></label>
+                    </div>
+                  </td>
                 </tr>
               </table>
             </div>
