@@ -89,7 +89,7 @@ def company_table_select(company_id, position):
 
     cursor = conn.cursor()
         
-    sql = "SELECT position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = '" + str(position) + "'"
+    sql = "SELECT question_id, position, question, length FROM question WHERE company_id = " + str(company_id) + " AND position = '" + str(position) +"'"
     cursor.execute(sql)
     rows = cursor.fetchall() 
 
@@ -155,9 +155,16 @@ def portfolio_career_table(seeker_id):
 
 
 
+def split_str_num(str_num):
+    for index in range(len(str_num)):
+        if not str_num[index].isdigit():
+            return str_num[:index], str_num[index:]
+        
+
 @app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
 def resumeCreate(seeker_id, company_id, company_name, position):
     
+    result_arr = []
     total_table = career_table_select(seeker_id)
     # company_value[0~3] = 순서 : question_id,  position, question, length
     company_table = company_table_select(company_id, position)
@@ -166,9 +173,14 @@ def resumeCreate(seeker_id, company_id, company_name, position):
     for company_value in company_table :
 
         # 직무, 자소서 질문, 자소서 최대 길이
-        # position = company_value[0]
-        resume_question = company_value[1]
-        question_text_max = company_value[2]
+        # position = company_value[1]
+        resume_question = company_value[2]
+        question_text_max = company_value[3]
+
+        question_length_num, question_length_str = split_str_num(question_text_max)
+        question_length_min = question_length_num - 100
+        # print("num : " + result_num)
+        # print("str : " + result_str)
 
         # Call the chat GPT API 
         completion = openai.ChatCompletion.create(
@@ -184,8 +196,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             {"role": "assistant", "content": ("인삿말과 이름 소개를 쓰지 않도록 하겠습니다. 더 유의할 점이 있나요?")},
             {"role": "user", "content": ("내가 제공하는 정보를 너무 다양하고 얕게 작성하지말고 1~2개 정도의 정보를 기반으로 구체적으로 자기소개서를 작성해줘")},
 
-            {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주시고, "
-                                              "기업명과 지원 직무, 자기소개서 질문, 자기소개서 최대 글자수를 알려주세요.")},
+            {"role": "assistant", "content": ("자기소개서를 작성하기 위해 경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 알려주세요.")},
                                             
             {"role": "user", "content":f"1. 경력 : {total_table[0]}\n"},
             {"role": "user", "content":f"2. 프로젝트 경험 : {total_table[1]}\n"},
@@ -194,10 +205,12 @@ def resumeCreate(seeker_id, company_id, company_name, position):
             {"role": "user", "content":f"5. 해외 경험 : {total_table[4]}\n"},
             {"role": "user", "content":f"6. 보유한 자격증 : {total_table[5]}\n"},
             {"role": "user", "content":f"7. 보유 스킬 정보 : {total_table[6]}\n"},
+
+            {"role": "assistant", "content": ("기업명과 지원 직무, 자기소개서 질문, 자기소개서 글자 수 범위를 알려주세요.")},
             {"role": "user", "content":f"지원할 기업의 기업명 : {company_name}\n"},
             {"role": "user", "content":f"지원 직무 : {position}\n"},
             {"role": "user", "content":f"자기소개서 질문 : {resume_question}\n"},
-            {"role": "user", "content":f"자기소개서 최대 글자수 : {question_text_max}"},
+            {"role": "user", "content":f"자기소개서 최대 글자수 : {question_length_min}{question_length_str} ~ {question_length_num}{question_length_str} 사이"},
             
             {"role": "assistant", "content": f"경력, 프로젝트 경험, 대외 활동, 해외 경험, 수상 경력, 자격증, 스킬정보를 기반으로 "
                                              f"{company_name} {position} 직무의 자기소개서를 작성해드리도록 하겠습니다."},
@@ -217,16 +230,17 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         
         message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
         
-        # conn = dbconn.db_connect()
-        # cursor = conn.cursor()
-        # sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
-        # cursor.execute(sql, {'content': message_result, 
-        #                     'seeker_id': seeker_id, 
-        #                     'company_id': company_id})
-        # conn.commit()
-        # cursor.close()
-        # conn.close()
-        result_arr.append([resume_question, question_text_max, message_result])
+        conn = dbconn.db_connect()
+        cursor = conn.cursor()
+        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
+        cursor.execute(sql, {'content': message_result, 
+                            'seeker_id': seeker_id, 
+                            'company_id': company_id})
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        result_arr.append([[resume_question, message_result]])
 
     # return 'good'
     return jsonify({"result": result_arr})

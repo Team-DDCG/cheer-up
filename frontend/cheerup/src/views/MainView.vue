@@ -4,7 +4,13 @@
     <div>
 
     </div>
-    <router-link to="/login">로그인</router-link>
+    <div v-if="!isLoggedIn">
+      <router-link to="/login">로그인</router-link>
+    </div>
+    <div v-else >
+      <router-link to="/mycv">나의 이력</router-link>
+      <div style="background-color: #a46cff;color: white;border: 1px solid #a46cff; border-radius: 100%;" @click="logout">Logout</div>
+    </div>
   </header>
   <div class="container">
     <img src="../assets/main_tem.png" style="width : 60%;" />
@@ -89,7 +95,21 @@ import FooterBar from '../components/FooterBar.vue';
       return {
 
       }
-  },
+    },
+    computed: {
+      isLoggedIn() {
+        // 로컬 스토리지에서 세션 상태를 확인
+        return localStorage.getItem('isLoggedIn') === 'true';
+      }
+    },
+    methods: {
+      logout() {
+        // 세션 상태를 초기화하고 로그인 페이지로 이동
+        localStorage.removeItem('isLoggedIn');
+        sessionStorage.clear();
+        this.$router.push('/login');
+      }
+    }
  }
 
 </script>

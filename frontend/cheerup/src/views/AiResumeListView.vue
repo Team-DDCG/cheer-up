@@ -19,18 +19,13 @@
                   <th class="c4">채용마감일</th>
                   <th class="c5">게시 여부</th>
                 </tr>
-                <tr>
+                <tr v-for="item of resume" :key="item">
                   <td><input type="checkbox" class="post-check" /></td>
-                  <td class="c1">KB국민은행</td>
-                  <td class="c2">[신입]kb국민은행 신입 채용</td>
-                  <td class="c3">2023.05.16</td>
-                  <td class="c4">2023.05.31</td>
-                  <td class="c5">
-                    <div class="checkbox-wrapper-9">
-                      <input type="checkbox" id="cb4-9" class="tgl tgl-flat" />
-                      <label for="cb4-9" class="tgl-btn"></label>
-                    </div>
-                  </td>
+                  <td class="c1">{{ item.name }}</td>
+                  <td class="c2">{{ item.title }}</td>
+                  <td class="c3">{{ item.startDate }}</td>
+                  <td class="c4">{{ item.endDate }}</td>
+                  <td class="c5">{{ item.postCheck }}</td>
                 </tr>
               </table>
             </div>
@@ -54,14 +49,30 @@
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
-
+import axios from "axios";
 export default {
   components: { ToolBar },
   data() {
-    return {};
+    return {
+      seekerId: '',
+      resume: '',
+    };
   },
-  mounted() {},
-  methods: {},
+  created() {
+    this.seekerId = sessionStorage.getItem("seekerId");
+    console.log(this.seekerId);
+    axios
+      .get(this.$store.state.baseUrl+"api/resume/all/"+this.seekerId, {
+      })
+      .then((res) => {
+        this.resume = res.data;
+        console.log(this.resume);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
+  }
 };
 </script>
 

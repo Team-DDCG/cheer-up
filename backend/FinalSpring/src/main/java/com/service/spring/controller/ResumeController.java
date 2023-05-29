@@ -92,5 +92,15 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resume not found.");
         }
     }
+    
+    @GetMapping("/all/{seekerId}")
+    public ResponseEntity<List<ResumeDTO>> getAllResumeBySeekerId(@PathVariable int seekerId) {
+        List<ResumeDTO> resumes = resumeService.getAllResumeBySeekerId(seekerId);
+        if (!resumes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(resumes);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 }

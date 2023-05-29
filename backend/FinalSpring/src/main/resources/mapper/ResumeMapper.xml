@@ -49,5 +49,14 @@
 		JOIN user_info ui ON umi.user_id = ui.user_id
 		WHERE r.resume_id = #{resumeId}
 	</select>
+	
+	<select id="getAllResumeBySeekerId" parameterType="int" resultType="com.service.spring.DTO.ResumeDTO">
+		SELECT DISTINCT c.company_name, c.title, c.start_date, c.end_date, r.post_check
+		FROM company c
+		JOIN question q ON c.company_id = q.company_id
+		JOIN resume r ON r.company_id = c.company_id
+		JOIN user_seeker_info usi ON usi.seeker_id = r.seeker_id
+		WHERE usi.seeker_id = #{seekerId}
+	</select>
 
 </mapper>
