@@ -112,5 +112,14 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resume not found.");
         }
     }
+    
+    @GetMapping("/questions/{resumeId}")
+    public ResponseEntity<List<ResumeVO>> getAllQuestionByResumeId(@PathVariable int resumeId) {
+        List<ResumeVO> questions = resumeService.getAllQuestionByResumeId(resumeId);
+        if (!questions.isEmpty()) {
+            return new ResponseEntity<>(questions, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
 }

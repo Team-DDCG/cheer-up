@@ -63,5 +63,10 @@ public class ResumeServiceImpl implements ResumeService{
 		return resumeDAO.togglePostCheck(resumeId);
 	}
 
+	@Override
+	public List<ResumeVO> getAllQuestionByResumeId(int resumeId) {
+		return resumeDAO.getAllQuestionByResumeId(resumeId);
+	}
+
 
 }

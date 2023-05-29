@@ -5,8 +5,8 @@
 <mapper namespace="ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.service.spring.domain.ResumeVO">
-		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date)
-		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE)	
+		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date, question_id)
+		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE, #{questionId})	
 	</insert>
 	
 	<delete id="deleteResume" parameterType="int">
@@ -64,5 +64,12 @@
   		SET post_check = CASE WHEN post_check = 0 THEN 1 ELSE 0 END
   		WHERE resume_id = #{resumeId}
 	</update>
+	
+	<select id="getAllQuestionByResumeId" parameterType="int" resultType="com.service.spring.domain.QuestionVO">
+		SELECT q.question, q.position, q.length, q.company_id
+		FROM resume r JOIN question q
+		ON r.question_id = q.question_id
+		WHERE r.resume_id = #{resumeId}
+	</select>
 
 </mapper>
