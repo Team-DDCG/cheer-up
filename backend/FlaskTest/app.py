@@ -377,16 +377,6 @@ def resumeCreate(seeker_id, company_id, company_name, position):
         print(resume_question)
         
         message_result = completion["choices"][0]["message"]["content"].encode("utf-8").decode()
-        
-        conn = dbconn.db_connect()
-        cursor = conn.cursor()
-        sql = "INSERT INTO resume VALUES(resume_seq.nextval, :content, 0, :seeker_id, :company_id, SYSDATE)"
-        cursor.execute(sql, {'content': message_result, 
-                            'seeker_id': seeker_id, 
-                            'company_id': company_id})
-        conn.commit()
-        cursor.close()
-        conn.close()
 
         matching_index += 1
 
@@ -567,30 +557,6 @@ def myCharacteristic(seeker_id):
 
     print(arr)
 
-    # DB insert
-    conn = dbconn.db_connect()
-    cursor = conn.cursor()
-
-    sql = ("INSERT INTO seeker_fit VALUES"
-           "(seeker_fit_seq.nextval, :TENDENCY1, :TENDENCY2, :TENDENCY3,"
-           ":TENDENCY4, :TENDENCY5,"
-           ":RATE1, :RATE2, :RATE3, :RATE4, :RATE5, :seeker_id)")
-    
-    cursor.execute(sql, {'TENDENCY1': arr[0][0],
-                         'TENDENCY2': arr[1][0],
-                         'TENDENCY3': arr[2][0],
-                         'TENDENCY4': arr[3][0],
-                         'TENDENCY5': arr[4][0],
-                         'RATE1': arr[0][1],
-                         'RATE2': arr[1][1],
-                         'RATE3': arr[2][1],
-                         'RATE4': arr[3][1],
-                         'RATE5': arr[4][1],
-                         'seeker_id': seeker_id})
-    conn.commit()
-    cursor.close()
-    conn.close()
-
     return jsonify({"result": arr})
 
 
@@ -651,32 +617,6 @@ def goodnessOfFit(seeker_id, company_name):
     # 적합도 비율은 int 값이여야 하므로 str -> int로 변환
     for tmp in arr :
         arr[arr.index(tmp)][1] = int(tmp[1])
-
-    # DB 접속 및 저장, close
-    conn = dbconn.db_connect()
-    cursor = conn.cursor()
-    
-    sql = ("INSERT INTO company_fit VALUES"
-           "(company_fit_seq.nextval, :company_name, :company_needs1, :company_needs2,"
-           ":company_needs3, :company_needs4, :company_needs5,"
-           ":company_rate1, :company_rate2, :company_rate3, :company_rate4,"
-           ":company_rate5, :seeker_id)")
-    
-    cursor.execute(sql, {'company_name': company_name,
-                         'company_needs1': arr[0][0],
-                         'company_needs2': arr[1][0],
-                         'company_needs3': arr[2][0],
-                         'company_needs4': arr[3][0],
-                         'company_needs5': arr[4][0],
-                         'company_rate1': arr[0][1],
-                         'company_rate2': arr[1][1],
-                         'company_rate3': arr[2][1],
-                         'company_rate4': arr[3][1],
-                         'company_rate5': arr[4][1],
-                         'seeker_id': seeker_id})
-    conn.commit()
-    cursor.close()
-    conn.close()
 
     return jsonify({"result": arr})
 
