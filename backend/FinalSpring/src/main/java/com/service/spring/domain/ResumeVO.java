@@ -8,12 +8,13 @@ public class ResumeVO {
     private int seekerId; //seeker_id(fk)
     private int companyId; // company_id(fk)
     private String position;
+    private int questionId;
     
     public ResumeVO() {
     }
 
-	public ResumeVO(String content, int postCheck, String generateDate, int seekerId, int companyId, 
-			String position) {
+	public ResumeVO(String content, int postCheck, String generateDate, int seekerId, int companyId, String position,
+			int questionId) {
 		super();
 		this.content = content;
 		this.postCheck = postCheck;
@@ -21,6 +22,7 @@ public class ResumeVO {
 		this.seekerId = seekerId;
 		this.companyId = companyId;
 		this.position = position;
+		this.questionId = questionId;
 	}
 
 	public int getResumeId() {
@@ -79,5 +81,14 @@ public class ResumeVO {
 		this.position = position;
 	}
 
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	
 	
 }

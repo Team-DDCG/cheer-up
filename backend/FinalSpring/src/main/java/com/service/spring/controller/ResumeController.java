@@ -136,13 +136,12 @@ public class ResumeController {
         return new ResponseEntity<>(resumes, HttpStatus.OK);
     }
     
-    @GetMapping("/data/{position}")
-    public ResponseEntity<List<ResultDTO>> getAllDataByPosition(@PathVariable String position) {
-        List<ResultDTO> result = resumeService.getAllDataByPosition(position);
+    @GetMapping("/data/{questionId}")
+    public ResponseEntity<List<ResultDTO>> getAllDataByPosition(@PathVariable int questionId) {
+        List<ResultDTO> result = resumeService.getAllDataByPosition(questionId);
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
-        System.out.println(position);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

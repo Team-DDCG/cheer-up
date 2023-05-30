@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="getQuestionByPosition" parameterType="map" resultType="com.service.spring.domain.QuestionVO">
-		SELECT position, question, length
+		SELECT position, question, length, question_id
 		FROM question
 		WHERE company_id = #{companyId} AND position = #{position}
 	</select>

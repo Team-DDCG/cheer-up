@@ -74,19 +74,21 @@
 	</select>
 	
 	<select id="getAllResumeByPosition" parameterType="com.service.spring.DTO.PositionDTO" resultType="com.service.spring.domain.ResumeVO">
-		SELECT r.resume_id, r.content, r.post_check, r.generate_date, r.seeker_id, r.company_id
+		SELECT r.resume_id, r.content, r.post_check, r.generate_date, r.seeker_id, r.company_id, r.question_id
 		FROM user_seeker_info s
 		JOIN resume r ON s.seeker_id = r.seeker_id
 		JOIN company c ON c.company_id = r.company_id
 		WHERE c.company_id = #{companyId} AND s.seeker_id = #{seekerId} AND r.position = #{position}
 	</select>
 	
-	<select id="getAllDataByPosition" parameterType="String" resultType="com.service.spring.DTO.ResultDTO">
+	<select id="getAllDataByPosition" parameterType="int" resultType="com.service.spring.DTO.ResultDTO">
 		SELECT r.content, r.post_check, sf.tendency1, sf.tendency2, sf.tendency3, sf.tendency4, sf.tendency5, sf.rate1, sf.rate2, sf.rate3, sf.rate4, sf.rate5, cf.company_name, cf.company_needs1, cf.company_needs2, cf.company_needs3, cf.company_needs4, cf.company_needs5, cf.company_rate1, cf.company_rate2, cf.company_rate3, cf.company_rate4, cf.company_rate5, q.position, q.question, q.length
-		FROM RESUME r
-		INNER JOIN QUESTION q ON r.position = q.position
-		INNER JOIN seeker_fit sf ON q.position = sf.position
-		INNER JOIN company_fit cf ON sf.position = cf.position
-		WHERE r.position = #{position}
+		FROM question q JOIN resume r
+		ON q.question_id = r.question_id
+		JOIN company_fit cf
+		ON cf.position = r.position
+		JOIN seeker_fit sf
+		ON sf.position = r.position
+		WHERE q.question_id = #{questionId}
 	</select>
 </mapper>

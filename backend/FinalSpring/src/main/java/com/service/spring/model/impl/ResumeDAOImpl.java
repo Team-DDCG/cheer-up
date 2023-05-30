@@ -79,8 +79,8 @@ public class ResumeDAOImpl implements ResumeDAO{
 	}
 
 	@Override
-	public List<ResultDTO> getAllDataByPosition(String position) {
-		return sqlSession.selectList(NS + "getAllDataByPosition", position);
+	public List<ResultDTO> getAllDataByPosition(int questionId) {
+		return sqlSession.selectList(NS + "getAllDataByPosition", questionId);
 	}
 
 	

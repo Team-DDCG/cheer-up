@@ -21,5 +21,5 @@ public interface ResumeDAO {
     int togglePostCheck(String position);
     List<ResumeVO> getAllQuestionByResumeId(int resumeId);
     List<ResumeVO> getAllResumeByPosition(PositionDTO dto);
-    List<ResultDTO> getAllDataByPosition(String position);
+    List<ResultDTO> getAllDataByPosition(int questionId);
 }
