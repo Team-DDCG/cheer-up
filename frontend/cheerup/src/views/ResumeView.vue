@@ -84,6 +84,7 @@ export default {
       //   '재무관리 전문가(계약직)', '리크루팅 전문가(계약직)', 'ESG동반성장_북한이탈주민(신입)', 'ESG동반성장_기초생활수급자(신입)', 'ESG동반성장_장애인(신입)']
       // },
       company_list: [],
+      seekerId: sessionStorage.getItem('seekerId')
     }
   },
   
@@ -119,9 +120,11 @@ export default {
     },
     // Filter Save api
     async saveOption() {
+      console.log(this.selectedOption1,this.selectedOption2);
         axios
-        .post(this.$store.state.baseUrl+"company/register", {
-          type: this.selectedOption2
+        .put(this.$store.state.baseUrl+"api/companies/categories/"+this.seekerId, {
+          // category1No: this.selectedOption1,
+          category2No: this.selectedOption2,
         })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
@@ -321,7 +324,9 @@ tool-bar{
   width: 80%;
   height: 650px;
   padding: 20px;
-  padding-top: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #808080;
   border-radius: 5px;
   background-color: #515151;
