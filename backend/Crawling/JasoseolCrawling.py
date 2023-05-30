@@ -326,9 +326,8 @@ def crawling(driver, number):
             cursor.execute(sql_id_check, {'company_name': name})
             result2 = cursor.fetchone()[0]
 
-            sql_relation = "INSERT INTO company_category_relation VALUES(company_category_relation_seq.NEXTVAL, :category2_id, :company_id)"
-            cursor.execute(sql_relation, {'category2_id' : category_table[c],
-                                    'company_id' : result2})
+            sql_relation = "INSERT INTO company_category_relation VALUES(company_category_relation_seq.NEXTVAL, :company_id, :category2_id)"
+            cursor.execute(sql_relation, {'company_id' : result2, 'category2_id' : category_table[c]})
             conn.commit()
     
     # print("========================categories2============================")
@@ -481,8 +480,8 @@ if __name__ == "__main__":
 
     # crawling(driver, 82000)
 
-    start = 81433
-    end = 81433
+    start = 81415
+    end = 81415
     
     for i in range(start, end+1):
         crawling(driver, i)

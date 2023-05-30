@@ -41,7 +41,7 @@
     <div id="resume">
       <side-bar :listData="company_list" v-model="company" @child-click="handleChildClick"></side-bar>
       <template v-if="company===''">
-        <div id="nopost">채용공고를 선택하세요</div>
+        <div id="nopost">현재 선택된 채용공고가 없습니다. <br>채용공고를 선택해주세요.</div>
       </template>
       <template v-else>
         <!-- <job-posting v-model="company"></job-posting> -->
@@ -321,11 +321,13 @@ tool-bar{
   width: 80%;
   height: 650px;
   padding: 20px;
+  padding-top: 300px;
   border: 1px solid #808080;
   border-radius: 5px;
   background-color: #515151;
   color:white;
   font-family: 'Montserrat', sans-serif; font-size:20px;
+  text-align: center;
 }
 #post{
   width: 80%;
