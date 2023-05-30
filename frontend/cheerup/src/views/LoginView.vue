@@ -3,8 +3,9 @@
     <div id="innerBox">
       <div class="main-title">
         <div class="name">
-          <img src="../assets/login_logo.png" />
-
+          <router-link to="/main">
+            <img src="../assets/login_logo.png" />
+          </router-link>    
           <p class="sub-title">막막한 취업준비, 든든한 취얼업과 함께!</p>
         </div>
       </div>
@@ -159,9 +160,10 @@ export default {
 }
 img {
   vertical-align: 0%;
-  width : 270px;
-  height: 65px;
-  margin-bottom : 15px;
+  width: 280px;
+  height: 70px;
+  margin-bottom: 25px;
+  margin-left: 60px;
 }
 .main {
   width: 100vw;
