@@ -3,6 +3,7 @@ import time
 from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS
+from io import BytesIO
 
 import openai
 import cx_Oracle
@@ -904,10 +905,16 @@ def makePortfolio(seeker_id):
     for o in overseas_fields :
         document.merge(**o)
 
-    # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
-    document.write('./real_kb/portfolio.docx')
+    output_blob = BytesIO()
+    document.write(output_blob)
+    output_blob.seek(0)
 
-    return "DOne!!"
+    result_blob = output_blob.getvalue()
+
+    # # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
+    # document.write('./real_kb/portfolio.docx')
+
+    return result_blob
 
 
 if __name__ == '__main__':
