@@ -2,9 +2,11 @@
   <div class="main">
     <div class="main-title">
       <div class="name">
-        <img src="../assets/logo.png" />
-        <span class="name1">취</span>
-        <span class="name2">얼업</span>
+        <router-link to="/main">
+          <img src="../assets/main_logo.png" />
+          <!-- <span class="name1">취</span>
+          <span class="name2">얼업</span> -->
+        </router-link>
         <p class="sub-title">취업 준비의 시간을 아끼려면 가입하세요!</p>
         <hr />
       </div>
@@ -23,7 +25,7 @@
       <button  class="btn btn-primary"><router-link to="/login">
         로그인 하기</router-link>
       </button>
-      <button class="btn btn-primary"><router-link to="/findpassword">
+      <button class="btn btn-primary"><router-link to="/findpw1">
         비밀번호 찾기</router-link>
       </button>
     </div>
@@ -71,6 +73,9 @@ export default {
   <style scoped>
 img {
   vertical-align: 0%;
+  width: 280px;
+  height: 70px;
+  margin-bottom: 25px;
 }
 #main {
   margin: 0 auto;
@@ -118,17 +123,13 @@ img {
 }
 
 .mb-3-button > .btn.btn-primary {
+  margin-bottom: 10px;
   width: 300px;
   height: 42.01px;
   border-radius: 13px;
-  background: #f5f5f5;
-  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.3);
-  color: #a46cff;
-  font-size: 15px;
-  font-weight: 700;
-  text-transform: capitalize;
-  margin-bottom: 10%;
-  
+  background: #a46cff;
+  border-color: #515151;
+  box-shadow: 0px 4px 4px 0 rgba(0,0,0,0.3);
 }
 
 .mb-3-button {
@@ -136,8 +137,8 @@ img {
   height: 42.01px;
   margin: 0 auto;
   margin-top: 40px;
-  margin-bottom: 90px;
   align-items: center;
+  margin-bottom: 90px;
 }
 #innerBox {
   display: flex;
@@ -159,6 +160,10 @@ img {
 }
 a {
   text-decoration: none;
-  color: #a46cff;
+  color: #f5f5f5;
+}
+a:hover {
+  text-decoration: none;
+  color: #363533;
 }
 </style>
