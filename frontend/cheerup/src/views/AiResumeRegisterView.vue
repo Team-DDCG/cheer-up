@@ -65,16 +65,18 @@
       </div>
       
     </div>
+    <footer-bar />
   </div>
 </template>
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
 import PentagonGraph from '../components/PentagonGraph.vue';
+import FooterBar from "../components/FooterBar.vue";
 import axios from "axios";
 
 export default {
-  components: { ToolBar, PentagonGraph },
+  components: { ToolBar, PentagonGraph,FooterBar },
   
   data() {
     return {

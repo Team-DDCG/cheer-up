@@ -361,7 +361,7 @@ a {
   color: #f5f5f5;
 }
 .footer {
-  margin-top: 485px;
+  /* margin-top: 485px; */
 }
 hr{
   color: #f5f5f5;
