@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+// import HomeView from "../views/HomeView.vue";
 import ResumeView from "../views/ResumeView.vue";
 import AskView from "../views/AskView.vue";
 import PortfolioView from "../views/PortfolioView.vue";
@@ -32,6 +32,7 @@ import MycvView6 from "../views/MycvView6.vue";
 import MycvView7 from "../views/MycvView7.vue";
 import MycvView8 from "../views/MycvView8.vue";
 import MycvView9 from "../views/MycvView9.vue";
+import MyResumeView from "../views/MyResumeView.vue";
 // import JobPosting from "../components/JobPosting";
 import ErrorView from "../views/ErrorView.vue";
 
@@ -44,7 +45,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: MainView,
   },
   {
     path: "/resume",
@@ -210,6 +211,11 @@ const routes = [
     path: "/mycv9",
     name: "mycv9",
     component: MycvView9,
+  },
+  {
+    path: "/myresume/:id",
+    name: "myresume",
+    component: MyResumeView,
   }
 ];
 
