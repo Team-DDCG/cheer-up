@@ -28,7 +28,7 @@
                 required
               />
             </div>
-            <div class="formbox">
+            <!-- <div class="formbox">
               <label for="" class="form-label">스킬숙련도</label>
               <input
                 v-model="item.grade"
@@ -38,6 +38,20 @@
                 placeholder="어학 종류"
                 required
               />
+            </div> -->
+            <div class="formbox">
+              <label for="exampleFormControlInput2" class="form-label"
+                >스킬숙련도</label
+              ><br />
+              <select
+                v-model="item.grade"
+                class="form-control"
+                id="exampleFormControlSelect1" required
+              >
+                <option value="0">하</option>
+                <option value="1">중</option>
+                <option value="2">상</option>
+              </select>
             </div>
           </div>
           <hr> 
