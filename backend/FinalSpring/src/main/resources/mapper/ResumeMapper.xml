@@ -59,10 +59,10 @@
 	    WHERE usi.seeker_id = #{seekerId}
 	</select>
 	
-	<update id="togglePostCheck" parameterType="int">
+	<update id="togglePostCheck" parameterType="String">
 		UPDATE resume
   		SET post_check = CASE WHEN post_check = 0 THEN 1 ELSE 0 END
-  		WHERE resume_id = #{resumeId}
+  		WHERE position = #{position}
 	</update>
 	
 	<select id="getAllQuestionByResumeId" parameterType="int" resultType="com.service.spring.domain.QuestionVO">

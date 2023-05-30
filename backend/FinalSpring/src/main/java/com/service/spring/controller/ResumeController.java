@@ -104,9 +104,9 @@ public class ResumeController {
         }
     }
     
-    @PatchMapping("/{resumeId}")
-    public ResponseEntity<String> togglePostCheck(@PathVariable int resumeId) {
-        int result = resumeService.togglePostCheck(resumeId);
+    @PatchMapping("/{position}")
+    public ResponseEntity<String> togglePostCheck(@PathVariable String position) {
+        int result = resumeService.togglePostCheck(position);
         if (result == 1) {
             return ResponseEntity.ok("Post check toggled successfully.");
         } else {
