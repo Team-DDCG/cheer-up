@@ -2,9 +2,11 @@
   <div id="main">
     <div class="main-title">
       <div class="name">
-        <img src="../assets/logo.png" />
-        <span class="name1">취</span>
-        <span class="name2">얼업</span>
+        <router-link to="/main">
+          <img src="../assets/main_logo.png" />
+          <!-- <span class="name1">취</span>
+          <span class="name2">얼업</span> -->
+        </router-link>
         <p class="sub-title">
           분실하셨나요? 아래 내용을 선택해주세요!
         </p>
@@ -78,6 +80,9 @@ export default {
 <style scoped>
 img {
   vertical-align: 0%;
+  width: 280px;
+  height: 70px;
+  margin-bottom: 25px;
 }
 #main {
   margin: 0 auto;
@@ -164,5 +169,8 @@ img {
 input[type="radio"].btn-check:checked + label.btn.btn-light {
   background-color: #a46cff;
   color: #f5f5f5;
+}
+a{
+  text-decoration: none;
 }
 </style>

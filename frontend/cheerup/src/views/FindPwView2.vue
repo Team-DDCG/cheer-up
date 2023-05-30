@@ -2,9 +2,11 @@
   <div class="main">
     <div class="main-title">
       <div class="name">
-        <img src="../assets/logo.png" />
-        <span class="name1">취</span>
-        <span class="name2">얼업</span>
+        <router-link to="/main">
+          <img src="../assets/main_logo.png" />
+          <!-- <span class="name1">취</span>
+          <span class="name2">얼업</span> -->
+        </router-link>
         <p class="sub-title">취업 준비의 시간을 아끼려면 가입하세요!</p>
         <hr />
       </div>
@@ -69,6 +71,9 @@ export default {
   <style scoped>
 img {
   vertical-align: 0%;
+  width: 280px;
+  height: 70px;
+  margin-bottom: 25px;
 }
 #main {
   margin: 0 auto;
@@ -122,6 +127,7 @@ img {
   background: #f5f5f5;
   box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.3);
   color: #a46cff;
+  border-color: #515151;
   font-size: 15px;
   font-weight: 700;
   text-transform: capitalize;
