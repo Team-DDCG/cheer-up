@@ -42,6 +42,7 @@ export default {
     return {
       seekerId: sessionStorage.getItem("seekerId"),
       id: sessionStorage.getItem("id"),
+      flag: 0,
       portfolioImage: "", // 이미지 경로를 저장할 데이터
       isOption1Highlighted: false,
       isOption2Highlighted: false,
@@ -51,7 +52,7 @@ export default {
   methods: {
     downloadFile() {
       // Flask 서버에 API 요청을 보냅니다.
-      axios.get('http://127.0.0.1:5000/make_portfolio/'+this.seekerId, {
+      axios.get('http://127.0.0.1:5000/make_portfolio/'+this.seekerId+"/"+this.flag, {
         responseType: 'blob'  // 파일을 블롭 형태로 받습니다.
       })
       .then(response => {
@@ -71,6 +72,12 @@ export default {
 
     showPortfolio(image) {
       this.portfolioImage = require(`../assets/${image}`);
+      if (image == 'portfolio_1.png') {
+        this.flag = 1;
+      } else {
+        this.flag = 2;
+      }
+
     },
     highlightOption(option) {
       if (option === 1) {
