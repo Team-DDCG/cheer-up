@@ -1,16 +1,23 @@
 <template>
-<div>
-  <tool-bar></tool-bar>
+  <div>
+    <tool-bar></tool-bar>
     <div class="container" v-if="seekerId && id">
+      <div id="option">
+        <div class="option1" @click="showPortfolio('portfolio_1.png')" @mouseover="highlightOption(1)" @mouseleave="unhighlightOption(1)">
+          OPTION1
+        </div>
+        <div class="option2" @click="showPortfolio('portfolio_2.png')" @mouseover="highlightOption(2)" @mouseleave="unhighlightOption(2)">
+          OPTION2
+        </div>
+      </div>
       <div id="myDiv">
-        <div class="header">
-          <div class="line">
-            <div class="line1">
-              <p id="title1">포트폴리오</p>
-              <br />
-            </div>
-            
+        <header>
+          <div class="title">
+            <label for="">포트폴리오</label>
           </div>
+        </header>
+        <div class="image-container">
+          <img :src="portfolioImage" class="portfolio-image" />
         </div>
         <div class="footer">
         <div class="mb-3-button">
@@ -35,6 +42,9 @@ export default {
     return {
       seekerId: sessionStorage.getItem("seekerId"),
       id: sessionStorage.getItem("id"),
+      portfolioImage: "", // 이미지 경로를 저장할 데이터
+      isOption1Highlighted: false,
+      isOption2Highlighted: false,
     };
   },
   mounted() {},
@@ -56,26 +66,95 @@ export default {
       .catch(error => {
         console.error(error);
       });
-    }
-  }
+    },
+  
 
+    showPortfolio(image) {
+      this.portfolioImage = require(`../assets/${image}`);
+    },
+    highlightOption(option) {
+      if (option === 1) {
+        this.isOption1Highlighted = true;
+      } else if (option === 2) {
+        this.isOption2Highlighted = true;
+      }
+    },
+    unhighlightOption(option) {
+      if (option === 1) {
+        this.isOption1Highlighted = false;
+      } else if (option === 2) {
+        this.isOption2Highlighted = false;
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+img.portfolio-image {
+  width: 100%;
+  height: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
 .container {
   display: flex;
   justify-content: center;
   padding: 30px;
 }
 
+#option {
+  flex-direction: column;
+  align-items: center;
+  color: #f5f5f5;
+  margin-top: 100px;
+  margin-right: 15px;
+}
+
+#option .option1:hover {
+  background-color: #a46cff;
+  color: white;
+  cursor: pointer;
+}
+
+#option .option2:hover {
+  background-color: #a46cff;
+  color: white;
+  cursor: pointer;
+}
+
 #myDiv {
-  width: 1070px;
-  height: 800px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: row;
+  display: grid;
+  width: 80%;
+  /* row-gap: 10px;
+        column-gap: 20px; */
+  background-color: #515151;
+  padding: 4%;
+  margin-bottom: 17%;
+  margin-top: 5%;
   border-radius: 5px;
-  background: #515151;
-  border-width: 1px;
-  border-color: #808080;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f5f5f5;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: left;
+  width: 100%;
+  top: 10px;
+  border-bottom: 1px solid #808080;
 }
 
 .header {
@@ -101,41 +180,49 @@ export default {
 .post-check {
   width: 60px;
 }
+
 .c1 {
   width: 300px;
 }
+
 .c2 {
   width: 600px;
 }
+
 .c3 {
   width: 250px;
 }
+
 .c4 {
   width: 250px;
 }
+
 .c5 {
   width: 300px;
 }
+
 .button-container {
   display: flex;
   justify-content: right;
-  
   padding-right: 30px;
-  
 }
-.btn.btn-secondary{
+
+.btn.btn-secondary {
   background: #a46cff;
   border-Color: #808080;
   margin-right: 5px;
 }
+
 .btn.btn-primary {
   background: #a46cff;
   border-Color: #808080;
 }
-.footer{
-  margin-top: 550px;
+
+.footer {
+  /* margin-top: 550px; */
 }
-.btn.btn-info{
+
+.btn.btn-info {
   background: #a46cff;
   display: flex;
   margin: 0 auto;
@@ -143,6 +230,7 @@ export default {
   color: white;
   border-Color: #808080;
 }
+
 a {
   text-decoration: none;
   color: #f5f5f5;

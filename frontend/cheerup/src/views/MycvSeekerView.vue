@@ -94,8 +94,8 @@
                 <option value="0">필</option>
                 <option value="1">미필</option>
                 <option value="2">면제</option>
-                <option value="2">복무중</option>
-                <option value="3">해당없음</option>
+                <option value="3">복무중</option>
+                <option value="4">해당없음</option>
               </select>
             </div>
             <div class="formbox">
