@@ -326,7 +326,7 @@ def crawling(driver, number):
             cursor.execute(sql_id_check, {'company_name': name})
             result2 = cursor.fetchone()[0]
 
-            sql_relation = "INSERT INTO company_category_relation VALUES(company_category_relation_seq.NEXTVAL, :company_id, :category2_id)"
+            sql_relation = "INSERT INTO company_category_relation VALUES(company_category_relation_seq.NEXTVAL, :category2_id, :company_id )"
             cursor.execute(sql_relation, {'company_id' : result2, 'category2_id' : category_table[c]})
             conn.commit()
     
@@ -454,7 +454,7 @@ def crawling(driver, number):
                     sql_id_check = "SELECT company_id FROM company WHERE company_name = :company_name"
                     cursor.execute(sql_id_check, {'company_name': name})
                     result2 = cursor.fetchone()[0]
-                    sql = "INSERT INTO question VALUES(question_seq.NEXTVAL, :position, :question, :length, :company_id)"
+                    sql = "INSERT INTO question(question_id, position,question,length,company_id) VALUES(question_seq.NEXTVAL, :position, :question, :length, :company_id)"
                     cursor.execute(sql, {'position': field.text,
                                         'question': question,
                                         'length': length,
