@@ -117,11 +117,13 @@ a{
   border-bottom-left-radius: 5px;
   margin-left: 50px;
   text-decoration: none;
+  background-color: #808080;
+  margin-bottom: 10px;
 }
 a:hover{
   font-family: 'Montserrat', sans-serif; font-size:13px;
   color: white;
-  background-color: #A46CFF;
+  background-color: #666666;
   font-weight: bold;
   display: flex;
   align-items: center;
