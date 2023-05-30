@@ -269,8 +269,8 @@ export default {
         width: 100px;
     } */
 .btn.btn-primary{
-
-  height: 42.01px;
+  height: 35px;
+  margin-bottom: 5px;
   border-radius: 5px;
   border-color: #808080;
   background: #a46cff;
@@ -278,10 +278,7 @@ export default {
   color: #f5f5f5;
   font-size: 15px;
   font-weight: 700;
-  text-transform: capitalize;
-
-  
-    
+  text-transform: capitalize;    
 }
 .button-group {
   display: flex;
