@@ -50,13 +50,15 @@
       </div>
     </div>
   </div>
+  <footer-bar />
 </template>
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
+import FooterBar from "../components/FooterBar.vue";
 import axios from "axios";
 export default {
-  components: { ToolBar },
+  components: { ToolBar, FooterBar },
   data() {
     return {
       seekerId: sessionStorage.getItem("seekerId"),
@@ -104,14 +106,18 @@ export default {
 
 #myDiv {
   width: 1070px;
-  height: 800px;
+  min-height: 500px;
   border-radius: 5px;
   background: #515151;
   border-width: 1px;
   border-color: #808080;
+  display: flex;
+    flex-direction: column;
+    justify-content:space-between;
 }
 
 .header {
+  order: -1; /* 첫 번째 div를 맨 아래로 보냄 */
   padding-top: 30px;
   padding-left: 30px;
   padding-right: 30px;
@@ -175,7 +181,7 @@ td {
 .button-container {
   display: flex;
   justify-content: right;
-
+  padding-bottom: 30px;
   padding-right: 30px;
 }
 .btn.btn-secondary {
@@ -188,7 +194,8 @@ td {
   border-color: #808080;
 }
 .footer {
-  margin-top: 550px;
+  /* margin-top: 550px; */
+  order: 1; /* 두 번째 div를 맨 위로 보냄 */
 }
 .btn.btn-info {
   background: #a46cff;
