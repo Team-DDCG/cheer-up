@@ -20,7 +20,7 @@
           <img :src="portfolioImage" class="portfolio-image" />
         </div>
         <div class="footer">
-        <div class="mb-3-button">
+        <div class="mb-3-button" id="end">
           <div class="button-container">
             <button @click="downloadFile" class="btn btn-primary">
               출력
@@ -91,6 +91,11 @@ export default {
 </script>
 
 <style scoped>
+#end{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 .image-container {
   display: flex;
   justify-content: center;
@@ -220,6 +225,7 @@ img.portfolio-image {
 
 .footer {
   /* margin-top: 550px; */
+  position: relative;
 }
 
 .btn.btn-info {
