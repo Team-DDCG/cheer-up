@@ -1,6 +1,8 @@
 package com.service.spring.DTO;
 
 public class ResultDTO {
+	private String content;
+	private int postCheck;
 	private String tendency1;
 	private String tendency2;
 	private String tendency3;
@@ -25,11 +27,15 @@ public class ResultDTO {
 	private String position;
     private String question;
     private String length;
-	public ResultDTO(String tendency1, String tendency2, String tendency3, String tendency4, String tendency5,
-			float rate1, float rate2, float rate3, float rate4, float rate5, String companyName, String companyNeeds1,
-			String companyNeeds2, String companyNeeds3, String companyNeeds4, String companyNeeds5, float companyRate1,
-			float companyRate2, float companyRate3, float companyRate4, float companyRate5, String position, String question, String length) {
+	
+	public ResultDTO(String content, int postCheck, String tendency1, String tendency2, String tendency3,
+			String tendency4, String tendency5, float rate1, float rate2, float rate3, float rate4, float rate5,
+			String companyName, String companyNeeds1, String companyNeeds2, String companyNeeds3, String companyNeeds4,
+			String companyNeeds5, float companyRate1, float companyRate2, float companyRate3, float companyRate4,
+			float companyRate5, String position, String question, String length) {
 		super();
+		this.content = content;
+		this.postCheck = postCheck;
 		this.tendency1 = tendency1;
 		this.tendency2 = tendency2;
 		this.tendency3 = tendency3;
@@ -57,6 +63,19 @@ public class ResultDTO {
 	}
 	public ResultDTO() {
 		super();
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public int getPostCheck() {
+		return postCheck;
+	}
+	public void setPostCheck(int postCheck) {
+		this.postCheck = postCheck;
 	}
 	public String getTendency1() {
 		return tendency1;
