@@ -7,6 +7,7 @@ from flask_cors import CORS
 import openai
 import cx_Oracle
 import dbconn
+from datetime import datetime
 from mailmerge import MailMerge
 
 app = Flask(__name__)
@@ -41,7 +42,7 @@ openai.api_key = ORGANIZATION
 # ==================================================================================================
 
 # 이력사항 DB에서 가져오고 gpt에 이력정보 넣어주기 위해 str 만들어줌 
-@app.route("/test_career_table_select")
+@app.route("/test_career_table_select/<seeker_id>")
 def career_table_select(seeker_id):
 
     
@@ -209,7 +210,7 @@ def user_info_table(seeker_id) :
     conn.close()
     return list(map(str, rows))
 
-# 포트폴리오 생성용 이력정보 가져오기 ( 위에랑 return 해주는 배열 형태가 다름 - 값가져오기 편하게 )
+
 @app.route("/test_portfolio_career_table/<seeker_id>")
 def portfolio_career_table(seeker_id):
 
@@ -228,11 +229,11 @@ def portfolio_career_table(seeker_id):
         rows = cursor.fetchall()                  
         
         for row in rows :
-            for tmp in row :
-                rowArr.append(tmp)
-            career_table[table_index].append(list(rowArr))
+            tmp_row = list(row)
+            # print(tmp_row)
+            career_table[table_index].append(tmp_row)
 
-        rowArr.clear()
+        # rowArr.clear()
         career_table[table_index].pop(0)
         list(map(str, career_table[table_index]))     
         table_index += 1
@@ -242,6 +243,7 @@ def portfolio_career_table(seeker_id):
     conn.close()
     
     return career_table
+
 
 # 문장 별 수정 위한 position, 자소서 질문 가져오기 
 @app.route("/sentence_question/<question_id>")
@@ -629,76 +631,190 @@ def goodnessOfFit(seeker_id, company_name):
 
 @app.route("/make_portfolio/<seeker_id>")
 def makePortfolio(seeker_id):
-    document = MailMerge('./real_kb/portfolio_1.docx')
+    document = MailMerge('./real_kb/portfolio_2.docx')
     # 문서의 병합필드 확인
-    print(document.get_merge_fields())
+    """
+    {'project_name', 'lang_license_number', 'career_attending_check', 'gpa', 'activation_name', 'act_end_date', 'project_skill', 'lang_grade', 'phone', 
+    'email', 'skill_grade', 'school_name', 'activation_content', 'sex', 'lang_type', 'act_start_date', 'rewards_acquired_date', 'attending_check', 'language', 
+    'license_acquired_date', 'license_license_number', 'department', 'ename', 'graduation_date', 'hire_type', 'career_end_date', 'position', 'host_name', 'license_name', 
+    'user_name', 'address', 'nation_origin', 'major', 'project_content', 'company_name', 'transfer_check', 'nation', 'oversea_start_date', 'ovesea_institution', 'military', 
+    'birthdate', 'oversea_reason', 'lang_agency', 'disabled', 'highest_check', 'oversea_purpose', 'education_type', 'career_start_date', 'oversea_end_date', 'rewards_name', 'license_agency', 
+    'institution', 'bohun', 'rewards_host', 'lang_acquired_date', 'entrance_date', 'cname', 'skill_name'}
+    """
+    #print(document.get_merge_fields())
 
     user_table = user_info_table(seeker_id)
     career_table = portfolio_career_table(seeker_id)
 
-    print(career_table)
+    #=================================================================================================================================
+    #USER_ID,ID,PASSWORD,USER_NAME,BIRTHDATE,SEX,EMAIL,PHONE,USER_STATUS,TSTAMP,MAIL_CHECK,ADDRESS
+    #['1', '111', '111', '임찬연', '1998-06-17 10:40:02', '1', 'dksdus@gmail.com', '01012345678', '0', '2023-05-19 10:41:00', '1', '수원']
+    #user_table 숫자 값 전부 문자로 바꾸기
+
+    #birthdate
+    user_table[4] = user_table[4].split(' ')[0]
+
+    #sex
+    if user_table[5] == 0 :
+        user_table[5] = '남성'
+    else :
+        user_table[5] = '여성'
+    
+    #=================================================================================================================================
+    #career_table[0][0] = user_seeker_info
+    #SEEKER_ID,ENAME,CNAME,MILITARY,BOHUN,DISABLED,USER_ID,NATION,PROFILE,CATEGORY1_NO,CATEGORY2_NO
+    #[1, 'lcy', '凸', 1, 0, 0, 1, '한국', 'fsafasdfasdf', None, None]
+
+    #military
+    if career_table[0][0][3] == 0 :
+        career_table[0][0][3] = '필'
+    elif career_table[0][0][3] == 1 :
+        career_table[0][0][3] = '미필'
+    elif career_table[0][0][3] == 2 :
+        career_table[0][0][3] = '면제'
+    elif career_table[0][0][3] == 3 :
+        career_table[0][0][3] = '복무중'
+    elif career_table[0][0][3] == 4 : 
+        career_table[0][0][3] = '해당없음'
+    
+    #bohun
+    if career_table[0][0][4] == 0 :
+        career_table[0][0][4] = '대상'
+    elif career_table[0][0][4] == 1 :
+        career_table[0][0][4] = '비대상'
+    
+    #disabled
+    if career_table[0][0][5] == 0 :
+        career_table[0][0][5] = '대상'
+    elif career_table[0][0][5] == 1 :
+        career_table[0][0][5] = '비대상'
+
+    #=================================================================================================================================
 
     # 직접 값을 채워보자
     ## 유동적인 필드 값을 처리하기 위해 필드 담는 변수 초기화 ##
     language_fields = []
-    skill_fields = []
-    license_fields = []
-    school_fields = []
-    career_fields = []
-    project_fields = []
-    activation_fields = []
-    rewards_fields = []
-    overseas_fields = []
+    #LANGUAGE_ID,LANGUAGE,TYPE,GRADE,ACQUIRED_DATE,LICENSE_NUMBER,SEEKER_ID,AGENCY
+    #[[1, '영어', 'TOEIC', '900', datetime.datetime(2023, 5, 16, 10, 51, 7), '12345-678', 1, '한국토익위원회']]
+    #print(career_table[1])
 
-    # 유동적인 필드 값 추출 및 필드 리스트에 추가
     for language in career_table[1]:
         language_fields.append({
             'language': language[1],
             'lang_type': language[2],
             'lang_grade': language[3],
-            'lang_acquired_date': "2023.05.16",
+            'lang_acquired_date': language[4].strftime("%Y-%m-%d"),
             'lang_license_number': language[5],
             'lang_agency': language[7]
         })
-
+    
+    skill_fields = []
     for skill in career_table[2]:
+        if skill[2] == 0 :
+            skill[2] = '하'
+        elif skill[2] == 1 :
+            skill[2] = '중'
+        elif skill[2] == 2 :
+            skill[2] = '상'
+
         skill_fields.append({
             'skill_name': skill[1],
-            'skill_grade': skill[2]
+            'skill_grade': skill[2],
         })
+    print(skill_fields)
 
+    license_fields = []
+    #LICENSE_ID,LICENSE_NAME,GRADE,ACQUIRED_DATE,LICENSE_NUMBER,AGENCY,SEEKER_ID
+    #[[1, '정보처리기사', None, datetime.datetime(2022, 9, 14, 10, 53, 35), '1234-5678', '정처기위원회', 1]]
     for license in career_table[3]:
         license_fields.append({
             'license_name': license[1],
-            'license_acquired_date': "2022.9.14",
+            'license_acquired_date': license[3].strftime("%Y-%m-%d"),
             'license_license_number': license[4],
             'license_agency': license[5]
         })
 
+    school_fields = []
+    #SCHOOL_ID,EDUCATION_TYPE,SCHOOL_NAME,ENTRANCE_DATE,GRADUATION_DATE,MAJOR,ATTENDING_CHECK,TRANSFER_CHECK,GPA,HIGHEST_CHECK,SEEKER_ID,DOUBLE_MAJOR
+    #[[1, 0, '멀캠고', datetime.datetime(2017, 3, 1, 11, 9, 31), datetime.datetime(2019, 2, 27, 11, 9, 40), None, 1, None, None, 0, 1, None], [2, 1, '멀캠대', datetime.datetime(2019, 3, 4, 11, 10, 29), datetime.datetime(2023, 2, 15, 11, 10, 40), '컴퓨터공학과', 1, 0, '4.5', 1, 1, None]]
+    
     for school in career_table[4]:
+        if school[0] == 0 :
+            school[0] = '고졸'
+        elif school[0] == 1 :
+            school[0] = '초대졸'
+        elif school[0] == 2 :
+            school[0] = '학사'
+        elif school[0] == 3 :
+            school[0] = '석사'
+        elif school[0] == 4 : 
+            school[0] = '박사'
+        
+        if school[1] == 0 :
+            school[1] = ""
+        elif school[1] == 1 :
+            school[1] = "최종학력"
+        
+        if school[6] == 0 :
+            school[6] = '재학'
+        elif school[6] == 1 :
+            school[6] = '휴학'
+        elif school[6] == 2 :
+            school[6] = '졸업'
+        
+        if school[7] == 0 :
+            school[7] = '대상'
+        elif school[7] == 1 :
+            school[7] = '비대상'
+
+        if school[5] == 'None' :  
+            school[5] = ""
+        if school[8] == 'None' :  
+            school[8] = ""
+        if school[11] == 'None' :  
+            school[11] = ""
+
         school_fields.append({
             'education_type': school[0],
             'highest_check': school[1],
             'school_name': school[2],
-            'entrance_date': "2022.9.14",
-            'graduation_date': "2022.9.14",
-            'attending_check': 1,
-            'major': "asd",
-            'gpa': 4.5,
-            'transfer_check': ""
+            'entrance_date': school[3].strftime("%Y-%m-%d"),
+            'graduation_date': school[4].strftime("%Y-%m-%d"),
+            'attending_check': school[6],
+            'major': school[5],
+            'gpa': school[8],
+            'transfer_check': school[7]
         })
 
+    career_fields = []
+    #CAREER_ID,COMPANY_NAME,DEPARTMENT,POSITION,START_DATE,END_DATE,ATTENDING_CHECK,HIRE_TYPE,SEEKER_ID
+    #[[1, '네이버', '프론트엔드', '개발자', datetime.datetime(2023, 1, 17, 15, 57, 6), datetime.datetime(2023, 3, 23, 15, 57, 13), 0, 0, 1]]
     for career in career_table[5]:
+        if career[6] == 0 :
+            career[6] = '재직중'
+        else :
+            career[6] = '퇴사'
+        
+        if career[7] == 0 :
+            career[7] = '정규직'
+        elif career[7] == 1 :
+            career[7] = '비정규직'
+        else :
+            career[7] = '인턴'
+
         career_fields.append({
             'company_name': career[1],
             'department': career[2],
             'position': career[3],
-            'career_start_date': "2022.9.14",
-            'career_end_date': "2022.9.14",
+            'career_start_date': career[4].strftime("%Y-%m-%d"),
+            'career_end_date': career[5].strftime("%Y-%m-%d"),
             'career_attending_check': career[6],
             'hire_type': career[7]
         })
 
+    project_fields = []
+    #PROJECT_ID,PROJECT_NAME,HOST_NAME,CONTENT,SKILL,SEEKER_ID,INSTITUTION
+    #[[1, '웹 크롤링을 통한 외래어 빈도 분석', 'KDB 산업은행', '국어문화원 교수님과 진행한 지방자치단체 홈페이지의 특정 게시판 웹크롤링을 통하여 외래어 빈도 수를 체크하는 프로그램 제작', 'python', 1, '산업은행']]    
     for project in career_table[6]:
         project_fields.append({
             'project_name': project[1],
@@ -708,38 +824,46 @@ def makePortfolio(seeker_id):
             'institution': project[6]
         })
 
+    activation_fields = []
+    #ACTIVATION_ID,ACTIVATION_NAME,START_DATE,END_DATE,CONTENT,SEEKER_ID
+    #[[1, '봉사활동', datetime.datetime(2023, 1, 16, 15, 55, 33), datetime.datetime(2023, 3, 11, 15, 55, 39), '쓰레기를 주웠습니다.', 1]]
     for activation in career_table[7]:
         activation_fields.append({
             'activation_name': activation[1],
-            'act_start_date': "2022.9.14",
-            'act_end_date': "2022.9.14",
+            'act_start_date': activation[2].strftime("%Y-%m-%d"),
+            'act_end_date': activation[3].strftime("%Y-%m-%d"),
             'activation_content': activation[4]
         })
 
+    rewards_fields = []
+    #REWARD_ID,REWARD_NAME,ACQUIRED_DATE,HOST,CONTENT,SEEKER_ID
+    #[[1, '개근상', datetime.datetime(2022, 5, 18, 11, 8, 49), '멀캠고등학교', '출석을 잘 해서 개근상을 받음', 1]]
     for rewards in career_table[8]:
         rewards_fields.append({
             'rewards_name': rewards[1],
-            'rewards_acquired_date': "2022.9.14",
+            'rewards_acquired_date': rewards[2].strftime("%Y-%m-%d"),
             'rewards_host': rewards[3]
         })
 
+    overseas_fields = []
+    #OVERSEAS_ID,PURPOSE,NATION,START_DATE,END_DATE,INSTITUTION,REASON,SEEKER_ID
+    #[[1, '어학연수', '미국', datetime.datetime(2021, 5, 6, 11, 6, 47), datetime.datetime(2021, 12, 23, 11, 6, 53), '대행사', '영어를 잘하고싶어요', 1]]
     for overseas in career_table[9]:
         overseas_fields.append({
             'oversea_purpose': overseas[1],
             'nation': overseas[2],
-            'oversea_start_date': "2022.9.14",
-            'oversea_end_date': "2022.9.14",
+            'oversea_start_date': overseas[3].strftime("%Y-%m-%d"),
+            'oversea_end_date': overseas[4].strftime("%Y-%m-%d"),
             'ovesea_institution': overseas[5],
             'oversea_reason': overseas[6]
         })
-
-    # 문서 병합 시 유동적인 필드를 추가하기
+    
     document.merge(
         # 고정 필드들은 그대로 유지
         # 기본 인적사항
         user_name=user_table[3],
-        birthdate='1999.06.05',  # front = ex)990605 이런식으로 적도록 / db = varchar
-        sex="여",
+        birthdate=user_table[4],  # front = ex)990605 이런식으로 적도록 / db = varchar
+        sex=user_table[5],
         address=user_table[11],
         phone=user_table[7],
         email=user_table[6],
@@ -748,112 +872,43 @@ def makePortfolio(seeker_id):
         ename=career_table[0][0][1],
         cname=career_table[0][0][2],
         nation_origin=career_table[0][0][7],
-        military="면제",  # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
+        military=career_table[0][0][3],  # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
         bohun=career_table[0][0][4],
-        disabled="미해당",  # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
-
-        # 유동적인 필드들을 반복하면서 추가
-        **{f'language_{index}': language for index, language in enumerate(language_fields)},
-        **{f'skill_{index}': skill for index, skill in enumerate(skill_fields)},
-        **{f'license_{index}': license for index, license in enumerate(license_fields)},
-        **{f'school_{index}': school for index, school in enumerate(school_fields)},
-        **{f'career_{index}': career for index, career in enumerate(career_fields)},
-        **{f'project_{index}': project for index, project in enumerate(project_fields)},
-        **{f'activation_{index}': activation for index, activation in enumerate(activation_fields)},
-        **{f'rewards_{index}': rewards for index, rewards in enumerate(rewards_fields)},
-        **{f'overseas_{index}': overseas for index, overseas in enumerate(overseas_fields)},
-
+        disabled=career_table[0][0][5],  # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
     )
+
+    for l in language_fields :
+        document.merge(**l)
+    
+    for s in skill_fields :
+        document.merge(**s)
+    
+    for l in license_fields :
+        document.merge(**l)
+    
+    for s in school_fields :
+        document.merge(**s)
+    
+    for c in career_fields :
+        document.merge(**c)
+    
+    for p in project_fields :
+        document.merge(**p)
+    
+    for a in activation_fields :
+        document.merge(**a)
+    
+    for r in rewards_fields :
+        document.merge(**r)
+    
+    for o in overseas_fields :
+        document.merge(**o)
 
     # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
     document.write('./real_kb/portfolio.docx')
 
+    return "DOne!!"
 
-'''
-    document.merge(
-        ################## 기본 인적 사항###############
-        user_name=user_table[3],
-        birthdate='1999.06.05',  # front = ex)990605 이런식으로 적도록 / db = varchar
-        sex="여",
-        address=user_table[11],
-        phone=user_table[7],
-        email=user_table[6],
-
-        # userd_seeker
-        ename=career_table[0][0][1],
-        cname=career_table[0][0][2],
-        nation_origin=career_table[0][0][7],
-        military="면제",  # career_table[0][0][3] , front = option value "면제" / db = varchar /// 이건 form도 만들어야함
-        bohun=career_table[0][0][4],
-        disabled="미해당",  # career_table[0][0][5], 장애여부, 해당 미해당 form 필요 병역과 같은 form으로 하면 될듯
-
-        ##################language#######################
-        language=career_table[1][0][1],
-        lang_type=career_table[1][0][2],
-        lang_grade=career_table[1][0][3],
-        lang_acquired_date="2023.05.16",  # career_table[1][0][4], 이건 일단 보류
-        lang_license_number=career_table[1][0][5],
-        lang_agency=career_table[1][0][7],
-
-        ##################skill############################
-        skill_name='',
-        skill_grade='',
-
-        ##################licence############################
-        license_name=career_table[3][0][1],
-        license_acquired_date="2022.9.14",  # career_table[3][0][3], 보류
-        license_license_number=career_table[3][0][4],
-        license_agency=career_table[3][0][5],
-
-        ##################school##############################
-        education_type='',
-        highest_check='',
-        school_name='',
-        entrance_date='',
-        graduation_date='',
-        attending_check='',
-
-        major='',
-        gpa='',
-        transfer_check='',
-
-        ##################career###############################
-        company_name=career_table[5][0][1],
-        department=career_table[5][0][2],
-        position=career_table[5][0][3],
-        career_start_date=career_table[5][0][4],
-        career_end_date=career_table[5][0][5],
-        career_attending_check=career_table[5][0][6],
-        hire_type=career_table[5][0][7],
-
-        ##################project###############################
-        project_name=career_table[6][0][1],
-        host_name=career_table[6][0][2],
-        project_content=career_table[6][0][3],
-        project_skill=career_table[6][0][4],
-        institution=career_table[6][0][6],
-
-        ##################Activation###############################
-        activation_name=career_table[7][0][1],
-        act_start_date=career_table[7][0][2],
-        act_end_date=career_table[7][0][3],
-        activation_content=career_table[7][0][4],
-
-        ##################Rewards###################################
-        rewards_name=career_table[8][0][1],
-        rewards_acquired_date=career_table[8][0][2],
-        rewards_host=career_table[8][0][3],
-
-        ##################Overseas###################################
-        oversea_purpose=career_table[9][0][1],
-        nation=career_table[9][0][2],
-        oversea_start_date=career_table[9][0][3],
-        oversea_end_date=career_table[9][0][4],
-        ovesea_institution=career_table[9][0][5],
-        oversea_reason=career_table[9][0][6]
-    )
-
-'''
 
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', debug=True, port=5000)
