@@ -15,12 +15,9 @@
               <div>
                 <input type="text" placeholder="기업명을 검색하세요" v-model="searchInput"/>
               </div>
-              
             </div>
-          </div>
-          
-        </div>
-        
+          </div>        
+        </div>     
       </div>
       <select class="form-select" v-model="selectedOption1">
         <option value="option1">경영·사무</option>
@@ -36,7 +33,6 @@
         <option value="option11">미디어</option>
         <option value="option12">전문·특수직</option>
       </select>
-
       <select class="form-select" v-model="selectedOption2">
         <option v-for="option in options2" :value="option.value" v-bind:key="option">{{ option.label }}</option>
       </select>
@@ -45,7 +41,7 @@
     <div id="resume">
       <side-bar :listData="company_list" v-model="company" @child-click="handleChildClick"></side-bar>
       <template v-if="company===''">
-        <div id="post">채용공고를 선택하세요</div>
+        <div id="nopost">채용공고를 선택하세요</div>
       </template>
       <template v-else>
         <!-- <job-posting v-model="company"></job-posting> -->
@@ -53,20 +49,21 @@
       </template>
     </div>
   </div>
-
-
-
+  <div class="footer">
+    <footer-bar />
+  </div>
 </template>
 
 <script>
  
 import SideBar from '../components/SideBar.vue';
 import ToolBar from '../components/ToolBar.vue';
+import FooterBar from "../components/FooterBar.vue";
 import JobPosting from '../components/JobPosting.vue';
 import axios from "axios";
 
 export default {
-  components: {SideBar, ToolBar, JobPosting},
+  components: {SideBar, ToolBar, JobPosting, FooterBar},
   data() {
     return {
       selectedOption1: '',
@@ -320,8 +317,19 @@ export default {
 tool-bar{
   width: 20%
 }
+#nopost{
+  width: 80%;
+  height: 650px;
+  padding: 20px;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  background-color: #515151;
+  color:white;
+  font-family: 'Montserrat', sans-serif; font-size:20px;
+}
 #post{
   width: 80%;
+  /* height: 650px; */
   padding: 20px;
   border: 1px solid #808080;
   border-radius: 5px;
@@ -439,5 +447,8 @@ button{
   font-family: 'Montserrat', sans-serif; font-size:15px;
   text-decoration: none;
   margin-left: 0.5%;
+}
+.footer{
+  margin-top: 90px;
 }
 </style>
