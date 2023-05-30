@@ -630,9 +630,9 @@ def goodnessOfFit(seeker_id, company_name):
     return jsonify({"result": arr})
 
 
-@app.route("/make_portfolio/<seeker_id>")
-def makePortfolio(seeker_id):
-    document = MailMerge('./real_kb/portfolio_2.docx')
+@app.route("/make_portfolio/<seeker_id>/<flag>")
+def makePortfolio(seeker_id, flag):
+    document = MailMerge('./real_kb/portfolio_' + flag +'.docx')
     # 문서의 병합필드 확인
     """
     {'project_name', 'lang_license_number', 'career_attending_check', 'gpa', 'activation_name', 'act_end_date', 'project_skill', 'lang_grade', 'phone', 
@@ -911,10 +911,10 @@ def makePortfolio(seeker_id):
 
     result_blob = output_blob.getvalue()
 
-    # # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
-    # document.write('./real_kb/portfolio.docx')
-
     return result_blob
+
+    # 필드 병합된 결과의 포트폴리오를 직접 생성...파일명도 필드명을 참고해서
+    # document.write('./real_kb/portfolio.docx')
 
 
 if __name__ == '__main__':
