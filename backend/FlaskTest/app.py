@@ -210,7 +210,7 @@ def user_info_table(seeker_id) :
     return list(map(str, rows))
 
 # 포트폴리오 생성용 이력정보 가져오기 ( 위에랑 return 해주는 배열 형태가 다름 - 값가져오기 편하게 )
-@app.route("/test_portfolio_career_table")
+@app.route("/test_portfolio_career_table/<seeker_id>")
 def portfolio_career_table(seeker_id):
 
     # seeker_id=1
@@ -629,7 +629,7 @@ def goodnessOfFit(seeker_id, company_name):
 
 @app.route("/make_portfolio/<seeker_id>")
 def makePortfolio(seeker_id):
-    document = MailMerge('C:\\kb\\cheer-up_portfoliio\\real_fin_KB\\ver3_new_excel\\portfolio_1.docx')
+    document = MailMerge('./real_kb/portfolio_1.docx')
     # 문서의 병합필드 확인
     print(document.get_merge_fields())
 
@@ -661,76 +661,76 @@ def makePortfolio(seeker_id):
             'lang_agency': language[7]
         })
 
-    for skill in skill_table[2]:
+    for skill in career_table[2]:
         skill_fields.append({
-            'skill_name': skill[0][1],
-            'skill_grade': skill[0][2]
+            'skill_name': skill[1],
+            'skill_grade': skill[2]
         })
 
     for license in career_table[3]:
         license_fields.append({
-            'license_name': license[0][1],
+            'license_name': license[1],
             'license_acquired_date': "2022.9.14",
-            'license_license_number': license[0][4],
-            'license_agency': license[0][5]
+            'license_license_number': license[4],
+            'license_agency': license[5]
         })
 
-    for school in school_table[4]:
+    for school in career_table[4]:
         school_fields.append({
-            'education_type': school[0][1],
-            'highest_check': school[0][2],
-            'school_name': school[0][3],
-            'entrance_date': school[0][4],
-            'graduation_date': school[0][5],
-            'attending_check': school[0][6],
-            'major': school[0][7],
-            'gpa': school[0][8],
-            'transfer_check': school[0][9]
+            'education_type': school[0],
+            'highest_check': school[1],
+            'school_name': school[2],
+            'entrance_date': "2022.9.14",
+            'graduation_date': "2022.9.14",
+            'attending_check': 1,
+            'major': "asd",
+            'gpa': 4.5,
+            'transfer_check': ""
         })
 
     for career in career_table[5]:
         career_fields.append({
-            'company_name': career[0][1],
-            'department': career[0][2],
-            'position': career[0][3],
-            'career_start_date': career[0][4],
-            'career_end_date': career[0][5],
-            'career_attending_check': career[0][6],
-            'hire_type': career[0][7]
+            'company_name': career[1],
+            'department': career[2],
+            'position': career[3],
+            'career_start_date': "2022.9.14",
+            'career_end_date': "2022.9.14",
+            'career_attending_check': career[6],
+            'hire_type': career[7]
         })
 
-    for project in project_table[6]:
+    for project in career_table[6]:
         project_fields.append({
-            'project_name': project[0][1],
-            'host_name': project[0][2],
-            'project_content': project[0][3],
-            'project_skill': project[0][4],
-            'institution': project[0][5]
+            'project_name': project[1],
+            'host_name': project[2],
+            'project_content': project[3],
+            'project_skill': project[4],
+            'institution': project[6]
         })
 
-    for activation in activation_table[7]:
+    for activation in career_table[7]:
         activation_fields.append({
-            'activation_name': activation[0][1],
-            'act_start_date': activation[0][2],
-            'act_end_date': activation[0][3],
-            'activation_content': activation[0][4]
+            'activation_name': activation[1],
+            'act_start_date': "2022.9.14",
+            'act_end_date': "2022.9.14",
+            'activation_content': activation[4]
         })
 
-    for rewards in rewards_table[8]:
+    for rewards in career_table[8]:
         rewards_fields.append({
-            'rewards_name': rewards[0][1],
-            'rewards_acquired_date': rewards[0][2],
-            'rewards_host': rewards[0][3]
+            'rewards_name': rewards[1],
+            'rewards_acquired_date': "2022.9.14",
+            'rewards_host': rewards[3]
         })
 
-    for overseas in overseas_table[9]:
+    for overseas in career_table[9]:
         overseas_fields.append({
-            'oversea_purpose': overseas[0][1],
-            'nation': overseas[0][2],
-            'oversea_start_date': overseas[0][3],
-            'oversea_end_date': overseas[0][4],
-            'ovesea_institution': overseas[0][5],
-            'oversea_reason': overseas[0][6]
+            'oversea_purpose': overseas[1],
+            'nation': overseas[2],
+            'oversea_start_date': "2022.9.14",
+            'oversea_end_date': "2022.9.14",
+            'ovesea_institution': overseas[5],
+            'oversea_reason': overseas[6]
         })
 
     # 문서 병합 시 유동적인 필드를 추가하기
