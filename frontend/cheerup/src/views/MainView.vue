@@ -18,7 +18,7 @@
     <div class="boxes-container">
       <div class="box" id="10">
         <router-link to="/resume">
-          <img src="https://picsum.photos/200" class="image2" />
+          <img src="../assets/company.png" class="image2" />
           <div class="content">
             <p class="title">채용 공고</p>
             <p class="description">
@@ -30,7 +30,7 @@
       </div>
       <div class="box" id="20">
         <router-link to="/resumelist">
-          <img src="https://picsum.photos/200" class="image2" />
+          <img src="../assets/resume.png" class="image2" />
           <div class="content">
             <p class="title">자기소개서 작성</p>
             <p class="description">
@@ -42,7 +42,7 @@
       </div>
       <div class="box" id="30">
         <router-link to="/ask">
-          <img src="https://picsum.photos/200" class="image2" />
+          <img src="../assets/correct.png" class="image2" />
           <div class="content">
             <p class="title">자기소개서 코칭</p>
             <p class="description">
@@ -52,15 +52,15 @@
           </div>
         </router-link>
       </div>
-      <div class="box2" id="40">
+      <div class="box" id="40">
         <router-link to="/job">
-          <!-- <img src="https://picsum.photos/200" class="image2" /> -->
-          <div class="content1" >
-            <!-- <p class="title">취업 프로그램</p>
+          <img src="../assets/program.png" class="image2" /> 
+          <div class="content" >
+             <p class="title">취업 프로그램</p>
             <p class="description">
               <span>정부에서 지원하는</span><br/>
               <span>취업 지원 프로그램을 추천합니다.</span>
-            </p> -->
+            </p>
           </div>
         </router-link>
       </div>
@@ -229,7 +229,7 @@ header .router-link-active {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #515151;
+  background-color: #363533;
 }
 .title {
   text-align: left;
