@@ -17,7 +17,7 @@ public interface ResumeDAO {
     List<ResumeQnADTO> getQnAByCompanyId(int companyId);
     List<ResumeCommentDTO> getCommentByResume(int resumeId);
     List<ResumeDTO> getAllResumeBySeekerId(int seekerId);
-    int togglePostCheck(int resumeId);
+    int togglePostCheck(String position);
     List<ResumeVO> getAllQuestionByResumeId(int resumeId);
     List<ResumeVO> getAllResumeByPosition(PositionDTO dto);
 }

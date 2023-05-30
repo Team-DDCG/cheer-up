@@ -61,10 +61,6 @@ public class ResumeDAOImpl implements ResumeDAO{
 		return sqlSession.selectList(NS + "getAllResumeBySeekerId", seekerId);
 	}
 
-	@Override
-	public int togglePostCheck(int resumeId) {
-		return sqlSession.update(NS + "togglePostCheck", resumeId);
-	}
 
 	@Override
 	public List<ResumeVO> getAllQuestionByResumeId(int resumeId) {
@@ -74,6 +70,11 @@ public class ResumeDAOImpl implements ResumeDAO{
 	@Override
 	public List<ResumeVO> getAllResumeByPosition(PositionDTO dto) {
 		return sqlSession.selectList(NS + "getAllResumeByPosition", dto);
+	}
+
+	@Override
+	public int togglePostCheck(String position) {
+		return sqlSession.update(NS + "togglePostCheck", position);
 	}
 
 

@@ -385,7 +385,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
 
         matching_index += 1
 
-        result_arr.append([[resume_question, question_text_max, message_result]])
+        result_arr.append([resume_question, question_text_max, message_result])
 
     # return 'good'
     return jsonify({"result": result_arr})

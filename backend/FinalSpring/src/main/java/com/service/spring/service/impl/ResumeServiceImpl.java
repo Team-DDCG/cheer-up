@@ -59,10 +59,6 @@ public class ResumeServiceImpl implements ResumeService{
 		return resumeDAO.getAllResumeBySeekerId(seekerId);
 	}
 
-	@Override
-	public int togglePostCheck(int resumeId) {
-		return resumeDAO.togglePostCheck(resumeId);
-	}
 
 	@Override
 	public List<ResumeVO> getAllQuestionByResumeId(int resumeId) {
@@ -72,6 +68,11 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public List<ResumeVO> getAllResumeByPosition(PositionDTO dto) {
 		return resumeDAO.getAllResumeByPosition(dto);
+	}
+
+	@Override
+	public int togglePostCheck(String position) {
+		return resumeDAO.togglePostCheck(position);
 	}
 
 
