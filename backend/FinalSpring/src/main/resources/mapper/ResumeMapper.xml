@@ -5,8 +5,8 @@
 <mapper namespace="ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.service.spring.domain.ResumeVO">
-		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date, position)
-		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE, #{position})	
+		INSERT INTO resume (resume_id, content, post_check, seeker_id, company_id, generate_date, position, question_id)
+		VALUES (RESUME_SEQ.NEXTVAL, #{content}, #{postCheck}, #{seekerId}, #{companyId}, SYSDATE, #{position}, #{questionId})	
 	</insert>
 	
 	<delete id="deleteResume" parameterType="int">
