@@ -55,6 +55,7 @@ b {
   border: 1px solid #808080;
   border-radius: 5px;
   background-color: #515151;
+  margin-bottom: 0;
 }
 div {
   width: 50px;
