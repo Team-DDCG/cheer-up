@@ -21,5 +21,5 @@ public interface ResumeService {
     int togglePostCheck(String position);
     List<ResumeVO> getAllQuestionByResumeId(int resumeId);
     List<ResumeVO> getAllResumeByPosition(PositionDTO dto);
-    ResultDTO getAllDataByPosition(String position);
+    List<ResultDTO> getAllDataByPosition(String position);
 }

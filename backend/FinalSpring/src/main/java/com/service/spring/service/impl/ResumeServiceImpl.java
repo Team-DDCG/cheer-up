@@ -77,9 +77,10 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public ResultDTO getAllDataByPosition(String position) {
+	public List<ResultDTO> getAllDataByPosition(String position) {
 		return resumeDAO.getAllDataByPosition(position);
 	}
+
 
 
 }
