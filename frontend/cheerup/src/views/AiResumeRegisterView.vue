@@ -398,5 +398,25 @@ hr{
 .line1{
   width: 900px;
 }
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-right: 0;
+}
 
+.button-group button {
+  margin-left: auto;
+}
+.btn.btn-primary {
+  height: 42.01px;
+  margin-right: 105px;
+  border-radius: 5px;
+  border-color: #808080;
+  background: #a46cff;
+  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.3);
+  color: #f5f5f5;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
 </style>
