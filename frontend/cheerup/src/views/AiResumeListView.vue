@@ -15,22 +15,24 @@
                   <th class="post-check">선택</th>
                   <th class="c1">회사명</th>
                   <th class="c2">공고제목</th>
-                  <th class="c3">채용시작일</th>
-                  <th class="c4">채용마감일</th>
-                  <th class="c5">게시 여부</th>
+                  <th class="c3">직무</th>
+                  <th class="c4">채용시작일</th>
+                  <th class="c5">채용마감일</th>
+                  <!-- <th class="c5">게시 여부</th> -->
                 </tr>
                 <tr v-for="item of resume" :key="item">
                   <td><input type="checkbox" class="post-check" /></td>
                   <td class="c1">{{ item.companyName }}</td>
                   <td class="c2"><router-link :to="`/myresume/id=${item.resumeId}`">{{ item.title }}</router-link></td>
-                  <td class="c3">{{ item.startDate }}</td>
-                  <td class="c4">{{ item.endDate }}</td>
-                  <td class="c5">
+                  <td class="c3">{{ item.position }}</td>
+                  <td class="c4">{{ item.startDate }}</td>
+                  <td class="c5">{{ item.endDate }}</td>
+                  <!-- <td class="c5">
                     <div class="checkbox-wrapper-9">
                       <input type="checkbox" :id="`cb4-${item.resumeId}`" class="tgl tgl-flat" :checked="parseInt(item.postCheck) === 1" @change="handleCheckboxChange(item)" />
                       <label :for="`cb4-${item.resumeId}`" class="tgl-btn"></label>
                     </div>
-                  </td>
+                  </td> -->
                 
                 </tr>
               </table>
