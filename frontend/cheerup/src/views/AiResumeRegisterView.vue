@@ -53,7 +53,7 @@
             <p class="text1">
               <span>{{item[0]}} {{item[1]}}</span>
             </p>
-            <button>v 복사</button>
+            <button @click="copyText(item[2])">v 복사</button>
           </div>
           <div class="answer">
             <p>{{item[2]}}</p>
@@ -85,17 +85,28 @@ export default {
       userId: '',
       userName: '',
       character: [0,0,0,0,0], //[0.6, 0.9, 0.6, 0.8, 0.6]
-      c_label: [],
+      c_label: ['','','','',''],
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
-      f_label: [],
+      f_label: ['','','','',''],
       answer: [],
-      seekerId: sessionStorage.getItem("seekerId")
+      seekerId: sessionStorage.getItem("seekerId"),
+      text: ''
     }
   },
   mounted() {
     console.log(this.$route.query.field);
   },
   methods: {
+    copyText(text) {
+      /* 텍스트를 클립보드에 복사합니다. */
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          console.log("텍스트가 복사되었습니다.");
+        })
+        .catch((error) => {
+          console.error("텍스트 복사에 실패했습니다.", error);
+        });
+    },
     saveResume() {
       //seeker-fit save
       //resumeId는 아직 생성 안되서 post못해줌
@@ -153,6 +164,7 @@ export default {
           "postCheck" : 0,
           "seekerId" : this.seekerId,
           "position" : this.field,
+          "companyId" : this.companyId
         })
         .then((res) => {
           console.log(res);
