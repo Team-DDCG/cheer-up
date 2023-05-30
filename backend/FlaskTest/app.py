@@ -40,7 +40,7 @@ openai.api_key = ORGANIZATION
 
 # ==================================================================================================
 
-# 이력사항 DB에서 가져오는 method
+# 이력사항 DB에서 가져오고 gpt에 이력정보 넣어주기 위해 str 만들어줌 
 @app.route("/test_career_table_select")
 def career_table_select(seeker_id):
 
@@ -192,6 +192,7 @@ def company_table_select(company_id, position):
 
 #==================================================================================
 
+# 유저 기본(개인)정보 가져오기
 @app.route("/test_user_info_table")
 def user_info_table(seeker_id) :
 
@@ -208,6 +209,7 @@ def user_info_table(seeker_id) :
     conn.close()
     return list(map(str, rows))
 
+# 포트폴리오 생성용 이력정보 가져오기 ( 위에랑 return 해주는 배열 형태가 다름 - 값가져오기 편하게 )
 @app.route("/test_portfolio_career_table")
 def portfolio_career_table(seeker_id):
 
@@ -241,6 +243,7 @@ def portfolio_career_table(seeker_id):
     
     return career_table
 
+# 문장 별 수정 위한 position, 자소서 질문 가져오기 
 @app.route("/sentence_question/<question_id>")
 def sentence_question(question_id) :
     conn = dbconn.db_connect()
@@ -257,6 +260,7 @@ def sentence_question(question_id) :
     conn.close()
     return rows
 
+# 문장별 수정 위한 저장된 자소서 전체 글 가져오기
 @app.route("/resume_select/<resume_id>")
 def resume_select(resume_id) :
 
@@ -271,12 +275,13 @@ def resume_select(resume_id) :
     conn.close()
     return rows
 
+# 1000자, 1000byte 구분위해 숫자, 문자 split해주는 함수
 def split_str_num(str_num):
     for index in range(len(str_num)):
         if not str_num[index].isdigit():
             return str_num[:index], str_num[index:]
         
-
+# 자소서 자동생성 method
 @app.route("/resume_create/<seeker_id>/<company_id>/<company_name>/<position>")
 def resumeCreate(seeker_id, company_id, company_name, position):
     
@@ -388,6 +393,7 @@ def resumeCreate(seeker_id, company_id, company_name, position):
 
 # ==================================================================================================
 
+# 문장 별 수정 method
 @app.route("/sentence_update/<seeker_id>/<resume_id>/<question_id>/<sentence>")
 def sentenceUpdate(seeker_id, resume_id, question_id, sentence):
 
@@ -444,6 +450,7 @@ def sentenceUpdate(seeker_id, resume_id, question_id, sentence):
 
 # ==================================================================================================
 
+# 자소서 생성 전, 자소서 문항마다 적용하기 좋은 이력사항 매칭 먼저 해주기 ( 여러개의 문항인데 특정 이력사항만 계속 작성해주는 것을 방지 ) 
 @app.route("/resume_matching/<seeker_id>/<company_id>/<company_name>/<position>")
 def resume_matching(seeker_id, company_id, company_name, position):
 
@@ -503,8 +510,7 @@ def resume_matching(seeker_id, company_id, company_name, position):
 
 # ==================================================================================================
 
-# 회원 이력정보 작성 후 유료회원 일 경우 또는 유료회원 가입 후 나의 성향 그래프 생성하는 것을 목표.
-# === myCharacteristic() 기능은 회원 정보 가져오고 gpt통해 회원 성향 다섯가지를 DB에 저장하는 기능
+# === myCharacteristic() 기능은 회원 정보 가져오고 gpt통해 회원 성향 다섯가지를 뽑아내기
 @app.route("/my_characteristic/<seeker_id>")
 def myCharacteristic(seeker_id):
 
