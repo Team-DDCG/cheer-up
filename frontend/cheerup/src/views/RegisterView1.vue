@@ -87,9 +87,9 @@
     
     
     <div class="mb-3-button">
-      <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
+      <!-- <button @click.prevent="goBack" type="submit" class="btn btn-secondary">
         이전
-      </button>
+      </button> -->
       <div class="button-space"></div>
       <button @click.prevent="submitForm" type="submit" class="btn btn-primary" :disabled="!bothCheckboxesChecked " >
         다음
@@ -105,6 +105,7 @@ export default {
   data() {
     return {
       // sessionDataType: '',
+      
       name: "",
       id: "",
       password: "",
@@ -201,6 +202,7 @@ export default {
   },
   created() {
     // this.sessionDataType = sessionStorage.getItem('type');
+    sessionStorage.setItem("type", 1);
   },
   computed: {
     bothCheckboxesChecked() {

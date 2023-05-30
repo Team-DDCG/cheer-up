@@ -39,7 +39,7 @@
       </div>
       <div class="button">
         <div @click="login()" class="make-account-btn">login</div>
-        <router-link to="/register"
+        <router-link to="/register1"
           ><div class="make-account-btn">회원가입</div></router-link
         >
       </div>
