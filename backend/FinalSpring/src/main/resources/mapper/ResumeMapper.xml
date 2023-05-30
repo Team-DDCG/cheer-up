@@ -51,12 +51,12 @@
 	</select>
 	
 	<select id="getAllResumeBySeekerId" parameterType="int" resultType="com.service.spring.DTO.ResumeDTO">
-		SELECT DISTINCT c.company_name, c.title, c.start_date, c.end_date, r.post_check, r.resume_id
-		FROM company c
-		JOIN question q ON c.company_id = q.company_id
-		JOIN resume r ON r.company_id = c.company_id
-		JOIN user_seeker_info usi ON usi.seeker_id = r.seeker_id
-		WHERE usi.seeker_id = #{seekerId}
+		SELECT DISTINCT r.position, c.company_name, c.title, c.start_date, c.end_date, r.post_check, r.resume_id
+	    FROM company c
+	    JOIN question q ON c.company_id = q.company_id
+	    JOIN resume r ON r.company_id = c.company_id
+	    JOIN user_seeker_info usi ON usi.seeker_id = r.seeker_id
+	    WHERE usi.seeker_id = #{seekerId}
 	</select>
 	
 	<update id="togglePostCheck" parameterType="int">
