@@ -15,7 +15,7 @@
         <div class="footer">
         <div class="mb-3-button">
           <div class="button-container">
-            <button type="submit" class="btn btn-primary">
+            <button @click="downloadFile" class="btn btn-primary">
               출력
             </button>
           </div>
@@ -28,7 +28,7 @@
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
-
+import axios from "axios";
 export default {
   components: { ToolBar },
   data() {
@@ -38,7 +38,27 @@ export default {
     };
   },
   mounted() {},
-  methods: {},
+  methods: {
+    downloadFile() {
+      // Flask 서버에 API 요청을 보냅니다.
+      axios.get('http://127.0.0.1:5000/make_portfolio/'+this.seekerId, {
+        responseType: 'blob'  // 파일을 블롭 형태로 받습니다.
+      })
+      .then(response => {
+        // 파일 다운로드를 위한 코드
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.txt');  // 다운로드될 파일의 이름
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
+  }
+
 };
 </script>
 
