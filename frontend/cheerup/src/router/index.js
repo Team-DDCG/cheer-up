@@ -34,6 +34,8 @@ import MycvView8 from "../views/MycvView8.vue";
 import MycvView9 from "../views/MycvView9.vue";
 // import JobPosting from "../components/JobPosting";
 import ErrorView from "../views/ErrorView.vue";
+import BoardListView from "../views/BoardListView.vue";
+import MyResumeView from "../views/MyResumeView.vue";
 
 const routes = [
   {
@@ -97,7 +99,11 @@ const routes = [
     name: "user",
     component: UserView,
   },
-
+  {
+    path: "/myresume/:id",
+    name: "myresume",
+    component: MyResumeView,
+  },
   {
     path: "/find",
     name: "find",
@@ -210,6 +216,11 @@ const routes = [
     path: "/mycv9",
     name: "mycv9",
     component: MycvView9,
+  },
+  {
+    path: "/boardlist",
+    name: "boardlist",
+    component: BoardListView,
   }
 ];
 
