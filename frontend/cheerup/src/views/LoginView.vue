@@ -144,10 +144,12 @@ export default {
   outline: none;
   transition: background-color 0.3s;
   background-color: #a46cff;
+  border: 1px solid #808080;
 }
 #remember:checked{
   background-color: #a46cff;
 }
+
 .missing {
   height: 13px;
   font-family: "Montserrat", sans-serif;
@@ -310,5 +312,15 @@ a {
   color: #f5f5f5;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
+}
+#remember:checked::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-left: 4px;
 }
 </style>
