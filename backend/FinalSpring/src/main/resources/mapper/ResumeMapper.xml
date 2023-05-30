@@ -89,6 +89,6 @@
 		ON cf.position = r.position
 		JOIN seeker_fit sf
 		ON sf.position = r.position
-		WHERE r.position = #{position}
+		WHERE r.position = #{position} ORDER BY q.question_id 
 	</select>
 </mapper>
