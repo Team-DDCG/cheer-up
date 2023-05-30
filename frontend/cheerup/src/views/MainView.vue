@@ -13,7 +13,9 @@
     </div>
   </header>
   <div class="container">
-    <img src="../assets/main_tem.png" style="width : 60%;" />
+    <router-link to="/main">
+      <img src="../assets/main_tem.png" style="width : 60%;" />
+    </router-link>
     <!-- <p class="title2">당신의 취업을 한번에</p> -->
     <div class="boxes-container">
       <div class="box" id="10">
