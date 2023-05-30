@@ -106,7 +106,7 @@ export default {
 
 #myDiv {
   width: 1070px;
-  min-height: 500px;
+  min-height: 700px;
   border-radius: 5px;
   background: #515151;
   border-width: 1px;

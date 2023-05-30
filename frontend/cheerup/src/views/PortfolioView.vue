@@ -30,14 +30,16 @@
         </div>
       </div>
     </div>
+    <footer-bar />
   </div>
 </template>
 
 <script>
 import ToolBar from "../components/ToolBar.vue";
+import FooterBar from "../components/FooterBar.vue";
 import axios from "axios";
 export default {
-  components: { ToolBar },
+  components: { ToolBar,FooterBar },
   data() {
     return {
       seekerId: sessionStorage.getItem("seekerId"),
