@@ -77,8 +77,8 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public List<ResultDTO> getAllDataByPosition(int questionId) {
-		return resumeDAO.getAllDataByPosition(questionId);
+	public List<ResultDTO> getAllDataByPosition(String position) {
+		return resumeDAO.getAllDataByPosition(position);
 	}
 
 
