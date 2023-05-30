@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.service.spring.DTO.PositionDTO;
+import com.service.spring.DTO.ResultDTO;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
@@ -75,6 +76,11 @@ public class ResumeDAOImpl implements ResumeDAO{
 	@Override
 	public int togglePostCheck(String position) {
 		return sqlSession.update(NS + "togglePostCheck", position);
+	}
+
+	@Override
+	public ResultDTO getAllDataByPosition(String position) {
+		return sqlSession.selectOne(NS + "getAllDataByPosition", position);
 	}
 
 

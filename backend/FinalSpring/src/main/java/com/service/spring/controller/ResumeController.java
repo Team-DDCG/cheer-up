@@ -1,6 +1,7 @@
 package com.service.spring.controller;
 
 import com.service.spring.DTO.PositionDTO;
+import com.service.spring.DTO.ResultDTO;
 import com.service.spring.DTO.ResumeCommentDTO;
 import com.service.spring.DTO.ResumeDTO;
 import com.service.spring.DTO.ResumeQnADTO;
@@ -133,6 +134,15 @@ public class ResumeController {
         }
 
         return new ResponseEntity<>(resumes, HttpStatus.OK);
+    }
+    
+    @GetMapping("/data/{position}")
+    public ResponseEntity<ResultDTO> getAllDataByPosition(@PathVariable String position) {
+        ResultDTO result = resumeService.getAllDataByPosition(position);
+        if (result != null) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
