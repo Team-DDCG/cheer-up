@@ -184,6 +184,7 @@ img {
 
 .mb-3-button > .btn.btn-primary {
   background: #a46cff;
+  border-color: #515151;
 
 }
 

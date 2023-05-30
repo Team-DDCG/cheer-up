@@ -269,6 +269,7 @@ img {
 }
 .btn.btn-primary {
   background: #a46cff;
+  border-color: #515151;
 }
 
 #duplicate-box .btn.btn-primary {

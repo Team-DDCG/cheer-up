@@ -10,7 +10,9 @@
             <label for="">나의 이력 - 학력정보</label>
             <div class="button-group">
               <button class="btn btn-primary" @click="addSchool">추가</button>
-              <button class="btn btn-primary" @click="removeSchool">삭제</button>
+              <button class="btn btn-primary" @click="removeSchool">
+                삭제
+              </button>
             </div>
           </div>
         </header>
@@ -29,16 +31,47 @@
                 />
               </div>
 
-              <div class="formbox">
-                <label for="" class="form-label">학력사항</label>
+              <!-- <div class="formbox">
+                <label for="" class="form-label">학위</label>
                 <input
                   v-model="Ename"
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
-                  placeholder="학력사항"
+                  placeholder="학위"
                   required
                 />
+              </div> -->
+              <div class="formbox">
+                <label for="exampleFormControlInput2" class="form-label"
+                  >학위</label
+                ><br />
+                <select
+                  v-model="item.educationType"
+                  class="form-control"
+                  id="exampleFormControlSelect1"
+                  required
+                >
+                  <option value="0">고졸</option>
+                  <option value="1">초대졸</option>
+                  <option value="2">학사</option>
+                  <option value="3">석사</option>
+                  <option value="4">박사</option>
+                </select>
+              </div>
+              <div class="formbox">
+                <label for="exampleFormControlInput2" class="form-label"
+                  >최종학력여부</label
+                ><br />
+                <select
+                  v-model="item.highestCheck"
+                  class="form-control"
+                  id="exampleFormControlSelect1"
+                  required
+                >
+                  <option value="0">예</option>
+                  <option value="1">아니오</option>
+                </select>
               </div>
             </div>
           </div>
@@ -120,32 +153,19 @@
                 required
               />
             </div>
-          </div>
-          <div class="info-set" id="line5">
             <div class="formbox">
-              <label for="" class="form-label">이수학점</label>
-              <input
-                v-model="doublemajor"
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="복수전공"
-                required
-              />
-            </div>
-            <div class="formbox">
-              <label for="" class="form-label">평점</label>
+              <label for="" class="form-label">학점</label>
               <input
                 v-model="item.gpa"
                 type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
-                placeholder="복수전공"
+                placeholder="학점"
                 required
               />
             </div>
           </div>
-          <hr>
+          <hr />
         </div>
         <div class="btn" id="button">
           <button class="btn btn-primary" @click="saveForm">저장</button>
@@ -164,7 +184,7 @@ export default {
   components: { ToolBar, FooterBar, SideBarCv },
   data() {
     return {
-      seekerId: '',
+      seekerId: "",
       schools: [],
     };
   },
@@ -179,22 +199,22 @@ export default {
       })
       .catch((err) => {
         console.log(err);
-        this.check = 'error';
+        this.check = "error";
       });
   },
   methods: {
     addSchool() {
       this.schools.push({
-        schoolName: '',
-        Ename: '',
-        major: '',
-        entranceDate: '',
-        graduationDate: '',
-        attendingCheck: '',
-        transferCheck: '',
-        doubleMajor: '',
-        doublemajor: '',
-        gpa: '',
+        schoolName: "",
+        educationType: "",
+        highestCheck: "",
+        major: "",
+        entranceDate: "",
+        graduationDate: "",
+        attendingCheck: "",
+        transferCheck: "",
+        doubleMajor: "",
+        gpa: "",
       });
     },
     removeSchool() {
@@ -203,7 +223,43 @@ export default {
       }
     },
     saveForm() {
-      // Add your save form functionality here
+      axios
+      .delete(
+        this.$store.state.baseUrl + "api/schools/" + this.seekerId,{})
+      .then((res) => {
+        console.log(res);
+        //for
+        for (let i = 0; i < this.schools.length; i++) {
+          //insert
+          axios
+          .post(
+            this.$store.state.baseUrl + "api/schools",{
+              schoolName: this.schools[i].schoolName, 
+              educationType: this.schools[i].educationType, 
+              highestCheck: this.schools[i].highestCheck, 
+              major: this.schools[i].major, 
+              entranceDate: this.schools[i].entranceDate, 
+              graduationDate: this.schools[i].graduationDate, 
+              attendingCheck: this.schools[i].attendingCheck, 
+              transferCheck: this.schools[i].transferCheck,
+              doubleMajor: this.schools[i].doubleMajor,  
+              gpa: this.schools[i].gpa,  
+              seekerId : this.seekerId
+            }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+            this.check = "error";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
     },
   },
 };
