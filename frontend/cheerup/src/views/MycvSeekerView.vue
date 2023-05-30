@@ -180,6 +180,7 @@ export default {
 }
 
 #cv_content {
+  min-height: 600px;
   display: flex;
   flex-direction: row;
   display: grid;

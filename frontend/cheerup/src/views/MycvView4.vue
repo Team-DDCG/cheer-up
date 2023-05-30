@@ -165,7 +165,7 @@ export default {
 }
 
 #cv_content {
-  min-height: 500px;
+  min-height: 600px;
   display: flex;
   flex-direction: row;
   display: grid;
