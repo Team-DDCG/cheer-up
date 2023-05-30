@@ -225,7 +225,6 @@ hr{
 
 #myDiv {
   width: 1070px;
-  height: 1481px;
   border-radius: 5px;
   background: #515151;
   border-width: 1px;
