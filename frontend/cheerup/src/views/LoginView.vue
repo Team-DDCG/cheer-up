@@ -121,7 +121,7 @@ export default {
 
 
 
-          this.$router.push("/");
+          this.$router.push("/main");
         })
         .catch((err) => {
           console.log(err);

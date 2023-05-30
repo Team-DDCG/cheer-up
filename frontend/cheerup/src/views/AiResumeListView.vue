@@ -42,9 +42,6 @@
         <div class="footer">
           <div class="mb-3-button">
             <div class="button-container">
-              <button type="submit" class="btn btn-info">
-                <router-link to="/airesume"> 자기소개서 AI 작성</router-link>
-              </button>
               <button type="submit" class="btn btn-secondary">저장</button>
               <button type="submit" class="btn btn-primary">삭제</button>
             </div>
@@ -158,7 +155,7 @@ td {
   color: #f5f5f5;
 }
 .post-check {
-  width: 60px;
+  width: 65px;
 }
 .c1 {
   width: 300px;
