@@ -8,8 +8,8 @@
             <div class="line1">
               <p id="title1">AI 자기소개서 생성</p>
               <div id="line2">
-                <p class="title2">{{company.title}}</p>
-                <p class="deadline">시작일: {{company.startDate}} | 마감일: {{ company.endDate }}</p>
+                <p class="title2">{{companyName}}</p>
+                <!-- <p class="deadline">시작일: {{company.startDate}} | 마감일: {{ company.endDate }}</p> -->
 
               </div>
               <hr>
@@ -53,7 +53,7 @@
             <p class="text1">
               <span>{{item[0]}} {{item[1]}}</span>
             </p>
-            <button>v 복사</button>
+            <button @click="copyText(item[2])">v 복사</button>
           </div>
           <div class="answer">
             <p>{{item[2]}}</p>
@@ -68,7 +68,7 @@
 <script>
 import ToolBar from "../components/ToolBar.vue";
 import PentagonGraph from '../components/PentagonGraph.vue';
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   components: { ToolBar, PentagonGraph },
@@ -86,31 +86,78 @@ export default {
       fit: [0,0,0,0,0], //[0.8, 0.6, 0.7, 0.6, 0.8]
       f_label: [],
       answer: [],
+
+
+      resume: []
     }
   },
   mounted() {
     console.log(this.$route.query.field);
   },
   methods: {
-
+    copyText(text) {
+      /* 텍스트를 클립보드에 복사합니다. */
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          console.log("텍스트가 복사되었습니다.");
+          alert("텍스트가 복사되었습니다.");
+        })
+        .catch((error) => {
+          console.error("텍스트 복사에 실패했습니다.", error);
+        });
+    },
   },
   created() {
     this.userName = sessionStorage.getItem("name");
-    this.field = this.$route.query.field;
-    this.companyName = this.$route.query.companyName;
-    this.companyId = this.$route.query.companyId;
+    this.field =  this.$route.params.id;
+    this.companyName = "";
+    // this.companyId = this.$route.query.companyId;
     this.userId =  sessionStorage.getItem("id");
-    console.log(this.field);
-    console.log(this.companyName);
-    console.log(this.companyId);
+    // console.log(this.companyId);
     console.log(this.userId);
 
-    const id = this.$route.params.id;
-    console.log(id); // "11"
+    console.log(this.field); // 해외영업
 
-    // http://localhost:8080/api/resume/11
+    axios
+      .get(this.$store.state.baseUrl+"api/resume/data/"+this.field, {
+      })
+      .then((res) => {
+        this.resume = res.data;
+        console.log(this.resume);
+
+
+        for (let i = 0; i < this.resume.length; i++) {
+          this.character = [this.resume[i].rate1,this.resume[i].rate2,this.resume[i].rate3,this.resume[i].rate4,this.resume[i].rate5];
+          this.c_label = [this.resume[i].tendency1,this.resume[i].tendency2,this.resume[i].tendency3,this.resume[i].tendency4,this.resume[i].tendency5];
+          this.fit = [this.resume[i].companyRate1,this.resume[i].companyRate2,this.resume[i].companyRate3,this.resume[i].companyRate4,this.resume[i].companyRate5];
+          this.f_label = [this.resume[i].companyNeeds1,this.resume[i].companyNeeds2,this.resume[i].companyNeeds3,this.resume[i].companyNeeds4,this.resume[i].companyNeeds5];
+          this.companyName = this.resume[i].companyName;
+          this.answer.push([this.resume[i].question,this.resume[i].length,this.resume[i].content]);
+        }
+        console.log(this.answer)
+
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = 'error';
+      });
   },
-
+  computed: {
+    processedCharacter() {
+      // character 데이터를 처리한 결과를 반환하는 계산형 속성
+      console.log('processedCharacter');
+      console.log(this.character);
+      
+      return this.character;
+    },
+    processedFit() {
+      // fit 데이터를 처리한 결과를 반환하는 계산형 속성
+      console.log('processedFit');
+      console.log(this.fit);
+      
+      return this.fit;
+    }
+  },
 };
 </script>
 

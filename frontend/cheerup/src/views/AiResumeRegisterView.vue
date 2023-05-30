@@ -90,7 +90,8 @@ export default {
       f_label: ['','','','',''],
       answer: [],
       seekerId: sessionStorage.getItem("seekerId"),
-      text: ''
+      text: '',
+      question: []
     }
   },
   mounted() {
@@ -102,6 +103,7 @@ export default {
       navigator.clipboard.writeText(text)
         .then(() => {
           console.log("텍스트가 복사되었습니다.");
+          alert("텍스트가 복사되었습니다.");
         })
         .catch((error) => {
           console.error("텍스트 복사에 실패했습니다.", error);
@@ -157,6 +159,21 @@ export default {
         this.check = 'error';
       });
 
+
+      //getQuestionId
+      axios
+      .get(this.$store.state.baseUrl + "api/question/"+this.companyId+"/" + this.field, {})
+      .then((res) => {
+        this.question = res.data;
+        console.log(this.question);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.check = "error";
+      });
+
+
+
       for (let i = 0; i < this.answer.length; i++) {
         axios
         .post(this.$store.state.baseUrl+"api/resume/", {
@@ -164,7 +181,8 @@ export default {
           "postCheck" : 0,
           "seekerId" : this.seekerId,
           "position" : this.field,
-          "companyId" : this.companyId
+          "companyId" : this.companyId,
+          "questionId" : this.question[i].questionId
         })
         .then((res) => {
           console.log(res);
