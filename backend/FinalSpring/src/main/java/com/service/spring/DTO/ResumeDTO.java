@@ -7,11 +7,12 @@ public class ResumeDTO {
     private String startDate;
     private String endDate;
     private int postCheck;
+    private String position;
     
 	public ResumeDTO() {
 		super();
 	}
-	public ResumeDTO(int resumeId, String name, String title, String startDate, String endDate, int postCheck) {
+	public ResumeDTO(int resumeId, String name, String title, String startDate, String endDate, int postCheck, String position) {
 		super();
 		this.resumeId = resumeId;
 		this.companyName = name;
@@ -59,12 +60,12 @@ public class ResumeDTO {
 	public void setPostCheck(int postCheck) {
 		this.postCheck = postCheck;
 	}
-	@Override
-	public String toString() {
-		return "ResumeDTO [name=" + companyName + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", postCheck=" + postCheck + "]";
+	
+	public String getPosition() {
+		return position;
 	}
-    
-    
+	public void setPosition(String position) {
+		this.position = position;
+	}
 
 }
